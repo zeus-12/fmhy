@@ -72,13 +72,23 @@ const WikiHome = () => {
               name: "Base 64",
               color: "blue",
             },
-          ].map((item) => (
-            <Link key={item.link} href={item.link}>
-              <Button variant="light" color={item.color}>
-                {item.name}
-              </Button>
-            </Link>
-          ))}
+          ].map((item) => {
+            if (item.link) {
+              return (
+                <Link key={item.color} href={item.link}>
+                  <Button variant="light" color={item.color}>
+                    {item.name}
+                  </Button>
+                </Link>
+              );
+            } else {
+              return (
+                <Button key={item.color} variant="light" color={item.color}>
+                  {item.name}
+                </Button>
+              );
+            }
+          })}
         </div>
       </div>
       {/* 

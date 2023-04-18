@@ -90,7 +90,7 @@ export const SpotlightProvider = ({
       group: "page",
       new: true,
       onTrigger: () => {
-        router.push("/wiki");
+        router.push("/wiki/home");
       },
     },
     {

@@ -51,7 +51,7 @@ const Home = () => {
               </p>
               <p className="text-center">
                 Also be sure to checkout the updated{" "}
-                <Link className="text-cyan-500" href="/wiki">
+                <Link className="text-cyan-500" href="/wiki/home">
                   Wiki page
                 </Link>
               </p>

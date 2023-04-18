@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { MARKDOWN_RESOURCES } from "../../lib/CONSTANTS";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const WikiBottomNavigator: React.FC<{ CATEGORY: string }> = ({ CATEGORY }) => {
   const currentCategoryIndex = MARKDOWN_RESOURCES.findIndex(
@@ -18,7 +18,7 @@ const WikiBottomNavigator: React.FC<{ CATEGORY: string }> = ({ CATEGORY }) => {
     {
       ele: MARKDOWN_RESOURCES[currentCategoryIndex + 1],
       icon: (
-        <ArrowLeft className="group-hover:animate-bounce w-7 h-7 text-gray-400 rotate-180" />
+        <ArrowRight className="group-hover:animate-bounce w-7 h-7 text-gray-400" />
       ),
       text: "Next",
     },

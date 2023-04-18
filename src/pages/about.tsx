@@ -81,7 +81,7 @@ const About = () => {
         </div>
       </div>
       <p className="text-xl text-center font-semibold tracking-tight">
-        Get started with the updated <Link href="/wiki">Wiki page</Link>{" "}
+        Get started with the updated <Link href="/wiki/home">Wiki page</Link>{" "}
         (scraped from FMHY Github Page)
       </p>
       <FAQ />

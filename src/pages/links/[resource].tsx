@@ -33,8 +33,6 @@ const Links = () => {
     queryFn: fetchDataFromReddit,
   });
 
-  console.log(resources);
-
   return (
     <div className="resources p-4 pt-0">
       {error ? <p className="text-red-500">Error fetching data!</p> : <></>}
@@ -44,6 +42,8 @@ const Links = () => {
       >
         {!error ? formatName(resource) : ""}
       </p>
+
+      {isLoading ? <p className="text-gray-500">Loading...</p> : <></>}
       {/* @ts-ignore */}
       <ReactMarkdown>{resources}</ReactMarkdown>
     </div>

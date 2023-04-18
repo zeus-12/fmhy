@@ -2,6 +2,7 @@ import { Switch } from "@mantine/core";
 import { useEffect, useState } from "react";
 import Base64Item from "@/components/Base64Item";
 import { SERVER_URL } from "@/lib/config";
+import { useQuery } from "@tanstack/react-query";
 
 interface Base64LinksType {
   _id: string;
@@ -11,22 +12,26 @@ interface Base64LinksType {
 
 const Base64 = () => {
   const [page, setPage] = useState(1);
-  const [links, setLinks] = useState<null | Base64LinksType[]>(null);
-  console.log(links);
   const [decodeAllLinks, setDecodeAllLinks] = useState(false);
 
   const toggleDecodeAllLinks = () => {
     setDecodeAllLinks(!decodeAllLinks);
   };
 
-  useEffect(() => {
-    const fetchLinks = async () => {
-      const res = await fetch(`${SERVER_URL}/api/hashed-links?page=${page}`);
-      const data = await res.json();
-      setLinks(data.data);
-    };
-    fetchLinks();
-  }, []);
+  const fetchBase64Links = async () => {
+    const res = await fetch(`${SERVER_URL}/api/hashed-links?page=${page}`);
+    const data = await res.json();
+    return data.data;
+  };
+
+  const {
+    data: links,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["base64"],
+    queryFn: fetchBase64Links,
+  });
 
   return (
     <div className="px-6">
@@ -40,18 +45,18 @@ const Base64 = () => {
           onChange={toggleDecodeAllLinks}
         />
       </div>
-      {links ? (
-        links?.map((link, index) => (
+      {error ? <p>Something went wrong!</p> : <></>}
+      {isLoading ? <p>Loading...</p> : <></>}
+
+      {links &&
+        links?.map((link: Base64LinksType, index: number) => (
           <Base64Item
             key={index}
             title={link.title}
             hash={link.hash}
             showDecoded={decodeAllLinks}
           />
-        ))
-      ) : (
-        <p>Loading...</p>
-      )}
+        ))}
     </div>
   );
 };
