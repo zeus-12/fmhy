@@ -25,3 +25,12 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+a {
+  text-decoration: none;
+  color: rgb(84, 159, 230);
+}
+
+a:hover {
+  color: rgb(125, 182, 236);
+}
