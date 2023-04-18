@@ -7,7 +7,7 @@ import { Search } from "lucide-react";
 import { useRouter } from "next/router";
 
 const navItems = [
-  { link: "/wiki", name: "Wiki" },
+  { link: "/wiki/home", name: "Wiki" },
   { link: "/search", name: "Search" },
   { link: "/about", name: "About" },
   { link: "/guides", name: "Guides" },
