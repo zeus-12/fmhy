@@ -1,5 +1,5 @@
 import { Switch } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Base64Item from "@/components/Base64Item";
 import { SERVER_URL } from "@/lib/config";
 import { useQuery } from "@tanstack/react-query";

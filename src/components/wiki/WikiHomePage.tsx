@@ -37,10 +37,6 @@ const messages = [
 const WikiHome = () => {
   return (
     <div className="flex-1 sm:px-4 md:px-8 lg:px-14 xl:px-28 overflow-scroll space-y-4">
-      {/* <p className="text-3xl underline underline-offset-2 font-semibold tracking-tighter">
-          Welcome 🙏
-        </p> */}
-
       <p className="text-2xl font-semibold tracking-tighter">
         Welcome to The{" "}
         <span className="text-cyan-400"> Largest Collection of Free Stuff</span>{" "}
@@ -91,21 +87,6 @@ const WikiHome = () => {
           })}
         </div>
       </div>
-      {/* 
-      <div className="bg-gray-800 p-4 px-6 rounded-xl">
-        <p className="text-blue-200">Kinda clone of retype, STILL A WIP! </p>
-
-        <p className="font-semibold text-red-200">Todos/ Knows bugs</p>
-        {[
-          "Update toc on scroll",
-          "same h2 names =>SAME ID - eg: in edupiracy guides",
-          "add base64, instead of scrape-store_to_db-fetch",
-        ].map((item) => (
-          <li className="list-disc" key={item}>
-            {item}
-          </li>
-        ))}
-      </div> */}
       <WikiBottomNavigator CATEGORY={"home"} />
     </div>
   );
