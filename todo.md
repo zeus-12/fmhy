@@ -8,7 +8,7 @@
 ## wiki page bugs from migration
 
 - hover on h1 and h2 doesnt show "#"
--
+- fix seo and give better head-title for each page
 
 ## general
 
