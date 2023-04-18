@@ -1,26 +1,7 @@
 import { Badge } from "@mantine/core";
+import type { GuideType } from "@/pages/guides";
 
-const GuideItem = ({ data }) => {
-  // const editLink = async (e) => {
-  //   let idToEdit = e.target.id;
-  //   navigate("/guides/edit/" + idToEdit);
-  // };
-
-  // const deleteLink = async (e) => {
-  //   let idToDelete = e.target.id;
-
-  //   const req = await fetch(SERVER_URL + "/api/guides/" + idToDelete, {
-  //     method: "DELETE",
-  //     headers: { "x-access-token": localStorage.getItem("token") },
-  //   });
-  //   const data = await req.json();
-  //   if (data.status === "ok") {
-  //     updateData((prevData) =>
-  //       prevData.filter((link) => link._id !== data.deletedGuide._id)
-  //     );
-  //   }
-  // };
-
+const GuideItem: React.FC<{ data: GuideType }> = ({ data }) => {
   return (
     <div className="guide-item ">
       <div>
@@ -34,7 +15,52 @@ const GuideItem = ({ data }) => {
           >
             {data.title} {data.nsfw && <Badge color="red">NSFW</Badge>}
           </a>
-          {/* {username && (data.owner === username || isAdmin) && (
+        </div>
+
+        <div className="flex items-center">
+          {data.tags && (
+            <div className="space-x-2">
+              {data.tags.map((tag, index) => (
+                <Badge key={index}>{tag}</Badge>
+              ))}
+            </div>
+          )}
+
+          {data.credits && (
+            <div>
+              <p className="m-0">🙏 {data.credits}</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default GuideItem;
+
+// const editLink = async (e) => {
+//   let idToEdit = e.target.id;
+//   navigate("/guides/edit/" + idToEdit);
+// };
+
+// const deleteLink = async (e) => {
+//   let idToDelete = e.target.id;
+
+//   const req = await fetch(SERVER_URL + "/api/guides/" + idToDelete, {
+//     method: "DELETE",
+//     headers: { "x-access-token": localStorage.getItem("token") },
+//   });
+//   const data = await req.json();
+//   if (data.status === "ok") {
+//     updateData((prevData) =>
+//       prevData.filter((link) => link._id !== data.deletedGuide._id)
+//     );
+//   }
+// };
+
+{
+  /* {username && (data.owner === username || isAdmin) && (
                 <div className="flex mr-2">
                   <svg
                     id={data._id}
@@ -72,27 +98,5 @@ const GuideItem = ({ data }) => {
                     ></path>
                   </svg>
                 </div>
-              )} */}
-        </div>
-
-        <div className="flex items-center">
-          {data.tags && (
-            <div className="space-x-2">
-              {data.tags.map((tag, index) => (
-                <Badge key={index}>{tag}</Badge>
-              ))}
-            </div>
-          )}
-
-          {data.credits && (
-            <div>
-              <p className="m-0">🙏 {data.credits}</p>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default GuideItem;
+              )} */
+}

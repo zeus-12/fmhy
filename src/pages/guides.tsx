@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { notSignedInNotification } from "@/components/Notifications";
 import { Plus, Search, X } from "lucide-react";
 
-interface GuideType {
+export interface GuideType {
   credits?: string;
   link: string;
   nsfw: boolean;
