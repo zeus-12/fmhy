@@ -6,26 +6,36 @@ import { SERVER_URL } from "../lib/config";
 
 const ITEMS_PER_PAGE = 30;
 
+interface SearchResultType {
+  _id: string;
+  title: string;
+  link: string[];
+  starred: boolean;
+  isNsfw: boolean;
+}
+
 const Search = () => {
   const router = useRouter();
   let { page: page_, q, nsfw: nsfw_ } = router.query;
 
   const page = typeof page_ === "string" ? parseInt(page_) : 1;
-  const query = q || "";
+  const query = typeof q === "string" ? q : "";
   const nsfw = nsfw_ === "true" ? true : false;
 
-  const [searchQuery, setSearchQuery] = useState(query);
+  const [searchQuery, setSearchQuery] = useState<string>(query);
   const [activePage, setActivePage] = useState(page);
-  const [searchResults, setSearchResults] = useState(null);
+  const [searchResults, setSearchResults] = useState<null | SearchResultType[]>(
+    null
+  );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [count, setCount] = useState(1);
   const [includeNsfw, setIncludeNsfw] = useState(nsfw);
 
-  const searchRef = useRef<>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    searchRef.current.focus();
+    searchRef.current?.focus();
   }, []);
 
   useEffect(() => {
@@ -35,8 +45,15 @@ const Search = () => {
     }
   }, [activePage, includeNsfw]);
 
-  const navigatePage = (page, nsfw = includeNsfw, query = searchQuery) => {
-    router.push("/search?q=" + query + "&page=" + page + "&nsfw=" + nsfw);
+  const navigatePage = (page: number, nsfw?: boolean, query?: string) => {
+    router.push(
+      "/search?q=" +
+        (query ?? searchQuery) +
+        "&page=" +
+        page +
+        "&nsfw=" +
+        (nsfw ?? includeNsfw)
+    );
   };
 
   const fetchSearchResults = async () => {
@@ -51,7 +68,9 @@ const Search = () => {
         "&nsfw=" +
         includeNsfw
     );
+
     const data = await res.json();
+    // @ts-ignore
     if (!data.status === "ok") {
       setLoading(false);
       setError(true);
@@ -72,21 +91,23 @@ const Search = () => {
     navigatePage(1);
 
     setLoading(true);
-    searchRef.current.blur();
+    searchRef.current?.blur();
     await fetchSearchResults();
   };
 
-  const paginationHandler = async (cur) => {
+  const paginationHandler = async (cur: number) => {
     setActivePage(cur);
     navigatePage(cur);
     window.scrollTo(0, 0);
   };
 
-  const toggleNsfw = (e) => {
-    setIncludeNsfw(e.target.checked);
+  const toggleNsfw = (e: React.FormEvent<EventTarget>) => {
+    //@ts-ignore
+    setIncludeNsfw(e.target?.checked);
 
     setActivePage(1);
-    navigatePage(1, e.target.checked);
+    //@ts-ignore
+    navigatePage(1, e.target?.checked);
   };
 
   const resetSearch = () => {
@@ -107,7 +128,6 @@ const Search = () => {
         </p>
         <Switch label="NSFW?" checked={includeNsfw} onChange={toggleNsfw} />
       </div>
-
       <p className="text-gray-400 mb-2">
         Missing links from{" "}
         <a
@@ -117,7 +137,6 @@ const Search = () => {
           storage
         </a>
       </p>
-
       <Input
         placeholder="Try Adblocker"
         value={searchQuery}
@@ -131,7 +150,6 @@ const Search = () => {
         rightSection={<SearchIcon className="w-5 h-5 text-gray-400" />}
         className="w-[90vw] sm:w-96"
       />
-
       {error && (
         <div className="flex-1 flex justify-center items-center">
           <div className="text-center w-[50vw] space-y-2">
@@ -152,14 +170,13 @@ const Search = () => {
           </div>
         </div>
       )}
-
       {!error && loading && (
         <div className="flex-1 flex justify-center items-center">
           <Loader size="lg" variant="bars" />
         </div>
       )}
 
-      {!loading && searchResults?.length > 0 && (
+      {!loading && searchResults && searchResults?.length > 0 && (
         <div className="flex-1 flex flex-col space-y-4 mt-2">
           <p className="text-gray-600">{`${count} results found`}</p>
           {searchResults.map((result, i) => (
@@ -169,7 +186,7 @@ const Search = () => {
               key={i}
             >
               <p className="text-xl font-semibold">{result.title}</p>
-              {result.link?.map((link) => (
+              {result.link?.map((link: string) => (
                 <a
                   target="_blank"
                   rel="noreferrer"
@@ -192,6 +209,7 @@ const Search = () => {
 
           <div className="flex justify-center mt-4">
             <Pagination
+              // @ts-ignore
               page={activePage}
               onChange={(cur) => paginationHandler(cur)}
               total={Math.ceil(count / ITEMS_PER_PAGE)}
