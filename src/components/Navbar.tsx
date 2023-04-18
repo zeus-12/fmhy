@@ -1,4 +1,4 @@
-import { useState, useContext, Dispatch, SetStateAction } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import { Burger, Drawer, Input } from "@mantine/core";
 import { Kbd } from "@mantine/core";
 import { useSpotlight } from "@mantine/spotlight";
@@ -7,10 +7,10 @@ import { Search } from "lucide-react";
 import { useRouter } from "next/router";
 
 const navItems = [
-  { link: "/wiki/home", name: "Wiki" },
-  { link: "/search", name: "Search" },
-  { link: "/about", name: "About" },
-  { link: "/guides", name: "Guides" },
+  { link: "/wiki/home", name: "Wiki", startsWith: "/wiki" },
+  { link: "/search", name: "Search", startsWith: "/search" },
+  { link: "/about", name: "About", startsWith: "/about" },
+  { link: "/guides", name: "Guides", startsWith: "/guides" },
   // { link: username?"/user":"/login", name: username?"User":"Login" },
 ];
 
@@ -24,7 +24,9 @@ export const LinkElements = () => {
         <Link key={index} href={item.link}>
           <p
             className={`px-0.5 py-1 lg:px-2 text-2xl md:text-lg rounded-md hover:text-white cursor-pointer text-center hover:bg-gray-900 ${
-              curLink.startsWith(item.link) ? "text-white" : "text-gray-500"
+              curLink.startsWith(item.startsWith)
+                ? "text-white"
+                : "text-gray-500"
             }`}
           >
             {item.name}
