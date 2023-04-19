@@ -24,6 +24,8 @@ const Search = () => {
 
   const [searchQuery, setSearchQuery] = useState<string>(query);
   const [activePage, setActivePage] = useState(page);
+  console.log(query, typeof query);
+
   const [searchResults, setSearchResults] = useState<null | SearchResultType[]>(
     null
   );
@@ -207,7 +209,7 @@ const Search = () => {
             </div>
           ))}
 
-          <div className="flex justify-center mt-4">
+          <div className="flex justify-center mt-4 pb-4">
             <Pagination
               value={activePage}
               onChange={(cur) => paginationHandler(cur)}
