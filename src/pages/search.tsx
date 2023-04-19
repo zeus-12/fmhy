@@ -209,8 +209,7 @@ const Search = () => {
 
           <div className="flex justify-center mt-4">
             <Pagination
-              // @ts-ignore
-              page={activePage}
+              value={activePage}
               onChange={(cur) => paginationHandler(cur)}
               total={Math.ceil(count / ITEMS_PER_PAGE)}
             />
