@@ -24,7 +24,6 @@ const Search = () => {
 
   const [searchQuery, setSearchQuery] = useState<string>(query);
   const [activePage, setActivePage] = useState(page);
-  console.log(query, typeof query);
 
   const [searchResults, setSearchResults] = useState<null | SearchResultType[]>(
     null

@@ -46,8 +46,7 @@ export const classMapping = {
   h4: "text-xl font-medium tracking-medium",
 };
 
-// @ts-ignore
-export function HeadingRendererHelper(props) {
+export function HeadingRendererHelper(props: any) {
   const children = React.Children.toArray(props.children);
   const text = children.reduce(flatten, "");
   const slug = convertTextToLowerCamelCase(text);
@@ -56,8 +55,7 @@ export function HeadingRendererHelper(props) {
   return { slug, text };
 }
 
-// @ts-ignore
-export const convertTextToLowerCamelCase = (text) => {
+export const convertTextToLowerCamelCase = (text: any) => {
   if (!text || typeof text !== "string") return;
 
   const filteredText = text
@@ -119,6 +117,7 @@ export function redirectRedditLinksToWebsite(link: string) {
     console.log("no mapping for", category);
     return link;
   }
+
   // @ts-ignore
   return "/wiki/" + redditToGithubTitleMapping[category] + (id ? "#" + id : "");
 }

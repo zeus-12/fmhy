@@ -17,9 +17,9 @@ interface HeadingRendererProps {
   markdownHeadings: Record<string, string[]>;
 }
 
-export const H1Renderer: React.FC<HeadingRendererProps> = (
-  props,
-  markdownHeadings
+export const H1Renderer = (
+  props: any,
+  markdownHeadings: Record<string, string[]>
 ) => {
   const { slug, text } = HeadingRendererHelper(props);
   logHeading(props.level, text, markdownHeadings);

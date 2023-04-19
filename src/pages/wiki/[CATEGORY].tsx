@@ -152,26 +152,15 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
 
         {!error && data && data.length > 0 ? (
           <>
-            {/* @ts-ignore */}
-
             <ReactMarkdown
               components={{
-                // @ts-ignore
-                h1: (props) => H1Renderer(props, markdownHeadings),
-                // @ts-ignore
-
-                h2: (props) => H2Renderer(props, markdownHeadings),
-                // @ts-ignore
-
-                h3: (props) => H3Renderer(props, markdownHeadings), //for beginners guide only
-                // @ts-ignore
-
-                h4: (props) => H4Renderer(props, markdownHeadings), //for storage only
-                // @ts-ignore
-
+                h1: (props: any) => H1Renderer(props, markdownHeadings),
+                h2: (props: any) => H2Renderer(props, markdownHeadings),
+                h3: (props: any) => H3Renderer(props, markdownHeadings), //for beginners guide only
+                h4: (props: any) => H4Renderer(props, markdownHeadings), //for storage only
                 p: PRenderer, // for beginners guide only
                 a: LinkRenderer,
-                li: (props) => LiRenderer(props, starredLinks), //for storage only
+                li: (props: any) => LiRenderer(props, starredLinks), //for storage only
                 hr: () => <></>,
               }}
             >
