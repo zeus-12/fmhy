@@ -1,7 +1,6 @@
-// @ts-nocheck
-
 import React from "react";
-import { NoteAlert, WarningAlert } from "../../components/Alert";
+import Link from "next/link";
+import { NoteAlert, WarningAlert } from "@/components/Alert";
 import {
   HeadingRendererHelper,
   classMapping,
@@ -12,11 +11,6 @@ import {
   removeSymbolsInHeading,
 } from "./helpers";
 
-interface HeadingRendererProps {
-  props: any;
-  markdownHeadings: Record<string, string[]>;
-}
-
 export const H1Renderer = (
   props: any,
   markdownHeadings: Record<string, string[]>
@@ -25,21 +19,22 @@ export const H1Renderer = (
   logHeading(props.level, text, markdownHeadings);
 
   return (
-    <h1
-      className={classMapping["h" + props.level] + " group mt-4 mb-2"}
-      id={slug}
-    >
-      <a href={`#${slug}`} className="hidden group-hover:inline-flex">
-        #{" "}
-      </a>
-      &#x203A; {removeSymbolsInHeading(text)}
-    </h1>
+    <Link href={`#${slug}`}>
+      <h1
+        className={`${
+          classMapping["h" + props.level]
+        } mt-4 mb-2 hover:underline hover:cursor text-white`}
+        id={slug}
+      >
+        &#x203A; {removeSymbolsInHeading(text)}
+      </h1>
+    </Link>
   );
 };
 
-export const H2Renderer: React.FC<HeadingRendererProps> = (
-  props,
-  markdownHeadings
+export const H2Renderer = (
+  props: any,
+  markdownHeadings: Record<string, string[]>
 ) => {
   let { slug, text } = HeadingRendererHelper(props);
   let href = `#${convertTextToLowerCamelCase(text)}`;
@@ -58,18 +53,29 @@ export const H2Renderer: React.FC<HeadingRendererProps> = (
   }
 
   return (
-    <h2 className={classMapping["h" + props.level] + " group mt-4"} id={slug}>
-      <a href={href} className="group-hover:inline-flex hidden">
-        #{" "}
-      </a>
-      &#xbb; {removeSymbolsInHeading(text)}
-    </h2>
+    // <h2 className={classMapping["h" + props.level] + " group mt-4"} id={slug}>
+    //   <a href={href} className="group-hover:inline-flex hidden">
+    //     #{" "}
+    //   </a>
+    //   &#xbb; {removeSymbolsInHeading(text)}
+    // </h2>
+
+    <Link href={href}>
+      <p
+        className={`${
+          classMapping["h" + props.level]
+        } mt-4 mb-2 hover:underline hover:cursor`}
+        id={slug}
+      >
+        &#xbb; {removeSymbolsInHeading(text)}
+      </p>
+    </Link>
   );
 };
 
-export const H3Renderer: React.FC<HeadingRendererProps> = (
-  props,
-  markdownHeadings
+export const H3Renderer = (
+  props: any,
+  markdownHeadings: Record<string, string[]>
 ) => {
   const { slug, text } = HeadingRendererHelper(props);
   logHeading(props.level, text, markdownHeadings);
@@ -84,9 +90,9 @@ export const H3Renderer: React.FC<HeadingRendererProps> = (
   );
 };
 
-export const H4Renderer: React.FC<HeadingRendererProps> = (
-  props,
-  markdownHeadings
+export const H4Renderer = (
+  props: any,
+  markdownHeadings: Record<string, string[]>
 ) => {
   const { slug, text } = HeadingRendererHelper(props);
   logHeading(props.level, text, markdownHeadings);
@@ -101,7 +107,7 @@ export const H4Renderer: React.FC<HeadingRendererProps> = (
   );
 };
 
-export function LinkRenderer(props) {
+export function LinkRenderer(props: any) {
   const newProps = { ...props };
 
   if (
@@ -113,7 +119,7 @@ export function LinkRenderer(props) {
   return <a {...newProps} target="_blank" rel="noopener noreferrer" />;
 }
 
-export function LiRenderer(props, showOnlyStarredLinks) {
+export function LiRenderer(props: any, showOnlyStarredLinks: boolean) {
   var children = React.Children.toArray(props.children);
   var text = children.reduce(flatten, "");
 
@@ -142,7 +148,7 @@ export function LiRenderer(props, showOnlyStarredLinks) {
   }
 }
 
-export const PRenderer = (props) => {
+export const PRenderer = (props: any) => {
   var children = React.Children.toArray(props.children);
   var text = children.reduce(flatten, "");
 

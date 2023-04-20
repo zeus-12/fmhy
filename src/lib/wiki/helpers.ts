@@ -23,23 +23,24 @@ export const logHeading: {
         : []),
       headingTitle,
     ];
-  }
-
-  if (headingLevel === 4 || headingLevel === 3) {
+  } else if (headingLevel === 4 || headingLevel === 3) {
     if (!headingTitle) return;
     //storage & piracyguide
     markdownHeadings[headingTitle] = [];
   }
 };
 
-// @ts-ignore
-export function flatten(text, child) {
+export function flatten(text: string, child: any): any {
   return typeof child === "string"
     ? text + child
     : React.Children.toArray(child.props.children).reduce(flatten, text);
 }
 
-export const classMapping = {
+interface ClassMappingType {
+  [key: string]: string;
+}
+
+export const classMapping: ClassMappingType = {
   h1: "text-2xl font-semibold tracking-tighter",
   h2: "text-xl font-medium tracking-medium",
   h3: "text-2xl font-semibold tracking-tight mt-8 mb-3",
@@ -75,7 +76,11 @@ export const removeSymbolsInHeading = (text: string) => {
   return text.replace("▷ ", "").replace("► ", "").replace("►", "");
 };
 
-export const redditToGithubTitleMapping = {
+interface RedditToGithubTitleMappingType {
+  [key: string]: string;
+}
+
+export const redditToGithubTitleMapping: RedditToGithubTitleMappingType = {
   "adblock-vpn-privacy": "adblockvpnguide",
   android: "android-iosguide",
   reading: "readingpiracyguide",
@@ -112,12 +117,14 @@ export function redirectRedditLinksToWebsite(link: string) {
     // for ones with / in name
     .replaceAll("_.2F_", "_");
 
-  // @ts-ignore
-  if (!redditToGithubTitleMapping[category]) {
+  if (
+    !redditToGithubTitleMapping[
+      category as keyof RedditToGithubTitleMappingType
+    ]
+  ) {
     console.log("no mapping for", category);
     return link;
   }
 
-  // @ts-ignore
   return "/wiki/" + redditToGithubTitleMapping[category] + (id ? "#" + id : "");
 }

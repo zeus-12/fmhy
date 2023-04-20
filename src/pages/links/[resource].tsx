@@ -44,7 +44,6 @@ const Links = () => {
       </p>
 
       {isLoading ? <p className="text-gray-500">Loading...</p> : <></>}
-      {/* @ts-ignore */}
       <ReactMarkdown>{resources}</ReactMarkdown>
     </div>
   );

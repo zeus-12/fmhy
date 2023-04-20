@@ -279,23 +279,22 @@ export const MARKDOWN_RESOURCES = [
   },
 ];
 
-const generateTitleMapFromRedditToGithub = () => {
-  // ps: update resoruces array, its outdated
-  const mapping = {};
-  MARKDOWN_RESOURCES.forEach((item) => {
-    const matchingResource = resources.find(
-      (resource) => resource.emoji === item.emoji
-    );
-    if (!matchingResource) {
-      console.log("missing", item);
-      return;
-    }
+// const generateTitleMapFromRedditToGithub = () => {
+//   // ps: update resoruces array, its outdated
+//   const mapping = {};
+//   MARKDOWN_RESOURCES.forEach((item) => {
+//     const matchingResource = resources.find(
+//       (resource) => resource.emoji === item.emoji
+//     );
+//     if (!matchingResource) {
+//       console.log("missing", item);
+//       return;
+//     }
 
-    // @ts-ignore
-    mapping[matchingResource.link.split("/").at(-1)] =
-      item.urlEnding.toLowerCase();
-    return;
-  });
+//     mapping[matchingResource.link.split("/").at(-1)] =
+//       item.urlEnding.toLowerCase();
+//     return;
+//   });
 
-  console.log(mapping);
-};
+//   console.log(mapping);
+// };

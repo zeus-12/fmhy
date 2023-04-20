@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, ChangeEventHandler } from "react";
 import GuideItem from "@/components/GuideItem";
 import { Input, Loader } from "@mantine/core";
 import { SERVER_URL } from "@/lib/config";
@@ -41,11 +41,8 @@ const Guides = () => {
       .then((data) => data.data)
   );
 
-  console.log(guides);
-
-  let inputHandler = (e: React.ChangeEvent) => {
-    // @ts-ignore
-    var lowerCase = e.target.value;
+  let inputHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
+    var lowerCase = (e.target as HTMLInputElement).value;
     setInputText(lowerCase);
   };
 

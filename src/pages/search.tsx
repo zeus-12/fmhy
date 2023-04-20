@@ -71,8 +71,8 @@ const Search = () => {
     );
 
     const data = await res.json();
-    // @ts-ignore
-    if (!data.status === "ok") {
+
+    if (!(data.status === "ok")) {
       setLoading(false);
       setError(true);
       return;
@@ -103,12 +103,9 @@ const Search = () => {
   };
 
   const toggleNsfw = (e: React.FormEvent<EventTarget>) => {
-    //@ts-ignore
-    setIncludeNsfw(e.target?.checked);
-
+    setIncludeNsfw((e.target as HTMLInputElement).checked);
     setActivePage(1);
-    //@ts-ignore
-    navigatePage(1, e.target?.checked);
+    navigatePage(1, (e.target as HTMLInputElement).checked);
   };
 
   const resetSearch = () => {
