@@ -11,6 +11,7 @@
 - cant share search result
 - fix layout on wiki page -> remove all calcs
 - replace imgs with next/image
+- for the search bar on navbar -> replace it with a normal div looking similar to it
 
 ## general
 
