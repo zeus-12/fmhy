@@ -20,14 +20,15 @@ export default function App({ Component, pageProps }: AppProps) {
     >
       <QueryClientProvider client={queryClient}>
         <SpotlightProvider>
-          <Notifications />
-          <Navbar />
-
           <Head>
             <title>FreeMediaHeckYeah</title>
           </Head>
-          <div className="mt-20 px-2">
-            <Component {...pageProps} />
+          <div className="min-h-screen gap-2 flex flex-col">
+            <Notifications />
+            <Navbar />
+            <div className="px-2 flex-1">
+              <Component {...pageProps} />
+            </div>
           </div>
         </SpotlightProvider>
         <ReactQueryDevtools />
