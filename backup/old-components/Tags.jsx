@@ -1,5 +1,5 @@
-import "../styles/guides.css";
-import { errorNotification } from "../../src/components/Notifications";
+import "@/styles/guides.css";
+import { errorNotification } from "@/src/components/Notifications";
 
 const Tags = ({ tags, setTags }) => {
   const addTags = async (event) => {

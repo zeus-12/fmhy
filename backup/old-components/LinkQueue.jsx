@@ -1,14 +1,14 @@
 import { useEffect, useState, useContext } from "react";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "@/context/UserContext";
 import {
   successNotification,
   errorNotification,
-} from "../../components/Notifications";
+} from "@/components/Notifications";
 import "../styles/guides.css";
-import LinkQueueModel from "../../components/LinkQueueModal";
+import LinkQueueModel from "@/components/LinkQueueModal";
 import { Link } from "react-router-dom";
 import { Button } from "@mantine/core";
-import { SERVER_URL } from "../../lib/config";
+import { SERVER_URL } from "@/lib/config";
 
 const LinkQueue = () => {
   const { isAdmin } = useContext(UserContext);

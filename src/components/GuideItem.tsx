@@ -1,39 +1,45 @@
 import { Badge } from "@mantine/core";
 import type { GuideType } from "@/pages/guides";
+import Head from "next/head";
 
 const GuideItem: React.FC<{ data: GuideType }> = ({ data }) => {
   return (
-    <div className="guide-item ">
-      <div>
-        <div className="flex justify-between items-center pt-2">
-          <a
-            className="inline"
-            style={{ fontSize: "1.1rem" }}
-            target="_blank"
-            href={data.link}
-            rel="noreferrer"
-          >
-            {data.title} {data.nsfw && <Badge color="red">NSFW</Badge>}
-          </a>
-        </div>
+    <>
+      <Head>
+        <title>Guides</title>
+      </Head>
+      <div className="guide-item ">
+        <div>
+          <div className="flex justify-between items-center pt-2">
+            <a
+              className="inline"
+              style={{ fontSize: "1.1rem" }}
+              target="_blank"
+              href={data.link}
+              rel="noreferrer"
+            >
+              {data.title} {data.nsfw && <Badge color="red">NSFW</Badge>}
+            </a>
+          </div>
 
-        <div className="flex items-center">
-          {data.tags && (
-            <div className="space-x-2">
-              {data.tags.map((tag, index) => (
-                <Badge key={index}>{tag}</Badge>
-              ))}
-            </div>
-          )}
+          <div className="flex items-center">
+            {data.tags && (
+              <div className="space-x-2">
+                {data.tags.map((tag, index) => (
+                  <Badge key={index}>{tag}</Badge>
+                ))}
+              </div>
+            )}
 
-          {data.credits && (
-            <div>
-              <p className="m-0">🙏 {data.credits}</p>
-            </div>
-          )}
+            {data.credits && (
+              <div>
+                <p className="m-0">🙏 {data.credits}</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

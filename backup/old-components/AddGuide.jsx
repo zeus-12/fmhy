@@ -1,12 +1,12 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/UserContext";
-import Tags from "../../components/Tags";
+import { UserContext } from "@/context/UserContext";
+import Tags from "@/components/Tags";
 import {
   notSignedInNotification,
   successNotification,
   errorNotification,
-} from "../../components/Notifications";
+} from "@/components/Notifications";
 
 const AddGuide = () => {
   const SERVER_URL = "";

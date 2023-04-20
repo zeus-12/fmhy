@@ -7,6 +7,7 @@ import { SpotlightProvider } from "@/components/Spotlight";
 import { Notifications } from "@mantine/notifications";
 import Navbar from "@/components/Navbar";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
@@ -22,6 +23,9 @@ export default function App({ Component, pageProps }: AppProps) {
           <Notifications />
           <Navbar />
 
+          <Head>
+            <title>FreeMediaHeckYeah</title>
+          </Head>
           <div className="mt-20 px-2">
             <Component {...pageProps} />
           </div>

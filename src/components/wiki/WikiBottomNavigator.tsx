@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MARKDOWN_RESOURCES } from "../../lib/CONSTANTS";
+import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const WikiBottomNavigator: React.FC<{ CATEGORY: string }> = ({ CATEGORY }) => {

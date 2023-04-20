@@ -1,16 +1,16 @@
 import { useEffect, useState, useContext } from "react";
 import "../styles/guides.css";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/UserContext";
-import { formatName } from "../../lib/helper";
-import { category_channels } from "../../lib/CONSTANTS";
+import { UserContext } from "@/context/UserContext";
+import { formatName } from "@/lib/helper";
+import { category_channels } from "@/lib/CONSTANTS";
 import { Button, Select } from "@mantine/core";
-import { SERVER_URL } from "../../lib/config";
+import { SERVER_URL } from "@/lib/config";
 import {
   notSignedInNotification,
   successNotification,
   errorNotification,
-} from "../../components/Notifications";
+} from "@/components/Notifications";
 
 const SubmitLink = () => {
   const { username } = useContext(UserContext);

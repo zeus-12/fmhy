@@ -1,5 +1,5 @@
 import { Switch } from "@mantine/core";
-import { MARKDOWN_RESOURCES } from "../../lib/CONSTANTS";
+import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
 import { useState } from "react";
 import Link from "next/link";
 

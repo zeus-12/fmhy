@@ -1,13 +1,13 @@
 import { useState, useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/UserContext";
-import Tags from "../../components/Tags";
+import { UserContext } from "@/context/UserContext";
+import Tags from "@/components/Tags";
 import {
   successNotification,
   errorNotification,
-} from "../../components/Notifications";
-import { SERVER_URL } from "../../lib/config";
+} from "@/components/Notifications";
+import { SERVER_URL } from "@/lib/config";
 
 const EditGuide = (props) => {
   var { ID } = useParams();
