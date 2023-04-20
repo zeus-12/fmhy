@@ -8,6 +8,9 @@
 ## wiki page bugs from migration
 
 - fix seo and give better head-title for each page
+- cant share search result
+- fix layout on wiki page -> remove all calcs
+- replace imgs with next/image
 
 ## general
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React from "react";
 import ReactMarkdown from "react-markdown";
 import { useEffect, useState } from "react";
 import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
@@ -107,7 +107,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
     return cleanedText || text;
   };
 
-  const { data, error } = useQuery({
+  const { data, isError, isLoading } = useQuery({
     queryKey: ["wiki", CATEGORY],
     enabled: !!CATEGORY && CATEGORY !== "home",
     queryFn: fetchWikiData,
@@ -148,9 +148,14 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
           />
         </div>
 
-        {error ? <p>Something went wrong!</p> : <></>}
+        {isError && <p>Something went wrong!</p>}
 
-        {!error && data && data.length > 0 ? (
+        {isLoading && (
+          <div className="justify-center items-center flex h-[calc(100vh_-_6rem)]">
+            <Loader variant="dots" />
+          </div>
+        )}
+        {data && data.length > 0 && (
           <>
             <ReactMarkdown
               components={{
@@ -166,7 +171,8 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
             >
               {data}
             </ReactMarkdown>
-            {/* 
+
+            {/*             
             {scrollUp && (
               <div
                 onClick={handleScrollUp}
@@ -175,14 +181,9 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
                 <BsFillArrowUpCircleFill className="w-8 h-8" />
               </div>
             )} */}
+            <WikiBottomNavigator CATEGORY={CATEGORY} />
           </>
-        ) : (
-          <div className="justify-center items-center flex h-[calc(100vh_-_6rem)]">
-            <Loader variant="dots" />
-          </div>
         )}
-
-        <WikiBottomNavigator CATEGORY={CATEGORY} />
       </div>
       <WikiContentsSidebar
         markdownHeadings={markdownHeadings}

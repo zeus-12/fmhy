@@ -33,7 +33,7 @@ const Guides = () => {
 
   const {
     data: guides,
-    error,
+    isError,
     isLoading,
   } = useQuery(["guides"], () =>
     fetch(SERVER_URL + "/api/guides")
@@ -61,7 +61,7 @@ const Guides = () => {
   };
 
   return (
-    <div className="p-4 pt-0">
+    <div className="p-4 sm:px-8 md:px-12 lg:px-16 md:py-2 lg:py-4 xl:py-6 pt-0 flex-1 flex flex-col">
       <div
         className={`justify-between flex sm:flex-row ${
           showInput ? "flex-col" : ""
@@ -99,7 +99,7 @@ const Guides = () => {
                 className="hover:cursor-pointer"
                 onClick={() => setShowInput(true)}
               >
-                <Search className="w-6 h-6" />
+                <Search className="w-5 h-5" />
               </div>
             )}
           </div>
@@ -108,19 +108,20 @@ const Guides = () => {
           </div>
         </div>
       </div>
+      <div className="space-y-2 flex-1 flex">
+        {isError && <p>Can&apos;t connect to the server</p>}
 
-      <div className="space-y-2">
-        {error ? (
-          <p>Can&apos;t connect to the server</p>
-        ) : isLoading ? (
-          <div className="justify-center items-center flex h-[calc(100vh_-_6rem)]">
+        {isLoading && (
+          <div className="justify-center items-center flex flex-1">
             <Loader variant="dots" />
           </div>
-        ) : (
-          filterData(guides)?.map((item) => (
-            <GuideItem key={item._id} data={item} />
-          ))
         )}
+        <div>
+          {guides &&
+            filterData(guides)?.map((item) => (
+              <GuideItem key={item._id} data={item} />
+            ))}
+        </div>
       </div>
     </div>
   );

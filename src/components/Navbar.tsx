@@ -58,7 +58,7 @@ export const NavbarDrawer: React.FC<NavbarDrawerProps> = ({
   opened,
   setOpened,
 }) => (
-  <div className={opened ? "pt-4 px-2" : ""}>
+  <div className={opened ? "px-2" : ""}>
     <Drawer
       className="bg-black"
       opened={opened}
@@ -105,7 +105,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="px-6 border-b-[1px] border-gray-800 w-screen h-16 bg-black flex justify-between items-center">
+      <div className="px-6 border-b-[1px] border-gray-800 w-screen h-16 bg-black flex justify-between items-center z-40">
         <Logo />
         <Link href="/">
           <p className="text-white font-medium font-sans text-2xl md:text-lg  md:hidden">
@@ -136,9 +136,7 @@ const Navbar = () => {
         )}
       </div>
 
-      <div className="">
-        <NavbarDrawer opened={opened} setOpened={setOpened} />
-      </div>
+      <NavbarDrawer opened={opened} setOpened={setOpened} />
     </>
   );
 };
