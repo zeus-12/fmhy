@@ -67,10 +67,12 @@ const Home = () => {
           </div>
         </div>
         <div className="flex justify-center">
-          <img
-            className="max-h-[85vh] w-auto max-w-[100vw]"
+          <Image
             alt="pirate"
             src="/assets/pirate.png"
+            className="h-[85vh] w-auto max-w-[100vw]"
+            width={500}
+            height={500}
           />
         </div>
       </div>

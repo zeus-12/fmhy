@@ -2,6 +2,7 @@ import { Button } from "@mantine/core";
 import RedditWikiMenu from "@/components/wiki/RedditWikiMenu";
 import WikiBottomNavigator from "@/components/wiki/WikiBottomNavigator";
 import Link from "next/link";
+import Image from "next/image";
 
 const messages = [
   <p className="inline" key={0}>
@@ -42,7 +43,13 @@ const WikiHome = () => {
         <span className="text-cyan-400"> Largest Collection of Free Stuff</span>{" "}
         On The Internet!
       </p>
-      <img src={"/assets/logo-no-bg.gif"} alt="logo" className="w-1/2" />
+      <Image
+        src={"/assets/logo-no-bg.gif"}
+        alt="logo"
+        className="w-2/3 mx-auto"
+        width={200}
+        height={200}
+      />
       <div>
         {messages.map((item) => (
           <li key={item.key} className="text-gray-400">

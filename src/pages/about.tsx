@@ -1,4 +1,5 @@
 import FAQ from "@/components/FAQ";
+import Image from "next/image";
 import Link from "next/link";
 
 const About = () => {
@@ -11,7 +12,9 @@ const About = () => {
 
         <div className="lg:flex justify-evenly items-center gap-6">
           <div className="mb-3 lg:mb-0 flex justify-center ">
-            <img
+            <Image
+              width={300}
+              height={300}
               className="w-[300px] lg:max-w-xl"
               src="../assets/help.svg"
               alt=""
@@ -72,7 +75,9 @@ const About = () => {
             </span>
           </p>
           <div className="flex justify-center">
-            <img
+            <Image
+              width={300}
+              height={200}
               className="w-[300px] lg:max-w-xl"
               alt="logo gif"
               src="/assets/logo-no-bg.gif"
