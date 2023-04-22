@@ -2,6 +2,7 @@ import Image from "next/image";
 // import { Inter } from "next/font/google";
 // const inter = Inter({ subsets: ["latin"] });
 import Link from "next/link";
+import PirateImage from "../../public/assets/pirate.png";
 
 const Home = () => {
   return (
@@ -69,10 +70,9 @@ const Home = () => {
         <div className="flex justify-center">
           <Image
             alt="pirate"
-            src="/assets/pirate.png"
+            placeholder="blur"
+            src={PirateImage}
             className="h-[85vh] w-auto max-w-[100vw]"
-            width={500}
-            height={500}
           />
         </div>
       </div>
