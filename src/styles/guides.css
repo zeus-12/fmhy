@@ -104,7 +104,6 @@ path :hover {
 }
 
 .guide-item:hover {
-  background-color: #080808 !important;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 0px #161616;
   -webkit-transform: scale(0.25, 0.25);

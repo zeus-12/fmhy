@@ -58,7 +58,7 @@ export const NavbarDrawer: React.FC<NavbarDrawerProps> = ({
   opened,
   setOpened,
 }) => (
-  <div className={opened ? "pt-4 px-2" : ""}>
+  <div className={opened ? "px-2" : ""}>
     <Drawer
       className="bg-black"
       opened={opened}
@@ -105,42 +105,38 @@ const Navbar = () => {
 
   return (
     <>
-      <div>
-        <div className="px-6 border-b-[1px] border-gray-800 w-screen h-16 bg-black fixed top-0 flex justify-between items-center z-50 ">
-          <Logo />
-          <Link href="/">
-            <p className="text-white font-medium font-sans text-2xl md:text-lg  md:hidden">
-              FMHY
-            </p>
-          </Link>
-          <div className="md:hidden">
+      <div className="px-6 border-b-[1px] border-gray-800 w-screen h-16 bg-black flex justify-between items-center z-40">
+        <Logo />
+        <Link href="/">
+          <p className="text-white font-medium font-sans text-2xl md:text-lg  md:hidden">
+            FMHY
+          </p>
+        </Link>
+        <div className="md:hidden">
+          <BurgerComponent
+            opened={opened}
+            setOpened={setOpened}
+            title={title}
+          />
+        </div>
+        {opened && (
+          <div className="hidden md:flex">
             <BurgerComponent
               opened={opened}
               setOpened={setOpened}
               title={title}
             />
           </div>
-          {opened && (
-            <div className="hidden md:flex">
-              <BurgerComponent
-                opened={opened}
-                setOpened={setOpened}
-                title={title}
-              />
-            </div>
-          )}
-          {!opened && (
-            <div className="text-gray-300 text-lg font-medium hidden xl:gap-8 md:flex gap-8">
-              <SearchBar />
-              <LinkElements />
-            </div>
-          )}
-        </div>
-
-        <div>
-          <NavbarDrawer opened={opened} setOpened={setOpened} />
-        </div>
+        )}
+        {!opened && (
+          <div className="text-gray-300 text-lg font-medium hidden xl:gap-8 md:flex gap-8">
+            <SearchBar />
+            <LinkElements />
+          </div>
+        )}
       </div>
+
+      <NavbarDrawer opened={opened} setOpened={setOpened} />
     </>
   );
 };

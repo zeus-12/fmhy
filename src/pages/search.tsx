@@ -116,7 +116,7 @@ const Search = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh_-_6rem)] flex flex-col px-6">
+    <div className="flex-1 flex flex-col px-6 sm:px-8 md:px-12 lg:px-16 md:py-2 lg:py-4 xl:py-6">
       <div className="flex justify-between items-center">
         <p
           onClick={resetSearch}

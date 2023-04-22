@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const About = () => {
   return (
-    <div className="flex flex-col gap-6 sm:px-4 px-1 md:px-12 lg:px-24 xl:px-36">
+    <div className="flex flex-col gap-6 sm:px-8 md:px-12 lg:px-16 md:py-2 lg:py-4 xl:py-6">
       <div>
         <p className="text-3xl text-gray-300 tracking-tighter font-semibold">
           Vision

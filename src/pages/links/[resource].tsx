@@ -26,7 +26,7 @@ const Links = () => {
   const {
     data: resources,
     isLoading,
-    error,
+    isError,
   } = useQuery({
     queryKey: ["links"],
     enabled: !!resource,
@@ -35,12 +35,12 @@ const Links = () => {
 
   return (
     <div className="resources p-4 pt-0">
-      {error ? <p className="text-red-500">Error fetching data!</p> : <></>}
+      {isError && <p className="text-red-500">Error fetching data!</p>}
       <p
         className="text-capitalize mb-0 tracking-tight font-semibold"
         style={{ fontSize: "2rem" }}
       >
-        {!error ? formatName(resource) : ""}
+        {!isError ? formatName(resource) : ""}
       </p>
 
       {isLoading ? <p className="text-gray-500">Loading...</p> : <></>}

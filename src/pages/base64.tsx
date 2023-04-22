@@ -27,7 +27,7 @@ const Base64 = () => {
   const {
     data: links,
     isLoading,
-    error,
+    isError,
   } = useQuery({
     queryKey: ["base64"],
     queryFn: fetchBase64Links,
@@ -45,8 +45,8 @@ const Base64 = () => {
           onChange={toggleDecodeAllLinks}
         />
       </div>
-      {error ? <p>Something went wrong!</p> : <></>}
-      {isLoading ? <p>Loading...</p> : <></>}
+      {isError && <p>Something went wrong!</p>}
+      {isLoading && <p>Loading...</p>}
 
       {links &&
         links?.map((link: Base64LinksType, index: number) => (

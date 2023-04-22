@@ -53,22 +53,15 @@ export const H2Renderer = (
   }
 
   return (
-    // <h2 className={classMapping["h" + props.level] + " group mt-4"} id={slug}>
-    //   <a href={href} className="group-hover:inline-flex hidden">
-    //     #{" "}
-    //   </a>
-    //   &#xbb; {removeSymbolsInHeading(text)}
-    // </h2>
-
     <Link href={href}>
-      <p
+      <h2
         className={`${
           classMapping["h" + props.level]
-        } mt-4 mb-2 hover:underline hover:cursor`}
+        } mt-4 mb-2 hover:underline hover:cursor text-white`}
         id={slug}
       >
         &#xbb; {removeSymbolsInHeading(text)}
-      </p>
+      </h2>
     </Link>
   );
 };
@@ -81,12 +74,16 @@ export const H3Renderer = (
   logHeading(props.level, text, markdownHeadings);
 
   return (
-    <h3 className={classMapping["h" + props.level] + " group mt-4"} id={slug}>
-      <a href={`#${slug}`} className="group-hover:inline-flex hidden">
-        #{" "}
-      </a>
-      {text}
-    </h3>
+    <Link href={`#${slug}`}>
+      <h3
+        className={`${
+          classMapping["h" + props.level]
+        } mt-4 hover:underline hover:cursor text-white`}
+        id={slug}
+      >
+        {text}
+      </h3>
+    </Link>
   );
 };
 
