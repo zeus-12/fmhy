@@ -110,17 +110,21 @@ export const H4Renderer = (
 
 export function LinkRenderer(props: any) {
   const newProps = { ...props };
-
-  if (
-    newProps.href.startsWith("https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki")
-  ) {
-    newProps.href = redirectRedditLinksToWebsite(newProps.href);
+  let href = newProps.href;
+  if (href.startsWith("https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki")) {
+    href = redirectRedditLinksToWebsite(href);
   }
 
-  return <a {...newProps} target="_blank" rel="noopener noreferrer" />;
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      {props.children}
+    </a>
+  );
 }
 
 export function LiRenderer(props: any, showOnlyStarredLinks: boolean) {
+  console.log("li tag", props);
+
   var children = React.Children.toArray(props.children);
   var text = children.reduce(flatten, "");
 
@@ -143,8 +147,10 @@ export function LiRenderer(props: any, showOnlyStarredLinks: boolean) {
         className={`list-disc ml-6 ${
           showOnlyStarredLinks ? (isStarred ? "" : "hidden") : ""
         }`}
-        {...props}
-      />
+        // {...props}
+      >
+        {props.children}
+      </li>
     );
   }
 }
@@ -167,6 +173,6 @@ export const PRenderer = (props: any) => {
     const message = text.split(warningStarter)[1];
     return <WarningAlert message={message} />;
   } else {
-    return <p {...props} />;
+    return <p>{props.children}</p>;
   }
 };
