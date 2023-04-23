@@ -95,12 +95,16 @@ export const H4Renderer = (
   logHeading(props.level, text, markdownHeadings);
 
   return (
-    <h4 className={classMapping["h" + props.level] + " group mt-4"} id={slug}>
-      <a href={`#${slug}`} className="group-hover:inline-flex hidden">
-        #{" "}
-      </a>
-      {text}
-    </h4>
+    <Link href={`#${slug}`}>
+      <h4
+        className={`${
+          classMapping["h" + props.level]
+        } mt-4 hover:underline hover:cursor text-white`}
+        id={slug}
+      >
+        {text}
+      </h4>
+    </Link>
   );
 };
 
