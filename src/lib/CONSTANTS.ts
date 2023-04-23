@@ -444,7 +444,7 @@ const CATEGORY_SUBCATEGORY_MAPPING = [
   },
 
   {
-    category: "devtools",
+    category: "dowload",
     subcategory: {
       "Download Directories": [],
       "Download Sites": [

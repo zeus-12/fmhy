@@ -144,18 +144,15 @@ const Navbar = () => {
 export const SearchBar = () => {
   const spotlight = useSpotlight();
   return (
-    <div className="w-58 max-w-[60%] mx-auto" onClick={spotlight.openSpotlight}>
-      <Input
-        icon={<Search className="w-5 h-5 text-gray-400" />}
-        className="hover:cursor-pointer"
-        variant="filled"
-        placeholder="Search"
-        rightSection={
-          <>
-            <Kbd>/</Kbd>
-          </>
-        }
-      />
+    <div
+      className="py-1 w-58 max-w-[60%] mx-auto flex items-center rounded-md px-2 gap-2 bg-[#252728] hover:cursor-pointer"
+      onClick={spotlight.openSpotlight}
+    >
+      <Search className="w-5 h-5 text-gray-400" />
+
+      <p className="text-gray-600 w-36 text-sm">Search</p>
+
+      <Kbd className="ml-auto">/</Kbd>
     </div>
   );
 };

@@ -20,7 +20,7 @@ import WikiCategoriesSidebar from "@/components/wiki/WikiCategoriesSidebar";
 import WikiContentsSidebar from "@/components/wiki/WikiContentsSidebar";
 import { useRouter } from "next/router";
 
-const Wiki = () => {
+const Wiki = ({ data, isError }: { data: string; isError: boolean }) => {
   const router = useRouter();
   const CATEGORY = router.query.CATEGORY as string;
 
@@ -42,6 +42,8 @@ const Wiki = () => {
         <WikiHome />
       ) : (
         <LinkDataRenderer
+          isError={isError}
+          data={data}
           CATEGORY={CATEGORY}
           markdownCategory={markdownCategory}
         />
@@ -51,6 +53,8 @@ const Wiki = () => {
 };
 
 interface LinkDataRendererProps {
+  data: string;
+  isError: boolean;
   CATEGORY: string;
   markdownCategory: {
     title: string;
@@ -59,7 +63,9 @@ interface LinkDataRendererProps {
 }
 
 const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
+  data,
   CATEGORY,
+  isError,
   markdownCategory,
 }) => {
   const [starredLinks, setStarredLinks] = useState(false);
@@ -89,29 +95,29 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
   //   window.scrollTo({ top: 0, behavior: "smooth" });
   // };
 
-  const fetchWikiData = async () => {
-    const markdownUrlEnding = markdownCategory?.urlEnding;
+  // const fetchWikiData = async () => {
+  //   const markdownUrlEnding = markdownCategory?.urlEnding;
 
-    if (!markdownUrlEnding) {
-      return;
-    }
-    const markdownUrl =
-      "https://raw.githubusercontent.com/nbats/FMHYedit/main/" +
-      markdownUrlEnding +
-      ".md";
+  //   if (!markdownUrlEnding) {
+  //     return;
+  //   }
+  //   const markdownUrl =
+  //     "https://raw.githubusercontent.com/nbats/FMHYedit/main/" +
+  //     markdownUrlEnding +
+  //     ".md";
 
-    const res = await fetch(markdownUrl);
-    const text = await res.text();
+  //   const res = await fetch(markdownUrl);
+  //   const text = await res.text();
 
-    const cleanedText = text.split("For mobile users")[1];
-    return cleanedText || text;
-  };
+  //   const cleanedText = text.split("For mobile users")[1];
+  //   return cleanedText || text;
+  // };
 
-  const { data, isError, isLoading } = useQuery({
-    queryKey: ["wiki", CATEGORY],
-    enabled: !!CATEGORY && CATEGORY !== "home",
-    queryFn: fetchWikiData,
-  });
+  // const { data, isError, isLoading } = useQuery({
+  //   queryKey: ["wiki", CATEGORY],
+  //   enabled: !!CATEGORY && CATEGORY !== "home",
+  //   queryFn: fetchWikiData,
+  // });
 
   useEffect(() => {
     const currentUrl = window.location.href;
@@ -150,11 +156,11 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
 
         {isError && <p>Something went wrong!</p>}
 
-        {isLoading && (
+        {/* {isLoading && (
           <div className="justify-center items-center flex h-[calc(100vh_-_6rem)]">
             <Loader variant="dots" />
           </div>
-        )}
+        )} */}
         {data && data.length > 0 && (
           <>
             <ReactMarkdown
@@ -194,3 +200,57 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
 };
 
 export default Wiki;
+
+export async function getStaticProps({
+  params: { CATEGORY },
+}: {
+  params: { CATEGORY: string };
+}) {
+  if (CATEGORY === "home") {
+    return {
+      props: {
+        data: "",
+        isError: false,
+      },
+    };
+  }
+  try {
+    const markdownCategory = MARKDOWN_RESOURCES.find(
+      (item) => item.urlEnding.toLowerCase() === CATEGORY?.toLowerCase()
+    )!;
+    const markdownUrlEnding = markdownCategory?.urlEnding;
+
+    const markdownUrl =
+      "https://raw.githubusercontent.com/nbats/FMHYedit/main/" +
+      markdownUrlEnding +
+      ".md";
+
+    const res = await fetch(markdownUrl);
+    const text = await res.text();
+
+    const cleanedText = text.split("For mobile users")[1];
+
+    return {
+      props: {
+        data: cleanedText || text,
+        isError: false,
+      },
+      revalidate: 60 * 60 * 12, // 12 hours
+    };
+  } catch (err) {
+    return {
+      props: {
+        isError: true,
+        data: "",
+      },
+    };
+  }
+}
+
+export async function getStaticPaths() {
+  const paths = MARKDOWN_RESOURCES.map((resource) => ({
+    params: { CATEGORY: resource.urlEnding.toLowerCase() },
+  }));
+
+  return { paths, fallback: false };
+}

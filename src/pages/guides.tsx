@@ -15,7 +15,13 @@ export interface GuideType {
   title: string;
 }
 
-const Guides = () => {
+const Guides = ({
+  guides,
+  isError,
+}: {
+  guides: GuideType[];
+  isError: boolean;
+}) => {
   const [inputText, setInputText] = useState("");
   const [showInput, setShowInput] = useState(false);
 
@@ -31,15 +37,15 @@ const Guides = () => {
     }
   }, [showInput]);
 
-  const {
-    data: guides,
-    isError,
-    isLoading,
-  } = useQuery(["guides"], () =>
-    fetch(SERVER_URL + "/api/guides")
-      .then((res) => res.json())
-      .then((data) => data.data)
-  );
+  // const {
+  //   data: guides,
+  //   isError,
+  //   isLoading,
+  // } = useQuery(["guides"], () =>
+  //   fetch(SERVER_URL + "/api/guides")
+  //     .then((res) => res.json())
+  //     .then((data) => data.data)
+  // );
 
   let inputHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
     var lowerCase = (e.target as HTMLInputElement).value;
@@ -111,11 +117,11 @@ const Guides = () => {
       <div className="space-y-2 flex-1 flex">
         {isError && <p>Can&apos;t connect to the server</p>}
 
-        {isLoading && (
+        {/* {isLoading && (
           <div className="justify-center items-center flex flex-1">
             <Loader variant="dots" />
           </div>
-        )}
+        )} */}
         <div>
           {guides &&
             filterData(guides)?.map((item) => (
@@ -128,3 +134,24 @@ const Guides = () => {
 };
 
 export default Guides;
+
+export async function getStaticProps() {
+  try {
+    const res = await fetch(SERVER_URL + "/api/guides");
+    const data = await res.json();
+    return {
+      props: {
+        guides: data.data,
+        isError: false,
+      },
+      revalidate: 60 * 60 * 24, // 1 day
+    };
+  } catch (err: any) {
+    return {
+      props: {
+        guides: [],
+        isError: true,
+      },
+    };
+  }
+}
