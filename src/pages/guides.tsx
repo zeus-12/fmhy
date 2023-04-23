@@ -15,8 +15,13 @@ export interface GuideType {
   title: string;
 }
 
-// @ts-ignore
-const Guides = ({ guides, isError }) => {
+const Guides = ({
+  guides,
+  isError,
+}: {
+  guides: GuideType[];
+  isError: boolean;
+}) => {
   const [inputText, setInputText] = useState("");
   const [showInput, setShowInput] = useState(false);
 
@@ -139,7 +144,7 @@ export async function getStaticProps() {
         guides: data.data,
         isError: false,
       },
-      // revalidate: 10, // In seconds
+      revalidate: 60 * 60 * 24, // 1 day
     };
   } catch (err: any) {
     return {
@@ -147,7 +152,6 @@ export async function getStaticProps() {
         guides: [],
         isError: true,
       },
-      // revalidate: 10, // In seconds
     };
   }
 }

@@ -20,8 +20,7 @@ import WikiCategoriesSidebar from "@/components/wiki/WikiCategoriesSidebar";
 import WikiContentsSidebar from "@/components/wiki/WikiContentsSidebar";
 import { useRouter } from "next/router";
 
-// @ts-ignore
-const Wiki = ({ data, isError }) => {
+const Wiki = ({ data, isError }: { data: string; isError: boolean }) => {
   const router = useRouter();
   const CATEGORY = router.query.CATEGORY as string;
 
@@ -202,15 +201,17 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
 
 export default Wiki;
 
-// @ts-ignore
-export async function getStaticProps({ params: { CATEGORY } }) {
+export async function getStaticProps({
+  params: { CATEGORY },
+}: {
+  params: { CATEGORY: string };
+}) {
   if (CATEGORY === "home") {
     return {
       props: {
         data: "",
         isError: false,
       },
-      // revalidate: 10, // In seconds
     };
   }
   try {
@@ -219,15 +220,6 @@ export async function getStaticProps({ params: { CATEGORY } }) {
     )!;
     const markdownUrlEnding = markdownCategory?.urlEnding;
 
-    if (!markdownUrlEnding) {
-      return {
-        props: {
-          // data: "",
-          // isError: false,
-        },
-        // revalidate: 10, // In seconds
-      };
-    }
     const markdownUrl =
       "https://raw.githubusercontent.com/nbats/FMHYedit/main/" +
       markdownUrlEnding +
@@ -243,6 +235,7 @@ export async function getStaticProps({ params: { CATEGORY } }) {
         data: cleanedText || text,
         isError: false,
       },
+      revalidate: 60 * 60 * 12, // 12 hours
     };
   } catch (err) {
     return {

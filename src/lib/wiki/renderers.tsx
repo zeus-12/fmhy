@@ -123,8 +123,6 @@ export function LinkRenderer(props: any) {
 }
 
 export function LiRenderer(props: any, showOnlyStarredLinks: boolean) {
-  console.log("li tag", props);
-
   var children = React.Children.toArray(props.children);
   var text = children.reduce(flatten, "");
 
