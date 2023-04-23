@@ -139,6 +139,7 @@ export async function getStaticProps() {
         guides: data.data,
         isError: false,
       },
+      // revalidate: 10, // In seconds
     };
   } catch (err: any) {
     return {
@@ -146,6 +147,7 @@ export async function getStaticProps() {
         guides: [],
         isError: true,
       },
+      // revalidate: 10, // In seconds
     };
   }
 }

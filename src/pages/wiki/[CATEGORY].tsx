@@ -204,7 +204,15 @@ export default Wiki;
 
 // @ts-ignore
 export async function getStaticProps({ params: { CATEGORY } }) {
-  console.log(CATEGORY);
+  if (CATEGORY === "home") {
+    return {
+      props: {
+        data: "",
+        isError: false,
+      },
+      // revalidate: 10, // In seconds
+    };
+  }
   try {
     const markdownCategory = MARKDOWN_RESOURCES.find(
       (item) => item.urlEnding.toLowerCase() === CATEGORY?.toLowerCase()
@@ -217,6 +225,7 @@ export async function getStaticProps({ params: { CATEGORY } }) {
           // data: "",
           // isError: false,
         },
+        // revalidate: 10, // In seconds
       };
     }
     const markdownUrl =
@@ -248,8 +257,7 @@ export async function getStaticProps({ params: { CATEGORY } }) {
 export async function getStaticPaths() {
   const paths = MARKDOWN_RESOURCES.map((resource) => ({
     params: { CATEGORY: resource.urlEnding.toLowerCase() },
-  })).filter((item) => item.params.CATEGORY !== "home");
-  console.log(paths);
+  }));
 
   return { paths, fallback: false };
 }
