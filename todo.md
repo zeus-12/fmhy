@@ -16,3 +16,7 @@
 ## general
 
 - auth? for guide-queue, and links queue
+
+## points to remember
+
+- guides is using getstaticprops: so remember to update the revalidate time as required
