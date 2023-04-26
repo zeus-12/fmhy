@@ -137,7 +137,3 @@ path :hover {
 .select__multi-value__label {
   color: white !important;
 }
-
-select {
-  height: 2rem !important;
-}
