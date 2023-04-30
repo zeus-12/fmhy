@@ -51,7 +51,7 @@ export const LinkElements = () => {
           <div className="hidden md:inline-flex">
             <Menu shadow="md" width={125}>
               <Menu.Target>
-                <div className="flex">
+                <div className="flex hover:cursor-pointer">
                   <p className="px-0.5 py-1 lg:px-2 text-2xl md:text-lg rounded-md text-gray-500 hover:text-white cursor-pointer text-center hover:bg-gray-900">
                     {user.firstName}
                   </p>
@@ -188,7 +188,7 @@ const Navbar = () => {
           </div>
         )}
         {!opened && (
-          <div className="text-gray-300 text-lg font-medium hidden xl:gap-8 md:flex gap-8">
+          <div className="text-gray-300 text-lg font-medium hidden md:flex gap-6 lg:gap-8">
             <SearchBar />
             <LinkElements />
           </div>
@@ -204,7 +204,7 @@ export const SearchBar = () => {
   const spotlight = useSpotlight();
   return (
     <div
-      className="py-1 w-58 max-w-[60%] mx-auto flex items-center rounded-md px-2 gap-2 bg-[#252728] hover:cursor-pointer"
+      className="py-1 w-36 lg:w-58 max-w-[60%] mx-auto flex items-center rounded-md px-2 gap-2 bg-[#252728] hover:cursor-pointer"
       onClick={spotlight.openSpotlight}
     >
       <Search className="w-5 h-5 text-gray-400" />

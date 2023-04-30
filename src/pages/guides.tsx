@@ -5,6 +5,8 @@ import { SERVER_URL } from "@/lib/config";
 import { useQuery } from "@tanstack/react-query";
 import { notSignedInNotification } from "@/components/Notifications";
 import { Plus, Search, X } from "lucide-react";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/router";
 
 export interface GuideType {
   credits?: string;
@@ -27,8 +29,15 @@ const Guides = ({
 
   const inputElement = useRef<HTMLInputElement>(null);
 
+  const router = useRouter();
+  const { user, isSignedIn } = useUser();
+
   const addGuideHandler = () => {
-    notSignedInNotification("You need to be signed in to add a guide!");
+    if (!isSignedIn) {
+      notSignedInNotification("You need to be signed in to add a guide!");
+      return;
+    }
+    router.push("/guides/add");
   };
 
   useEffect(() => {
