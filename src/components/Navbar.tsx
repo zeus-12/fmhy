@@ -84,15 +84,11 @@ export const LinkElements = () => {
         </>
       ) : (
         <SignInButton mode="modal">
-          <button>
-            <p
-              className={`px-0.5 py-1 lg:px-2 text-2xl md:text-lg rounded-md hover:text-white cursor-pointer text-center hover:bg-gray-900 ${
-                curLink.startsWith("/login") ? "text-white" : "text-gray-500"
-              }`}
-            >
-              Log in
+          <div className="mx-auto block mt-0">
+            <p className=" px-0.5 py-1 lg:px-2 text-2xl md:text-lg rounded-md hover:text-white cursor-pointer text-center hover:bg-gray-900 text-gray-500">
+              Login
             </p>
-          </button>
+          </div>
         </SignInButton>
       )}
     </>
@@ -136,7 +132,9 @@ export const NavbarDrawer: React.FC<NavbarDrawerProps> = ({
     >
       <div className="text-2xl pt-16 space-y-4">
         <SearchBar />
-        <LinkElements />
+        <div>
+          <LinkElements />
+        </div>
       </div>
     </Drawer>
   </div>
