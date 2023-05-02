@@ -30,14 +30,14 @@ const Guides = ({
   const inputElement = useRef<HTMLInputElement>(null);
 
   const router = useRouter();
-  const { user, isSignedIn } = useUser();
+  const { isSignedIn } = useUser();
 
   const addGuideHandler = () => {
     if (!isSignedIn) {
       notSignedInNotification("You need to be signed in to add a guide!");
       return;
     }
-    router.push("/guides/add");
+    router.push("/guides/new");
   };
 
   useEffect(() => {
