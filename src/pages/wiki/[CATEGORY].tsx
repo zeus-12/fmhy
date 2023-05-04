@@ -11,6 +11,7 @@ import {
   LiRenderer,
   LinkRenderer,
   PRenderer,
+  CodeRenderer,
 } from "@/lib/wiki/renderers";
 import { useQuery } from "@tanstack/react-query";
 import WikiHome from "@/components/wiki/WikiHomePage";
@@ -173,6 +174,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
                 a: LinkRenderer,
                 li: (props: any) => LiRenderer(props, starredLinks), //for storage only
                 hr: () => <></>,
+                code: (props: any) => CodeRenderer(props),
               }}
             >
               {data}

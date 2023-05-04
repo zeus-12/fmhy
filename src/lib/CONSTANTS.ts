@@ -178,6 +178,7 @@ export const MARKDOWN_RESOURCES = [
     urlEnding: "Home",
     emoji: "👋",
   },
+
   {
     title: "Adblock, Privacy",
     urlEnding: "AdblockVPNGuide",
@@ -192,6 +193,11 @@ export const MARKDOWN_RESOURCES = [
     title: "Android, iOS",
     urlEnding: "Android-iOSGuide",
     emoji: "📱",
+  },
+  {
+    title: "Base64",
+    urlEnding: "base64",
+    emoji: "🔗",
   },
   {
     title: "Beginners Guide",

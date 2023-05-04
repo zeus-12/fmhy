@@ -174,3 +174,25 @@ export const PRenderer = (props: any) => {
     return <p>{props.children}</p>;
   }
 };
+
+export const CodeRenderer = (props: any) => {
+  var children = React.Children.toArray(props.children);
+  var text = children.reduce(flatten, "");
+  const decrypted = atob(text);
+  const split = decrypted.split("\n");
+  return (
+    <>
+      {split.map((link) => (
+        <a
+          key={link}
+          href={link}
+          className="block "
+          target="_blank"
+          rel="noreferrer"
+        >
+          {link}
+        </a>
+      ))}
+    </>
+  );
+};
