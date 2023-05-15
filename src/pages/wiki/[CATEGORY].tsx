@@ -254,5 +254,5 @@ export async function getStaticPaths() {
     params: { CATEGORY: resource.urlEnding.toLowerCase() },
   }));
 
-  return { paths, fallback: false };
+  return { paths, fallback: "blocking" };
 }
