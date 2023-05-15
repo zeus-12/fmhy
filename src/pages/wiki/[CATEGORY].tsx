@@ -13,7 +13,6 @@ import {
   PRenderer,
   CodeRenderer,
 } from "@/lib/wiki/renderers";
-import { useQuery } from "@tanstack/react-query";
 import WikiHome from "@/components/wiki/WikiHomePage";
 
 import WikiBottomNavigator from "@/components/wiki/WikiBottomNavigator";
@@ -22,7 +21,8 @@ import WikiContentsSidebar from "@/components/wiki/WikiContentsSidebar";
 import { useRouter } from "next/router";
 
 const Wiki = ({ data, isError }: { data: string; isError: boolean }) => {
-  const router = useRouter();
+  const router = useRouter()
+  
   const CATEGORY = router.query.CATEGORY as string;
 
   const markdownCategory = MARKDOWN_RESOURCES.find(
@@ -254,5 +254,5 @@ export async function getStaticPaths() {
     params: { CATEGORY: resource.urlEnding.toLowerCase() },
   }));
 
-  return { paths, fallback: "blocking" };
+  return { paths:[], fallback: "blocking" };
 }
