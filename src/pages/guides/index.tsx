@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, ChangeEventHandler } from "react";
 import GuideItem from "@/components/GuideItem";
 import { Input, Loader } from "@mantine/core";
 import { SERVER_URL } from "@/lib/config";
-import { useQuery } from "@tanstack/react-query";
 import { notSignedInNotification } from "@/components/Notifications";
 import { Plus, Search, X } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
