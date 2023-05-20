@@ -19,7 +19,7 @@ const Base64 = () => {
   };
 
   const fetchBase64Links = async () => {
-    const res = await fetch(`${SERVER_URL}/api/hashed-links?page=${page}`);
+    const res = await fetch(`/api/base64`);
     const data = await res.json();
     return data.data;
   };
