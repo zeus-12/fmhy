@@ -250,12 +250,9 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths() {
-  const paths = MARKDOWN_RESOURCES.map((resource) => ({
-    params: { CATEGORY: resource.urlEnding.toLowerCase() },
-  }));
+  // const paths = MARKDOWN_RESOURCES.map((resource) => ({
+  //   params: { CATEGORY: resource.urlEnding.toLowerCase() },
+  // }));
 
-  return {
-    paths,
-    fallback: false,
-  };
+  return { paths: [], fallback: "blocking" };
 }
