@@ -19,9 +19,11 @@ export interface GuideType {
 const Guides = ({
   guides,
   isError,
+  errorMessage,
 }: {
   guides: GuideType[];
   isError: boolean;
+  errorMessage?: string;
 }) => {
   const [inputText, setInputText] = useState("");
   const [showInput, setShowInput] = useState(false);
@@ -120,7 +122,7 @@ const Guides = ({
           </div>
         </div>
       </div>
-      {isError && <p>Can&apos;t connect to the server</p>}
+      {isError && <p>Can&apos;t connect to the server: {errorMessage}</p>}
 
       <div className="space-y-2 flex-1 flex">
         <div className="w-full">
@@ -157,6 +159,7 @@ export async function getStaticProps() {
       props: {
         guides: [],
         isError: true,
+        errorMessage: err.message,
       },
     };
   }
