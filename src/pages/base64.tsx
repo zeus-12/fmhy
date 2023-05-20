@@ -5,7 +5,7 @@ import { SERVER_URL } from "@/lib/config";
 import { useQuery } from "@tanstack/react-query";
 
 interface Base64LinksType {
-  _id: string;
+  id: string;
   title: string;
   hash: string;
 }
@@ -49,9 +49,9 @@ const Base64 = () => {
       {isLoading && <p>Loading...</p>}
 
       {links &&
-        links?.map((link: Base64LinksType, index: number) => (
+        links?.map((link: Base64LinksType) => (
           <Base64Item
-            key={index}
+            key={link.id}
             title={link.title}
             hash={link.hash}
             showDecoded={decodeAllLinks}
