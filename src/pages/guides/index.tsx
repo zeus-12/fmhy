@@ -124,13 +124,14 @@ const Guides = ({
         {isError && <p>Can&apos;t connect to the server</p>}
 
         <div className="w-full">
-          {guides && filterData(guides)?.length === 0 ? (
-            <p className="mt-2">No results match the entered query</p>
-          ) : (
-            filterData(guides)?.map((item) => (
-              <GuideItem key={item._id} data={item} />
-            ))
-          )}
+          {guides.length > 0 &&
+            (filterData(guides)?.length === 0 ? (
+              <p className="mt-2">No results match the entered query</p>
+            ) : (
+              filterData(guides)?.map((item) => (
+                <GuideItem key={item.id} data={item} />
+              ))
+            ))}
         </div>
       </div>
     </div>
