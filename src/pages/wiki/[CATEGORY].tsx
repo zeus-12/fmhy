@@ -21,8 +21,8 @@ import WikiContentsSidebar from "@/components/wiki/WikiContentsSidebar";
 import { useRouter } from "next/router";
 
 const Wiki = ({ data, isError }: { data: string; isError: boolean }) => {
-  const router = useRouter()
-  
+  const router = useRouter();
+
   const CATEGORY = router.query.CATEGORY as string;
 
   const markdownCategory = MARKDOWN_RESOURCES.find(
@@ -250,9 +250,9 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths() {
-  // const paths = MARKDOWN_RESOURCES.map((resource) => ({
-  //   params: { CATEGORY: resource.urlEnding.toLowerCase() },
-  // }));
+  const paths = MARKDOWN_RESOURCES.map((resource) => ({
+    params: { CATEGORY: resource.urlEnding.toLowerCase() },
+  }));
 
-  return { paths:[], fallback: "blocking" };
+  return { paths };
 }
