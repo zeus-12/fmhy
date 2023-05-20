@@ -3,6 +3,7 @@ import { Search as SearchIcon } from "lucide-react";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { SERVER_URL } from "@/lib/config";
+import { useQuery } from "@tanstack/react-query";
 
 const ITEMS_PER_PAGE = 30;
 
@@ -25,12 +26,6 @@ const Search = () => {
   const [searchQuery, setSearchQuery] = useState<string>(query);
   const [activePage, setActivePage] = useState(page);
 
-  const [searchResults, setSearchResults] = useState<null | SearchResultType[]>(
-    null
-  );
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [count, setCount] = useState(1);
   const [includeNsfw, setIncludeNsfw] = useState(nsfw);
 
   const searchRef = useRef<HTMLInputElement>(null);
@@ -39,85 +34,109 @@ const Search = () => {
     searchRef.current?.focus();
   }, []);
 
+  const {
+    data: searchRes,
+    fetchStatus,
+    isLoading: isLoading_,
+    isError,
+    refetch: refetchSearchResults,
+  } = useQuery({
+    queryKey: ["search", searchQuery, activePage, includeNsfw],
+    queryFn: async () => {
+      const res = await fetch(
+        `${SERVER_URL}/api/search?q=${searchQuery}&page=${activePage}&nsfw=${includeNsfw}`
+      );
+      const data = await res.json();
+      return data;
+    },
+    enabled: false,
+  });
+
+  // cause of weird reactq behaviour, isloading remaining true when enabled is false
+  const isLoading = isLoading_ && fetchStatus !== "idle";
+
+  const searchResults: undefined | SearchResultType[] = searchRes?.data;
+  const count = searchRes?.count;
+
+  useEffect(() => {
+    setSearchQuery(query);
+    setActivePage(page);
+    setIncludeNsfw(nsfw);
+
+    // do something to force refetch -> searchquery may be undefined when function is called
+  }, [router.query]);
+
   useEffect(() => {
     if (searchQuery) {
-      setLoading(true);
       fetchSearchResults();
     }
   }, [activePage, includeNsfw]);
 
-  const navigatePage = (page: number, nsfw?: boolean, query?: string) => {
-    router.push(
-      "/search?q=" +
-        (query ?? searchQuery) +
-        "&page=" +
-        page +
-        "&nsfw=" +
-        (nsfw ?? includeNsfw)
-    );
+  const navigatePage = ({
+    page,
+    nsfw,
+    query,
+  }: {
+    page: number;
+    nsfw?: boolean;
+    query?: string;
+  }) => {
+    let params = new URLSearchParams(window.location.search);
+
+    if (query !== undefined) {
+      params.set("q", query);
+    }
+    if (page !== undefined) {
+      setActivePage(page);
+      params.set("page", page.toString());
+    }
+    if (nsfw !== undefined) {
+      setIncludeNsfw(nsfw);
+      params.set("nsfw", nsfw.toString());
+    }
+
+    router.push({
+      pathname: "/search",
+      query: params.toString(),
+    });
   };
 
   const fetchSearchResults = async () => {
     if (!searchQuery || !searchQuery.trim()) return;
 
-    const res = await fetch(
-      SERVER_URL +
-        "/api/search?q=" +
-        searchQuery +
-        "&page=" +
-        activePage +
-        "&nsfw=" +
-        includeNsfw
-    );
-
-    const data = await res.json();
-
-    if (!(data.status === "ok")) {
-      setLoading(false);
-      setError(true);
-      return;
+    try {
+      await refetchSearchResults();
+    } catch (err: any) {
+      console.log(err.message);
     }
-    setSearchResults(data.data);
-
-    setCount(data.count);
-
-    setLoading(false);
-    setError(false);
   };
 
   const searchHandler = async () => {
     if (!searchQuery || !searchQuery.trim()) return;
 
-    setActivePage(1);
-    navigatePage(1);
+    navigatePage({ page: 1, nsfw: includeNsfw, query: searchQuery });
 
-    setLoading(true);
     searchRef.current?.blur();
     await fetchSearchResults();
   };
 
   const paginationHandler = async (cur: number) => {
-    setActivePage(cur);
-    navigatePage(cur);
+    navigatePage({ page: cur });
     window.scrollTo(0, 0);
   };
 
   const toggleNsfw = (e: React.FormEvent<EventTarget>) => {
-    setIncludeNsfw((e.target as HTMLInputElement).checked);
-    setActivePage(1);
-    navigatePage(1, (e.target as HTMLInputElement).checked);
+    const nsfw = (e.target as HTMLInputElement).checked;
+    navigatePage({ page: 1, nsfw: nsfw });
   };
 
   const resetSearch = () => {
     router.push("/search");
-    setSearchQuery("");
-    setActivePage(1);
-    setSearchResults(null);
   };
 
   return (
-    <div className="flex-1 flex flex-col px-6 sm:px-8 md:px-12 lg:px-16 md:py-2 lg:py-4 xl:py-6">
-      <div className="flex justify-between items-center">
+    <div className="flex flex-1 flex-col px-6 sm:px-8 md:px-12 md:py-2 lg:px-16 lg:py-4 xl:py-6">
+      <div className="flex items-center justify-between">
         <p
           onClick={resetSearch}
           className="text-3xl font-semibold tracking-tighter hover:cursor-pointer"
@@ -126,7 +145,7 @@ const Search = () => {
         </p>
         <Switch label="NSFW?" checked={includeNsfw} onChange={toggleNsfw} />
       </div>
-      <p className="text-gray-400 mb-2">
+      <p className="mb-2 text-gray-400">
         Missing links from{" "}
         <a
           className="text-gray-400 underline"
@@ -145,13 +164,13 @@ const Search = () => {
           }
         }}
         ref={searchRef}
-        rightSection={<SearchIcon className="w-5 h-5 text-gray-400" />}
+        rightSection={<SearchIcon className="h-5 w-5 text-gray-400" />}
         className="w-[90vw] sm:w-96"
       />
-      {error && (
-        <div className="flex-1 flex justify-center items-center">
-          <div className="text-center w-[50vw] space-y-2">
-            <p className="text-7xl text-gray-400 font-semibold">500</p>
+      {isError && (
+        <div className="flex flex-1 items-center justify-center">
+          <div className="w-[50vw] space-y-2 text-center">
+            <p className="text-7xl font-semibold text-gray-400">500</p>
             <p className="text-3xl font-semibold">Something went wrong</p>
             <p className="text-gray-600">
               Our servers couldn&apos;t handle your request. Try refreshing the
@@ -168,35 +187,35 @@ const Search = () => {
           </div>
         </div>
       )}
-      {!error && loading && (
-        <div className="flex-1 flex justify-center items-center">
+      {isLoading && (
+        <div className="flex flex-1 items-center justify-center">
           <Loader size="lg" variant="bars" />
         </div>
       )}
 
-      {!loading && searchResults && searchResults?.length > 0 && (
-        <div className="flex-1 flex flex-col space-y-4 mt-2">
+      {!isLoading && searchResults && searchResults?.length > 0 && (
+        <div className="mt-2 flex flex-1 flex-col space-y-4">
           <p className="text-gray-600">{`${count} results found`}</p>
           {searchResults.map((result, i) => (
             <div
-              className="flex flex-col bg-gray-900 space-y-2 p-4 rounded-xl hover:scale-[101%] transition transform duration-100 ease-out"
+              className="flex transform flex-col space-y-2 rounded-xl bg-gray-900 p-4 transition duration-100 ease-out hover:scale-[101%]"
               // style={{ backdropFilter: "saturate(180%) blur(20px)" }}
               key={i}
             >
               <p className="text-xl font-semibold">{result.title}</p>
-              {result.link?.map((link: string) => (
+              {result?.link?.map((link: string) => (
                 <a
                   target="_blank"
                   rel="noreferrer"
-                  className="text-cyan-400 hover:text-cyan-300 break-words"
+                  className="break-words text-cyan-400 hover:text-cyan-300"
                   href={link}
                   key={link}
                 >
                   <p>
-                    <span className="pr-1 text-white">
+                    {/* <span className="pr-1 text-white">
                       {result.starred ? "⭐️" : "•"}
-                    </span>
-                    <span className="hover:underline underline-offset-2">
+                    </span> */}
+                    <span className="underline-offset-2 hover:underline">
                       {link}
                     </span>
                   </p>
@@ -205,17 +224,19 @@ const Search = () => {
             </div>
           ))}
 
-          <div className="flex justify-center mt-4 pb-4">
-            <Pagination
-              value={activePage}
-              onChange={(cur) => paginationHandler(cur)}
-              total={Math.ceil(count / ITEMS_PER_PAGE)}
-            />
-          </div>
+          {count && Math.ceil(count / ITEMS_PER_PAGE) > 1 && (
+            <div className="mt-4 flex justify-center pb-4">
+              <Pagination
+                value={activePage}
+                onChange={(cur) => paginationHandler(cur)}
+                total={Math.ceil(count / ITEMS_PER_PAGE)}
+              />
+            </div>
+          )}
         </div>
       )}
-      {!loading && searchResults?.length === 0 && (
-        <div className="flex-1 flex justify-center items-center">
+      {!isLoading && searchResults?.length === 0 && (
+        <div className="flex flex-1 items-center justify-center">
           <p>No results found! Try changing the query</p>
         </div>
       )}

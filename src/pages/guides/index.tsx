@@ -120,9 +120,9 @@ const Guides = ({
           </div>
         </div>
       </div>
-      <div className="space-y-2 flex-1 flex">
-        {isError && <p>Can&apos;t connect to the server</p>}
+      {isError && <p>Can&apos;t connect to the server</p>}
 
+      <div className="space-y-2 flex-1 flex">
         <div className="w-full">
           {guides.length > 0 &&
             (filterData(guides)?.length === 0 ? (
@@ -142,7 +142,9 @@ export default Guides;
 
 export async function getStaticProps() {
   try {
-    const res = await fetch("https://fmhy.ml/api/guides");
+    const dev = process.env.NODE_ENV !== "production";
+    const server = dev ? "http://localhost:3000" : "https://fmhy.ml";
+    const res = await fetch(`${server}/api/guides`);
     const data = await res.json();
     return {
       props: {
@@ -152,6 +154,7 @@ export async function getStaticProps() {
       revalidate: 60 * 60 * 24, // 1 day
     };
   } catch (err: any) {
+    console.log(err.message);
     return {
       props: {
         guides: [],
