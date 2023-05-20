@@ -19,7 +19,6 @@ export interface GuideType {
 const Guides = ({
   guides,
   isError,
-  errorMessage,
 }: {
   guides: GuideType[];
   isError: boolean;
@@ -123,7 +122,7 @@ const Guides = ({
           </div>
         </div>
       </div>
-      {isError && <p>Can&apos;t connect to the server: {errorMessage}</p>}
+      {isError && <p>Can&apos;t connect to the server</p>}
 
       <div className="space-y-2 flex-1 flex">
         <div className="w-full">
@@ -145,7 +144,7 @@ export default Guides;
 
 export async function getStaticProps() {
   try {
-    const res = await fetch(`${FRONTEND_SERVER_URL}/api/guides`);
+    const res = await fetch(`/api/guides`);
     const data = await res.json();
     return {
       props: {
@@ -160,7 +159,6 @@ export async function getStaticProps() {
       props: {
         guides: [],
         isError: true,
-        errorMessage: err.message,
       },
     };
   }
