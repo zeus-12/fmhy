@@ -19,9 +19,13 @@ const Base64 = () => {
   };
 
   const fetchBase64Links = async () => {
-    const res = await fetch(`/api/base64`);
-    const data = await res.json();
-    return data.data;
+    try {
+      const res = await fetch(`/api/base64`);
+      const data = await res.json();
+      return data.data;
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const {
