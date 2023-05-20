@@ -11,8 +11,8 @@ import {
   LiRenderer,
   LinkRenderer,
   PRenderer,
+  CodeRenderer,
 } from "@/lib/wiki/renderers";
-import { useQuery } from "@tanstack/react-query";
 import WikiHome from "@/components/wiki/WikiHomePage";
 
 import WikiBottomNavigator from "@/components/wiki/WikiBottomNavigator";
@@ -22,6 +22,7 @@ import { useRouter } from "next/router";
 
 const Wiki = ({ data, isError }: { data: string; isError: boolean }) => {
   const router = useRouter();
+
   const CATEGORY = router.query.CATEGORY as string;
 
   const markdownCategory = MARKDOWN_RESOURCES.find(
@@ -173,6 +174,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
                 a: LinkRenderer,
                 li: (props: any) => LiRenderer(props, starredLinks), //for storage only
                 hr: () => <></>,
+                code: (props: any) => CodeRenderer(props),
               }}
             >
               {data}
@@ -235,7 +237,7 @@ export async function getStaticProps({
         data: cleanedText || text,
         isError: false,
       },
-      revalidate: 60 * 60 * 12, // 12 hours
+      revalidate: 60 * 60 * 24 * 2, // 2 days
     };
   } catch (err) {
     return {
@@ -252,5 +254,5 @@ export async function getStaticPaths() {
     params: { CATEGORY: resource.urlEnding.toLowerCase() },
   }));
 
-  return { paths, fallback: false };
+  return { paths };
 }

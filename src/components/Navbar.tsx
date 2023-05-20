@@ -1,21 +1,23 @@
 import { useState, Dispatch, SetStateAction } from "react";
-import { Burger, Drawer, Input } from "@mantine/core";
+import { Burger, Button, Drawer, Input, Menu, Skeleton } from "@mantine/core";
 import { Kbd } from "@mantine/core";
 import { useSpotlight } from "@mantine/spotlight";
 import Link from "next/link";
-import { Search } from "lucide-react";
+import { LogOut, Search } from "lucide-react";
 import { useRouter } from "next/router";
 import Image from "next/image";
-
+import { useUser, useAuth, SignInButton } from "@clerk/nextjs";
 const navItems = [
   { link: "/wiki/home", name: "Wiki", startsWith: "/wiki" },
   { link: "/search", name: "Search", startsWith: "/search" },
   { link: "/about", name: "About", startsWith: "/about" },
   { link: "/guides", name: "Guides", startsWith: "/guides" },
-  // { link: username?"/user":"/login", name: username?"User":"Login" },
 ];
 
 export const LinkElements = () => {
+  const { signOut } = useAuth();
+  const { isLoaded, isSignedIn, user } = useUser();
+
   const router = useRouter();
   const curLink = router.pathname;
 
@@ -34,6 +36,61 @@ export const LinkElements = () => {
           </p>
         </Link>
       ))}
+
+      {/* login part */}
+      {!isLoaded ? (
+        <Skeleton
+          className="mx-auto block"
+          height={30}
+          my={"auto"}
+          width="80px"
+          radius="md"
+        />
+      ) : isSignedIn ? (
+        <>
+          <div className="hidden md:inline-flex">
+            <Menu shadow="md" width={125}>
+              <Menu.Target>
+                <div className="flex hover:cursor-pointer">
+                  <p className="px-0.5 py-1 lg:px-2 text-2xl md:text-lg rounded-md text-gray-500 hover:text-white cursor-pointer text-center hover:bg-gray-900">
+                    {user.firstName}
+                  </p>
+                  <Image
+                    src={user.profileImageUrl}
+                    alt="profile"
+                    width={30}
+                    height={30}
+                    className="rounded-full h-[35px] w-auto"
+                  />
+                </div>
+              </Menu.Target>
+
+              <Menu.Dropdown>
+                <Menu.Item
+                  icon={<LogOut size={12} />}
+                  onClick={() => signOut()}
+                >
+                  Logout
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+          </div>
+
+          <div className="md:hidden">
+            <p className="px-0.5 py-1 lg:px-2 text-2xl md:text-lg rounded-md text-gray-500 hover:text-white cursor-pointer text-center hover:bg-gray-900">
+              Logout
+            </p>
+          </div>
+        </>
+      ) : (
+        <SignInButton mode="modal">
+          <div className="mx-auto block mt-0">
+            <p className=" px-0.5 py-1 lg:px-2 text-2xl md:text-lg rounded-md hover:text-white cursor-pointer text-center hover:bg-gray-900 text-gray-500">
+              Login
+            </p>
+          </div>
+        </SignInButton>
+      )}
     </>
   );
 };
@@ -75,7 +132,9 @@ export const NavbarDrawer: React.FC<NavbarDrawerProps> = ({
     >
       <div className="text-2xl pt-16 space-y-4">
         <SearchBar />
-        <LinkElements />
+        <div>
+          <LinkElements />
+        </div>
       </div>
     </Drawer>
   </div>
@@ -129,7 +188,7 @@ const Navbar = () => {
           </div>
         )}
         {!opened && (
-          <div className="text-gray-300 text-lg font-medium hidden xl:gap-8 md:flex gap-8">
+          <div className="text-gray-300 text-lg font-medium hidden md:flex gap-6 lg:gap-8">
             <SearchBar />
             <LinkElements />
           </div>
@@ -145,7 +204,7 @@ export const SearchBar = () => {
   const spotlight = useSpotlight();
   return (
     <div
-      className="py-1 w-58 max-w-[60%] mx-auto flex items-center rounded-md px-2 gap-2 bg-[#252728] hover:cursor-pointer"
+      className="py-1 w-36 lg:w-58 max-w-[60%] mx-auto flex items-center rounded-md px-2 gap-2 bg-[#252728] hover:cursor-pointer"
       onClick={spotlight.openSpotlight}
     >
       <Search className="w-5 h-5 text-gray-400" />

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.16.4",
     "@emotion/react": "^11.10.6",
     "@emotion/server": "^11.10.0",
     "@mantine/core": "^6.0.7",
@@ -16,6 +17,7 @@
     "@mantine/next": "^6.0.8",
     "@mantine/notifications": "^6.0.7",
     "@mantine/spotlight": "^6.0.7",
+    "@prisma/client": "^4.13.0",
     "@tanstack/react-query": "^4.29.3",
     "@tanstack/react-query-devtools": "^4.29.3",
     "lucide-react": "^0.181.0",

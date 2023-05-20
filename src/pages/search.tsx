@@ -2,7 +2,7 @@ import { Button, Input, Loader, Pagination, Switch } from "@mantine/core";
 import { Search as SearchIcon } from "lucide-react";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { SERVER_URL } from "../lib/config";
+import { SERVER_URL } from "@/lib/config";
 
 const ITEMS_PER_PAGE = 30;
 

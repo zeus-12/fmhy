@@ -8,7 +8,7 @@ const GuideItem: React.FC<{ data: GuideType }> = ({ data }) => {
       <Head>
         <title>Guides</title>
       </Head>
-      <div className="guide-item my-2 border-[0.25px] border-gray-900 rounded-xl px-4 py-2">
+      <div className="guide-item my-2 border-[0.025px] border-gray-900 rounded-xl px-4 py-2">
         <div>
           <div className="flex justify-between items-center pt-2">
             <a
@@ -22,20 +22,11 @@ const GuideItem: React.FC<{ data: GuideType }> = ({ data }) => {
             </a>
           </div>
 
-          <div className="flex items-center">
-            {data.tags && (
-              <div className="space-x-2">
-                {data.tags.map((tag, index) => (
-                  <Badge key={index}>{tag}</Badge>
-                ))}
-              </div>
-            )}
+          <div className="flex items-center gap-2">
+            {data.tags &&
+              data.tags.map((tag, index) => <Badge key={index}>{tag}</Badge>)}
 
-            {data.credits && (
-              <div>
-                <p className="m-0">🙏 {data.credits}</p>
-              </div>
-            )}
+            {data.credits && <p className="m-0">🙏 {data.credits}</p>}
           </div>
         </div>
       </div>
@@ -65,8 +56,7 @@ export default GuideItem;
 //   }
 // };
 
-{
-  /* {username && (data.owner === username || isAdmin) && (
+/* {username && (data.owner === username || isAdmin) && (
                 <div className="flex mr-2">
                   <svg
                     id={data._id}
@@ -105,4 +95,3 @@ export default GuideItem;
                   </svg>
                 </div>
               )} */
-}
