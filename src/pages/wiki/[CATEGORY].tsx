@@ -243,7 +243,7 @@ export async function getStaticProps({
     return {
       props: {
         isError: true,
-        data: err.message,
+        data: "",
       },
     };
   }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, ChangeEventHandler } from "react";
 import GuideItem from "@/components/GuideItem";
-import { Input, Loader } from "@mantine/core";
-import { SERVER_URL } from "@/lib/config";
+import { Input } from "@mantine/core";
+import { FRONTEND_SERVER_URL, SERVER_URL } from "@/lib/config";
 import { notSignedInNotification } from "@/components/Notifications";
 import { Plus, Search, X } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
@@ -142,9 +142,7 @@ export default Guides;
 
 export async function getStaticProps() {
   try {
-    const dev = process.env.NODE_ENV !== "production";
-    const server = dev ? "http://localhost:3000" : "https://fmhy.ml";
-    const res = await fetch(`${server}/api/guides`);
+    const res = await fetch(`${FRONTEND_SERVER_URL}/api/guides`);
     const data = await res.json();
     return {
       props: {
