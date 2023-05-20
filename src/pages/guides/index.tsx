@@ -11,8 +11,8 @@ export interface GuideType {
   credits?: string;
   link: string;
   nsfw: boolean;
-  tags: string[];
-  _id: string;
+  tags: string;
+  id: string;
   title: string;
 }
 
@@ -123,11 +123,6 @@ const Guides = ({
       <div className="space-y-2 flex-1 flex">
         {isError && <p>Can&apos;t connect to the server</p>}
 
-        {/* {isLoading && (
-          <div className="justify-center items-center flex flex-1">
-            <Loader variant="dots" />
-          </div>
-        )} */}
         <div className="w-full">
           {guides && filterData(guides)?.length === 0 ? (
             <p className="mt-2">No results match the entered query</p>
@@ -146,7 +141,7 @@ export default Guides;
 
 export async function getStaticProps() {
   try {
-    const res = await fetch(SERVER_URL + "/api/guides");
+    const res = await fetch("https://fmhy.ml/api/guides");
     const data = await res.json();
     return {
       props: {

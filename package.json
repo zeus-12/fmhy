@@ -17,7 +17,7 @@
     "@mantine/next": "^6.0.8",
     "@mantine/notifications": "^6.0.7",
     "@mantine/spotlight": "^6.0.7",
-    "@prisma/client": "^4.13.0",
+    "@prisma/client": "^4.14.1",
     "@tanstack/react-query": "^4.29.3",
     "@tanstack/react-query-devtools": "^4.29.3",
     "lucide-react": "^0.181.0",
@@ -34,6 +34,7 @@
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.1",
     "postcss": "8.4.23",
+    "prisma": "^4.14.1",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4"
   }

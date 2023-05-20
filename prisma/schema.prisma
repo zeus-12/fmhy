@@ -8,11 +8,12 @@ datasource db {
   relationMode = "prisma"
 }
 
-model Link {
-  id      String  @id @default(cuid())
-  title   String  @db.LongText
-  starred Boolean @default(false)
-  link    String  @db.LongText
+model Wiki {
+  id    String  @id @default(cuid())
+  title String  @db.LongText
+  // starred Boolean @default(false)
+  link  String  @db.LongText
+  nsfw  Boolean @default(false)
 }
 
 model Base64 {
