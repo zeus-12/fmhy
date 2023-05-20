@@ -239,11 +239,11 @@ export async function getStaticProps({
       },
       revalidate: 60 * 60 * 24 * 2, // 2 days
     };
-  } catch (err) {
+  } catch (err: any) {
     return {
       props: {
         isError: true,
-        data: "",
+        data: err.message,
       },
     };
   }

@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     try {
-      const links = await prisma.base64.findMany({});
+      const links = await prisma.base64.findMany();
       return res.status(200).json({ data: links });
     } catch (err: any) {
       return res.status(500).json({ message: err.message });
