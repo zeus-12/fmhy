@@ -146,7 +146,6 @@ export async function getStaticProps() {
   try {
     const res = await fetch(`${FRONTEND_SERVER_URL}/api/guides`);
     const data = await res.json();
-    console.log(data.data);
     return {
       props: {
         guides: data.data,
