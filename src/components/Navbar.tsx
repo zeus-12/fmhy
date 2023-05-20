@@ -6,7 +6,7 @@ import Link from "next/link";
 import { LogOut, Search } from "lucide-react";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { useUser, useAuth, SignInButton } from "@clerk/nextjs";
+// import { useUser, useAuth, SignInButton } from "@clerk/nextjs";
 const navItems = [
   { link: "/wiki/home", name: "Wiki", startsWith: "/wiki" },
   { link: "/search", name: "Search", startsWith: "/search" },
@@ -15,8 +15,8 @@ const navItems = [
 ];
 
 export const LinkElements = () => {
-  const { signOut } = useAuth();
-  const { isLoaded, isSignedIn, user } = useUser();
+  // const { signOut } = useAuth();
+  // const { isLoaded, isSignedIn, user } = useUser();
 
   const router = useRouter();
   const curLink = router.pathname;
@@ -38,7 +38,7 @@ export const LinkElements = () => {
       ))}
 
       {/* login part */}
-      {!isLoaded ? (
+      {/* {!isLoaded ? (
         <Skeleton
           className="mx-auto block"
           height={30}
@@ -90,7 +90,7 @@ export const LinkElements = () => {
             </p>
           </div>
         </SignInButton>
-      )}
+      )} */}
     </>
   );
 };
