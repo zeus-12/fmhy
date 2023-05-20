@@ -2,7 +2,7 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import { useEffect, useState } from "react";
 import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
-import { Loader, Switch } from "@mantine/core";
+import { Switch } from "@mantine/core";
 import {
   H1Renderer,
   H2Renderer,
