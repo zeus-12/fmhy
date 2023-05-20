@@ -4,7 +4,7 @@ import { Input } from "@mantine/core";
 import { FRONTEND_SERVER_URL, SERVER_URL } from "@/lib/config";
 import { notSignedInNotification } from "@/components/Notifications";
 import { Plus, Search, X } from "lucide-react";
-import { useUser } from "@clerk/nextjs";
+// import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 
 export interface GuideType {
@@ -31,7 +31,8 @@ const Guides = ({
   const inputElement = useRef<HTMLInputElement>(null);
 
   const router = useRouter();
-  const { isSignedIn } = useUser();
+  // const { isSignedIn } = useUser();
+  const isSignedIn = false;
 
   const addGuideHandler = () => {
     if (!isSignedIn) {
