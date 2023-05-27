@@ -176,9 +176,7 @@ export const PRenderer = (props: any) => {
 };
 
 export const CodeRenderer = (props: any, CATEGORY: string) => {
-  if (CATEGORY !== "base64") {
-    return <code {...props} />;
-  }
+  return <code {...props} />;
 
   var children = React.Children.toArray(props.children);
   var text = children.reduce(flatten, "");
