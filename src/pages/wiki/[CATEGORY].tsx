@@ -174,7 +174,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
                 a: LinkRenderer,
                 li: (props: any) => LiRenderer(props, starredLinks), //for storage only
                 hr: () => <></>,
-                code: (props: any) => CodeRenderer(props),
+                code: (props: any) => CodeRenderer(props, CATEGORY),
               }}
             >
               {data}
