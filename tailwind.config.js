@@ -6,5 +6,7 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {},
-  plugins: [],
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
 };

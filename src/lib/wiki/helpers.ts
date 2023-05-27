@@ -42,7 +42,7 @@ interface ClassMappingType {
 
 export const classMapping: ClassMappingType = {
   h1: "text-2xl font-semibold tracking-tighter",
-  h2: "text-xl font-medium tracking-medium",
+  h2: "text-xl font-medium tracking-medium my-2",
   h3: "text-2xl font-semibold tracking-tight mt-8 mb-3",
   h4: "text-xl font-medium tracking-medium",
 };
