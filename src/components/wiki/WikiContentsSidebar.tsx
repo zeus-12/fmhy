@@ -32,7 +32,7 @@ const WikiContentsSidebar: React.FC<WikiContentsSidebarProps> = ({
         opened={opened}
         className="bg-black md:hidden"
         classNames={{
-          body: "p-0",
+          body: "mt-16 p-0",
         }}
         position="right"
         size="sm"
@@ -44,18 +44,12 @@ const WikiContentsSidebar: React.FC<WikiContentsSidebarProps> = ({
         withCloseButton={false}
         zIndex={20}
       >
-        <>
-          <Drawer.Header>
-            <p className="text-2xl font-semibold">Contents</p>
-            <Drawer.CloseButton />
-          </Drawer.Header>
-          <WikiContentsSidebarData
-            markdownHeadings={markdownHeadings}
-            CATEGORY={CATEGORY}
-            closeDrawer={() => setOpened(false)}
-            isDrawer={true}
-          />
-        </>
+        <WikiContentsSidebarData
+          markdownHeadings={markdownHeadings}
+          CATEGORY={CATEGORY}
+          closeDrawer={() => setOpened(false)}
+          isDrawer={true}
+        />
       </Drawer>
     </>
   );
@@ -88,6 +82,7 @@ const WikiContentsSidebarData: React.FC<WikiContentsSidebarDataProps> = ({
             <a
               href={`#${convertTextToLowerCamelCase(item[0])}`}
               className="text-gray-500 text-lg hover:text-slate-300"
+              onClick={isDrawer ? closeDrawer : () => {}}
             >
               &#x203A; {removeSymbolsInHeading(item[0])}
             </a>
@@ -96,6 +91,7 @@ const WikiContentsSidebarData: React.FC<WikiContentsSidebarDataProps> = ({
                 <a
                   href={`#${convertTextToLowerCamelCase(subHeading)}`}
                   className="text-gray-500 text-base hover:text-slate-300"
+                  onClick={isDrawer ? closeDrawer : () => {}}
                 >
                   &#xbb; {removeSymbolsInHeading(subHeading)}
                 </a>
