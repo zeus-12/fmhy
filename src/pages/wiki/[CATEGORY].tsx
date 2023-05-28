@@ -74,72 +74,9 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
   // replace this with maps
   const markdownHeadings = {};
 
-  // const [scrollY, setScrollY] = useState(0);
-  // console.log(scrollY);
-
-  // const linksDataRef = useRef(null);
-
-  // const handleScroll = useCallback(() => {
-  //   setScrollY(linksDataRef.current.scrollY);
-  //   console.log(linksDataRef.current.scrollY);
-  // }, []);
-
-  // useEffect(() => {
-  //   const currRef = linksDataRef.current;
-  //   currRef.addEventListener("scroll", handleScroll, {
-  //     passive: true,
-  //   });
-  //   return () => currRef.removeEventListener("scroll", handleScroll);
-  // }, [handleScroll]);
-
-  // const handleScrollUp = () => {
-  //   window.scrollTo({ top: 0, behavior: "smooth" });
-  // };
-
-  // const fetchWikiData = async () => {
-  //   const markdownUrlEnding = markdownCategory?.urlEnding;
-
-  //   if (!markdownUrlEnding) {
-  //     return;
-  //   }
-  //   const markdownUrl =
-  //     "https://raw.githubusercontent.com/nbats/FMHYedit/main/" +
-  //     markdownUrlEnding +
-  //     ".md";
-
-  //   const res = await fetch(markdownUrl);
-  //   const text = await res.text();
-
-  //   const cleanedText = text.split("For mobile users")[1];
-  //   return cleanedText || text;
-  // };
-
-  // const { data, isError, isLoading } = useQuery({
-  //   queryKey: ["wiki", CATEGORY],
-  //   enabled: !!CATEGORY && CATEGORY !== "home",
-  //   queryFn: fetchWikiData,
-  // });
-
-  useEffect(() => {
-    const currentUrl = window.location.href;
-
-    if (!data || !currentUrl.includes("#")) return;
-
-    const id = currentUrl.split("#").at(-1);
-
-    if (!id) return;
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [data]);
-
   return (
     <>
-      <div
-        className="flex-1 sm:px-4 md:px-8 lg:px-14 xl:px-20 overflow-scroll"
-        // ref={linksDataRef}
-      >
+      <div className="flex-1 sm:px-4 md:px-8 lg:px-14 xl:px-20 overflow-scroll">
         <div className="flex justify-between items-center">
           <p className="text-3xl underline underline-offset-2 font-semibold tracking-tighter">
             {markdownCategory?.title}
@@ -157,11 +94,6 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
 
         {isError && <p>Something went wrong!</p>}
 
-        {/* {isLoading && (
-          <div className="justify-center items-center flex h-[calc(100vh_-_6rem)]">
-            <Loader variant="dots" />
-          </div>
-        )} */}
         {data && data.length > 0 && (
           <>
             <ReactMarkdown
@@ -180,15 +112,6 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
               {data}
             </ReactMarkdown>
 
-            {/*             
-            {scrollUp && (
-              <div
-                onClick={handleScrollUp}
-                className="fixed bottom-5 right-5 mr-4 mb-4"
-              >
-                <BsFillArrowUpCircleFill className="w-8 h-8" />
-              </div>
-            )} */}
             <WikiBottomNavigator CATEGORY={CATEGORY} />
           </>
         )}
