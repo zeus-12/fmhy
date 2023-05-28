@@ -20,7 +20,7 @@ const Base64Item: React.FC<Base64ItemProps> = ({
   const getLinksFromHash = () => {
     try {
       const decoded = atob(hash);
-      return decoded.split("\n");
+      return decoded.split("\n").filter((item) => !!item);
     } catch (err) {
       throw new Error("Invalid base64 string");
     }

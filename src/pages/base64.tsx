@@ -38,7 +38,11 @@ const Base64 = () => {
   });
 
   return (
-    <div className="px-6">
+    <div
+      className="
+    sm:p-4 sm:px-8 md:px-12 lg:px-16 md:py-2 lg:py-4 xl:py-6 pt-0 flex-1 flex flex-col mx-auto w-[95vw] max-w-[80rem]
+    "
+    >
       <div className="flex justify-between">
         <p className="text-2xl sm:text-3xl font-semibold tracking-tighter">
           <span className="text-cyan-400">Base 64</span> Encoded links
