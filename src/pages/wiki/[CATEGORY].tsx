@@ -131,11 +131,11 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
 export default Wiki;
 
 export async function getStaticProps({
-  params: { category },
+  params: { CATEGORY },
 }: {
-  params: { category: string };
+  params: { CATEGORY: string };
 }) {
-  if (category === "home") {
+  if (CATEGORY === "home") {
     return {
       props: {
         data: "",
@@ -145,7 +145,7 @@ export async function getStaticProps({
   }
   try {
     const markdownCategory = MARKDOWN_RESOURCES.find(
-      (item) => item.urlEnding.toLowerCase() === category?.toLowerCase()
+      (item) => item.urlEnding.toLowerCase() === CATEGORY?.toLowerCase()
     )!;
     const markdownUrlEnding = markdownCategory?.urlEnding;
 
@@ -184,7 +184,7 @@ export async function getStaticProps({
 
 export async function getStaticPaths() {
   const paths = MARKDOWN_RESOURCES.map((resource) => ({
-    params: { category: resource.urlEnding.toLowerCase() },
+    params: { CATEGORY: resource.urlEnding.toLowerCase() },
   }));
 
   return {
