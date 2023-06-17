@@ -1,4 +1,4 @@
-import React from "react";
+import { Children } from "react";
 import { slug as githubSlug } from "github-slugger";
 
 interface ClassMappingType {
@@ -16,11 +16,6 @@ export function HeadingRendererHelper(props: any) {
   const text = getTextFromProps(props);
   const slug = githubSlug(text);
   let href = "#" + slug;
-
-  if (text === "Linux Tools") {
-    console.log(props.node);
-    console.log(props.node.children[1]);
-  }
 
   const immediateChild = props.node.children[0];
 
@@ -41,11 +36,11 @@ export function HeadingRendererHelper(props: any) {
 export function flatten(text: string, child: any): any {
   return typeof child === "string"
     ? text + child
-    : React.Children.toArray(child.props.children).reduce(flatten, text);
+    : Children.toArray(child.props.children).reduce(flatten, text);
 }
 
 export function getTextFromProps(props: any) {
-  const children = React.Children.toArray(props.children);
+  const children = Children.toArray(props.children);
   const text = children.reduce(flatten, "");
   return text;
 }
