@@ -1,109 +1,26 @@
-import React from "react";
+import React, { createElement } from "react";
 import Link from "next/link";
 import { NoteAlert, WarningAlert } from "@/components/Alert";
 import {
   HeadingRendererHelper,
   classMapping,
-  convertTextToLowerCamelCase,
-  flatten,
-  logHeading,
+  getTextFromProps,
   redirectRedditLinksToWebsite,
-  removeSymbolsInHeading,
 } from "./helpers";
 
-export const H1Renderer = (
-  props: any,
-  markdownHeadings: Record<string, string[]>
-) => {
-  const { slug, text } = HeadingRendererHelper(props);
-  logHeading(props.level, text, markdownHeadings);
-
-  return (
-    <Link href={`#${slug}`}>
-      <h1
-        className={`${
-          classMapping["h" + props.level]
-        } mt-4 mb-2 hover:underline hover:cursor text-white`}
-        id={slug}
-      >
-        &#x203A; {removeSymbolsInHeading(text)}
-      </h1>
-    </Link>
-  );
-};
-
-export const H2Renderer = (
-  props: any,
-  markdownHeadings: Record<string, string[]>
-) => {
-  let { slug, text } = HeadingRendererHelper(props);
-  let href = `#${convertTextToLowerCamelCase(text)}`;
-
-  logHeading(props.level, text, markdownHeadings);
-
-  if (props.node.children[1]?.tagName === "a") {
-    const eleHref = props.node.children[1]?.properties.href;
-    if (
-      eleHref.startsWith("https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/")
-    ) {
-      href = redirectRedditLinksToWebsite(eleHref);
-    } else {
-      console.log("not reddit link", eleHref);
-    }
-  }
+export const HeadingRenderer = (props: any, level: 1 | 2 | 3 | 4) => {
+  const { slug, text, href } = HeadingRendererHelper(props);
 
   return (
     <Link href={href}>
-      <h2
-        className={`${
-          classMapping["h" + props.level]
-        } mt-4 mb-2 hover:underline hover:cursor text-white`}
-        id={slug}
-      >
-        &#xbb; {removeSymbolsInHeading(text)}
-      </h2>
-    </Link>
-  );
-};
-
-export const H3Renderer = (
-  props: any,
-  markdownHeadings: Record<string, string[]>
-) => {
-  const { slug, text } = HeadingRendererHelper(props);
-  logHeading(props.level, text, markdownHeadings);
-
-  return (
-    <Link href={`#${slug}`}>
-      <h3
-        className={`${
-          classMapping["h" + props.level]
-        } mt-4 hover:underline hover:cursor text-white`}
-        id={slug}
-      >
-        {text}
-      </h3>
-    </Link>
-  );
-};
-
-export const H4Renderer = (
-  props: any,
-  markdownHeadings: Record<string, string[]>
-) => {
-  const { slug, text } = HeadingRendererHelper(props);
-  logHeading(props.level, text, markdownHeadings);
-
-  return (
-    <Link href={`#${slug}`}>
-      <h4
-        className={`${
-          classMapping["h" + props.level]
-        } mt-4 hover:underline hover:cursor text-white`}
-        id={slug}
-      >
-        {text}
-      </h4>
+      {createElement(
+        "h" + level,
+        {
+          className: classMapping["h" + level],
+          id: slug,
+        },
+        text
+      )}
     </Link>
   );
 };
@@ -123,8 +40,7 @@ export function LinkRenderer(props: any) {
 }
 
 export function LiRenderer(props: any, showOnlyStarredLinks: boolean) {
-  var children = React.Children.toArray(props.children);
-  var text = children.reduce(flatten, "");
+  const text = getTextFromProps(props);
 
   const isStarred = text.startsWith("⭐");
 
@@ -145,7 +61,6 @@ export function LiRenderer(props: any, showOnlyStarredLinks: boolean) {
         className={`list-disc ml-6 my-2 text-lg text-slate-100 ${
           showOnlyStarredLinks ? (isStarred ? "" : "hidden") : ""
         }`}
-        // {...props}
       >
         {props.children}
       </li>
@@ -154,8 +69,7 @@ export function LiRenderer(props: any, showOnlyStarredLinks: boolean) {
 }
 
 export const PRenderer = (props: any) => {
-  var children = React.Children.toArray(props.children);
-  var text = children.reduce(flatten, "");
+  const text = getTextFromProps(props);
 
   const NOTE_STARTERS = ["!!!note", "Note - "];
   const WARNING_STARTERS = ["!!!warning", "Warning - "];
@@ -175,26 +89,27 @@ export const PRenderer = (props: any) => {
   }
 };
 
-export const CodeRenderer = (props: any, CATEGORY: string) => {
-  return <code {...props} />;
-
-  var children = React.Children.toArray(props.children);
-  var text = children.reduce(flatten, "");
-  const decrypted = atob(text);
-  const split = decrypted.split("\n");
-  return (
-    <>
-      {split.map((link) => (
-        <a
-          key={link}
-          href={link}
-          className="block "
-          target="_blank"
-          rel="noreferrer"
-        >
-          {link}
-        </a>
-      ))}
-    </>
-  );
+export const CodeRenderer = (props: any, category: string) => {
+  if (category !== "base64") {
+    return <code {...props} />;
+  } else {
+    const text = getTextFromProps(props);
+    const decrypted = atob(text);
+    const split = decrypted.split("\n");
+    return (
+      <>
+        {split.map((link) => (
+          <a
+            key={link}
+            href={link}
+            className="block "
+            target="_blank"
+            rel="noreferrer"
+          >
+            {link}
+          </a>
+        ))}
+      </>
+    );
+  }
 };

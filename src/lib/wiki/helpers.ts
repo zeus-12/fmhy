@@ -1,34 +1,42 @@
 import React from "react";
+import { slug as githubSlug } from "github-slugger";
 
-export const logHeading: {
-  (
-    headingLevel: number,
-    headingTitle: string,
-    markdownHeadings: Record<string, string[]>
-  ): void;
-} = (headingLevel, headingTitle, markdownHeadings) => {
-  if (headingLevel === 1) {
-    if (markdownHeadings[headingTitle] || !headingTitle) return;
+interface ClassMappingType {
+  [key: string]: string;
+}
 
-    markdownHeadings[headingTitle] = [];
-  } else if (headingLevel === 2) {
-    const lastHeading = Object.keys(markdownHeadings).slice(-1)[0];
-
-    if (markdownHeadings[lastHeading]?.includes(headingTitle) || !headingTitle)
-      return;
-
-    markdownHeadings[lastHeading] = [
-      ...(markdownHeadings[lastHeading]?.length > 0
-        ? markdownHeadings[lastHeading]
-        : []),
-      headingTitle,
-    ];
-  } else if (headingLevel === 4 || headingLevel === 3) {
-    if (!headingTitle) return;
-    //storage & piracyguide
-    markdownHeadings[headingTitle] = [];
-  }
+export const classMapping: ClassMappingType = {
+  h1: "text-2xl font-semibold tracking-tighter mt-4 mb-2 hover:underline hover:cursor text-white",
+  h2: "text-xl font-medium tracking-medium my-2 mt-4 mb-2 hover:underline hover:cursor text-white",
+  h3: "text-2xl font-semibold tracking-tight mt-8 mb-3 mt-4 hover:underline hover:cursor text-white",
+  h4: "text-xl font-medium tracking-medium mt-4 hover:underline hover:cursor text-white",
 };
+
+export function HeadingRendererHelper(props: any) {
+  const text = getTextFromProps(props);
+  const slug = githubSlug(text);
+  let href = "#" + slug;
+
+  if (text === "Linux Tools") {
+    console.log(props.node);
+    console.log(props.node.children[1]);
+  }
+
+  const immediateChild = props.node.children[0];
+
+  if (immediateChild?.tagName === "a") {
+    const eleHref = immediateChild?.properties.href;
+    if (
+      eleHref.startsWith("https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/")
+    ) {
+      href = redirectRedditLinksToWebsite(eleHref);
+    } else {
+      console.log("CAN'T FIND REDDIT MAPPING", eleHref);
+    }
+  }
+
+  return { slug, text, href };
+}
 
 export function flatten(text: string, child: any): any {
   return typeof child === "string"
@@ -36,45 +44,11 @@ export function flatten(text: string, child: any): any {
     : React.Children.toArray(child.props.children).reduce(flatten, text);
 }
 
-interface ClassMappingType {
-  [key: string]: string;
-}
-
-export const classMapping: ClassMappingType = {
-  h1: "text-2xl font-semibold tracking-tighter",
-  h2: "text-xl font-medium tracking-medium my-2",
-  h3: "text-2xl font-semibold tracking-tight mt-8 mb-3",
-  h4: "text-xl font-medium tracking-medium",
-};
-
-export function HeadingRendererHelper(props: any) {
+export function getTextFromProps(props: any) {
   const children = React.Children.toArray(props.children);
   const text = children.reduce(flatten, "");
-  const slug = convertTextToLowerCamelCase(text);
-
-  // prevent duplicate slug for each page -- how to?
-  return { slug, text };
+  return text;
 }
-
-export const convertTextToLowerCamelCase = (text: any) => {
-  if (!text || typeof text !== "string") return;
-
-  const filteredText = text
-    .toLowerCase()
-    .replace("▷ ", "")
-    .replace("► ", "")
-    // remove everything but spaces, alphabets, numbers
-    .replace(/[^a-z0-9 ]/g, "");
-
-  // split at spaces, and join them with _
-  const splitText = filteredText.split(" ");
-  return splitText.filter((item) => item !== "").join("_");
-};
-
-export const removeSymbolsInHeading = (text: string) => {
-  if (!text) return;
-  return text.replace("▷ ", "").replace("► ", "").replace("►", "");
-};
 
 interface RedditToGithubTitleMappingType {
   [key: string]: string;
@@ -122,7 +96,7 @@ export function redirectRedditLinksToWebsite(link: string) {
       category as keyof RedditToGithubTitleMappingType
     ]
   ) {
-    console.log("no mapping for", category);
+    console.log("NO MAPPING FOR", category);
     return link;
   }
 

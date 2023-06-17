@@ -94,7 +94,7 @@ const WikiHome = () => {
           })}
         </div>
       </div>
-      <WikiBottomNavigator CATEGORY={"home"} />
+      <WikiBottomNavigator category={"home"} />
     </div>
   );
 };

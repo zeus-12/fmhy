@@ -4,49 +4,55 @@ import { useEffect, useState } from "react";
 import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
 import { Switch } from "@mantine/core";
 import {
-  H1Renderer,
-  H2Renderer,
-  H3Renderer,
-  H4Renderer,
   LiRenderer,
   LinkRenderer,
   PRenderer,
   CodeRenderer,
+  HeadingRenderer,
 } from "@/lib/wiki/renderers";
 import WikiHome from "@/components/wiki/WikiHomePage";
-
 import WikiBottomNavigator from "@/components/wiki/WikiBottomNavigator";
 import WikiCategoriesSidebar from "@/components/wiki/WikiCategoriesSidebar";
-import WikiContentsSidebar from "@/components/wiki/WikiContentsSidebar";
 import { useRouter } from "next/router";
+import { getTableOfContents } from "@/lib/toc";
+import WikiTableOfContents from "@/components/wiki/toc";
 
-const Wiki = ({ data, isError }: { data: string; isError: boolean }) => {
+const Wiki = ({
+  data,
+  toc,
+  isError,
+}: {
+  data: string;
+  isError: boolean;
+  toc: any;
+}) => {
   const router = useRouter();
 
-  const CATEGORY = router.query.CATEGORY as string;
+  const category = router.query.category as string;
 
   const markdownCategory = MARKDOWN_RESOURCES.find(
-    (item) => item.urlEnding.toLowerCase() === CATEGORY?.toLowerCase()
+    (item) => item.urlEnding.toLowerCase() === category?.toLowerCase()
   )!;
 
   useEffect(() => {
-    if (CATEGORY && !markdownCategory) {
+    if (category && !markdownCategory) {
       router.push("/wiki/home");
     }
-  }, [CATEGORY, markdownCategory]);
+  }, [category, markdownCategory]);
 
   return (
     <div className="flex justify-between overflow-hidden h-[calc(100vh_-_6rem)] gap-2">
       <WikiCategoriesSidebar markdownCategory={markdownCategory} />
 
-      {CATEGORY?.toLowerCase() === "home" ? (
+      {category?.toLowerCase() === "home" ? (
         <WikiHome />
       ) : (
         <LinkDataRenderer
           isError={isError}
           data={data}
-          CATEGORY={CATEGORY}
+          category={category}
           markdownCategory={markdownCategory}
+          toc={toc}
         />
       )}
     </div>
@@ -56,7 +62,8 @@ const Wiki = ({ data, isError }: { data: string; isError: boolean }) => {
 interface LinkDataRendererProps {
   data: string;
   isError: boolean;
-  CATEGORY: string;
+  category: string;
+  toc: any;
   markdownCategory: {
     title: string;
     urlEnding: string;
@@ -65,14 +72,14 @@ interface LinkDataRendererProps {
 
 const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
   data,
-  CATEGORY,
+  category,
   isError,
   markdownCategory,
+  toc,
 }) => {
   const [starredLinks, setStarredLinks] = useState(false);
 
   // replace this with maps
-  const markdownHeadings = {};
 
   return (
     <>
@@ -83,7 +90,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
           </p>
           <Switch
             className={
-              ["beginners-guide", "storage"].includes(CATEGORY) ? "hidden" : ""
+              ["beginners-guide", "storage"].includes(category) ? "hidden" : ""
             }
             label="Recommended?"
             size="xs"
@@ -98,28 +105,25 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
           <>
             <ReactMarkdown
               components={{
-                h1: (props: any) => H1Renderer(props, markdownHeadings),
-                h2: (props: any) => H2Renderer(props, markdownHeadings),
-                h3: (props: any) => H3Renderer(props, markdownHeadings), //for beginners guide only
-                h4: (props: any) => H4Renderer(props, markdownHeadings), //for storage only
+                h1: (props: any) => HeadingRenderer(props, 1),
+                h2: (props: any) => HeadingRenderer(props, 2),
+                h3: (props: any) => HeadingRenderer(props, 3), //for beginners guide only
+                h4: (props: any) => HeadingRenderer(props, 4), //for storage only
                 p: PRenderer, // for beginners guide only
                 a: LinkRenderer,
                 li: (props: any) => LiRenderer(props, starredLinks), //for storage only
                 hr: () => <></>,
-                code: (props: any) => CodeRenderer(props, CATEGORY),
+                code: (props: any) => CodeRenderer(props, category),
               }}
             >
               {data}
             </ReactMarkdown>
 
-            <WikiBottomNavigator CATEGORY={CATEGORY} />
+            <WikiBottomNavigator category={category} />
           </>
         )}
       </div>
-      <WikiContentsSidebar
-        markdownHeadings={markdownHeadings}
-        CATEGORY={CATEGORY}
-      />
+      <WikiTableOfContents toc={toc} />
     </>
   );
 };
@@ -127,11 +131,11 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
 export default Wiki;
 
 export async function getStaticProps({
-  params: { CATEGORY },
+  params: { category },
 }: {
-  params: { CATEGORY: string };
+  params: { category: string };
 }) {
-  if (CATEGORY === "home") {
+  if (category === "home") {
     return {
       props: {
         data: "",
@@ -141,7 +145,7 @@ export async function getStaticProps({
   }
   try {
     const markdownCategory = MARKDOWN_RESOURCES.find(
-      (item) => item.urlEnding.toLowerCase() === CATEGORY?.toLowerCase()
+      (item) => item.urlEnding.toLowerCase() === category?.toLowerCase()
     )!;
     const markdownUrlEnding = markdownCategory?.urlEnding;
 
@@ -153,11 +157,17 @@ export async function getStaticProps({
     const res = await fetch(markdownUrl);
     const text = await res.text();
 
-    const cleanedText = text.split("For mobile users")[1];
+    const cleanedText = text
+      .split("For mobile users")[1]
+      ?.replaceAll("►", "")
+      ?.replaceAll("▷", "");
+
+    const toc = await getTableOfContents(cleanedText);
 
     return {
       props: {
         data: cleanedText || text,
+        toc,
         isError: false,
       },
       revalidate: 60 * 60 * 24 * 2, // 2 days
@@ -174,7 +184,7 @@ export async function getStaticProps({
 
 export async function getStaticPaths() {
   const paths = MARKDOWN_RESOURCES.map((resource) => ({
-    params: { CATEGORY: resource.urlEnding.toLowerCase() },
+    params: { category: resource.urlEnding.toLowerCase() },
   }));
 
   return {

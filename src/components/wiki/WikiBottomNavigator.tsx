@@ -1,62 +1,52 @@
 import Link from "next/link";
 import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const WikiBottomNavigator: React.FC<{ CATEGORY: string }> = ({ CATEGORY }) => {
+const WikiBottomNavigator: React.FC<{ category: string }> = ({ category }) => {
   const currentCategoryIndex = MARKDOWN_RESOURCES.findIndex(
-    (item) => item?.urlEnding.toLowerCase() === CATEGORY?.toLowerCase()
+    (item) => item?.urlEnding.toLowerCase() === category?.toLowerCase()
   );
 
   const icons = [
     {
       ele: MARKDOWN_RESOURCES[currentCategoryIndex - 1],
-      icon: (
-        <ArrowLeft className="group-hover:animate-bounce w-7 h-7 text-gray-400" />
-      ),
-      text: "Previous",
+      icon: <ChevronLeft className="w-5 h-5 text-gray-100" />,
     },
     {
       ele: MARKDOWN_RESOURCES[currentCategoryIndex + 1],
-      icon: (
-        <ArrowRight className="group-hover:animate-bounce w-7 h-7 text-gray-400" />
-      ),
-      text: "Next",
+      icon: <ChevronRight className="w-5 h-5 text-gray-100" />,
     },
   ];
 
   return (
-    <div
-      className={`flex gap-2 my-4 w-full ${
-        currentCategoryIndex === 0
-          ? "justify-end"
-          : currentCategoryIndex === MARKDOWN_RESOURCES.length - 1
-          ? "justify-start"
-          : "justify-center"
-      }`}
-    >
-      {icons.map(
-        (item, i) =>
-          item.ele && (
-            <Link
-              key={i}
-              href={`/wiki/${item.ele.urlEnding.toLowerCase()}`}
-              className="max-w-[20rem] w-full group"
-            >
-              <div
-                className={`border-[1px] w-full border-gray-400 px-4 py-4 rounded-lg flex gap-2 justify-start ${
-                  i === 0 ? "" : "flex-row-reverse"
-                } ${currentCategoryIndex === 0 ? "ml-auto" : "mr-auto"}`}
-              >
-                {item.icon}
-                <div className="">
-                  <p className="text-gray-400">{item.text}</p>
-                  <p>{item.ele.title}</p>
+    <>
+      <div className="border-gray-800 border-[0.2px] my-8" />
+      <div
+        className={`flex gap-2 my-8 w-full ${
+          currentCategoryIndex === 0
+            ? "justify-end"
+            : currentCategoryIndex === MARKDOWN_RESOURCES.length - 1
+            ? "justify-start"
+            : "justify-between"
+        }`}
+      >
+        {icons.map(
+          (item, i) =>
+            item.ele && (
+              <Link key={i} href={`/wiki/${item.ele.urlEnding.toLowerCase()}`}>
+                <div
+                  className={`px-4 py-2 items-center rounded-lg flex gap-2 justify-center hover:bg-gray-900 ${
+                    i === 0 ? "" : "flex-row-reverse"
+                  } ${currentCategoryIndex === 0 ? "ml-auto" : "mr-auto"}`}
+                >
+                  {item.icon}
+                  <p className="text-slate-100">{item.ele.title}</p>
                 </div>
-              </div>
-            </Link>
-          )
-      )}
-    </div>
+              </Link>
+            )
+        )}
+      </div>
+    </>
   );
 };
 

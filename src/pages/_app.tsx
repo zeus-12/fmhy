@@ -25,40 +25,40 @@ export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
 
   return (
-    <ClerkProvider {...pageProps}>
-      <MantineProvider
-        theme={{
-          colorScheme: "dark",
-        }}
-      >
-        <QueryClientProvider client={queryClient}>
-          <SpotlightProvider>
-            <Head>
-              <title>FreeMediaHeckYeah</title>
-            </Head>
+    // <ClerkProvider {...pageProps}>
+    <MantineProvider
+      theme={{
+        colorScheme: "dark",
+      }}
+    >
+      <QueryClientProvider client={queryClient}>
+        <SpotlightProvider>
+          <Head>
+            <title>FreeMediaHeckYeah</title>
+          </Head>
 
-            <div className="min-h-screen gap-2 flex flex-col">
-              <Notifications />
-              <Navbar />
-              <div className="px-2 h-full flex-1 flex-col flex">
-                {isPrivatePage ? (
-                  <>
-                    <SignedIn>
-                      <Component {...pageProps} />
-                    </SignedIn>
-                    <SignedOut>
-                      <RedirectToSignIn />
-                    </SignedOut>
-                  </>
-                ) : (
-                  <Component {...pageProps} />
-                )}
-              </div>
+          <div className="min-h-screen gap-2 flex flex-col">
+            <Notifications />
+            <Navbar />
+            <div className="px-2 h-full flex-1 flex-col flex">
+              {isPrivatePage ? (
+                <>
+                  <SignedIn>
+                    <Component {...pageProps} />
+                  </SignedIn>
+                  <SignedOut>
+                    <RedirectToSignIn />
+                  </SignedOut>
+                </>
+              ) : (
+                <Component {...pageProps} />
+              )}
             </div>
-          </SpotlightProvider>
-          <ReactQueryDevtools />
-        </QueryClientProvider>
-      </MantineProvider>
-    </ClerkProvider>
+          </div>
+        </SpotlightProvider>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </MantineProvider>
+    // </ClerkProvider>
   );
 }

@@ -1,15 +1,14 @@
 ## wiki page
 
-- "Update toc on scroll",
-- "same h2 names =>SAME ID - eg: in edupiracy guides",
-- redirect to diff page not working. eg:
-  https://www.fmhy.ml/wiki/audiopiracyguide#audio_tools : solution do the same checks in h2renderer to h1. (or just use the same fn for both ) : similarly for h3 and h4
+- try adding loading when staticprops is loading
+- refresh or link to diff page -> scroll to id not working
+- add drawer for new contents, delete old contents file
 
 ## wiki page bugs from migration
 
-- fix seo and give better head-title for each page
+- fix layout on wiki page -> remove all calcs --> top priority
 - refreshing a search result page should fetch reftch results as well
-- fix layout on wiki page -> remove all calcs
+- fix seo and give better head-title for each page
 
 ## general
 

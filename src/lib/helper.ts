@@ -1,3 +1,6 @@
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 export function formatName(name: string) {
   if (!name) return name;
   let nameArray = name.replaceAll("-", " ").replaceAll("_", " ").split(" ");
@@ -8,4 +11,8 @@ export function formatName(name: string) {
       nameArray[i][0].toUpperCase() + nameArray[i].slice(1) + " ";
   }
   return formattedName.replaceAll("Ios", "iOS").replaceAll("os", "OS");
+}
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
 }
