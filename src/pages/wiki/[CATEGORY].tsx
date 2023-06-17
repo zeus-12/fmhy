@@ -28,7 +28,7 @@ const Wiki = ({
 }) => {
   const router = useRouter();
 
-  const category = router.query.category as string;
+  const category = router.query.CATEGORY as string;
 
   const markdownCategory = MARKDOWN_RESOURCES.find(
     (item) => item.urlEnding.toLowerCase() === category?.toLowerCase()
