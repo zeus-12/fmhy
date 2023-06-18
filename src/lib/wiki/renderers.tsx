@@ -1,4 +1,4 @@
-import React, { createElement } from "react";
+import { createElement } from "react";
 import Link from "next/link";
 import { NoteAlert, WarningAlert } from "@/components/Alert";
 import {
@@ -58,7 +58,7 @@ export function LiRenderer(props: any, showOnlyStarredLinks: boolean) {
   } else {
     return (
       <li
-        className={`list-disc ml-6 my-2 text-lg text-slate-100 ${
+        className={`list-disc ml-6 my-2 text-md text-slate-200 ${
           showOnlyStarredLinks ? (isStarred ? "" : "hidden") : ""
         }`}
       >
@@ -93,23 +93,27 @@ export const CodeRenderer = (props: any, category: string) => {
   if (category !== "base64") {
     return <code {...props} />;
   } else {
-    const text = getTextFromProps(props);
-    const decrypted = atob(text);
-    const split = decrypted.split("\n");
-    return (
-      <>
-        {split.map((link) => (
-          <a
-            key={link}
-            href={link}
-            className="block "
-            target="_blank"
-            rel="noreferrer"
-          >
-            {link}
-          </a>
-        ))}
-      </>
-    );
+    try {
+      const text = getTextFromProps(props);
+      const decrypted = atob(text);
+      const split = decrypted.split("\n");
+      return (
+        <>
+          {split.map((link) => (
+            <a
+              key={link}
+              href={link}
+              className="block "
+              target="_blank"
+              rel="noreferrer"
+            >
+              {link}
+            </a>
+          ))}
+        </>
+      );
+    } catch (e) {
+      return <code {...props} />;
+    }
   }
 };

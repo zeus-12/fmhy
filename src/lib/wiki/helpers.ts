@@ -6,8 +6,8 @@ interface ClassMappingType {
 }
 
 export const classMapping: ClassMappingType = {
-  h1: "text-2xl font-semibold tracking-tighter mt-4 mb-2 hover:underline hover:cursor text-white",
-  h2: "text-xl font-medium tracking-medium my-2 mt-4 mb-2 hover:underline hover:cursor text-white",
+  h1: "text-3xl font-semibold tracking-tighter mt-4 mb-2 hover:underline hover:cursor text-white",
+  h2: "text-2xl font-medium tracking-medium my-2 mt-4 mb-2 hover:underline hover:cursor text-white",
   h3: "text-2xl font-semibold tracking-tight mt-8 mb-3 mt-4 hover:underline hover:cursor text-white",
   h4: "text-xl font-medium tracking-medium mt-4 hover:underline hover:cursor text-white",
 };
