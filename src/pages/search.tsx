@@ -199,7 +199,6 @@ const Search = () => {
           {searchResults.map((result, i) => (
             <div
               className="flex transform flex-col space-y-2 rounded-xl bg-gray-900 p-4 transition duration-100 ease-out hover:scale-[101%]"
-              // style={{ backdropFilter: "saturate(180%) blur(20px)" }}
               key={i}
             >
               <p className="text-xl font-semibold">{result.title}</p>

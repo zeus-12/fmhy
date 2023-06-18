@@ -79,8 +79,6 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
 }) => {
   const [starredLinks, setStarredLinks] = useState(false);
 
-  // replace this with maps
-
   return (
     <>
       <div className="flex-1 sm:px-4 md:px-8 lg:px-14 xl:px-20 overflow-scroll">

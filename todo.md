@@ -3,6 +3,7 @@
 - try adding loading when staticprops is loading
 - refresh or link to diff page -> scroll to id not working
 - add drawer for new contents, delete old contents file
+- migrate search to nextapi router
 
 ## wiki page bugs from migration
 

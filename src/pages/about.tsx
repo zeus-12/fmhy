@@ -95,25 +95,3 @@ const About = () => {
 };
 
 export default About;
-
-// {
-/* <div>
-  <p className="text-3xl text-lime-400">Contribute</p>
-
-  <p>
-    <a className="text-cyan-400" href="https://rentry.co/FMHYedit">
-      Edit FMHY
-    </a>{" "}
-    Make changes to the FMHY Wiki
-  </p>
-  <p>
-    <a
-      className="text-cyan-400"
-      href="https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/find-new-sites"
-    >
-      Site Hunting Guide
-    </a>{" "}
-    Help us Discover New Sites
-  </p>
-</div> */
-// }

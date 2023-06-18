@@ -31,7 +31,6 @@ const CustomSpotlight = ({
   onTrigger,
   ...others
 }: SpotlightActionProps) => {
-  // todo it was null instead of undefined: check if this works
   const { classes } = useStyles(undefined, {
     styles,
     classNames,
