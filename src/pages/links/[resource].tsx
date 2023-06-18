@@ -1,5 +1,5 @@
 import ReactMarkdown from "react-markdown";
-import { formatName } from "@/lib/helper";
+import { formatName } from "@/lib/utils";
 import { SERVER_URL } from "@/lib/config";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";

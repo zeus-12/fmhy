@@ -1,7 +1,6 @@
 import { Switch } from "@mantine/core";
 import { useState } from "react";
 import Base64Item from "@/components/Base64Item";
-import { SERVER_URL } from "@/lib/config";
 import { useQuery } from "@tanstack/react-query";
 
 interface Base64LinksType {

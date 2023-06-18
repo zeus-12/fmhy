@@ -6,7 +6,7 @@ import {
   classMapping,
   getTextFromProps,
   redirectRedditLinksToWebsite,
-} from "./helpers";
+} from "./utils";
 
 export const HeadingRenderer = (props: any, level: 1 | 2 | 3 | 4) => {
   const { slug, text, href } = HeadingRendererHelper(props);

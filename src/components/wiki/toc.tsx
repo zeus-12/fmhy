@@ -1,5 +1,5 @@
 import { TableOfContents } from "@/lib/toc";
-import { cn } from "@/lib/helper";
+import { cn } from "@/lib/utils";
 import { useEffect, useMemo, useState } from "react";
 
 interface TocProps {

@@ -1,4 +1,4 @@
-import { redirectRedditLinksToWebsite } from "./helpers";
+import { redirectRedditLinksToWebsite } from "./utils";
 
 const test = [
   "https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/img-tools",
