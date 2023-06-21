@@ -37,13 +37,15 @@ const CategoriesSidebar: React.FC<CategoriesSidebarProps> = ({
           href={`/wiki/${item.urlEnding.toLowerCase()}`}
           className={`${
             item.urlEnding === markdownCategory?.urlEnding
-              ? "text-gray-300 bg-gray-800 border-r-[2px] border-white"
+              ? "text-gray-300 font-semibold border-r-[2px] border-white"
               : "text-gray-500"
-          } group-hover:text-slate-300 rounded-sm px-4 my-2 py-2 group block`}
+          } rounded-sm px-4 my-2 py-2 group block`}
         >
-          <span className="group-hover:animate-pulse">{item.emoji}</span>
-          {"  "}
-          <span className="hidden md:inline-flex">{item.title}</span>
+          <p className="group-hover:text-slate-200">
+            <span className="group-hover:animate-pulse">{item.emoji}</span>
+            {"  "}
+            <span className="hidden md:inline-flex">{item.title}</span>
+          </p>
         </Link>
       ))}
     </div>
