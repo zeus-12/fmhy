@@ -90,7 +90,7 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
             <a
               href={item.url}
               className={cn(
-                "inline-block no-underline text-sm",
+                "inline-block no-underline text-sm hover:text-slate-100",
                 item.url === `#${activeItem}`
                   ? "text-slate-100"
                   : "text-slate-600"

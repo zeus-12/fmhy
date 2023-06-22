@@ -21,13 +21,7 @@ export function HeadingRendererHelper(props: any) {
 
   if (immediateChild?.tagName === "a") {
     const eleHref = immediateChild?.properties.href;
-    if (
-      eleHref.startsWith("https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/")
-    ) {
-      href = redirectRedditLinksToWebsite(eleHref);
-    } else {
-      console.log("CAN'T FIND REDDIT MAPPING", eleHref);
-    }
+    href = redirectRedditAndGithubLinksToWebsite(eleHref);
   }
 
   return { slug, text, href };
@@ -71,10 +65,18 @@ export const redditToGithubTitleMapping: RedditToGithubTitleMappingType = {
   // :"nsfwpiracy"
 };
 
+export function redirectRedditAndGithubLinksToWebsite(link: string) {
+  if (link.startsWith(REDDIT_WIKI_URL)) {
+    return redirectRedditLinksToWebsite(link);
+  } else if (link.startsWith(GITHUB_WIKI_URL)) {
+    return redirectGithubLinksToWebsite(link);
+  } else {
+    return link;
+  }
+}
+
 export function redirectRedditLinksToWebsite(link: string) {
-  let trimRedditUrl = link.split(
-    "https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/"
-  )[1];
+  let trimRedditUrl = link.split(REDDIT_WIKI_URL)[1];
 
   const splitLink = trimRedditUrl.split("#");
   const category = splitLink[0].replaceAll("/", "");
@@ -84,16 +86,36 @@ export function redirectRedditLinksToWebsite(link: string) {
     .replaceAll(".25BA_", "")
     .replaceAll(".25B7_", "")
     // for ones with / in name
-    .replaceAll("_.2F_", "_");
+    .replaceAll("_.2F_", "-")
+    .replaceAll("_", "-");
 
   if (
     !redditToGithubTitleMapping[
       category as keyof RedditToGithubTitleMappingType
     ]
   ) {
-    console.log("NO MAPPING FOR", category);
+    console.log("CAN'T FIND REDDIT MAPPING FOR", category);
     return link;
   }
 
   return "/wiki/" + redditToGithubTitleMapping[category] + (id ? "#" + id : "");
 }
+
+export function redirectGithubLinksToWebsite(link: string) {
+  let trimGithubUrl = link.split(GITHUB_WIKI_URL)[1];
+
+  if (trimGithubUrl) {
+    console.log("GITHUB LINK", trimGithubUrl);
+
+    const category = trimGithubUrl.split("#")[0].replace(".md", "");
+    const id = trimGithubUrl.split("#")[1];
+
+    // no need for githubToWiki mapping cause wiki uses the same category names
+    return `/wiki/${category}#${id ? id : ""}`;
+  }
+  console.log("CAN'T FIND GITHUB MAPPING FOR", trimGithubUrl);
+  return link;
+}
+
+const REDDIT_WIKI_URL = "https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/";
+const GITHUB_WIKI_URL = "https://github.com/nbats/FMHYedit/blob/main/";

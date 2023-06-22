@@ -81,7 +81,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
 
   return (
     <>
-      <div className="flex-1 sm:px-4 md:px-8 lg:px-14 xl:px-20 overflow-scroll">
+      <div className="flex-1 sm:px-4 md:px-8 lg:px-14 xl:px-20 overflow-scroll hideScrollbar">
         <div className="flex justify-between items-center">
           <p className="text-3xl underline underline-offset-2 font-semibold tracking-tighter">
             {markdownCategory?.title}

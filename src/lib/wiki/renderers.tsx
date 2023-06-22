@@ -5,7 +5,7 @@ import {
   HeadingRendererHelper,
   classMapping,
   getTextFromProps,
-  redirectRedditLinksToWebsite,
+  redirectRedditAndGithubLinksToWebsite,
 } from "./utils";
 
 export const HeadingRenderer = (props: any, level: 1 | 2 | 3 | 4) => {
@@ -27,10 +27,7 @@ export const HeadingRenderer = (props: any, level: 1 | 2 | 3 | 4) => {
 
 export function LinkRenderer(props: any) {
   const newProps = { ...props };
-  let href = newProps.href;
-  if (href.startsWith("https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki")) {
-    href = redirectRedditLinksToWebsite(href);
-  }
+  let href = redirectRedditAndGithubLinksToWebsite(newProps.href);
 
   return (
     <a href={href} target="_blank" rel="noopener noreferrer">
