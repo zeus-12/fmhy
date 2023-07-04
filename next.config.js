@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const { withPlausibleProxy } = require("next-plausible");
+
 const nextConfig = {
   reactStrictMode: true,
   images: {
@@ -6,4 +8,8 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withPlausibleProxy({
+  subdirectory: "meowlytics",
+  scriptName: "script",
+  customDomain: "https://meowlytics.bignutty.xyz",
+})(nextConfig);

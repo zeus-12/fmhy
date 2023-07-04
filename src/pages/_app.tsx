@@ -15,6 +15,7 @@ import Navbar from "@/components/Navbar";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import PlausibleProvider from "next-plausible";
 
 const privatePages: Array<string> = [];
 
@@ -26,39 +27,46 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     // <ClerkProvider {...pageProps}>
-    <MantineProvider
-      theme={{
-        colorScheme: "dark",
-      }}
+    <PlausibleProvider
+      domain="fmhy.ml"
+      selfHosted={true}
+      customDomain="https://meowlytics.bignutty.xyz"
     >
-      <QueryClientProvider client={queryClient}>
-        <SpotlightProvider>
-          <Head>
-            <title>FreeMediaHeckYeah</title>
-          </Head>
+      <MantineProvider
+        theme={{
+          colorScheme: "dark",
+        }}
+      >
+        <QueryClientProvider client={queryClient}>
+          <SpotlightProvider>
+            <Head>
+              <title>FreeMediaHeckYeah</title>
+            </Head>
 
-          <div className="min-h-screen gap-2 flex flex-col">
-            <Notifications />
-            <Navbar />
-            <div className="px-2 h-full flex-1 flex-col flex">
-              {isPrivatePage ? (
-                <>
-                  <SignedIn>
-                    <Component {...pageProps} />
-                  </SignedIn>
-                  <SignedOut>
-                    <RedirectToSignIn />
-                  </SignedOut>
-                </>
-              ) : (
-                <Component {...pageProps} />
-              )}
+            <div className="min-h-screen gap-2 flex flex-col">
+              <Notifications />
+              <Navbar />
+              <div className="px-2 h-full flex-1 flex-col flex">
+                {isPrivatePage ? (
+                  <>
+                    <SignedIn>
+                      <Component {...pageProps} />
+                    </SignedIn>
+                    <SignedOut>
+                      <RedirectToSignIn />
+                    </SignedOut>
+                  </>
+                ) : (
+                  <Component {...pageProps} />
+                )}
+              </div>
             </div>
-          </div>
-        </SpotlightProvider>
-        <ReactQueryDevtools />
-      </QueryClientProvider>
-    </MantineProvider>
+          </SpotlightProvider>
+          <ReactQueryDevtools />
+        </QueryClientProvider>
+      </MantineProvider>
+    </PlausibleProvider>
+
     // </ClerkProvider>
   );
 }
