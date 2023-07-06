@@ -1,7 +1,7 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { useEffect, useState } from "react";
-import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
+import { MARKDOWN_RESOURCES, isDevEnv, testData } from "@/lib/CONSTANTS";
 import { Switch } from "@mantine/core";
 import {
   LiRenderer,
@@ -137,6 +137,14 @@ export async function getStaticProps({
     return {
       props: {
         data: "",
+        isError: false,
+      },
+    };
+  }
+  if (isDevEnv) {
+    return {
+      props: {
+        data: testData,
         isError: false,
       },
     };
