@@ -1,8 +1,8 @@
 ## wiki page
 
-- try adding loading when staticprops is loading
-- refresh or link to diff page -> scroll to id not working
-- add drawer for new contents, delete old contents file
+- try adding loading when staticprops is loading, since im using isr(if not, switch to it => should bring down build time)
+- add search for wiki page => checkout nextra docs
+- add drawer for new tableofcontents, delete old tableofcontents file. also make it autoscrollable with content
 - migrate search to nextapi router
 
 ## wiki page bugs from migration
