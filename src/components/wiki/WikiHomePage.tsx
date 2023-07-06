@@ -3,6 +3,8 @@ import RedditWikiMenu from "@/components/wiki/RedditWikiMenu";
 import WikiBottomNavigator from "@/components/wiki/WikiBottomNavigator";
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
+import ContributeModal from "@/components/ContributeModal";
 
 const messages = [
   <p className="inline" key={0}>
@@ -36,6 +38,11 @@ const messages = [
   </p>,
 ];
 const WikiHome = () => {
+  const [showContributeModal, setShowContributeModal] = useState(false);
+
+  const closeContributeModal = () => {
+    setShowContributeModal(false);
+  };
   return (
     <div className="flex-1 sm:px-4 md:px-8 lg:px-14 xl:px-28 overflow-scroll space-y-4">
       <p className="text-2xl font-semibold tracking-tighter">
@@ -58,6 +65,17 @@ const WikiHome = () => {
         ))}
       </div>
 
+      <Button
+        color="cyan"
+        variant="light"
+        onClick={() => setShowContributeModal(true)}
+      >
+        Wanna contribute?
+      </Button>
+      <ContributeModal
+        close={closeContributeModal}
+        opened={showContributeModal}
+      />
       <div>
         <p className="text-xl font-semibold tracking-tighter">
           Few other resources
@@ -94,6 +112,7 @@ const WikiHome = () => {
           })}
         </div>
       </div>
+
       <WikiBottomNavigator category={"home"} />
     </div>
   );
