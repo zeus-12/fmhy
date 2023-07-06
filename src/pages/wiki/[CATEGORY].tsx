@@ -41,7 +41,7 @@ const Wiki = ({
   }, [category, markdownCategory]);
 
   return (
-    <div className="flex justify-between overflow-hidden h-[calc(100vh_-_6rem)] gap-2">
+    <div className="flex justify-between overflow-hidden h-[calc(100vh_-_80px)] gap-2">
       <WikiCategoriesSidebar markdownCategory={markdownCategory} />
 
       {category?.toLowerCase() === "home" ? (

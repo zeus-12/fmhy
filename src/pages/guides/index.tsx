@@ -4,7 +4,6 @@ import { Input } from "@mantine/core";
 import { FRONTEND_SERVER_URL, SERVER_URL } from "@/lib/config";
 import { notSignedInNotification } from "@/components/Notifications";
 import { Plus, Search, X } from "lucide-react";
-// import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 
 export interface GuideType {
@@ -46,16 +45,6 @@ const Guides = ({
       inputElement.current?.focus();
     }
   }, [showInput]);
-
-  // const {
-  //   data: guides,
-  //   isError,
-  //   isLoading,
-  // } = useQuery(["guides"], () =>
-  //   fetch(SERVER_URL + "/api/guides")
-  //     .then((res) => res.json())
-  //     .then((data) => data.data)
-  // );
 
   let inputHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
     var lowerCase = (e.target as HTMLInputElement).value;

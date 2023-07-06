@@ -20,8 +20,8 @@ import PlausibleProvider from "next-plausible";
 const privatePages: Array<string> = [];
 
 export default function App({ Component, pageProps }: AppProps) {
-  const { pathname } = useRouter();
-  const isPrivatePage = privatePages.includes(pathname);
+  // const { pathname } = useRouter();
+  // const isPrivatePage = privatePages.includes(pathname);
 
   const queryClient = new QueryClient();
 
@@ -47,7 +47,7 @@ export default function App({ Component, pageProps }: AppProps) {
               <Notifications />
               <Navbar />
               <div className="px-2 h-full flex-1 flex-col flex">
-                {isPrivatePage ? (
+                {/* {isPrivatePage ? (
                   <>
                     <SignedIn>
                       <Component {...pageProps} />
@@ -56,9 +56,9 @@ export default function App({ Component, pageProps }: AppProps) {
                       <RedirectToSignIn />
                     </SignedOut>
                   </>
-                ) : (
-                  <Component {...pageProps} />
-                )}
+                ) : ( */}
+                <Component {...pageProps} />
+                {/* )} */}
               </div>
             </div>
           </SpotlightProvider>
