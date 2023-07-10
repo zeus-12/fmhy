@@ -186,7 +186,9 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths() {
-  const paths = MARKDOWN_RESOURCES.map((resource) => ({
+  const paths = MARKDOWN_RESOURCES.filter(
+    (resource) => !!resource.urlEnding
+  ).map((resource) => ({
     params: { CATEGORY: resource.urlEnding.toLowerCase() },
   }));
 

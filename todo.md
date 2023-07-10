@@ -14,3 +14,4 @@
 ## general
 
 - auth? for guide-queue, and links queue
+- create new fn to only console.log on dev
