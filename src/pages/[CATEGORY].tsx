@@ -129,15 +129,6 @@ export async function getStaticProps({
 }: {
   params: { CATEGORY: string };
 }) {
-  console.log("hi");
-  if (CATEGORY === "") {
-    return {
-      props: {
-        data: "",
-        isError: false,
-      },
-    };
-  }
   if (isDevEnv) {
     return {
       props: {
@@ -176,6 +167,7 @@ export async function getStaticProps({
       revalidate: 60 * 60 * 24 * 2, // 2 days
     };
   } catch (err: any) {
+    // todo show 404 page
     return {
       props: {
         isError: true,
