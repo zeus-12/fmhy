@@ -33,7 +33,7 @@ const WikiBottomNavigator: React.FC<{ category: string }> = ({ category }) => {
         {icons.map(
           (item, i) =>
             item.ele && (
-              <Link key={i} href={`/wiki/${item.ele.urlEnding.toLowerCase()}`}>
+              <Link key={i} href={`/${item.ele.urlEnding.toLowerCase()}`}>
                 <div
                   className={`px-4 py-2 items-center rounded-lg flex gap-2 justify-center hover:bg-gray-900 ${
                     i === 0 ? "" : "flex-row-reverse"

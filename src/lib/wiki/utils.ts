@@ -98,7 +98,7 @@ export function redirectRedditLinksToWebsite(link: string) {
     return link;
   }
 
-  return "/wiki/" + redditToGithubTitleMapping[category] + (id ? "#" + id : "");
+  return "/" + redditToGithubTitleMapping[category] + (id ? "#" + id : "");
 }
 
 export function redirectGithubLinksToWebsite(link: string) {
