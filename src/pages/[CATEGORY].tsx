@@ -10,9 +10,8 @@ import {
   CodeRenderer,
   HeadingRenderer,
 } from "@/lib/wiki/renderers";
-import WikiHome from "@/components/wiki/WikiHomePage";
-import WikiBottomNavigator from "@/components/wiki/WikiBottomNavigator";
-import WikiCategoriesSidebar from "@/components/wiki/WikiCategoriesSidebar";
+import BottomNavigator from "@/components/wiki/BottomNavigator";
+import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
 import { useRouter } from "next/router";
 import { getTableOfContents } from "@/lib/toc";
 import WikiTableOfContents from "@/components/wiki/toc";
@@ -30,31 +29,28 @@ const Wiki = ({
 
   const category = router.query.CATEGORY as string;
 
+  // export a set of all the categories from constants and check that instead
   const markdownCategory = MARKDOWN_RESOURCES.find(
     (item) => item.urlEnding.toLowerCase() === category?.toLowerCase()
   )!;
 
   useEffect(() => {
     if (category && !markdownCategory) {
-      router.push("/wiki/home");
+      router.push("/");
     }
   }, [category, markdownCategory]);
 
   return (
     <div className="flex justify-between overflow-hidden h-[calc(100vh_-_80px)] gap-2">
-      <WikiCategoriesSidebar markdownCategory={markdownCategory} />
+      <CategoriesSidebar markdownCategory={markdownCategory} />
 
-      {category?.toLowerCase() === "home" ? (
-        <WikiHome />
-      ) : (
-        <LinkDataRenderer
-          isError={isError}
-          data={data}
-          category={category}
-          markdownCategory={markdownCategory}
-          toc={toc}
-        />
-      )}
+      <LinkDataRenderer
+        isError={isError}
+        data={data}
+        category={category}
+        markdownCategory={markdownCategory}
+        toc={toc}
+      />
     </div>
   );
 };
@@ -117,7 +113,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
               {data}
             </ReactMarkdown>
 
-            <WikiBottomNavigator category={category} />
+            <BottomNavigator category={category} />
           </>
         )}
       </div>
@@ -133,7 +129,8 @@ export async function getStaticProps({
 }: {
   params: { CATEGORY: string };
 }) {
-  if (CATEGORY === "home") {
+  console.log("hi");
+  if (CATEGORY === "") {
     return {
       props: {
         data: "",

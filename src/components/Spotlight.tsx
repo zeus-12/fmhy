@@ -67,8 +67,6 @@ const CustomSpotlight = ({
           </div>
           <p className="text-gray-500 text-sm">{action.description}</p>
         </div>
-
-        {action.new && <Badge>new</Badge>}
       </Group>
     </UnstyledButton>
   );
@@ -87,9 +85,8 @@ export const SpotlightProvider = ({
       title: "Wiki",
       description: "Collection of all links scraped from FMHY Github ",
       group: "page",
-      new: true,
       onTrigger: () => {
-        router.push("/wiki/home");
+        router.push("/");
       },
     },
     {
@@ -106,7 +103,17 @@ export const SpotlightProvider = ({
       description: "All base64 links in r/fmhy",
       group: "page",
       onTrigger: () => {
-        router.push("/base64");
+        router.push("/links");
+      },
+    },
+    {
+      title: query,
+      isSearch: true,
+      source: "DB",
+      group: "search",
+      description: "Search on Db",
+      onTrigger: () => {
+        router.push(`/search?q=${query}`);
       },
     },
     {
@@ -119,16 +126,6 @@ export const SpotlightProvider = ({
       onTrigger: () => {
         const q = query.replace(" ", "+");
         window.open(`https://fmhy-search.streamlit.app/?q=${q}`);
-      },
-    },
-    {
-      title: query,
-      isSearch: true,
-      source: "DB",
-      group: "search",
-      description: "Search on Db",
-      onTrigger: () => {
-        router.push(`/search?q=${query}`);
       },
     },
   ];

@@ -1,83 +1,139 @@
-import Image from "next/image";
-// import { Inter } from "next/font/google";
-// const inter = Inter({ subsets: ["latin"] });
+import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
+import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
+import WikiBottomNavigator from "@/components/wiki/BottomNavigator";
 import Link from "next/link";
-import PirateImage from "../../public/assets/pirate.png";
+import Image from "next/image";
+import PirateImage from "/public/assets/pirate.png";
+import FAQ from "@/components/FAQ";
+import { Badge } from "@mantine/core";
 
+const quickLinks = [
+  {
+    title: "About",
+    link: "#about",
+    color: "cyan",
+  },
+  {
+    title: "FAQs",
+    link: "#faq",
+    color: "pink",
+  },
+  {
+    title: "Divolt",
+    link: "https://fmhy.divolt.xyz/",
+    color: "green",
+  },
+  // {
+  //   title: "Guides",
+  //   link: "/guides",
+  //   color: "blue",
+  // },
+];
+
+const content = [
+  {
+    title: "Vision",
+    content: (
+      <>
+        Our goal is to spread free education and entertainment to as many people
+        as we can, and fight for the rights of those who feel left behind to be
+        happy, educated, and comfortable, despite their economic circumstances.
+        <br /> We want to show people what the world could look like if we
+        started treating everyone as equally deserving of all things good. To
+        organize, index and preserve as many sites and as much content as we
+        possibly can, both for people now and people in the future.
+        <br /> We want to do our best to lead by example, and prove that putting
+        others before ourselves really does make the world a better place.
+      </>
+    ),
+  },
+  {
+    title: "Promise",
+    content: (
+      <>
+        &quot;I&apos;m not ever going to let this project die. Even if something
+        were to happen to me, it would be in good hands thanks to the awesome
+        mods in discord. I just wanted to say this because sometimes projects
+        like this end up slowly dying, and that isn&apos;t going to happen with
+        us.
+        <br />
+        Giving as many people as possible access to educational material and
+        entertainment does make the world a smarter and happier place.
+        <br />
+        Sharing is, always has been, and always will be the right thing to do,
+        and until we live in a world that doesn&apos;t need to be shown that,{" "}
+        <span className="text-cyan-400 tracking-tighter font-semibold">
+          we&apos;ll be here.
+        </span>
+        &quot;
+        <span className="block font-semibold font-sans">- nbatman</span>
+      </>
+    ),
+  },
+];
 const Home = () => {
   return (
-    <div className="px-4">
-      <div className="lg:flex justify-center items-center lg:justify-evenly">
-        <div className="my-auto">
-          <div className="flex sm:justify-center">
-            <p className="text-2xl font-semibold tracking-tighter">Hey 👋</p>
-          </div>
-
-          <div className="flex justify-center items-center flex-col">
-            <p
-              className="col lg:col-10 text-xl lg:px-12"
-              style={{ fontFamily: "courier" }}
-            >
-              Most of the people new to{" "}
-              <a
-                className="text-cyan-500"
-                href="https://www.reddit.com/r/FREEMEDIAHECKYEAH/"
-              >
-                r/FreeMediaHeckYeah{" "}
-              </a>
-              can find our massive wiki overwhelming when taking their first
-              look at it. So the members of r/FMHY thought that we should make a
-              curated list of common sites that we use, one that&apos;s much
-              shorter and not an entire list of every site we&apos;ve aggregated
-              over the years, making it much easier to navigate{" "}
-              <span className="animate-pulse">💖</span> It&apos;ll be some
-              underrated sites, ones that we use everyday, and guides that may
-              come in handy for a lot of people! ⚡️
-            </p>
-            <div className="pt-2 xl:pt-4 lg:px-10 my-2">
-              <p className="text-center">
-                Check out our{" "}
-                <Link className="text-cyan-500" href="/about">
-                  Vision
-                </Link>{" "}
-                & get started with our
-                <a
-                  className="text-cyan-500"
-                  href="https://rentry.org/Piracy-BG"
-                >
-                  {" "}
-                  Beginners Guide to Piracy
-                </a>
-              </p>
-              <p className="text-center">
-                Also be sure to checkout the updated{" "}
-                <Link className="text-cyan-500" href="/wiki/home">
-                  Wiki page
-                </Link>
-              </p>
-            </div>
-
-            <div className="flex justify-center mb-3 hover:scale-[102%] mt-2 transition transform duration-100 ease-out">
-              <a
-                className="px-2 py-2 rounded-md text-white bg-cyan-700"
-                href="https://www.reddit.com/r/FREEMEDIAHECKYEAH/comments/uto5vw/revolt_server/"
-              >
-                Join the Divolt Server! (Instructions)
-              </a>
-            </div>
+    <div className="flex justify-between overflow-hidden h-[calc(100vh_-_80px)] gap-2">
+      <CategoriesSidebar markdownCategory={MARKDOWN_RESOURCES[0]} />
+      <div className="flex-1 sm:px-4 md:px-8 lg:px-14 xl:px-28 overflow-scroll space-y-4">
+        <div className="justify-center min-h-full items-center flex flex-col">
+          <p className="text-5xl md:text-6xl font-semibold tracking-tighter text-center max-w-[95vw] xl:max-w-[50vw] ">
+            The largest collection of Free stuff on the Internet!
+          </p>
+          <Image
+            src={"/assets/fmhy.gif"}
+            alt="logo"
+            className="w-full h-auto sm:w-3/4 md:w-2/3 mx-auto"
+            width={200}
+            height={200}
+          />
+          <div className="flex gap-2">
+            {quickLinks.map((item) => (
+              <Link key={item.title} href={item.link}>
+                <Badge size="lg" color={item.color}>
+                  {item.title}
+                </Badge>
+              </Link>
+            ))}
           </div>
         </div>
-        <div className="flex justify-center">
+
+        <div
+          className="flex gap-3 flex-col items-center xl:flex-row"
+          id="about"
+        >
+          <div className="space-y-4">
+            {content.map((item) => (
+              <div key={item.title} className="space-y-2">
+                <p className="text-3xl text-gray-300 tracking-tighter font-semibold">
+                  {item.title}
+                </p>
+
+                <p
+                  className="bg-[#121212]"
+                  style={{
+                    fontFamily: "courier",
+                  }}
+                >
+                  {item.content}
+                </p>
+              </div>
+            ))}
+          </div>
           <Image
             alt="pirate"
             placeholder="blur"
             src={PirateImage}
-            className="h-[85vh] w-auto max-w-[100vw]"
+            className="h-[65vh] w-auto max-w-[80vw]"
           />
         </div>
+
+        <div className="min-h-screen items-center flex justify-center" id="faq">
+          <FAQ />
+        </div>
+        <WikiBottomNavigator category={""} />
       </div>
     </div>
   );
 };
-
 export default Home;

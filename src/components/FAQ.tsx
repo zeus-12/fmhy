@@ -32,12 +32,6 @@ const faqs = [
     value: "download",
   },
   {
-    question: "How do I view encoded links?",
-    answer: "Use any base64 decoding site or extension.",
-    value: "base64",
-  },
-
-  {
     question: "Why is there no NSFW section?",
     answer:
       "There is, its just separate from FMHY. You can find it by joining Divolt, or checking my saidit profile via backups.",
@@ -59,12 +53,16 @@ const faqs = [
 
 const FAQ = () => {
   return (
-    <div className="mb-8">
+    <div className="">
       <p className="text-3xl font-semibold tracking-tighter text-center mb-4">
         Frequently Asked <span className="text-cyan-400">Questions</span>
       </p>
 
-      <Accordion variant="separated" radius="md" className="max-w-3xl mx-auto">
+      <Accordion
+        variant="separated"
+        radius="md"
+        className="max-w-[80vw] md:max-w-[60vw] w-[48rem] mx-auto"
+      >
         {faqs.map((item, index) => (
           <Accordion.Item key={index} value={item.value}>
             <Accordion.Control>• {item.question}</Accordion.Control>
