@@ -13,6 +13,7 @@
 
 ## general
 
+- Fix the layout shift on homepage
 - auth? for guide-queue, and links queue
 - create new fn to only console.log on dev
 - make guides fitered by query params -> and add it to spotlight

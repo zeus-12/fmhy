@@ -6,6 +6,7 @@ import Image from "next/image";
 import PirateImage from "/public/assets/pirate.png";
 import FAQ from "@/components/FAQ";
 import { Badge } from "@mantine/core";
+import Balancer from "react-wrap-balancer";
 
 const quickLinks = [
   {
@@ -23,11 +24,6 @@ const quickLinks = [
     link: "https://fmhy.divolt.xyz/",
     color: "green",
   },
-  // {
-  //   title: "Guides",
-  //   link: "/guides",
-  //   color: "blue",
-  // },
 ];
 
 const content = [
@@ -77,8 +73,10 @@ const Home = () => {
       <CategoriesSidebar markdownCategory={MARKDOWN_RESOURCES[0]} />
       <div className="flex-1 sm:px-4 md:px-8 lg:px-14 xl:px-28 overflow-scroll space-y-4">
         <div className="justify-center min-h-full items-center flex flex-col">
-          <p className="text-5xl md:text-6xl font-semibold tracking-tighter text-center max-w-[95vw] xl:max-w-[50vw] ">
-            The largest collection of Free stuff on the Internet!
+          <p className="text-5xl md:text-6xl font-semibold tracking-tighter text-center">
+            <Balancer>
+              The largest collection of Free stuff on the Internet!
+            </Balancer>
           </p>
           <Image
             src={"/assets/fmhy.gif"}

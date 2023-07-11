@@ -103,7 +103,7 @@ export const SpotlightProvider = ({
       description: "All base64 links in r/fmhy",
       group: "page",
       onTrigger: () => {
-        router.push("/links");
+        router.push("/base64");
       },
     },
     {
