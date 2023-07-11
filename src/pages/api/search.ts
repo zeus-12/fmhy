@@ -1,3 +1,5 @@
+// WIP
+
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
 
@@ -22,19 +24,19 @@ export default async function handler(
 
   const results = await prisma.wiki.findMany({
     where: {
-      // OR: [
-      // {
-      title: {
-        contains: query,
-        // mode: Prisma.QueryMode.insensitive,
-      },
-      // },
-      // {
-      //   link: {
-      //     contains: query,
-      //   },
-      // },
-      // ],
+      OR: [
+        {
+          title: {
+            contains: query,
+            // mode: Prisma.QueryMode.insensitive,
+          },
+        },
+        {
+          link: {
+            contains: query,
+          },
+        },
+      ],
       nsfw: parsedNsfw,
     },
     skip: (parsedPage - 1) * ITEMS_PER_PAGE,
@@ -60,4 +62,16 @@ export default async function handler(
   });
 
   res.status(200).json({ data: results, count });
-}
+} //  const regex = new RegExp(query, "i");
+
+//  const results = await Search.find({
+//      $or: [{ title: regex }, { link: { $in: [regex] } }],
+//      isNsfw: nsfw,
+//  })
+//      .skip((+page - 1) * ITEMS_PER_PAGE)
+//      .limit(ITEMS_PER_PAGE);
+
+//  const count = await Search.countDocuments({
+//      $or: [{ title: regex }, { link: { $in: [regex] } }],
+//      isNsfw: nsfw,
+//  });
