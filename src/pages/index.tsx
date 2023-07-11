@@ -122,7 +122,7 @@ const Home = () => {
             alt="pirate"
             placeholder="blur"
             src={PirateImage}
-            className="h-[65vh] w-auto max-w-[80vw]"
+            className="w-[400px] h-auto max-w-[90%]"
           />
         </div>
 
