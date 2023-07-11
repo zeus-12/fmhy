@@ -111,7 +111,7 @@ export function redirectGithubLinksToWebsite(link: string) {
     const id = trimGithubUrl.split("#")[1];
 
     // no need for githubToWiki mapping cause wiki uses the same category names
-    return `/wiki/${category}#${id ? id : ""}`;
+    return `/${category}#${id ? id : ""}`;
   }
   console.log("CAN'T FIND GITHUB MAPPING FOR", trimGithubUrl);
   return link;
