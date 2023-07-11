@@ -7,7 +7,6 @@ import { useSpotlight } from "@mantine/spotlight";
 const navItems = [
   { link: "/search", name: "Search", startsWith: "/search" },
   { link: "/guides", name: "Guides", startsWith: "/guides" },
-  { link: "/links", name: "Links", startsWith: "/links" },
 ];
 
 export const LinkElements = () => {
@@ -15,11 +14,11 @@ export const LinkElements = () => {
   const curLink = router.pathname;
 
   return (
-    <div className="text-gray-300 text-md sm:text-lg font-medium flex gap-2 sm:gap-6 lg:gap-8">
+    <div className="text-gray-300 text-base sm:text-lg font-medium flex gap-4 sm:gap-6 lg:gap-8">
       {navItems.map((item, index) => (
         <Link key={index} href={item.link}>
           <p
-            className={`px-0.5 py-1 lg:px-2 rounded-md hover:text-white cursor-pointer text-center hover:bg-gray-900 ${
+            className={`px-0.5 lg:px-2 rounded-md hover:text-white cursor-pointer text-center hover:bg-gray-900 ${
               curLink.startsWith(item.startsWith)
                 ? "text-white"
                 : "text-gray-500"
@@ -59,18 +58,9 @@ const Navbar = () => {
 export const SearchBar = () => {
   const spotlight = useSpotlight();
   return (
-    //     <div
-    //       className="py-1 w-36 lg:w-58 max-w-[60%] mx-auto flex items-center rounded-md px-2 gap-2 bg-[#252728] hover:cursor-pointer"
-    //       onClick={spotlight.openSpotlight}
-    //     >
-    //       <Search className="w-5 h-5 text-gray-400" />
-
-    //       <p className="text-gray-600 w-36 text-sm">Search</p>
-
     <div className="hover:cursor-pointer" onClick={spotlight.openSpotlight}>
       <Kbd className="ml-auto">/</Kbd>
     </div>
-    // </div>
   );
 };
 export default Navbar;
