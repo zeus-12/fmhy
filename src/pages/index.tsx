@@ -1,5 +1,5 @@
 import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
-import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
+import { MARKDOWN_RESOURCES, blurDataUrlForLogo } from "@/lib/CONSTANTS";
 import WikiBottomNavigator from "@/components/wiki/BottomNavigator";
 import Link from "next/link";
 import Image from "next/image";
@@ -81,9 +81,11 @@ const Home = () => {
           <Image
             src={"/assets/fmhy.gif"}
             alt="logo"
-            className="w-full h-auto sm:w-3/4 md:w-2/3 mx-auto"
-            width={200}
-            height={200}
+            // className="w-full h-auto sm:w-3/4 md:w-2/3 mx-auto"
+            blurDataURL={blurDataUrlForLogo}
+            placeholder="blur"
+            width={600}
+            height={300}
           />
           <div className="flex gap-2">
             {quickLinks.map((item) => (
