@@ -104,6 +104,11 @@ export const MARKDOWN_RESOURCES = [
     emoji: "🌀",
   },
   {
+    title: "Unsafe Sites",
+    urlEnding: "UnsafeSites",
+    emoji: "🚫",
+  },
+  {
     title: "NSFW",
     urlEnding: "NSFWPiracy",
     emoji: "🔞",
