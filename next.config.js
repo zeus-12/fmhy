@@ -6,6 +6,15 @@ const nextConfig = {
   images: {
     domains: ["images.clerk.dev"],
   },
+  async redirects() {
+    return [
+      {
+        source: "/wiki/:path*",
+        destination: "/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = withPlausibleProxy({
