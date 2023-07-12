@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const { withPlausibleProxy } = require("next-plausible");
+import { withPlausibleProxy } from "next-plausible";
 
 const nextConfig = {
   reactStrictMode: true,
@@ -13,11 +13,16 @@ const nextConfig = {
         destination: "/:path*",
         permanent: true,
       },
+      {
+        source: "/links/:path*",
+        destination: "/:path*",
+        permanent: true,
+      },
     ];
   },
 };
 
-module.exports = withPlausibleProxy({
+export default withPlausibleProxy({
   subdirectory: "meowlytics",
   scriptName: "script",
   customDomain: "https://meowlytics.bignutty.xyz",
