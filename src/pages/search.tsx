@@ -1,37 +1,34 @@
-import { Button, Input, Loader, Pagination, Switch } from "@mantine/core";
+import { Input, Loader, Pagination, Switch } from "@mantine/core";
 import { Search as SearchIcon } from "lucide-react";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
+import { InferGetServerSidePropsType, NextPageContext } from "next";
 
 const ITEMS_PER_PAGE = 30;
 
 interface SearchResultType {
-  _id: string;
+  id: string;
   title: string;
   link: string;
   starred: boolean;
   isNsfw: boolean;
 }
 
-const Search = () => {
+const Search = ({
+  query,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
 
-  const page = parseInt(searchParams.get("page") ?? "1");
-  const query = searchParams.get("q") ?? "";
-  const nsfw = searchParams.get("nsfw") === "true" ? true : false;
+  const q = (query.q as string) ?? "";
+  const page = parseInt((query.page as string) ?? "1");
+  const nsfw = query.nsfw === "true" ? true : false;
 
-  const [searchQuery, setSearchQuery] = useState<string>(query);
+  const [searchQuery, setSearchQuery] = useState<string>(q);
   const [activePage, setActivePage] = useState(page);
   const [includeNsfw, setIncludeNsfw] = useState(nsfw);
 
   const searchRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    searchRef.current?.focus();
-  }, []);
 
   const {
     data: searchRes,
@@ -51,35 +48,33 @@ const Search = () => {
     enabled: false,
   });
 
+  useEffect(() => {
+    if (q) return;
+    searchRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    if (q) {
+      fetchSearchResults();
+    }
+  }, [q, page, nsfw]);
+
   // cause of weird reactq behaviour, isloading remaining true when enabled is false
   const isLoading = isLoading_ && fetchStatus !== "idle";
 
   const searchResults: undefined | SearchResultType[] = searchRes?.data;
   const count = searchRes?.count;
 
-  // useEffect(() => {
-  //   setSearchQuery(query);
-  //   setActivePage(page);
-  //   setIncludeNsfw(nsfw);
-
-  //   if (!isLoading && query && !searchResults) {
-  //     console.log("fething");
-  //     fetchSearchResults();
-  //   }
-  //   // do something to force refetch -> searchquery may be undefined when function is called
-  // }, [page, query, nsfw]);
-
   const navigatePage = ({
     page,
     nsfw,
     query,
   }: {
-    page: number;
+    page?: number;
     nsfw?: boolean;
     query?: string;
   }) => {
     let params = new URLSearchParams(window.location.search);
-
     if (query !== undefined) {
       params.set("q", query);
     }
@@ -99,7 +94,7 @@ const Search = () => {
   };
 
   const fetchSearchResults = async () => {
-    if (!query || !query.trim()) return;
+    if (!searchQuery || !searchQuery.trim()) return;
 
     try {
       await refetchSearchResults();
@@ -108,17 +103,9 @@ const Search = () => {
     }
   };
 
-  useEffect(() => {
-    fetchSearchResults();
-  }, [query, page, nsfw]);
-
   const searchHandler = async () => {
-    if (!searchQuery || !searchQuery.trim()) return;
-
     navigatePage({ page: 1, nsfw: includeNsfw, query: searchQuery });
-
     searchRef.current?.blur();
-    await fetchSearchResults();
   };
 
   const paginationHandler = async (cur: number) => {
@@ -133,10 +120,12 @@ const Search = () => {
 
   const resetSearch = () => {
     router.push("/search");
+    setSearchQuery("");
+    setIncludeNsfw(false);
   };
 
   return (
-    <div className="flex flex-1 flex-col px-6 sm:px-8 md:px-12 md:py-2 lg:px-16 lg:py-4 xl:py-6">
+    <div className="flex flex-1 flex-col px-6 sm:px-8 md:px-12 md:py-2 lg:px-16 lg:py-4 xl:py-6 mb-8">
       <div className="flex items-center justify-between">
         <p
           onClick={resetSearch}
@@ -184,10 +173,10 @@ const Search = () => {
       {!isLoading && searchResults && searchResults?.length > 0 && (
         <div className="mt-2 flex flex-1 flex-col space-y-4">
           <p className="text-gray-600">{`${count} results found`}</p>
-          {searchResults.map((result, i) => (
+          {searchResults.map((result) => (
             <div
               className="flex transform flex-col space-y-2 rounded-xl bg-gray-900 p-4 transition duration-100 ease-out hover:scale-[101%]"
-              key={i}
+              key={result.id}
             >
               <p className="text-xl font-semibold">{result.title}</p>
               {JSON.parse(result?.link)?.map((link: string) => (
@@ -231,3 +220,11 @@ const Search = () => {
   );
 };
 export default Search;
+
+export const getServerSideProps = async (context: NextPageContext) => {
+  return {
+    props: {
+      query: context.query,
+    },
+  };
+};
