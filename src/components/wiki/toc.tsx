@@ -93,7 +93,7 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
                 "inline-block no-underline text-sm hover:text-slate-100",
                 item.url === `#${activeItem}`
                   ? "text-slate-100"
-                  : "text-slate-600"
+                  : "text-slate-500"
               )}
             >
               {item.title}

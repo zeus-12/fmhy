@@ -59,7 +59,16 @@ export const SearchBar = () => {
   const spotlight = useSpotlight();
   return (
     <div className="hover:cursor-pointer" onClick={spotlight.openSpotlight}>
-      <Kbd className="ml-auto">/</Kbd>
+      <Kbd className="ml-auto">
+        {/* {navigator.appVersion.includes("Macintosh") ? (
+          <>
+            <span className="nx-text-xs">⌘</span>K
+          </>
+        ) : (
+          "CTRL K"
+        )} */}
+        /
+      </Kbd>
     </div>
   );
 };

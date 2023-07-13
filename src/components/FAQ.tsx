@@ -21,8 +21,15 @@ const faqs = [
   },
   {
     question: "Can I edit FMHY?",
-    answer:
-      "Absolutely. This project was made by and belongs to the community, so we allow anyone to suggest changes via pull requests. We want this project to be as organized and useful as possible, so if you feel like you can help improve it, please do.",
+    answer: (
+      <span>
+        Absolutely. This project was made by and belongs to the community, so we
+        allow anyone to suggest changes via pull requests. We want this project
+        to be as organized and useful as possible, so if you feel like you can
+        help improve it, please do by creating a PR at{" "}
+        <a href="https://github.com/fmhy/fmhyedit">Fmhy Github Repo</a>
+      </span>
+    ),
     value: "edit",
   },
   {
@@ -65,7 +72,7 @@ const FAQ = () => {
       >
         {faqs.map((item, index) => (
           <Accordion.Item key={index} value={item.value}>
-            <Accordion.Control>• {item.question}</Accordion.Control>
+            <Accordion.Control>{item.question}</Accordion.Control>
             <Accordion.Panel>{item.answer}</Accordion.Panel>
           </Accordion.Item>
         ))}
