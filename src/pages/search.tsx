@@ -2,30 +2,29 @@ import { Button, Input, Loader, Pagination, Switch } from "@mantine/core";
 import { Search as SearchIcon } from "lucide-react";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { SERVER_URL } from "@/lib/config";
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
 
 const ITEMS_PER_PAGE = 30;
 
 interface SearchResultType {
   _id: string;
   title: string;
-  link: string[];
+  link: string;
   starred: boolean;
   isNsfw: boolean;
 }
 
 const Search = () => {
   const router = useRouter();
-  let { page: page_, q, nsfw: nsfw_ } = router.query;
+  const searchParams = useSearchParams();
 
-  const page = typeof page_ === "string" ? parseInt(page_) : 1;
-  const query = typeof q === "string" ? q : "";
-  const nsfw = nsfw_ === "true" ? true : false;
+  const page = parseInt(searchParams.get("page") ?? "1");
+  const query = searchParams.get("q") ?? "";
+  const nsfw = searchParams.get("nsfw") === "true" ? true : false;
 
   const [searchQuery, setSearchQuery] = useState<string>(query);
   const [activePage, setActivePage] = useState(page);
-
   const [includeNsfw, setIncludeNsfw] = useState(nsfw);
 
   const searchRef = useRef<HTMLInputElement>(null);
@@ -44,7 +43,7 @@ const Search = () => {
     queryKey: ["search", searchQuery, activePage, includeNsfw],
     queryFn: async () => {
       const res = await fetch(
-        `${SERVER_URL}/api/search?q=${searchQuery}&page=${activePage}&nsfw=${includeNsfw}`
+        `/api/search?q=${searchQuery}&page=${activePage}&nsfw=${includeNsfw}`
       );
       const data = await res.json();
       return data;
@@ -58,19 +57,17 @@ const Search = () => {
   const searchResults: undefined | SearchResultType[] = searchRes?.data;
   const count = searchRes?.count;
 
-  useEffect(() => {
-    setSearchQuery(query);
-    setActivePage(page);
-    setIncludeNsfw(nsfw);
+  // useEffect(() => {
+  //   setSearchQuery(query);
+  //   setActivePage(page);
+  //   setIncludeNsfw(nsfw);
 
-    // do something to force refetch -> searchquery may be undefined when function is called
-  }, [router.query]);
-
-  useEffect(() => {
-    if (searchQuery) {
-      fetchSearchResults();
-    }
-  }, [activePage, includeNsfw]);
+  //   if (!isLoading && query && !searchResults) {
+  //     console.log("fething");
+  //     fetchSearchResults();
+  //   }
+  //   // do something to force refetch -> searchquery may be undefined when function is called
+  // }, [page, query, nsfw]);
 
   const navigatePage = ({
     page,
@@ -102,7 +99,7 @@ const Search = () => {
   };
 
   const fetchSearchResults = async () => {
-    if (!searchQuery || !searchQuery.trim()) return;
+    if (!query || !query.trim()) return;
 
     try {
       await refetchSearchResults();
@@ -110,6 +107,10 @@ const Search = () => {
       console.log(err.message);
     }
   };
+
+  useEffect(() => {
+    fetchSearchResults();
+  }, [query, page, nsfw]);
 
   const searchHandler = async () => {
     if (!searchQuery || !searchQuery.trim()) return;
@@ -165,26 +166,13 @@ const Search = () => {
         }}
         ref={searchRef}
         rightSection={<SearchIcon className="h-5 w-5 text-gray-400" />}
-        className="w-[90vw] sm:w-96"
+        className="w-[85vw] sm:w-96"
       />
       {isError && (
-        <div className="flex flex-1 items-center justify-center">
-          <div className="w-[50vw] space-y-2 text-center">
-            <p className="text-7xl font-semibold text-gray-400">500</p>
-            <p className="text-3xl font-semibold">Something went wrong</p>
-            <p className="text-gray-600">
-              Our servers couldn&apos;t handle your request. Try refreshing the
-              page.
-            </p>
-            <Button
-              onClick={() => window.location.reload()}
-              variant="fill"
-              color="cyan"
-              className="bg-cyan-400 hover:bg-cyan-300"
-            >
-              Refresh the page
-            </Button>
-          </div>
+        <div className="mt-2">
+          <p className="font-semibold">
+            Something went wrong, please try again later!
+          </p>
         </div>
       )}
       {isLoading && (
@@ -202,7 +190,7 @@ const Search = () => {
               key={i}
             >
               <p className="text-xl font-semibold">{result.title}</p>
-              {result?.link?.map((link: string) => (
+              {JSON.parse(result?.link)?.map((link: string) => (
                 <a
                   target="_blank"
                   rel="noreferrer"
