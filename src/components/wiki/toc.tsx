@@ -25,7 +25,7 @@ export default function WikiTableOfContents({ toc }: TocProps) {
   }
 
   return (
-    <div className="space-y-2 overflow-scroll hidden md:block lg:pr-8 md:pr-2">
+    <div className="space-y-2 overflow-scroll hidden md:block lg:pr-8 md:pr-2 hideScrollbar">
       <p className="font-medium">Contents</p>
       <Tree tree={toc} activeItem={activeHeading} />
     </div>
