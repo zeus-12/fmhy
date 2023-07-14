@@ -2,6 +2,7 @@ import { Switch } from "@mantine/core";
 import { useState } from "react";
 import Base64Item from "@/components/Base64Item";
 import { useQuery } from "@tanstack/react-query";
+import { devLog } from "@/lib/utils";
 
 interface Base64LinksType {
   id: string;
@@ -23,7 +24,7 @@ const Base64 = () => {
       const data = await res.json();
       return data.data;
     } catch (err) {
-      console.log(err);
+      devLog(err);
     }
   };
 

@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { InferGetServerSidePropsType, NextPageContext } from "next";
+import { devLog } from "@/lib/utils";
 
 const ITEMS_PER_PAGE = 30;
 
@@ -99,7 +100,7 @@ const Search = ({
     try {
       await refetchSearchResults();
     } catch (err: any) {
-      console.log(err.message);
+      devLog(err.message);
     }
   };
 

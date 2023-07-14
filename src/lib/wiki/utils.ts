@@ -1,5 +1,6 @@
 import { Children } from "react";
 import { slug as githubSlug } from "github-slugger";
+import { devLog } from "@/lib/utils";
 
 interface ClassMappingType {
   [key: string]: string;
@@ -94,7 +95,7 @@ export function redirectRedditLinksToWebsite(link: string) {
       category as keyof RedditToGithubTitleMappingType
     ]
   ) {
-    console.log("CAN'T FIND REDDIT MAPPING FOR", category);
+    devLog("CAN'T FIND REDDIT MAPPING FOR", category);
     return link;
   }
 
@@ -105,7 +106,7 @@ export function redirectGithubLinksToWebsite(link: string) {
   let trimGithubUrl = link.split(GITHUB_WIKI_URL)[1];
 
   if (trimGithubUrl) {
-    console.log("GITHUB LINK", trimGithubUrl);
+    devLog("GITHUB LINK", trimGithubUrl);
 
     const category = trimGithubUrl.split("#")[0].replace(".md", "");
     const id = trimGithubUrl.split("#")[1];
@@ -113,7 +114,7 @@ export function redirectGithubLinksToWebsite(link: string) {
     // no need for githubToWiki mapping cause wiki uses the same category names
     return `/${category}#${id ? id : ""}`;
   }
-  console.log("CAN'T FIND GITHUB MAPPING FOR", trimGithubUrl);
+  devLog("CAN'T FIND GITHUB MAPPING FOR", trimGithubUrl);
   return link;
 }
 

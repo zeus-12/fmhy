@@ -16,3 +16,9 @@ export function formatName(name: string) {
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export const devLog = (...args: any) => {
+  if (process.env.NODE_ENV === "development") {
+    console.log(`%c[DEV]`, "color: #green; font-weight: bold;", ...args);
+  }
+};

@@ -5,6 +5,7 @@ import { FRONTEND_URL } from "@/lib/config";
 import { notSignedInNotification } from "@/components/Notifications";
 import { Plus, Search, X } from "lucide-react";
 import { useRouter } from "next/router";
+import { devLog } from "@/lib/utils";
 
 export interface GuideType {
   credits?: string;
@@ -143,7 +144,7 @@ export async function getStaticProps() {
       revalidate: 60 * 60 * 24, // 1 day
     };
   } catch (err: any) {
-    console.log(err.message);
+    devLog(err.message);
     return {
       props: {
         guides: [],
