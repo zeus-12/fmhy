@@ -1,3 +1,4 @@
+import { useMounted } from "@/hooks/use-mounted";
 import { TableOfContents } from "@/lib/toc";
 import { cn } from "@/lib/utils";
 import { useEffect, useMemo, useState } from "react";
@@ -7,6 +8,8 @@ interface TocProps {
 }
 
 export default function WikiTableOfContents({ toc }: TocProps) {
+  const mounted = useMounted();
+
   const itemIds = useMemo(
     () =>
       toc?.items
@@ -24,12 +27,12 @@ export default function WikiTableOfContents({ toc }: TocProps) {
     return null;
   }
 
-  return (
+  return mounted ? (
     <div className="space-y-2 overflow-scroll hidden md:block lg:pr-8 md:pr-2 hideScrollbar">
       <p className="font-medium">Contents</p>
       <Tree tree={toc} activeItem={activeHeading} />
     </div>
-  );
+  ) : null;
 }
 
 function useActiveItem(itemIds: (string | undefined)[]) {
