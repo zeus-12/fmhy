@@ -58,7 +58,10 @@ const Navbar = () => {
 export const SearchBar = () => {
   const spotlight = useSpotlight();
   return (
-    <div className="hover:cursor-pointer" onClick={spotlight.openSpotlight}>
+    <div
+      className="hover:cursor-pointer plausible-event-name=spotlight-toggle"
+      onClick={spotlight.openSpotlight}
+    >
       <Kbd className="ml-auto">
         {/* {navigator.appVersion.includes("Macintosh") ? (
           <>

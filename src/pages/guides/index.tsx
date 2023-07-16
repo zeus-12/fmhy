@@ -100,16 +100,16 @@ const Guides = ({
               </>
             ) : (
               <div
-                className="hover:cursor-pointer"
+                className="hover:cursor-pointer plausible-event-name=search-guide"
                 onClick={() => setShowInput(true)}
               >
                 <Search className="w-5 h-5" />
               </div>
             )}
           </div>
-          <div onClick={addGuideHandler} className="hover:cursor-pointer">
+          {/* <div onClick={addGuideHandler} className="hover:cursor-pointer">
             <Plus className="w-6 h-6" />
-          </div>
+          </div> */}
         </div>
       </div>
       {isError && <p>Can&apos;t connect to the server</p>}

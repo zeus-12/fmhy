@@ -15,6 +15,7 @@ import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
 import { useRouter } from "next/router";
 import { getTableOfContents } from "@/lib/toc";
 import WikiTableOfContents from "@/components/wiki/toc";
+import { cn } from "@/lib/utils";
 
 const Wiki = ({
   data,
@@ -82,15 +83,22 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
           <p className="text-3xl underline underline-offset-2 font-semibold tracking-tighter">
             {markdownCategory?.title}
           </p>
-          <Switch
-            className={
+
+          <div
+            className={cn(
+              "sm:flex-row-reverse flex flex-col items-center gap-2",
               ["beginners-guide", "storage"].includes(category) ? "hidden" : ""
-            }
-            label="Recommended?"
-            size="xs"
-            checked={starredLinks}
-            onChange={(event) => setStarredLinks(event.currentTarget.checked)}
-          />
+            )}
+          >
+            <p className="text-xs text-gray-400">Recommended?</p>
+
+            <Switch
+              className="plausible-event-name=recommended-toggle"
+              size="xs"
+              checked={starredLinks}
+              onChange={(event) => setStarredLinks(event.currentTarget.checked)}
+            />
+          </div>
         </div>
 
         {isError && <p>Something went wrong!</p>}
