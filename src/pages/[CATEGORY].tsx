@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import { getTableOfContents } from "@/lib/toc";
 import WikiTableOfContents from "@/components/wiki/toc";
 import { cn } from "@/lib/utils";
+import { usePlausible } from "next-plausible";
 
 const Wiki = ({
   data,
@@ -75,6 +76,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
   toc,
 }) => {
   const [starredLinks, setStarredLinks] = useState(false);
+  const plausible = usePlausible();
 
   return (
     <>
@@ -93,10 +95,12 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
             <p className="text-xs text-gray-400">Recommended?</p>
 
             <Switch
-              className="plausible-event-name=recommended-toggle"
               size="xs"
               checked={starredLinks}
-              onChange={(event) => setStarredLinks(event.currentTarget.checked)}
+              onChange={(event) => {
+                plausible("recommended-toggle");
+                setStarredLinks(event.currentTarget.checked);
+              }}
             />
           </div>
         </div>

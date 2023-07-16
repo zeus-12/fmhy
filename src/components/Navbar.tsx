@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { Kbd } from "@mantine/core";
 import { useSpotlight } from "@mantine/spotlight";
+import { usePlausible } from "next-plausible";
 
 const navItems = [
   { link: "/search", name: "Search", startsWith: "/search" },
@@ -57,10 +58,14 @@ const Navbar = () => {
 
 export const SearchBar = () => {
   const spotlight = useSpotlight();
+  const plausible = usePlausible();
   return (
     <div
-      className="hover:cursor-pointer plausible-event-name=spotlight-toggle"
-      onClick={spotlight.openSpotlight}
+      className="hover:cursor-pointer"
+      onClick={() => {
+        plausible("spotlight-toggle");
+        spotlight.openSpotlight();
+      }}
     >
       <Kbd className="ml-auto">
         {/* {navigator.appVersion.includes("Macintosh") ? (

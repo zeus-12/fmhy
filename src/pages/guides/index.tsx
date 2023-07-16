@@ -3,9 +3,10 @@ import GuideItem from "@/components/GuideItem";
 import { Input } from "@mantine/core";
 import { FRONTEND_URL } from "@/lib/config";
 import { notSignedInNotification } from "@/components/Notifications";
-import { Plus, Search, X } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { useRouter } from "next/router";
 import { devLog } from "@/lib/utils";
+import { usePlausible } from "next-plausible";
 
 export interface GuideType {
   credits?: string;
@@ -24,6 +25,8 @@ const Guides = ({
   isError: boolean;
   errorMessage?: string;
 }) => {
+  const plausible = usePlausible();
+
   const [inputText, setInputText] = useState("");
   const [showInput, setShowInput] = useState(false);
 
@@ -100,8 +103,11 @@ const Guides = ({
               </>
             ) : (
               <div
-                className="hover:cursor-pointer plausible-event-name=search-guide"
-                onClick={() => setShowInput(true)}
+                className="hover:cursor-pointer"
+                onClick={() => {
+                  plausible("search-guide");
+                  setShowInput(true);
+                }}
               >
                 <Search className="w-5 h-5" />
               </div>
