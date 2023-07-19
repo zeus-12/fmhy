@@ -14,10 +14,10 @@ import { Notifications } from "@mantine/notifications";
 import Navbar from "@/components/Navbar";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import PlausibleProvider from "next-plausible";
+// import { useRouter } from "next/router";
 
-const privatePages: Array<string> = [];
+// const privatePages: Array<string> = [];
 
 export default function App({ Component, pageProps }: AppProps) {
   // const { pathname } = useRouter();
@@ -30,7 +30,11 @@ export default function App({ Component, pageProps }: AppProps) {
     <PlausibleProvider
       domain="fmhy.ml"
       selfHosted={true}
+      // trackLocalhost={true}
+      // enabled={true}
       customDomain="https://meowlytics.bignutty.xyz"
+      trackOutboundLinks={true}
+      taggedEvents={true}
     >
       <MantineProvider
         theme={{

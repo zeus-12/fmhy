@@ -6,7 +6,6 @@ import { notSignedInNotification } from "@/components/Notifications";
 import { Search, X } from "lucide-react";
 import { useRouter } from "next/router";
 import { devLog } from "@/lib/utils";
-import { usePlausible } from "next-plausible";
 
 export interface GuideType {
   credits?: string;
@@ -25,8 +24,6 @@ const Guides = ({
   isError: boolean;
   errorMessage?: string;
 }) => {
-  const plausible = usePlausible();
-
   const [inputText, setInputText] = useState("");
   const [showInput, setShowInput] = useState(false);
 
@@ -103,9 +100,8 @@ const Guides = ({
               </>
             ) : (
               <div
-                className="hover:cursor-pointer"
+                className="hover:cursor-pointer plausible-event-name=search-guide"
                 onClick={() => {
-                  plausible("search-guide");
                   setShowInput(true);
                 }}
               >
