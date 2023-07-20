@@ -32,7 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
       selfHosted={true}
       // trackLocalhost={true}
       // enabled={true}
-      customDomain="https://analytics.bignutty.xyz"
+      customDomain="https://a.bignutty.xyz"
       trackOutboundLinks={true}
       taggedEvents={true}
     >
