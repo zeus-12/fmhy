@@ -28,11 +28,11 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     // <ClerkProvider {...pageProps}>
     <PlausibleProvider
-      domain="fmhy.ml"
+      domain="fmhy.tk"
       selfHosted={true}
       // trackLocalhost={true}
       // enabled={true}
-      customDomain="https://meowlytics.bignutty.xyz"
+      customDomain="https://analytics.bignutty.xyz"
       trackOutboundLinks={true}
       taggedEvents={true}
     >

@@ -23,7 +23,7 @@ const nextConfig = {
 };
 
 export default withPlausibleProxy({
-  subdirectory: "meowlytics",
+  subdirectory: "analytics",
   scriptName: "script",
-  customDomain: "https://meowlytics.bignutty.xyz",
+  customDomain: "https://a.bignutty.xyz",
 })(nextConfig);
