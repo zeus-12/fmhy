@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     // <ClerkProvider {...pageProps}>
     <PlausibleProvider
-      domain="fmhy.tk"
+      domain="fmhy.net"
       selfHosted={true}
       // trackLocalhost={true}
       // enabled={true}
