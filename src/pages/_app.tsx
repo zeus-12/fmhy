@@ -1,9 +1,3 @@
-import {
-  ClerkProvider,
-  RedirectToSignIn,
-  SignedIn,
-  SignedOut,
-} from "@clerk/nextjs";
 import "@/styles/globals.css";
 import "@/styles/guides.css";
 import type { AppProps } from "next/app";
@@ -15,18 +9,11 @@ import Navbar from "@/components/Navbar";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Head from "next/head";
 import PlausibleProvider from "next-plausible";
-// import { useRouter } from "next/router";
-
-// const privatePages: Array<string> = [];
 
 export default function App({ Component, pageProps }: AppProps) {
-  // const { pathname } = useRouter();
-  // const isPrivatePage = privatePages.includes(pathname);
-
   const queryClient = new QueryClient();
 
   return (
-    // <ClerkProvider {...pageProps}>
     <PlausibleProvider
       domain="fmhy.net"
       selfHosted={true}
@@ -51,18 +38,7 @@ export default function App({ Component, pageProps }: AppProps) {
               <Notifications />
               <Navbar />
               <div className="px-2 h-full flex-1 flex-col flex">
-                {/* {isPrivatePage ? (
-                  <>
-                    <SignedIn>
-                      <Component {...pageProps} />
-                    </SignedIn>
-                    <SignedOut>
-                      <RedirectToSignIn />
-                    </SignedOut>
-                  </>
-                ) : ( */}
                 <Component {...pageProps} />
-                {/* )} */}
               </div>
             </div>
           </SpotlightProvider>
@@ -70,7 +46,5 @@ export default function App({ Component, pageProps }: AppProps) {
         </QueryClientProvider>
       </MantineProvider>
     </PlausibleProvider>
-
-    // </ClerkProvider>
   );
 }
