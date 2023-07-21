@@ -96,9 +96,9 @@ export const CodeRenderer = (props: any, category: string) => {
       const split = decrypted.split("\n");
       return (
         <>
-          {split.map((link) => (
+          {split.map((link, index) => (
             <a
-              key={link}
+              key={index}
               href={link}
               className="block "
               target="_blank"
