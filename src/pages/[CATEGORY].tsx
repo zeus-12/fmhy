@@ -162,10 +162,44 @@ export async function getStaticProps({
     const res = await fetch(markdownUrl);
     const text = await res.text();
 
-    const cleanedText = text
-      .split("For mobile users")[1]
+    const cleanedText = (text.split("For mobile users")[1] ?? text)
       ?.replaceAll("►", "")
-      ?.replaceAll("▷", "");
+      ?.replaceAll("▷", "")
+      ?.replaceAll("Table of Contents", "")
+      ?.replaceAll("[TOC2]", "")
+      ?.replaceAll("-> ***Beginners Guide to Piracy*** <-", "")
+      ?.replaceAll("**[^ Back to Top](#beginners-guide-to-piracy)**", "")
+      ?.replace(
+        "**[Back to Wiki Index](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/index)**",
+        ""
+      )
+      ?.replaceAll(
+        "If you have any suggestions or questions feel free to join us in [Divolt](https://redd.it/uto5vw) ♡",
+        ""
+      )
+      ?.replaceAll(
+        "Source: **[/r/FREEMEDIAHECKYEAH](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/index)**",
+        ""
+      )
+      ?.replace(
+        `#### How-to Decode Links
+
+Use any **[Base64 Decoding](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/storage#wiki_encode_.2F_decode_urls)** site or extension.
+
+***`,
+
+        // ### Mirrors
+
+        // * https://www.fmhy.ml/base64
+        // * https://fmhy.pages.dev/base64/
+        // * https://github.com/nbats/FMHYedit/blob/main/base64.md
+        // * https://notabug.org/nbatman/freemediaheckyeah/wiki/base64
+        // * https://rentry.co/FMHYBase64
+
+        // ***`,
+        ""
+      )
+      .replace(`# Untrusted Sites / Software`, "");
 
     const toc = await getTableOfContents(cleanedText);
 
