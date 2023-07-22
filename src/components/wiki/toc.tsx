@@ -1,6 +1,7 @@
 import { TableOfContents } from "@/lib/toc";
 import { cn } from "@/lib/utils";
 import { Drawer } from "@mantine/core";
+import { XIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 interface TableOfContentsProps {
@@ -54,14 +55,6 @@ export default function TableOfContents({
           activeHeading={activeHeading}
           closeModal={() => setOpen(false)}
         />
-        <div className="space-y-2 overflow-scroll lg:pr-8 md:pr-2 hideScrollbar">
-          <p className="font-medium">Contents</p>
-          <Tree
-            tree={toc}
-            activeItem={activeHeading}
-            // closeModal={() => setOpen(false)}
-          />
-        </div>
       </Drawer>
     </>
   );
@@ -80,7 +73,15 @@ function Toc({
 
   return (
     <div className="space-y-2 overflow-scroll lg:pr-8 md:pr-2 hideScrollbar">
-      <p className={cn(`font-medium`, isModal && "text-xl")}>Contents</p>
+      <div className="flex justify-between items-center">
+        <p className={cn(`font-medium`, isModal && "text-xl")}>Contents</p>
+        {isModal && (
+          <XIcon
+            className="text-gray-400 cursor-pointer"
+            onClick={closeModal}
+          />
+        )}
+      </div>
       <Tree
         tree={toc}
         activeItem={activeHeading}
