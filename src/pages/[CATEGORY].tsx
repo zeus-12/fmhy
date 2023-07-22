@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 import ReactMarkdown from "react-markdown";
 import { useEffect, useState } from "react";
 import { MARKDOWN_RESOURCES, isDevEnv, testData } from "@/lib/CONSTANTS";
@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import { getTableOfContents } from "@/lib/toc";
 import WikiTableOfContents from "@/components/wiki/toc";
 import { cn } from "@/lib/utils";
+import { PanelRightOpen } from "lucide-react";
 
 const Wiki = ({
   data,
@@ -75,6 +76,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
   toc,
 }) => {
   const [starredLinks, setStarredLinks] = useState(false);
+  const [isTocOpen, setIsTocOpen] = useState(false);
 
   return (
     <>
@@ -83,24 +85,33 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
           <p className="text-3xl underline underline-offset-2 font-semibold tracking-tighter">
             {markdownCategory?.title}
           </p>
+          <div className="flex items-center">
+            {/* <div
+              className={cn(
+                "sm:flex-row-reverse flex flex-col items-center gap-2 pr-4",
+                ["beginners-guide", "storage"].includes(category)
+                  ? "hidden"
+                  : ""
+              )}
+            > */}
+            {/* <p className="text-xs text-gray-400">Suggested?</p> */}
 
-          <div
-            className={cn(
-              "sm:flex-row-reverse flex flex-col items-center gap-2",
-              ["beginners-guide", "storage"].includes(category) ? "hidden" : ""
-            )}
-          >
-            <p className="text-xs text-gray-400">Recommended?</p>
-
-            <div className="plausible-event-name=recommended-toggle">
+            <div className="plausible-event-name=recommended-toggle pr-6 md:pr-0">
               <Switch
-                size="xs"
+                size="sm"
                 checked={starredLinks}
                 onChange={(event) => {
                   setStarredLinks(event.currentTarget.checked);
                 }}
+                offLabel={<span className="text-base">⭐️</span>}
+                onLabel={<span className="text-xs">All</span>}
               />
             </div>
+            {/* </div> */}
+            <PanelRightOpen
+              className="h-6 w-6 md:hidden text-gray-400 absolute right-0"
+              onClick={() => setIsTocOpen(true)}
+            />
           </div>
         </div>
 
@@ -128,7 +139,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
           </>
         )}
       </div>
-      <WikiTableOfContents toc={toc} />
+      <WikiTableOfContents toc={toc} open={isTocOpen} setOpen={setIsTocOpen} />
     </>
   );
 };
@@ -206,7 +217,12 @@ Use any **[Base64 Decoding](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/stor
     return {
       props: {
         data: cleanedText || text,
-        toc,
+        toc:
+          // // for some reason the toc for the beginners guide is nested one level deeper
+          // markdownUrlEnding === "Beginners-Guide"
+          //   ? { items: toc?.items?.[1]?.items?.[0].items } ?? []
+          //   :
+          toc,
         isError: false,
       },
       revalidate: 60 * 60 * 24 * 2, // 2 days
