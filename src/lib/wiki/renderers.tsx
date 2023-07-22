@@ -30,7 +30,12 @@ export function LinkRenderer(props: any) {
   let href = redirectRedditAndGithubLinksToWebsite(newProps.href);
 
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer">
+    <a
+      className="break-words"
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       {props.children}
     </a>
   );
@@ -47,7 +52,12 @@ export function LiRenderer(props: any, showOnlyStarredLinks: boolean) {
   } else if (text.startsWith("https://") || text.startsWith("http://")) {
     return (
       <li>
-        <a href={text} target="_blank" rel="noopener noreferrer">
+        <a
+          href={text}
+          className="break-words"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           {text}
         </a>
       </li>
@@ -100,7 +110,7 @@ export const CodeRenderer = (props: any, category: string) => {
             <a
               key={index}
               href={link}
-              className="block "
+              className="block break-words"
               target="_blank"
               rel="noreferrer"
             >
