@@ -27,35 +27,39 @@ export default function TableOfContents({
     [toc]
   );
   const activeHeading = useActiveItem(itemIds);
-
+  console.log(toc?.items);
+  console.log(typeof toc?.items);
   return (
     <>
       <div className="hidden md:block overflow-y-scroll">
         {toc?.items ? <Toc toc={toc} activeHeading={activeHeading} /> : null}
       </div>
 
-      <Drawer
-        opened={open}
-        className="bg-black md:hidden"
-        classNames={{
-          body: "mt-16 p-8",
-        }}
-        position="right"
-        size="sm"
-        onClose={() => setOpen(false)}
-        overlayProps={{
-          opacity: 0.55,
-          blur: 3,
-        }}
-        withCloseButton={false}
-        zIndex={20}
-      >
-        <Toc
-          toc={toc}
-          activeHeading={activeHeading}
-          closeModal={() => setOpen(false)}
-        />
-      </Drawer>
+      {toc?.items && toc?.items?.length > 0 ? (
+        <Drawer
+          opened={open}
+          className="bg-black md:hidden hideScrollbar"
+          classNames={{
+            body: "mt-16 p-8",
+            content: "hideScrollbar",
+          }}
+          position="right"
+          size="sm"
+          onClose={() => setOpen(false)}
+          overlayProps={{
+            opacity: 0.55,
+            blur: 3,
+          }}
+          withCloseButton={false}
+          zIndex={20}
+        >
+          <Toc
+            toc={toc}
+            activeHeading={activeHeading}
+            closeModal={() => setOpen(false)}
+          />
+        </Drawer>
+      ) : null}
     </>
   );
 }
