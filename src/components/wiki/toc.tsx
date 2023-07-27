@@ -27,8 +27,6 @@ export default function TableOfContents({
     [toc]
   );
   const activeHeading = useActiveItem(itemIds);
-  console.log(toc?.items);
-  console.log(typeof toc?.items);
   return (
     <>
       <div className="hidden md:block overflow-y-scroll">
