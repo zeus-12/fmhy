@@ -69,7 +69,9 @@ const Guides = ({
   return (
     <div className="sm:p-4 sm:px-8 md:px-12 lg:px-16 md:py-2 lg:py-4 xl:py-6 pt-0 flex-1 flex flex-col mx-auto w-[95vw] max-w-[80rem]">
       <div
-        className={`justify-between flex sm:flex-row ${showInput ? "" : ""}`}
+        className={` px-4 py-2 justify-between flex sm:flex-row ${
+          showInput ? "" : ""
+        }`}
       >
         <p
           onClick={() => setInputText("")}
