@@ -182,8 +182,6 @@ const Search = ({
               <p className="text-xl font-semibold">{result.title}</p>
               {JSON.parse(result?.link)?.map((link: string) => (
                 <a
-                  target="_blank"
-                  rel="noreferrer"
                   className="break-words text-cyan-400 hover:text-cyan-300"
                   href={link}
                   key={link}
