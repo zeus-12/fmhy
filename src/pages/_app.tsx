@@ -34,10 +34,10 @@ export default function App({ Component, pageProps }: AppProps) {
               <title>FreeMediaHeckYeah</title>
             </Head>
 
-            <div className="min-h-screen gap-2 flex flex-col">
+            <div className="flex flex-col h-screen gap-2">
               <Notifications />
               <Navbar />
-              <div className="px-2 h-full flex-1 flex-col flex">
+              <div className="px-2 flex-1 flex overflow-scroll">
                 <Component {...pageProps} />
               </div>
             </div>

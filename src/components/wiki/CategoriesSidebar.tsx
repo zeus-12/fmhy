@@ -16,7 +16,7 @@ const CategoriesSidebar: React.FC<CategoriesSidebarProps> = ({
   // const [includeNsfw, setIncludeNsfw] = useState(false);
 
   return (
-    <div className="bg-[#050a15] border-gray-700 border-r-[1px] h-full overflow-scroll sticky hideScrollbar ">
+    <div className="bg-[#050a15] border-gray-700 border-r-[1px] h-full overflow-scroll hideScrollbar">
       {/* <div className="items-center pt-2 justify-between hidden md:flex"> */}
       {/* <p className="text-xl tracking-tighter font-medium ">Categories</p> */}
       {/* <Switch

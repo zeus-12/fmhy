@@ -106,7 +106,7 @@ export function redirectGithubLinksToWebsite(link: string) {
   let trimGithubUrl = link.split(GITHUB_WIKI_URL)[1];
 
   if (trimGithubUrl) {
-    devLog("GITHUB LINK", trimGithubUrl);
+    // devLog("GITHUB LINK", trimGithubUrl);
 
     const category = trimGithubUrl.split("#")[0].replace(".md", "");
     const id = trimGithubUrl.split("#")[1];

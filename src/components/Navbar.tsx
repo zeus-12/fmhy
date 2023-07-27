@@ -46,7 +46,7 @@ export const Logo = () => (
 const Navbar = () => {
   return (
     <>
-      <div className="px-6 border-b-[1px] border-gray-800 w-screen h-16 bg-black flex justify-between items-center z-40">
+      <div className="px-6 py-4 border-b-[1px] border-gray-800 w-screen h-16 bg-black flex justify-between items-center z-40">
         <Logo />
         <LinkElements />
         <SearchBar />
