@@ -14,9 +14,7 @@ const GuideItem: React.FC<{ data: GuideType }> = ({ data }) => {
             <a
               className="inline"
               style={{ fontSize: "1.1rem" }}
-              target="_blank"
               href={data.link}
-              rel="noreferrer"
             >
               {data.title} {data.nsfw && <Badge color="red">NSFW</Badge>}
             </a>

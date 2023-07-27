@@ -41,8 +41,6 @@ const Base64Item: React.FC<Base64ItemProps> = ({
           <a
             key={index}
             className="break-words text-blue-300 block"
-            target="_blank"
-            rel="noreferrer"
             href={link}
           >
             <span className="pr-1">⭐️</span>
