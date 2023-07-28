@@ -74,9 +74,9 @@ function Toc({
   const isModal = !!closeModal;
 
   return (
-    <div className="space-y-2 overflow-scroll lg:pr-8 md:pr-2 hideScrollbar">
+    <div className="overflow-scroll lg:pr-8 md:pr-2 hideScrollbar mb-6">
       <div className="flex justify-between items-center">
-        <p className={cn(`font-medium`, isModal && "text-xl")}>Contents</p>
+        <p className={cn(`font-semibold`, isModal && "text-xl")}>Contents</p>
         {isModal && (
           <XIcon
             className="text-gray-400 cursor-pointer"
