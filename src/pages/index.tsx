@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import PirateImage from "/public/assets/pirate.png";
 import FAQ from "@/components/FAQ";
-import { Badge } from "@mantine/core";
+import { Badge, Button } from "@mantine/core";
 import Balancer from "react-wrap-balancer";
 
 const quickLinks = [
@@ -23,6 +23,11 @@ const quickLinks = [
     title: "Divolt",
     link: "https://fmhy.divolt.xyz/",
     color: "green",
+  },
+  {
+    title: "Feedback",
+    link: "/feedback",
+    color: "orange",
   },
 ];
 
@@ -87,7 +92,7 @@ const Home = () => {
             width={600}
             height={300}
           />
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap justify-center">
             {quickLinks.map((item) => (
               <Link key={item.title} href={item.link}>
                 <Badge size="lg" color={item.color}>
