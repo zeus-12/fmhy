@@ -9,7 +9,7 @@ import {
   PRenderer,
   CodeRenderer,
   HeadingRenderer,
-  BlockquoteRenderer,
+  // BlockquoteRenderer,
 } from "@/lib/wiki/renderers";
 import BottomNavigator from "@/components/wiki/BottomNavigator";
 import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
