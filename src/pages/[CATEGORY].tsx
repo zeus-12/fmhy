@@ -9,6 +9,7 @@ import {
   PRenderer,
   CodeRenderer,
   HeadingRenderer,
+  BlockquoteRenderer,
 } from "@/lib/wiki/renderers";
 import BottomNavigator from "@/components/wiki/BottomNavigator";
 import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
@@ -135,6 +136,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
                 li: (props: any) => LiRenderer(props, starredLinks), //for storage only
                 hr: () => <></>,
                 code: (props: any) => CodeRenderer(props, category),
+                // blockquote: (props: any) => BlockquoteRenderer(props, category),
               }}
             >
               {data}
@@ -226,10 +228,9 @@ Use any **[Base64 Decoding](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/stor
         data: cleanedText || text,
         toc:
           // // for some reason the toc for the beginners guide is nested one level deeper
-          // markdownUrlEnding === "Beginners-Guide"
-          //   ? { items: toc?.items?.[1]?.items?.[0].items } ?? []
-          //   :
-          toc,
+          markdownUrlEnding === "Beginners-Guide"
+            ? { items: toc?.items?.[1]?.items?.[0].items } ?? []
+            : toc,
         isError: false,
       },
       revalidate: 60 * 60 * 24 * 2, // 2 days
