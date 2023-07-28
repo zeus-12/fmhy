@@ -9,6 +9,7 @@ import {
   PRenderer,
   CodeRenderer,
   HeadingRenderer,
+  UlRenderer,
   // BlockquoteRenderer,
 } from "@/lib/wiki/renderers";
 import BottomNavigator from "@/components/wiki/BottomNavigator";
@@ -136,6 +137,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
                 li: (props: any) => LiRenderer(props, starredLinks), //for storage only
                 hr: () => <></>,
                 code: (props: any) => CodeRenderer(props, category),
+                ul: (props: any) => UlRenderer(props),
                 // blockquote: (props: any) => BlockquoteRenderer(props, category),
               }}
             >

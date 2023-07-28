@@ -108,3 +108,17 @@ export const CodeRenderer = (props: any, category: string) => {
     }
   }
 };
+
+export const BlockquoteRenderer = (props: any, category: string) => {
+  if (category.toLowerCase() !== "beginners-guide") {
+    return <blockquote {...props} />;
+  }
+  const text = getTextFromProps(props);
+  console.log(text);
+};
+
+export const UlRenderer = (props: any) => {
+  return (
+    <ul className="bg-gray-900 rounded-xl p-4 list-none">{props.children}</ul>
+  );
+};
