@@ -39,7 +39,7 @@ const CategoriesSidebar: React.FC<CategoriesSidebarProps> = ({
               item.urlEnding === markdownCategory?.urlEnding
                 ? "text-gray-300 font-semibold border-r-[2px] border-white"
                 : "text-gray-500"
-            } rounded-sm px-4 my-2 py-2 group block`}
+            } rounded-sm px-2 sm:px-4 my-2 py-2 group block`}
           >
             <p className="group-hover:text-slate-200 text-base">
               <span className="group-hover:animate-pulse">{item.emoji}</span>
