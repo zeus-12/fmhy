@@ -83,7 +83,7 @@ const Feedback = () => {
         placeholder="Tell us on how to improve."
         {...form.getInputProps("message")}
       />
-      <p className="text-gray-400">
+      <p className="text-gray-400 text-center">
         All the feedbacks are anonymous, please don&apos;t spam.
       </p>
       <Button
