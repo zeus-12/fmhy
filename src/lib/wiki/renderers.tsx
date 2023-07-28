@@ -119,6 +119,8 @@ export const BlockquoteRenderer = (props: any, category: string) => {
 
 export const UlRenderer = (props: any) => {
   return (
-    <ul className="bg-gray-900 rounded-xl p-4 list-none">{props.children}</ul>
+    <ul className="bg-gray-900 rounded-xl py-4 px-2 sm:p-4 list-none">
+      {props.children}
+    </ul>
   );
 };
