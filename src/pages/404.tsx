@@ -3,7 +3,7 @@ import React from "react";
 
 const Error404 = () => {
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center w-full">
       <Image
         width={300}
         height={300}
