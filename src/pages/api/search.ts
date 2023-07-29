@@ -1,7 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
+import Minisearch from "minisearch";
 
 const ITEMS_PER_PAGE = 30;
+const index = new Minisearch({
+  fields: ['title', 'link', 'nsfw']
+})
+// index.addAll(await prisma.wiki.findMany())
 
 export default async function handler(
   req: NextApiRequest,

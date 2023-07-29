@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { InferGetServerSidePropsType, NextPageContext } from "next";
 import { devLog } from "@/lib/utils";
+import { useMiniSearch } from "react-minisearch";
 
 const ITEMS_PER_PAGE = 30;
 
