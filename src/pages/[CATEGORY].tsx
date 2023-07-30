@@ -10,7 +10,7 @@ import {
   CodeRenderer,
   HeadingRenderer,
   UlRenderer,
-  // BlockquoteRenderer,
+  BlockquoteRenderer,
 } from "@/lib/wiki/renderers";
 import BottomNavigator from "@/components/wiki/BottomNavigator";
 import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
@@ -110,15 +110,13 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
             </div>
             {/* </div> */}
 
-            {toc?.items &&
-              toc?.items.length > 0 &&
+            {toc?.items && toc?.items.length > 0 && (
               // temp fix
-              !["beginners-guide"].includes(category.toLowerCase()) && (
-                <PanelRightOpen
-                  className="h-6 w-6 md:hidden text-gray-400 absolute right-0"
-                  onClick={() => setIsTocOpen(true)}
-                />
-              )}
+              <PanelRightOpen
+                className="h-6 w-6 md:hidden text-gray-400 absolute right-0"
+                onClick={() => setIsTocOpen(true)}
+              />
+            )}
           </div>
         </div>
 
