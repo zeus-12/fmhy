@@ -110,16 +110,26 @@ export const CodeRenderer = (props: any, category: string) => {
 };
 
 export const BlockquoteRenderer = (props: any, category: string) => {
-  if (category.toLowerCase() !== "beginners-guide") {
-    return <blockquote {...props} />;
-  }
-  const text = getTextFromProps(props);
-  console.log(text);
+  console.log("props,", props);
+  // if (category.toLowerCase() !== "beginners-guide") {
+  return <blockquote {...props} />;
+  // }
+  // const text = getTextFromProps(props);
+  // const split = text.indexOf("!!!note");
+  // const message = text.slice(split).replace("!!!note", "");
+  // return (
+  //   <>
+  //     <>{text.slice(0, split)}</>
+  //     <NoteAlert message={message} />
+  //   </>
+  // );
+
+  // return <PRenderer {...props} />;
 };
 
 export const UlRenderer = (props: any) => {
   return (
-    <ul className="bg-gray-900 rounded-xl py-4 px-2 sm:p-4 list-none">
+    <ul className="bg-gray-900 rounded-xl p-2 sm:p-4 list-none">
       {props.children}
     </ul>
   );
