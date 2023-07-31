@@ -7,6 +7,8 @@ import {
   getTextFromProps,
   redirectRedditAndGithubLinksToWebsite,
 } from "./utils";
+import { Alert } from "@mantine/core";
+import { HelpCircle } from "lucide-react";
 
 export const HeadingRenderer = (props: any, level: 1 | 2 | 3 | 4) => {
   const { slug, text, href } = HeadingRendererHelper(props);
@@ -110,21 +112,19 @@ export const CodeRenderer = (props: any, category: string) => {
 };
 
 export const BlockquoteRenderer = (props: any, category: string) => {
-  console.log("props,", props);
-  // if (category.toLowerCase() !== "beginners-guide") {
-  return <blockquote {...props} />;
-  // }
-  // const text = getTextFromProps(props);
-  // const split = text.indexOf("!!!note");
-  // const message = text.slice(split).replace("!!!note", "");
-  // return (
-  //   <>
-  //     <>{text.slice(0, split)}</>
-  //     <NoteAlert message={message} />
-  //   </>
-  // );
-
-  // return <PRenderer {...props} />;
+  if (category.toLowerCase() !== "beginners-guide") {
+    return <blockquote>{props.children}</blockquote>;
+  }
+  return (
+    <Alert
+      icon={<HelpCircle size="1rem" />}
+      color="green"
+      radius="md"
+      className="mt-3"
+    >
+      {props.children}
+    </Alert>
+  );
 };
 
 export const UlRenderer = (props: any) => {

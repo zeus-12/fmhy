@@ -136,7 +136,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
                 hr: () => <></>,
                 code: (props: any) => CodeRenderer(props, category),
                 ul: (props: any) => UlRenderer(props),
-                // blockquote: (props: any) => BlockquoteRenderer(props, category),
+                blockquote: (props: any) => BlockquoteRenderer(props, category),
               }}
             >
               {data}
