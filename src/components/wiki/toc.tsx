@@ -29,7 +29,7 @@ export default function TableOfContents({
   const activeHeading = useActiveItem(itemIds);
   return (
     <>
-      <div className="hidden md:block overflow-y-scroll">
+      <div className="hidden md:block overflow-y-scroll hideScrollbar">
         {toc?.items ? <Toc toc={toc} activeHeading={activeHeading} /> : null}
       </div>
 
