@@ -229,7 +229,7 @@ Use any **[Base64 Decoding](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/stor
         toc:
           // // for some reason the toc for the beginners guide is nested one level deeper
           markdownUrlEnding === "Beginners-Guide"
-            ? { items: toc?.items?.[1]?.items?.[0].items } ?? []
+            ? { items: toc?.items?.[0].items } ?? []
             : toc,
         isError: false,
       },

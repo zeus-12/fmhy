@@ -120,7 +120,7 @@ export const BlockquoteRenderer = (props: any, category: string) => {
       icon={<HelpCircle size="1rem" />}
       color="green"
       radius="md"
-      className="mt-3"
+      className="my-2"
     >
       {props.children}
     </Alert>
