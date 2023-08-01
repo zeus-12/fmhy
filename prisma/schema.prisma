@@ -9,11 +9,11 @@ datasource db {
 }
 
 model Wiki {
-  id    String  @id @default(cuid())
-  title String  @db.LongText
-  // starred Boolean @default(false)
-  link  String  @db.LongText
-  nsfw  Boolean @default(false)
+  id      String  @id @default(cuid())
+  title   String  @db.LongText
+  starred Boolean @default(false)
+  link    String  @db.LongText
+  nsfw    Boolean @default(false)
 }
 
 model Base64 {

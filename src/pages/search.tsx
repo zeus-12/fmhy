@@ -187,9 +187,9 @@ const Search = ({
                   key={link}
                 >
                   <p>
-                    {/* <span className="pr-1 text-white">
+                    <span className="pr-1 text-white">
                       {result.starred ? "⭐️" : "•"}
-                    </span> */}
+                    </span>
                     <span className="underline-offset-2 hover:underline">
                       {link}
                     </span>
