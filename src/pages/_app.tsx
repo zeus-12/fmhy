@@ -35,7 +35,7 @@ export default function App({ Component, pageProps }: AppProps) {
               description="Largest collection of Free stuff on the Internet!"
               openGraph={{
                 type: "website",
-                locale: "en_IE",
+                locale: "en_US",
                 url: "https://www.fmhy.net/",
                 siteName: "FreeMediaHeckYeah",
                 images: [{ url: "https://fmhy.net/assets/logo.png" }],
