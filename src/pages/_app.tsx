@@ -38,7 +38,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 locale: "en_IE",
                 url: "https://www.fmhy.net/",
                 siteName: "FreeMediaHeckYeah",
-                images: [{ url: "https://www.fmhy.net/logo.png" }],
+                images: [{ url: "https://fmhy.net/assets/logo.png" }],
               }}
               canonical="https://www.fmhy.net/"
             />
