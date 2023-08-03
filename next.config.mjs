@@ -3,9 +3,9 @@ import { withPlausibleProxy } from "next-plausible";
 
 const nextConfig = {
   reactStrictMode: true,
-  images: {
-    domains: ["images.clerk.dev"],
-  },
+  // images: {
+  //   domains: ["images.clerk.dev"],
+  // },
   async redirects() {
     return [
       {
