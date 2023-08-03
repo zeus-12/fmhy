@@ -7,7 +7,6 @@ import { SpotlightProvider } from "@/components/Spotlight";
 import { Notifications } from "@mantine/notifications";
 import Navbar from "@/components/Navbar";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import Head from "next/head";
 import PlausibleProvider from "next-plausible";
 import { DefaultSeo } from "next-seo";
 
@@ -18,11 +17,11 @@ export default function App({ Component, pageProps }: AppProps) {
     <PlausibleProvider
       domain="fmhy.net"
       selfHosted={true}
-      // trackLocalhost={true}
-      // enabled={true}
       customDomain="https://a.bignutty.xyz"
       trackOutboundLinks={true}
       taggedEvents={true}
+      // trackLocalhost={true}
+      // enabled={true}
     >
       <MantineProvider
         theme={{
@@ -37,7 +36,9 @@ export default function App({ Component, pageProps }: AppProps) {
                 locale: "en_IE",
                 url: "https://www.fmhy.net/",
                 siteName: "FreeMediaHeckYeah",
+                images: [{ url: "https://www.fmhy.net/logo.png" }],
               }}
+              canonical="https://www.fmhy.net/"
             />
 
             <div className="flex flex-col h-screen gap-2">
