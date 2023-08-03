@@ -44,7 +44,7 @@ const Wiki = ({
   }, [category, markdownCategory]);
 
   return (
-    <div className="flex justify-between overflow-hidden gap-2">
+    <div className="flex justify-between overflow-hidden gap-2 w-screen">
       <CategoriesSidebar markdownCategory={markdownCategory} />
 
       <LinkDataRenderer
@@ -81,7 +81,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
 
   return (
     <>
-      <div className="px-1 sm:px-4 md:px-8 lg:px-14 xl:px-20 overflow-scroll hideScrollbar flex-1 flex-grow">
+      <div className="px-1 sm:px-4 md:px-8 lg:px-14 xl:px-20 overflow-scroll hideScrollbar flex-1">
         <div className="flex justify-between items-center">
           <p className="text-3xl underline underline-offset-2 font-semibold tracking-tighter">
             {markdownCategory?.title}
