@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Head from "next/head";
 import PlausibleProvider from "next-plausible";
+import { DefaultSeo } from "next-seo";
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
@@ -30,9 +31,14 @@ export default function App({ Component, pageProps }: AppProps) {
       >
         <QueryClientProvider client={queryClient}>
           <SpotlightProvider>
-            <Head>
-              <title>FreeMediaHeckYeah</title>
-            </Head>
+            <DefaultSeo
+              openGraph={{
+                type: "website",
+                locale: "en_IE",
+                url: "https://www.fmhy.net/",
+                siteName: "FreeMediaHeckYeah",
+              }}
+            />
 
             <div className="flex flex-col h-screen gap-2">
               <Notifications />

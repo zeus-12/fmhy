@@ -1,5 +1,6 @@
 import { Button, Select, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { NextSeo } from "next-seo";
 import { useState } from "react";
 
 const Feedback = () => {
@@ -58,49 +59,57 @@ const Feedback = () => {
   };
 
   return (
-    <div className="gap-2 flex-1 flex items-center sm:justify-center h-full flex-col">
-      <p className="text-4xl font-bold pt-4">
-        Submit <span className="text-rose-400">Feedback</span>!
-      </p>
-      <p className="-mt-2 text-gray-400">Help us make the site even better🥳</p>
+    <>
+      <NextSeo title="Feedback" description="Feedback for fmhy.net" />
 
-      <Select
-        className="w-[90vw] max-w-[30rem]"
-        label="Feedback Type"
-        placeholder="Feedback Type"
-        data={[
-          { value: "bug", label: "Bug" },
-          { value: "suggestion", label: "Suggestion" },
-          { value: "other", label: "Other" },
-          { value: "appreciate", label: "Appreciate" },
-        ]}
-        {...form.getInputProps("feedbackType")}
-      />
-      <Textarea
-        required={true}
-        className="w-[90vw] max-w-[30rem]"
-        label="Feedback"
-        placeholder="Tell us on how to improve."
-        {...form.getInputProps("message")}
-      />
-      <p className="text-gray-400 text-center">
-        All the feedbacks are anonymous, please don&apos;t spam.
-      </p>
-      <Button
-        loading={loading}
-        onClick={submitFeedbackHandler}
-        color="pink"
-        variant="subtle"
-      >
-        Submit
-      </Button>
-      {error && (
-        <p className="text-red-400 font-semibold">Something went wrong</p>
-      )}
-      {success && (
-        <p className="text-green-400 font-semibold">Successfully submitted!</p>
-      )}
-    </div>
+      <div className="gap-2 flex-1 flex items-center sm:justify-center h-full flex-col">
+        <p className="text-4xl font-bold pt-4">
+          Submit <span className="text-rose-400">Feedback</span>!
+        </p>
+        <p className="-mt-2 text-gray-400">
+          Help us make the site even better🥳
+        </p>
+
+        <Select
+          className="w-[90vw] max-w-[30rem]"
+          label="Feedback Type"
+          placeholder="Feedback Type"
+          data={[
+            { value: "bug", label: "Bug" },
+            { value: "suggestion", label: "Suggestion" },
+            { value: "other", label: "Other" },
+            { value: "appreciate", label: "Appreciate" },
+          ]}
+          {...form.getInputProps("feedbackType")}
+        />
+        <Textarea
+          required={true}
+          className="w-[90vw] max-w-[30rem]"
+          label="Feedback"
+          placeholder="Tell us on how to improve."
+          {...form.getInputProps("message")}
+        />
+        <p className="text-gray-400 text-center">
+          All the feedbacks are anonymous, please don&apos;t spam.
+        </p>
+        <Button
+          loading={loading}
+          onClick={submitFeedbackHandler}
+          color="pink"
+          variant="subtle"
+        >
+          Submit
+        </Button>
+        {error && (
+          <p className="text-red-400 font-semibold">Something went wrong</p>
+        )}
+        {success && (
+          <p className="text-green-400 font-semibold">
+            Successfully submitted!
+          </p>
+        )}
+      </div>
+    </>
   );
 };
 export default Feedback;

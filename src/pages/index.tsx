@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import PirateImage from "/public/assets/pirate.png";
 import FAQ from "@/components/FAQ";
-import { Badge, Button } from "@mantine/core";
+import { Badge } from "@mantine/core";
 import Balancer from "react-wrap-balancer";
 
 const quickLinks = [

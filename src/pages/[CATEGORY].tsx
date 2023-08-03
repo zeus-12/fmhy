@@ -18,6 +18,7 @@ import { useRouter } from "next/router";
 import { getTableOfContents } from "@/lib/toc";
 import WikiTableOfContents from "@/components/wiki/toc";
 import { PanelRightOpen } from "lucide-react";
+import { NextSeo } from "next-seo";
 
 const Wiki = ({
   data,
@@ -44,17 +45,23 @@ const Wiki = ({
   }, [category, markdownCategory]);
 
   return (
-    <div className="flex justify-between overflow-hidden gap-2 w-screen">
-      <CategoriesSidebar markdownCategory={markdownCategory} />
-
-      <LinkDataRenderer
-        isError={isError}
-        data={data}
-        category={category}
-        markdownCategory={markdownCategory}
-        toc={toc}
+    <>
+      <NextSeo
+        title={`Wiki | ${category}`}
+        description={`Wiki for ${category}`}
       />
-    </div>
+      <div className="flex justify-between overflow-hidden gap-2 w-screen">
+        <CategoriesSidebar markdownCategory={markdownCategory} />
+
+        <LinkDataRenderer
+          isError={isError}
+          data={data}
+          category={category}
+          markdownCategory={markdownCategory}
+          toc={toc}
+        />
+      </div>
+    </>
   );
 };
 
