@@ -10,6 +10,7 @@
 - Planetscale
 - Prisma
 - Cheerio
+- Plausible
 
 ### Features:
 
