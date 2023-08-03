@@ -81,22 +81,12 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
 
   return (
     <>
-      <div className="px-1 sm:px-4 md:px-8 lg:px-14 xl:px-20 overflow-scroll hideScrollbar flex-1">
+      <div className="px-1 sm:px-4 md:px-8 lg:px-14 xl:px-20 overflow-scroll hideScrollbar flex-1 flex-grow">
         <div className="flex justify-between items-center">
           <p className="text-3xl underline underline-offset-2 font-semibold tracking-tighter">
             {markdownCategory?.title}
           </p>
           <div className="flex items-center">
-            {/* <div
-              className={cn(
-                "sm:flex-row-reverse flex flex-col items-center gap-2 pr-4",
-                ["beginners-guide", "storage"].includes(category)
-                  ? "hidden"
-                  : ""
-              )}
-            > */}
-            {/* <p className="text-xs text-gray-400">Suggested?</p> */}
-
             <div className="plausible-event-name=recommended-toggle pr-6 md:pr-0">
               <Switch
                 size="sm"
@@ -108,7 +98,6 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
                 onLabel={<span className="text-xs">All</span>}
               />
             </div>
-            {/* </div> */}
 
             {toc?.items && toc?.items.length > 0 && (
               // temp fix

@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef, ChangeEventHandler } from "react";
 import GuideItem from "@/components/GuideItem";
 import { Input } from "@mantine/core";
 import { FRONTEND_URL } from "@/lib/config";
-import { notSignedInNotification } from "@/components/Notifications";
-import { useRouter } from "next/router";
 import { devLog } from "@/lib/utils";
 
 export interface GuideType {
