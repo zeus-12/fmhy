@@ -31,6 +31,8 @@ export default function App({ Component, pageProps }: AppProps) {
         <QueryClientProvider client={queryClient}>
           <SpotlightProvider>
             <DefaultSeo
+              title="FreeMediaHeckYeah"
+              description="Largest collection of free stuff on the internet!"
               openGraph={{
                 type: "website",
                 locale: "en_IE",
