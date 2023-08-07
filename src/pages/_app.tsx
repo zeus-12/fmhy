@@ -36,11 +36,12 @@ export default function App({ Component, pageProps }: AppProps) {
               openGraph={{
                 type: "website",
                 locale: "en_US",
-                url: "https://www.fmhy.net/",
+                url: "FMHY",
+                // url: "https://www.fmhy.net/",
                 siteName: "FreeMediaHeckYeah",
                 images: [{ url: "https://fmhy.net/assets/logo.png" }],
               }}
-              canonical="https://www.fmhy.net/"
+              // canonical="https://www.fmhy.net/"
             />
 
             <div className="flex flex-col h-screen gap-2">
