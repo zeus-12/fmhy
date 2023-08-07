@@ -32,7 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <SpotlightProvider>
             <DefaultSeo
               title="FreeMediaHeckYeah"
-              description="Largest collection of Free stuff on the Internet!"
+              description="The Largest collection of Free stuff on the Internet! | FMHY"
               openGraph={{
                 type: "website",
                 locale: "en_US",
