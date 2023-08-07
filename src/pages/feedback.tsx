@@ -1,4 +1,4 @@
-import { Button, Select, Textarea } from "@mantine/core";
+import { Button, Select, TextInput, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { NextSeo } from "next-seo";
 import { useState } from "react";
@@ -13,6 +13,7 @@ const Feedback = () => {
       message: "",
       feedbackType: "",
       anonymous: false,
+      contactEmail: "",
     },
     validate: {
       message: (value) => (value.length > 10 ? null : "Too short"),
@@ -82,6 +83,7 @@ const Feedback = () => {
           ]}
           {...form.getInputProps("feedbackType")}
         />
+
         <Textarea
           required={true}
           className="w-[90vw] max-w-[30rem]"
@@ -89,8 +91,21 @@ const Feedback = () => {
           placeholder="Tell us on how to improve."
           {...form.getInputProps("message")}
         />
+
+        <TextInput
+          required={false}
+          className="w-[90vw] max-w-[30rem]"
+          label="Contact email"
+          placeholder="Contact email (optional)"
+          {...form.getInputProps("contactEmail")}
+        />
+
         <p className="text-gray-400 text-center">
-          All the feedbacks are anonymous, please don&apos;t spam.
+          Feedbacks are anonymous (
+          <a href="https://github.com/zeus-12/fmhy/blob/main/src/pages/feedback.tsx">
+            source code
+          </a>
+          ), please don&apos;t spam.
         </p>
         <Button
           loading={loading}

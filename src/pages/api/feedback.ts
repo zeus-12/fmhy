@@ -7,7 +7,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    const { message, feedbackType } = req.body;
+    const { message, feedbackType, contactEmail } = req.body;
 
     if (
       !["bug", "suggestion", "other", "appreciate"].includes(feedbackType) ||
@@ -17,7 +17,7 @@ export default async function handler(
       return;
     }
 
-    let fields = [feedbackType, message];
+    let fields = [feedbackType, contactEmail, message];
 
     const auth = new google.auth.GoogleAuth({
       credentials: {
