@@ -9,6 +9,8 @@ import Navbar from "@/components/Navbar";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import PlausibleProvider from "next-plausible";
 import { DefaultSeo } from "next-seo";
+import { cn } from "@/lib/utils";
+import { fontSans } from "@/lib/fonts";
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
@@ -44,7 +46,13 @@ export default function App({ Component, pageProps }: AppProps) {
               // canonical="https://www.fmhy.net/"
             />
 
-            <div className="flex flex-col h-screen gap-2">
+            <div
+              // className="flex flex-col h-screen gap-2"
+              className={cn(
+                "antialiased flex flex-col h-screen gap-2",
+                fontSans.className
+              )}
+            >
               <Notifications />
               <Navbar />
               <div className="px-2 flex-1 flex overflow-scroll">
