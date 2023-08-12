@@ -129,7 +129,7 @@ const Search = ({
   return (
     <>
       <NextSeo title="Search" description="Fmhy Search" />
-      <div className="flex flex-1 flex-col px-6 sm:px-8 md:px-12 md:py-2 lg:px-16 lg:py-4 xl:py-6 mb-8">
+      <div className="flex flex-1 flex-col px-6 sm:px-8 md:px-12 md:py-2 lg:px-16 lg:py-4 xl:py-6 mb-8 w-screen">
         <div className="flex items-center justify-between">
           <p
             onClick={resetSearch}

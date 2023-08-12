@@ -55,7 +55,7 @@ export default function App({ Component, pageProps }: AppProps) {
             >
               <Notifications />
               <Navbar />
-              <div className="px-2 flex-1 flex overflow-scroll">
+              <div className="px-2 flex-1 flex overflow-scroll w-screen">
                 <Component {...pageProps} />
               </div>
             </div>
