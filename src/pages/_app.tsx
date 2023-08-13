@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <PlausibleProvider
       domain="fmhy.net"
       selfHosted={true}
-      customDomain="https://a.bignutty.xyz"
+      customDomain="https://i-totally-love-easylist.swmg.top"
       trackOutboundLinks={true}
       taggedEvents={true}
       // trackLocalhost={true}
@@ -55,7 +55,7 @@ export default function App({ Component, pageProps }: AppProps) {
             >
               <Notifications />
               <Navbar />
-              <div className="px-2 flex-1 flex overflow-scroll w-screen">
+              <div className="px-2 flex-1 flex overflow-y-scroll max-w-[100vw]">
                 <Component {...pageProps} />
               </div>
             </div>
