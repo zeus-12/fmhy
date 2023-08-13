@@ -1,5 +1,5 @@
 <script
   defer
   data-domain="fmhy.net"
-  src="https://a.bignutty.xyz/js/script.js"
+  src="https://i-totally-love-easylist.swmg.top/js/script.js"
 ></script>;
