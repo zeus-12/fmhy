@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <PlausibleProvider
       domain="fmhy.net"
       selfHosted={true}
-      customDomain="https://i-totally-love-easylist.swmg.top"
+      customDomain="https://a.bignutty.xyz"
       trackOutboundLinks={true}
       taggedEvents={true}
       // trackLocalhost={true}

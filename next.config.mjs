@@ -25,5 +25,5 @@ const nextConfig = {
 export default withPlausibleProxy({
   subdirectory: "analytics",
   scriptName: "script",
-  customDomain: "https://i-totally-love-easylist.swmg.top",
+  customDomain: "https://a.bignutty.xyz",
 })(nextConfig);
