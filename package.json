@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "dev:scrape": "tsx watch ./src/scraper/index.ts"
+    "dev:scrape": "tsx watch ./src/scraper/index.ts",
+    "dev:scrape-wiki": "tsx watch ./src/scraper/wiki-v2/index.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",

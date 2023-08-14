@@ -1,3 +1,20 @@
+// 1st method
+
+// import data from "./wiki-one-page.txt";
+// import fs from "fs";
+
+// const split = data
+//   .split("\n")
+//   .filter((line: string) => line.startsWith("* "))
+//   .filter(Boolean);
+
+// fs.writeFileSync("./res.txt", split.join("\n"));
+
+// console.log(split);
+
+// ##########################################################
+// 2nd method
+
 // import { readFileSync, writeFileSync } from "fs";
 
 // interface ListItem {
