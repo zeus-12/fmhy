@@ -31,15 +31,16 @@ export default async function handler(
     nsfw: parsedNsfw,
   };
 
-  const results = await prisma.wiki.findMany({
-    where: searchWhereQuery,
-    skip: (parsedPage - 1) * ITEMS_PER_PAGE,
-    take: ITEMS_PER_PAGE,
-  });
-
-  const count = await prisma.wiki.count({
-    where: searchWhereQuery,
-  });
+  const [results, count] = await prisma.$transaction([
+    prisma.wiki.findMany({
+      where: searchWhereQuery,
+      skip: (parsedPage - 1) * ITEMS_PER_PAGE,
+      take: ITEMS_PER_PAGE,
+    }),
+    prisma.wiki.count({
+      where: searchWhereQuery,
+    }),
+  ]);
 
   res.status(200).json({ data: results, count });
 }
