@@ -1,30 +1,11 @@
-export default function Page({
-  searchParams,
-}: {
-  searchParams: {
-    q: string;
-    page?: string;
-    nsfw?: string;
-  };
-}) {
-
-    const q = searchParams.q ?? "";
-    const page = parseInt(searchParams.page ?? "1");
-    const nsfw = searchParams.nsfw === "true" ? true : false;
-
-  return <div>hi</div>;
-}
-
-
-
-
+"use client";
 import { Input, Loader, Pagination, Switch } from "@mantine/core";
 import { Search as SearchIcon } from "lucide-react";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-// import { devLog } from "@/lib/utils";
-// import { NextSeo } from "next-seo";
+// import { useQuery } from "@tanstack/react-query";
+import { devLog } from "@/lib/utils";
+import { NextSeo } from "next-seo";
 
 const ITEMS_PER_PAGE = 30;
 
@@ -36,7 +17,21 @@ interface SearchResultType {
   isNsfw: boolean;
 }
 
+export default function Page({
+  searchParams,
+}: {
+  searchParams: {
+    q: string;
+    page?: string;
+    nsfw?: string;
+  };
+}) {
+  const isError = false;
+  const q = searchParams.q ?? "";
+  const page = parseInt(searchParams.page ?? "1");
+  const nsfw = searchParams.nsfw === "true" ? true : false;
 
+  //   const router = useRouter();
 
   const [searchQuery, setSearchQuery] = useState<string>(q);
   const [activePage, setActivePage] = useState(page);
@@ -44,23 +39,23 @@ interface SearchResultType {
 
   const searchRef = useRef<HTMLInputElement>(null);
 
-  const {
-    data: searchRes,
-    fetchStatus,
-    isLoading: isLoading_,
-    isError,
-    refetch: refetchSearchResults,
-  } = useQuery({
-    queryKey: ["search", searchQuery, activePage, includeNsfw],
-    queryFn: async () => {
-      const res = await fetch(
-        `/api/search?q=${searchQuery}&page=${activePage}&nsfw=${includeNsfw}`
-      );
-      const data = await res.json();
-      return data;
-    },
-    enabled: false,
-  });
+  //   const {
+  //     data: searchRes,
+  //     fetchStatus,
+  //     isLoading: isLoading_,
+  //     isError,
+  //     refetch: refetchSearchResults,
+  //   } = useQuery({
+  //     queryKey: ["search", searchQuery, activePage, includeNsfw],
+  //     queryFn: async () => {
+  //       const res = await fetch(
+  //         `/api/search?q=${searchQuery}&page=${activePage}&nsfw=${includeNsfw}`
+  //       );
+  //       const data = await res.json();
+  //       return data;
+  //     },
+  //     enabled: false,
+  //   });
 
   useEffect(() => {
     if (q) return;
@@ -74,10 +69,14 @@ interface SearchResultType {
   }, [q, page, nsfw]);
 
   // cause of weird reactq behaviour, isloading remaining true when enabled is false
-  const isLoading = isLoading_ && fetchStatus !== "idle";
+  //   const isLoading = isLoading_ && fetchStatus !== "idle";
+  const isLoading = false;
 
-  const searchResults: undefined | SearchResultType[] = searchRes?.data;
-  const count = searchRes?.count;
+  // const searchResults: undefined | SearchResultType[] = searchRes?.data;
+  // const count = searchRes?.count;
+
+  const searchResults: any[] = [];
+  const count = 0;
 
   const navigatePage = ({
     page,
@@ -101,17 +100,17 @@ interface SearchResultType {
       params.set("nsfw", nsfw.toString());
     }
 
-    router.push({
-      pathname: "/search",
-      query: params.toString(),
-    });
+    // router.push({
+    //   pathname: "/search",
+    //   query: params.toString(),
+    // });
   };
 
   const fetchSearchResults = async () => {
     if (!searchQuery || !searchQuery.trim()) return;
 
     try {
-      await refetchSearchResults();
+      //   await refetchSearchResults();
     } catch (err: any) {
       devLog(err.message);
     }
@@ -133,7 +132,7 @@ interface SearchResultType {
   };
 
   const resetSearch = () => {
-    router.push("/search");
+    // router.push("/search");
     setSearchQuery("");
     setIncludeNsfw(false);
   };
@@ -233,6 +232,4 @@ interface SearchResultType {
       </div>
     </>
   );
-};
-
-
+}
