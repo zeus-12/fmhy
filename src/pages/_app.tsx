@@ -49,13 +49,13 @@ export default function App({ Component, pageProps }: AppProps) {
           <div
             // className="flex flex-col h-screen gap-2"
             className={cn(
-              "antialiased flex flex-col h-screen gap-2",
+              "antialiased flex flex-col h-screen gap-2 max-w-[100vw] ",
               fontSans.className
             )}
           >
             <Notifications />
             <Navbar />
-            <div className="px-2 flex-1 flex overflow-y-scroll max-w-[100vw]">
+            <div className="px-2 flex-1 flex overflow-y-scroll">
               <Component {...pageProps} />
             </div>
           </div>
