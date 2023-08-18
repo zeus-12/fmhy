@@ -1,3 +1,5 @@
+"use client";
+
 import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
 import { MARKDOWN_RESOURCES, blurDataUrlForLogo } from "@/lib/CONSTANTS";
 import WikiBottomNavigator from "@/components/wiki/BottomNavigator";

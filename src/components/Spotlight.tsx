@@ -1,8 +1,11 @@
+"use client";
+
 import { Badge, Group, UnstyledButton, createStyles } from "@mantine/core";
 import { SpotlightActionProps } from "@mantine/spotlight";
 import { SpotlightProvider as MantineSpotlightProvider } from "@mantine/spotlight";
 import { Search } from "lucide-react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+
 import { useState } from "react";
 const useStyles = createStyles((theme) => ({
   action: {

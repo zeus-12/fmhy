@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect, useRef, ChangeEventHandler } from "react";
 import GuideItem from "@/components/GuideItem";
 import { Input } from "@mantine/core";
@@ -14,14 +15,11 @@ export interface GuideType {
   title: string;
 }
 
-const Guides = ({
-  guides,
-  isError,
-}: {
-  guides: GuideType[];
-  isError: boolean;
-  errorMessage?: string;
-}) => {
+const Guides = async () => {
+  const res = await fetch(`${FRONTEND_URL}/api/guides`);
+  const data = await res.json();
+  const guides = data.data;
+
   const [inputText, setInputText] = useState("");
 
   const inputElement = useRef<HTMLInputElement>(null);
@@ -74,7 +72,7 @@ const Guides = ({
             placeholder="Search Guide"
           />
         </div>
-        {isError && <p>Can&apos;t connect to the server</p>}
+        {/* {isError && <p>Can&apos;t connect to the server</p>} */}
 
         <div className="space-y-2 flex-1 flex">
           <div className="w-full">
@@ -95,24 +93,23 @@ const Guides = ({
 
 export default Guides;
 
-export async function getStaticProps() {
-  try {
-    const res = await fetch(`${FRONTEND_URL}/api/guides`);
-    const data = await res.json();
-    return {
-      props: {
-        guides: data.data,
-        isError: false,
-      },
-      revalidate: 60 * 60 * 24, // 1 day
-    };
-  } catch (err: any) {
-    devLog(err.message);
-    return {
-      props: {
-        guides: [],
-        isError: true,
-      },
-    };
-  }
-}
+// export async function getStaticProps() {
+//   try {
+
+//     return {
+//       props: {
+//         guides: data.data,
+//         isError: false,
+//       },
+//       revalidate: 60 * 60 * 24, // 1 day
+//     };
+//   } catch (err: any) {
+//     devLog(err.message);
+//     return {
+//       props: {
+//         guides: [],
+//         isError: true,
+//       },
+//     };
+//   }
+// }

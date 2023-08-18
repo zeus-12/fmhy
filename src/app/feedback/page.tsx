@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, Select, TextInput, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { NextSeo } from "next-seo";

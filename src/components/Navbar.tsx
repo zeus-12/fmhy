@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Kbd } from "@mantine/core";
 import { useSpotlight } from "@mantine/spotlight";
@@ -9,9 +9,12 @@ const navItems = [
   { link: "/guides", name: "Guides", startsWith: "/guides" },
 ];
 
-export const LinkElements = () => {
-  const router = useRouter();
-  const curLink = router.pathname;
+export const LinkElements = (q: any) => {
+  console.log(q);
+  const router: any = {};
+  // const router = useRouter();
+  // const curLink = router.pathname;
+  const curLink = "/search";
 
   return (
     <div className="text-gray-300 text-base sm:text-lg font-medium flex gap-4 sm:gap-6 lg:gap-8">
@@ -56,11 +59,11 @@ const Navbar = () => {
 };
 
 export const SearchBar = () => {
-  const spotlight = useSpotlight();
+  // const spotlight = useSpotlight();
   return (
     <div
       className="hover:cursor-pointer plausible-event-name=spotlight-toggle"
-      onClick={spotlight.openSpotlight}
+      // onClick={spotlight.openSpotlight}
     >
       <Kbd className="ml-auto">
         {/* {navigator.appVersion.includes("Macintosh") ? (
