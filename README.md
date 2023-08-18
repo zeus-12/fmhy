@@ -29,5 +29,4 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 - add client-side search for wiki page => checkout nextra docs
 - assign github-slugger-ids to each guide; also make the guides search filter-able by query params -> and add within search to spotlight
 - toc seems to break at times
-- hook the scrape script to vercel crons, be sure to set the `QUERY_BATCH_SIZE` env to vercel
-- update the scraper scripts to only do table-drop if links are successfully fetched
+- hook the scrape script to vercel crons, and update the scraper scripts to only do table-drop if links are successfully fetched
