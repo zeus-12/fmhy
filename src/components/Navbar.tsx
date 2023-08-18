@@ -5,8 +5,8 @@ import { Kbd } from "@mantine/core";
 import { useSpotlight } from "@mantine/spotlight";
 
 const navItems = [
-  { link: "/search", name: "Search", startsWith: "/search" },
-  { link: "/guides", name: "Guides", startsWith: "/guides" },
+  { link: "/search", name: "Search" },
+  { link: "/guides", name: "Guides" },
 ];
 
 export const LinkElements = () => {
@@ -19,9 +19,7 @@ export const LinkElements = () => {
         <Link key={index} href={item.link}>
           <p
             className={`px-0.5 lg:px-2 rounded-md hover:text-white cursor-pointer text-center hover:bg-gray-900 ${
-              curLink.startsWith(item.startsWith)
-                ? "text-white"
-                : "text-gray-500"
+              curLink.startsWith(item.link) ? "text-white" : "text-gray-500"
             }`}
           >
             {item.name}
