@@ -96,7 +96,7 @@ const Feedback = () => {
           required={false}
           className="w-[90vw] max-w-[30rem]"
           label="Contact email"
-          placeholder="Contact email (optional)"
+          placeholder="To hear back from us (optional)"
           {...form.getInputProps("contactEmail")}
         />
 
