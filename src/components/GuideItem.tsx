@@ -1,5 +1,5 @@
 import { Badge } from "@mantine/core";
-import type { GuideType } from "@/pages/oldguides";
+import type { GuideType } from "@/pages/guides";
 
 const GuideItem: React.FC<{ data: GuideType }> = ({ data }) => {
   return (
