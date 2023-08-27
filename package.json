@@ -20,7 +20,7 @@
     "@mantine/next": "^6.0.11",
     "@mantine/notifications": "^6.0.11",
     "@mantine/spotlight": "^6.0.11",
-    "@prisma/client": "5",
+    "@prisma/client": "^5.2.0",
     "@tanstack/react-query": "^4.29.7",
     "@tanstack/react-query-devtools": "^4.29.7",
     "cheerio": "^1.0.0-rc.12",
@@ -50,7 +50,7 @@
     "eslint-config-next": "13.4.3",
     "postcss": "8.4.23",
     "postcss-100vh-fix": "^1.0.2",
-    "prisma": "5",
+    "prisma": "^5.2.0",
     "tailwindcss": "3.3.2",
     "tsx": "^3.12.7",
     "typescript": "5.0.4"
