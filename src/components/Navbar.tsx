@@ -6,7 +6,7 @@ import { useSpotlight } from "@mantine/spotlight";
 
 const navItems = [
   { link: "/search", name: "Search" },
-  // { link: "/guides", name: "Guides" },
+  { link: "/guides", name: "Guides" },
 ];
 
 export const LinkElements = () => {
