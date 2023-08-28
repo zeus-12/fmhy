@@ -1,3 +1,4 @@
+import { devLog } from "@/lib/utils";
 import { currentEle, getCheerioDocument } from "../utils/helper";
 
 export async function base64_scraper() {
@@ -21,7 +22,7 @@ export async function base64_scraper() {
       try {
         atob(hash);
       } catch (err) {
-        console.log(hash + " is not base64❗️");
+        devLog(hash + " is not base64❗️");
         i++;
         continue;
       }

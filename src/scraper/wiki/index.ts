@@ -2,18 +2,19 @@ import scrape from "./scraper";
 import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
 import { LinkType } from "../utils/types";
 import { addLinksToDb, removeAllWikiLinksFromDb } from "./db";
+import { devLog } from "@/lib/utils";
 
 const scrapeAndAddToDb = async () => {
-  console.log("---DELETING OLD LINKS----");
+  devLog("---DELETING OLD LINKS----");
   await removeAllWikiLinksFromDb();
 
-  console.log("---SCRAPING LINKS----");
+  devLog("---SCRAPING LINKS----");
   const data = await scrapeWiki();
 
-  console.log("---WRITING " + data.length + " LINKS TO DB----");
+  devLog("---WRITING " + data.length + " LINKS TO DB----");
   await addLinksToDb(data);
 
-  console.log("---DONE WRITING LINKS----");
+  devLog("---DONE WRITING LINKS----");
 };
 
 const scrapeWiki = async () => {

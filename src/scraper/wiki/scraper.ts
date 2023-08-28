@@ -1,6 +1,7 @@
 import * as cheerio from "cheerio";
 import { currentEle, getCheerioDocument, prettifyTitle } from "../utils/helper";
 import { CategoryType, LinkType } from "../utils/types";
+import { devLog } from "@/lib/utils";
 
 async function get_links(
   $: cheerio.CheerioAPI,
@@ -142,11 +143,11 @@ export async function storage_scraper(isShort: boolean) {
           });
 
         if (data.length === 0) {
-          console.log("no data found for " + categoryName);
-          console.log("nextP: " + nextP.toString());
+          devLog("no data found for " + categoryName);
+          devLog("nextP: " + nextP.toString());
           return;
         } else {
-          console.log(data);
+          devLog(data);
           finalData = finalData.concat([...data]);
         }
       }
@@ -156,7 +157,7 @@ export async function storage_scraper(isShort: boolean) {
   }
 
   if (finalData.length > 0) {
-    console.log(finalData.length);
+    devLog(finalData.length);
     // logLinks(finalData);
   }
 }
