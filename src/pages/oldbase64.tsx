@@ -4,7 +4,7 @@ import Base64Item from "@/components/Base64Item";
 import { useQuery } from "@tanstack/react-query";
 import { devLog } from "@/lib/utils";
 
-interface Base64LinksType {
+export interface Base64LinksType {
   id: string;
   title: string;
   hash: string;

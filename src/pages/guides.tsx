@@ -4,6 +4,7 @@ import { Input } from "@mantine/core";
 import { FRONTEND_URL } from "@/lib/config";
 import { devLog } from "@/lib/utils";
 import { NextSeo } from "next-seo";
+import { Base64LinksType } from "@/pages/oldbase64";
 
 export interface GuideType {
   credits?: string;
@@ -97,11 +98,44 @@ export default Guides;
 
 export async function getStaticProps() {
   try {
+    const base64 = await fetch(`${FRONTEND_URL}/api/base64`);
+    const base64Data = (await base64.json()).data;
+
+    const guideDomains = ["rentry", "pastelink", "telegra.ph", "pastebin"];
+
+    const scrapedGuides: any = [];
+
+    base64Data.map((item: Base64LinksType) => {
+      try {
+        const decoded = atob(item.hash);
+        const link = decoded
+          .split("\n")
+          .filter((item) => !!item)
+          .filter((link) =>
+            guideDomains.some((domain) => link.includes(domain))
+          );
+
+        if (link.length === 0) return;
+
+        for (let i = 0; i < link.length; i++) {
+          scrapedGuides.push({
+            title: item.title + (link.length > 1 ? ` ${i + 1}` : ""),
+            link: link[i],
+            nsfw: false,
+            tags: "",
+            id: Math.random().toString(36).substr(2, 9),
+          });
+        }
+      } catch (err) {
+        devLog("Invalid base64 string");
+      }
+    });
+
     const res = await fetch(`${FRONTEND_URL}/api/guides`);
     const data = await res.json();
     return {
       props: {
-        guides: data.data,
+        guides: [...data.data, ...scrapedGuides],
         isError: false,
       },
       revalidate: 60 * 60 * 24, // 1 day
