@@ -1,3 +1,4 @@
+import Link from "@/components/Link";
 import { Accordion } from "@mantine/core";
 
 const faqs = [
@@ -27,7 +28,7 @@ const faqs = [
         allow anyone to suggest changes via pull requests. We want this project
         to be as organized and useful as possible, so if you feel like you can
         help improve it, please do by creating a PR at{" "}
-        <a href="https://github.com/fmhy/fmhyedit">Fmhy Github Repo</a>
+        <Link href="https://github.com/fmhy/fmhyedit">Fmhy Github Repo</Link>
       </span>
     ),
     value: "edit",

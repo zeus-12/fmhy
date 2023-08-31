@@ -1,5 +1,5 @@
 import { createElement } from "react";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { NoteAlert, WarningAlert } from "@/components/Alert";
 import {
   HeadingRendererHelper,
@@ -32,9 +32,9 @@ export function LinkRenderer(props: any) {
   let href = redirectRedditAndGithubLinksToWebsite(newProps.href);
 
   return (
-    <a className="break-words" href={href}>
+    <Link className="break-words" href={href}>
       {props.children}
-    </a>
+    </Link>
   );
 }
 
@@ -49,9 +49,9 @@ export function LiRenderer(props: any, showOnlyStarredLinks: boolean) {
   } else if (text.startsWith("https://") || text.startsWith("http://")) {
     return (
       <li>
-        <a href={text} className="break-words">
+        <Link href={text} className="break-words">
           {text}
-        </a>
+        </Link>
       </li>
     );
   } else {
@@ -99,9 +99,9 @@ export const CodeRenderer = (props: any, category: string) => {
       return (
         <>
           {split.map((link, index) => (
-            <a key={index} href={link} className="block break-words">
+            <Link key={index} href={link} className="block break-words">
               {link}
-            </a>
+            </Link>
           ))}
         </>
       );

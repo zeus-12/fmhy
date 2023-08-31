@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { InferGetServerSidePropsType, NextPageContext } from "next";
 import { devLog } from "@/lib/utils";
 import { NextSeo } from "next-seo";
+import Link from "@/components/Link";
 
 const ITEMS_PER_PAGE = 30;
 
@@ -141,12 +142,12 @@ const Search = ({
         </div>
         <p className="mb-2 text-gray-400">
           Missing links from{" "}
-          <a
+          <Link
             className="text-gray-400 underline"
             href="https://github.com/nbats/FMHYedit/blob/main/STORAGE.md"
           >
             storage
-          </a>
+          </Link>
         </p>
         <Input
           placeholder="Try Adblocker"
@@ -184,7 +185,7 @@ const Search = ({
               >
                 <p className="text-xl font-semibold">{result.title}</p>
                 {JSON.parse(result?.link)?.map((link: string) => (
-                  <a
+                  <Link
                     className="break-words text-cyan-400 hover:text-cyan-300"
                     href={link}
                     key={link}
@@ -197,7 +198,7 @@ const Search = ({
                         {link}
                       </span>
                     </p>
-                  </a>
+                  </Link>
                 ))}
               </div>
             ))}

@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { Kbd } from "@mantine/core";
 import { useSpotlight } from "@mantine/spotlight";
+import Link from "@/components/Link";
 
 const navItems = [
   { link: "/search", name: "Search" },

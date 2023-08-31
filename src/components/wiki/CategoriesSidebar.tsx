@@ -1,5 +1,5 @@
 import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
-import Link from "next/link";
+import Link from "@/components/Link";
 
 interface CategoriesSidebarProps {
   markdownCategory: {

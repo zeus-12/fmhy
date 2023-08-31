@@ -1,3 +1,4 @@
+import Link from "@/components/Link";
 import { TableOfContents } from "@/lib/toc";
 import { cn } from "@/lib/utils";
 import { Drawer } from "@mantine/core";
@@ -155,7 +156,7 @@ function Tree({ tree, level = 1, activeItem, closeModal, isModal }: TreeProps) {
             key={index}
             className={cn("mt-0 pt-2")}
           >
-            <a
+            <Link
               href={item.url}
               className={cn(
                 "inline-block no-underline text-sm hover:text-slate-100",
@@ -166,7 +167,7 @@ function Tree({ tree, level = 1, activeItem, closeModal, isModal }: TreeProps) {
               )}
             >
               {item.title}
-            </a>
+            </Link>
             {item.items?.length ? (
               <Tree
                 tree={item}

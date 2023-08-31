@@ -1,7 +1,7 @@
 import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
 import { MARKDOWN_RESOURCES, blurDataUrlForLogo } from "@/lib/CONSTANTS";
 import WikiBottomNavigator from "@/components/wiki/BottomNavigator";
-import Link from "next/link";
+import Link from "@/components/Link";
 import Image from "next/image";
 import PirateImage from "/public/assets/pirate.png";
 import FAQ from "@/components/FAQ";

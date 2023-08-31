@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/Link";
 import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 

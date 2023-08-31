@@ -1,3 +1,4 @@
+import Link from "@/components/Link";
 import { Button, Select, TextInput, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { NextSeo } from "next-seo";
@@ -102,9 +103,9 @@ const Feedback = () => {
 
         <p className="text-gray-400 text-center">
           Feedbacks are anonymous (
-          <a href="https://github.com/zeus-12/fmhy/blob/main/src/pages/feedback.tsx">
+          <Link href="https://github.com/zeus-12/fmhy/blob/main/src/pages/feedback.tsx">
             source code
-          </a>
+          </Link>
           ), please don&apos;t spam.
         </p>
         <Button

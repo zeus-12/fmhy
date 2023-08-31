@@ -1,3 +1,4 @@
+import Link from "@/components/Link";
 import { useEffect, useState } from "react";
 
 interface Base64ItemProps {
@@ -38,14 +39,14 @@ const Base64Item: React.FC<Base64ItemProps> = ({
 
       {!showHashed ? (
         getLinksFromHash().map((link, index) => (
-          <a
+          <Link
             key={index}
             className="break-words text-blue-300 block"
             href={link}
           >
             <span className="pr-1">⭐️</span>
             {link}
-          </a>
+          </Link>
         ))
       ) : (
         <p className="break-words text-blue-300">{hash}</p>
