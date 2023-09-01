@@ -132,7 +132,7 @@ export const UlRenderer = (props: any) => {
     <ul
       className="rounded-xl list-none"
       style={{
-        background: "#0E131F",
+        background: "#11151F",
         padding: "0.5rem 1rem",
       }}
     >
