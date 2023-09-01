@@ -1,17 +1,7 @@
 import React from "react";
-import ReactMarkdown from "react-markdown";
 import { useEffect, useState } from "react";
-import { MARKDOWN_RESOURCES, isDevEnv, testData } from "@/lib/CONSTANTS";
+import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
 import { Switch } from "@mantine/core";
-import {
-  LiRenderer,
-  LinkRenderer,
-  PRenderer,
-  CodeRenderer,
-  HeadingRenderer,
-  UlRenderer,
-  BlockquoteRenderer,
-} from "@/lib/wiki/renderers";
 import BottomNavigator from "@/components/wiki/BottomNavigator";
 import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
 import { useRouter } from "next/router";
@@ -19,6 +9,7 @@ import { getTableOfContents } from "@/lib/toc";
 import WikiTableOfContents from "@/components/wiki/toc";
 import { PanelRightOpen } from "lucide-react";
 import { NextSeo } from "next-seo";
+import MarkdownRenderer from "@/components/MarkdownRenderer";
 
 const Wiki = ({
   data,
@@ -120,23 +111,9 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
 
         {data && data.length > 0 && (
           <>
-            <ReactMarkdown
-              components={{
-                h1: (props: any) => HeadingRenderer(props, 1),
-                h2: (props: any) => HeadingRenderer(props, 2),
-                h3: (props: any) => HeadingRenderer(props, 3), //for beginners guide only
-                h4: (props: any) => HeadingRenderer(props, 4), //for storage only
-                p: PRenderer, // for beginners guide only
-                a: LinkRenderer,
-                li: (props: any) => LiRenderer(props, starredLinks), //for storage only
-                hr: () => <></>,
-                code: (props: any) => CodeRenderer(props, category),
-                ul: (props: any) => UlRenderer(props),
-                blockquote: (props: any) => BlockquoteRenderer(props, category),
-              }}
-            >
+            <MarkdownRenderer category={category} starredLinks={starredLinks}>
               {data}
-            </ReactMarkdown>
+            </MarkdownRenderer>
 
             <BottomNavigator category={category} />
           </>
