@@ -76,7 +76,7 @@ const Home = () => {
   return (
     <div className="flex justify-between gap-2">
       <CategoriesSidebar markdownCategory={MARKDOWN_RESOURCES[0]} />
-      <div className="flex-1 px-2 sm:px-4 md:px-8 lg:px-14 xl:px-28 overflow-scroll space-y-4 overflow-x-hidden hideScrollbar">
+      <div className="flex-1 px-2 sm:px-4 md:px-8 lg:px-14 xl:px-28 overflow-scroll space-y-4 overflow-x-hidden hideScrollbar mb-4">
         <div className="justify-center min-h-full items-center flex flex-col">
           <p className="text-5xl md:text-6xl font-semibold tracking-tighter text-center">
             <Balancer>
