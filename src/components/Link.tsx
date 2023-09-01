@@ -15,7 +15,7 @@ const Link = ({ href, className, children, ...rest }: LinkProps) => {
     return (
       <NextLink
         href={href}
-        className={`text-blue-400 hover:text-blue-500 focus:text-blue-500 active:text-blue-500 transition-colors duration-150 ease-in ${className}`}
+        className={`text-blue-400 hover:text-blue-500 transition-colors duration-150 ease-in ${className}`}
         {...rest}
       >
         {children}
@@ -25,7 +25,7 @@ const Link = ({ href, className, children, ...rest }: LinkProps) => {
 
   return (
     <a
-      className={`text-blue-400 hover:text-blue-500 focus:text-blue-500 active:text-blue-500 transition-colors duration-150 ease-in ${className}`}
+      className={`text-blue-400 hover:text-blue-500 transition-colors duration-150 ease-in ${className}`}
       target="_blank"
       rel="noopener noreferrer"
       href={href}
