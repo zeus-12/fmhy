@@ -1,7 +1,6 @@
 export const SEO = {
   title: "FreeMediaHeckYeah",
   description: "The Largest collection of Free stuff on the Internet! | FMHY",
-  titleTemplate: "%s | FMHY",
   openGraph: {
     type: "website",
     locale: "en_US",
