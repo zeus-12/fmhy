@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { InferGetServerSidePropsType, NextPageContext } from "next";
 import { devLog } from "@/lib/utils";
-import { NextSeo } from "next-seo";
+import { NextSeo, SiteLinksSearchBoxJsonLd } from "next-seo";
 import Link from "@/components/Link";
 
 const ITEMS_PER_PAGE = 30;
@@ -130,6 +130,15 @@ const Search = ({
   return (
     <>
       <NextSeo title="Search" description="Fmhy Search" />
+      <SiteLinksSearchBoxJsonLd
+        url="https://www.fmhy.net"
+        potentialActions={[
+          {
+            target: "https://www.fmhy.net/search?q",
+            queryInput: "search_term_string",
+          },
+        ]}
+      />
       <div className="flex flex-1 flex-col px-6 sm:px-8 md:px-12 md:py-2 lg:px-16 lg:py-4 xl:py-6 mb-8 w-screen">
         <div className="flex items-center justify-between">
           <p
