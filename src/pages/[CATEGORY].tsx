@@ -38,8 +38,8 @@ const Wiki = ({
   return (
     <>
       <NextSeo
-        title={`Wiki | ${category}`}
-        description={`Wiki for ${category}`}
+        title={`Wiki | ${markdownCategory.title}`}
+        description={`Wiki for ${markdownCategory.title}`}
       />
       <div className="flex justify-between overflow-hidden gap-2 w-screen">
         <CategoriesSidebar markdownCategory={markdownCategory} />
