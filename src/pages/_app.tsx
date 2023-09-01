@@ -10,6 +10,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { DefaultSeo } from "next-seo";
 import { cn } from "@/lib/utils";
 import { fontSans } from "@/lib/fonts";
+import { SEO } from "../../next-seo.config";
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
@@ -31,22 +32,9 @@ export default function App({ Component, pageProps }: AppProps) {
     >
       <QueryClientProvider client={queryClient}>
         <SpotlightProvider>
-          <DefaultSeo
-            title="FreeMediaHeckYeah"
-            description="The Largest collection of Free stuff on the Internet! | FMHY"
-            openGraph={{
-              type: "website",
-              locale: "en_US",
-              url: "FMHY",
-              // url: "https://www.fmhy.net/",
-              siteName: "FreeMediaHeckYeah",
-              images: [{ url: "https://fmhy.net/assets/logo.png" }],
-            }}
-            // canonical="https://www.fmhy.net/"
-          />
+          <DefaultSeo {...SEO} />
 
           <div
-            // className="flex flex-col h-screen gap-2"
             className={cn(
               "antialiased flex flex-col h-screen gap-2 max-w-[100vw] ",
               fontSans.className
