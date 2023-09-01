@@ -144,23 +144,26 @@ export const UlRenderer = (props: any) => {
 export const changelogsPRenderer = (props: any) => {
   const text = getTextFromProps(props);
 
-  const ADDITION_STARTERS = ["Added"];
-  const REMOVAL_STARTERS = ["Removed"];
+const ADDITION_STARTERS = ["Added"];
+const REMOVAL_STARTERS = ["Removed"];
 
-  const STARRED = "Starred";
-  const UNSTARRED = "Unstarred";
+const STARRED = "Starred";
+const UNSTARRED = "Unstarred";
 
-  // get first word in text
+export const changelogsPRenderer = (props: any) => {
+  const text = getTextFromProps(props);
   const firstWord = text.split(" ")[0];
 
-  const isUnstarred = text.includes(UNSTARRED);
-  const isStarred = text.includes(STARRED);
+  const isUnstarred = firstWord.includes(UNSTARRED);
+  const isStarred = firstWord.includes(STARRED);
+  const isAdditionStarter = ADDITION_STARTERS.includes(firstWord);
+  const isRemovalStarter = REMOVAL_STARTERS.includes(firstWord);
 
   return (
     <p
       className={cn(
-        ADDITION_STARTERS.includes(firstWord) && "text-green-400",
-        REMOVAL_STARTERS.includes(firstWord) && "text-red-400"
+        isAdditionStarter && "text-green-400",
+        isRemovalStarter && "text-red-400"
       )}
     >
       {(isUnstarred || isStarred) && (
