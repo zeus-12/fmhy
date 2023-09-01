@@ -9,6 +9,8 @@ import {
 } from "./utils";
 import { Alert } from "@mantine/core";
 import { HelpCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { fontMono } from "@/lib/fonts";
 
 export const HeadingRenderer = (props: any, level: 1 | 2 | 3 | 4) => {
   const { slug, text, href } = HeadingRendererHelper(props);
@@ -32,7 +34,10 @@ export function LinkRenderer(props: any) {
   let href = redirectRedditAndGithubLinksToWebsite(newProps.href);
 
   return (
-    <Link className="break-words" href={href}>
+    <Link
+      className={cn("break-words font-semibold ", fontMono.className)}
+      href={href}
+    >
       {props.children}
     </Link>
   );
@@ -49,7 +54,10 @@ export function LiRenderer(props: any, showOnlyStarredLinks: boolean) {
   } else if (text.startsWith("https://") || text.startsWith("http://")) {
     return (
       <li>
-        <Link href={text} className="break-words">
+        <Link
+          href={text}
+          className={cn("break-words font-semibold ", fontMono.className)}
+        >
           {text}
         </Link>
       </li>
@@ -99,7 +107,14 @@ export const CodeRenderer = (props: any, category: string) => {
       return (
         <>
           {split.map((link, index) => (
-            <Link key={index} href={link} className="block break-words">
+            <Link
+              key={index}
+              href={link}
+              className={cn(
+                "font-semibold block break-words",
+                fontMono.className
+              )}
+            >
               {link}
             </Link>
           ))}
@@ -140,9 +155,6 @@ export const UlRenderer = (props: any) => {
     </ul>
   );
 };
-
-export const changelogsPRenderer = (props: any) => {
-  const text = getTextFromProps(props);
 
 const ADDITION_STARTERS = ["Added"];
 const REMOVAL_STARTERS = ["Removed"];
