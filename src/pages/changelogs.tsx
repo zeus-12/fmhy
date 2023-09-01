@@ -3,6 +3,7 @@ import { getTableOfContents } from "@/lib/toc";
 import WikiTableOfContents from "@/components/wiki/toc";
 import { useState } from "react";
 import { PanelRightOpen } from "lucide-react";
+import { changelogsPRenderer } from "@/lib/wiki/renderers";
 
 const Changelogs = ({ data, toc }: { data: string; toc: any }) => {
   const [isTocOpen, setIsTocOpen] = useState(false);
@@ -10,7 +11,13 @@ const Changelogs = ({ data, toc }: { data: string; toc: any }) => {
   return (
     <>
       <div className="px-1 sm:px-4 md:px-8 lg:px-14 xl:px-20 overflow-scroll hideScrollbar flex-1 2xl:max-w-7xl">
-        <MarkdownRenderer category="changelogs" starredLinks={false}>
+        <MarkdownRenderer
+          category="changelogs"
+          starredLinks={false}
+          components={{
+            p: changelogsPRenderer,
+          }}
+        >
           {data}
         </MarkdownRenderer>
       </div>
@@ -27,24 +34,30 @@ const Changelogs = ({ data, toc }: { data: string; toc: any }) => {
 };
 
 export async function getStaticProps() {
-  const res = await fetch(
-    "https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/updates.json"
-  );
-  const data = (await res.json())?.data?.content_md;
+  try {
+    const res = await fetch(
+      "https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/updates.json"
+    );
+    const data = (await res.json())?.data?.content_md;
 
-  if (!data) {
+    if (!data) {
+      return {
+        notFound: true,
+      };
+    }
+
+    const toc = await getTableOfContents(data);
+    return {
+      props: {
+        data,
+        toc,
+      },
+    };
+  } catch (err) {
     return {
       notFound: true,
     };
   }
-
-  const toc = await getTableOfContents(data);
-  return {
-    props: {
-      data,
-      toc,
-    },
-  };
 }
 
 export default Changelogs;

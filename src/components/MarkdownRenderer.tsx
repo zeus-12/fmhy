@@ -8,15 +8,23 @@ import {
   BlockquoteRenderer,
 } from "@/lib/wiki/renderers";
 import ReactMarkdown from "react-markdown";
+import { SpecialComponents } from "react-markdown/lib/ast-to-react";
+import { NormalComponents } from "react-markdown/lib/complex-types";
 
 const MarkdownRenderer = ({
   category,
   starredLinks,
   children,
+  components,
 }: {
   category: string;
   starredLinks: boolean;
   children: string;
+  components?:
+    | Partial<
+        Omit<NormalComponents, keyof SpecialComponents> & SpecialComponents
+      >
+    | undefined;
 }) => {
   return (
     <ReactMarkdown
@@ -32,6 +40,7 @@ const MarkdownRenderer = ({
         code: (props: any) => CodeRenderer(props, category),
         ul: (props: any) => UlRenderer(props),
         blockquote: (props: any) => BlockquoteRenderer(props, category),
+        ...components,
       }}
     >
       {children}

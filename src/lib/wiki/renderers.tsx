@@ -140,3 +140,34 @@ export const UlRenderer = (props: any) => {
     </ul>
   );
 };
+
+export const changelogsPRenderer = (props: any) => {
+  const text = getTextFromProps(props);
+
+  const ADDITION_STARTERS = ["Added"];
+  const REMOVAL_STARTERS = ["Removed"];
+
+  const STARRED = "Starred";
+  const UNSTARRED = "Unstarred";
+
+  // get first word in text
+  const firstWord = text.split(" ")[0];
+
+  const isUnstarred = text.includes(UNSTARRED);
+  const isStarred = text.includes(STARRED);
+
+  return (
+    <p
+      className={cn(
+        ADDITION_STARTERS.includes(firstWord) && "text-green-400",
+        REMOVAL_STARTERS.includes(firstWord) && "text-red-400"
+      )}
+    >
+      {(isUnstarred || isStarred) && (
+        <span className={cn(isUnstarred && "line-through")}>⭐️</span>
+      )}
+
+      {props.children}
+    </p>
+  );
+};
