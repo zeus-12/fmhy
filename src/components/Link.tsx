@@ -1,5 +1,6 @@
 import React, { DetailedHTMLProps, AnchorHTMLAttributes, Ref } from "react";
 import NextLink from "next/link";
+import { cn } from "@/lib/utils";
 
 type LinkProps = DetailedHTMLProps<
   AnchorHTMLAttributes<HTMLAnchorElement>,
@@ -15,7 +16,7 @@ const Link = ({ href, className, children, ...rest }: LinkProps) => {
     return (
       <NextLink
         href={href}
-        className={`text-blue-400 hover:text-blue-500 transition-colors duration-150 ease-in ${className}`}
+        className={cn("text-blue-400 hover:text-blue-500", className)}
         {...rest}
       >
         {children}
@@ -25,7 +26,7 @@ const Link = ({ href, className, children, ...rest }: LinkProps) => {
 
   return (
     <a
-      className={`text-blue-400 hover:text-blue-500 transition-colors duration-150 ease-in ${className}`}
+      className={cn("text-blue-400 hover:text-blue-500", className)}
       target="_blank"
       rel="noopener noreferrer"
       href={href}
