@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
+import { MARKDOWN_RESOURCES, isDevEnv, testData } from "@/lib/CONSTANTS";
 import { Switch } from "@mantine/core";
 import BottomNavigator from "@/components/wiki/BottomNavigator";
 import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
@@ -131,14 +131,14 @@ export async function getStaticProps({
 }: {
   params: { CATEGORY: string };
 }) {
-  // if (isDevEnv) {
-  //   return {
-  //     props: {
-  //       data: testData,
-  //       isError: false,
-  //     },
-  //   };
-  // }
+  if (isDevEnv) {
+    return {
+      props: {
+        data: testData,
+        isError: false,
+      },
+    };
+  }
   try {
     const markdownCategory = MARKDOWN_RESOURCES.find(
       (item) => item.urlEnding.toLowerCase() === CATEGORY?.toLowerCase()
