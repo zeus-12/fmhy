@@ -30,3 +30,4 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 - assign github-slugger-ids to each guide; also make the guides search filter-able by query params -> and add within search to spotlight
 - toc seems to break at times
 - hook the scrape script to vercel crons, and update the scraper scripts to only do table-drop if links are successfully fetched
+- use stricter lint rules ,for eg: the dont use "!" to types rule

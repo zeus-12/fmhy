@@ -28,6 +28,7 @@ const Wiki = ({
   const markdownCategory = MARKDOWN_RESOURCES.find(
     (item) => item.urlEnding.toLowerCase() === category?.toLowerCase()
   )!;
+  // todo remove ! from above line
 
   useEffect(() => {
     if (category && !markdownCategory) {
