@@ -1,4 +1,5 @@
 import * as cheerio from "cheerio";
+import fetch from "node-fetch";
 // import fs from "fs";
 // import { LinkType } from "./types";
 
@@ -13,7 +14,7 @@ export const getCheerioDocument = async (urlEnding: string) => {
     `https://github.com/nbats/FMHYedit/blob/main/${urlEnding}.md`
   );
 
-  const data = await res.json();
+  const data = (await res.json()) as any;
   const text = data?.payload?.blob?.richText;
   if (!text) {
     throw new Error("No text found");
