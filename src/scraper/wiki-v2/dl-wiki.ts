@@ -30,7 +30,7 @@ async function dlWikiChunk(
   fileName: string,
   icon: string,
   subURL: string
-): Promise<string[]> {
+): Promise<void> {
   let lines: string[];
   // first, try to get the chunk locally
   try {
@@ -59,13 +59,13 @@ async function dlWikiChunk(
   }
 
   // add a pretext
-  let preText = "";
-  if (fileName !== "NSFWPiracy.md") {
-    preText = `[${icon}](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/${subURL}) `;
-  } else {
-    preText = `[${icon}](${subURL}) `;
-  }
-  lines = addPretext(lines, preText);
+  // let preText = "";
+  // if (fileName !== "NSFWPiracy.md") {
+  //   preText = `[${icon}](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/${subURL}) `;
+  // } else {
+  //   preText = `[${icon}](${subURL}) `;
+  // }
+  // lines = addPretext(lines, preText);
 
-  return lines;
+  // return lines;
 }
