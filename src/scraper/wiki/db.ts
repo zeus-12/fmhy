@@ -1,8 +1,9 @@
+import { devLog } from "@/lib/utils";
 import { LinkType } from "../utils/types";
 import prisma from "@/lib/prisma";
 
 export const addLinksToDb = async (data_: LinkType[]) => {
-  console.log("ading duh links");
+  devLog("ading duh links");
   await prisma.wiki.createMany({
     data: data_
       .filter((item) => item?.link?.length > 0)

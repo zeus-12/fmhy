@@ -10,6 +10,7 @@ import WikiTableOfContents from "@/components/wiki/toc";
 import { PanelRightOpen } from "lucide-react";
 import { NextSeo } from "next-seo";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
+import { devLog } from "@/lib/utils";
 
 const Wiki = ({
   data,
@@ -132,14 +133,14 @@ export async function getStaticProps({
 }: {
   params: { CATEGORY: string };
 }) {
-  if (isDevEnv) {
-    return {
-      props: {
-        data: testData,
-        isError: false,
-      },
-    };
-  }
+  // if (isDevEnv) {
+  //   return {
+  //     props: {
+  //       data: testData,
+  //       isError: false,
+  //     },
+  //   };
+  // }
   try {
     const markdownCategory = MARKDOWN_RESOURCES.find(
       (item) => item.urlEnding.toLowerCase() === CATEGORY?.toLowerCase()
@@ -211,6 +212,7 @@ Use any **[Base64 Decoding](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/stor
     };
   } catch (err: any) {
     // todo show 404 page
+    devLog(err, "Err");
     return {
       props: {
         isError: true,

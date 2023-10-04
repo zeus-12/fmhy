@@ -1,3 +1,4 @@
+import { devLog } from "@/lib/utils";
 import axios from "axios";
 import fs from "fs";
 
@@ -20,7 +21,7 @@ async function dlWikiChunk(
   // first, try to get the chunk locally
   try {
     // First, try to get it from the local file
-    console.log(`Loading ${fileName} from local file...`);
+    devLog(`Loading ${fileName} from local file...`);
     // const response = await axios.get(`src/scraper/wiki-v2/data/${fileName}`);
     const response = fs.readFileSync(
       `src/scraper/wiki-v2/data/${fileName}`,
@@ -28,19 +29,19 @@ async function dlWikiChunk(
     );
 
     lines = response.split("\n");
-    console.log("Loaded.");
+    devLog("Loaded.");
   } catch {
-    console.log(`Local file not found. Downloading ${fileName} from Github...`);
+    devLog(`Local file not found. Downloading ${fileName} from Github...`);
     const response = await axios.get(
       `https://raw.githubusercontent.com/nbats/FMHYedit/main/${fileName}`
     );
 
     // save data locally
-    console.log(`Saving ${fileName} locally...`);
+    devLog(`Saving ${fileName} locally...`);
     fs.writeFileSync(`src/scraper/wiki-v2/data/${fileName}`, response.data);
 
     lines = response.data.split("\n");
-    console.log("Downloaded and saved locally.");
+    devLog("Downloaded and saved locally.");
   }
 
   // add a pretext
@@ -92,19 +93,19 @@ async function standardWikiIndexing(): Promise<string[]> {
   let lines: string[];
   try {
     // First, try to get it from the local single-page file
-    console.log("Loading FMHY from local single-page...");
+    devLog("Loading FMHY from local single-page...");
     const response = await axios.get("single-page");
     lines = response.data.split("\n");
-    console.log("Loaded.");
+    devLog("Loaded.");
   } catch {
-    console.log("Local single-page file not found.");
+    devLog("Local single-page file not found.");
     // If that fails, try to get it from Github
-    console.log("Loading FMHY single-page file from Github...");
+    devLog("Loading FMHY single-page file from Github...");
     const response = await axios.get(
       "https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page"
     );
     lines = response.data.split("\n");
-    console.log("Loaded.");
+    devLog("Loaded.");
   }
   return lines;
 }
@@ -314,15 +315,15 @@ async function doASearch(searchInput: string): Promise<void> {
   const myFilterWords = removeEmptyStringsFromList(
     searchInput.toLowerCase().split(" ")
   );
-  console.log("Looking for lines that contain all of these words:");
-  console.log(myFilterWords);
+  devLog("Looking for lines that contain all of these words:");
+  devLog(myFilterWords);
 
   // main results
   const myLineList = await lineList;
   let linesFoundPrev = filterLines(myLineList, searchInput);
 
   if (linesFoundPrev.length > 300) {
-    console.log(
+    devLog(
       `Too many results (${linesFoundPrev.length}). Showing only full-word matches.`
     );
     linesFoundPrev = getOnlyFullWordMatches(linesFoundPrev, searchInput);
@@ -343,32 +344,32 @@ async function doASearch(searchInput: string): Promise<void> {
   if (coloring) {
     const linesFoundColored = colorLinesFound(linesFound, myFilterWords);
     const textToPrint = linesFoundColored.join("\n");
-    console.log(`Printing ${linesFound.length} search results:
+    devLog(`Printing ${linesFound.length} search results:
 `);
-    console.log(textToPrint);
-    console.log(`
+    devLog(textToPrint);
+    devLog(`
 Search ended with ${linesFound.length} results found.
 `);
   } else {
     const textToPrint = linesFound.join("\n");
-    console.log(`Printing ${linesFound.length} search results:
+    devLog(`Printing ${linesFound.length} search results:
 `);
-    console.log(textToPrint);
-    console.log(`
+    devLog(textToPrint);
+    devLog(`
 Search ended with ${linesFound.length} results found.
 `);
   }
 
   // title section results
   if (sectionTitleList.length > 0) {
-    console.log("Also there are these section titles: ");
-    console.log(`
+    devLog("Also there are these section titles: ");
+    devLog(`
 ${sectionTitleList.join("\n")}`);
   }
 }
 
 const lineList = getAllLines();
-console.log(
+devLog(
   "Search examples: 'youtube frontend', 'streaming site', 'rare movies', 'userscripts'... You can also type 'exit' or nothing to close the script."
 );
 doASearch("google");

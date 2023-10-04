@@ -1,3 +1,4 @@
+import { devLog } from "@/lib/utils";
 import axios from "axios";
 import fs from "fs";
 
@@ -35,7 +36,7 @@ async function dlWikiChunk(
   // first, try to get the chunk locally
   try {
     // First, try to get it from the local file
-    console.log(`Loading ${fileName} from local file...`);
+    devLog(`Loading ${fileName} from local file...`);
     // const response = await axios.get(`src/scraper/wiki-v2/data/${fileName}`);
     const response = fs.readFileSync(
       `src/scraper/wiki-v2/data/${fileName}`,
@@ -43,19 +44,19 @@ async function dlWikiChunk(
     );
 
     lines = response.split("\n");
-    console.log("exists on file.");
+    devLog("exists on file.");
   } catch {
-    console.log(`Local file not found. Downloading ${fileName} from Github...`);
+    devLog(`Local file not found. Downloading ${fileName} from Github...`);
     const response = await axios.get(
       `https://raw.githubusercontent.com/nbats/FMHYedit/main/${fileName}`
     );
 
     // save data locally
-    console.log(`Saving ${fileName} locally...`);
+    devLog(`Saving ${fileName} locally...`);
     fs.writeFileSync(`src/scraper/wiki-v2/data/${fileName}`, response.data);
 
     lines = response.data.split("\n");
-    console.log("Downloaded and saved locally.");
+    devLog("Downloaded and saved locally.");
   }
 
   // add a pretext
