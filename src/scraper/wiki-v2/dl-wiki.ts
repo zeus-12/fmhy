@@ -1,5 +1,5 @@
-const axios = require("axios");
-const fs = require("fs");
+import axios from "axios";
+import fs from "fs";
 
 Promise.all([
   dlWikiChunk("VideoPiracyGuide.md", "📺", "video"),
