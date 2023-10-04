@@ -3,6 +3,7 @@
 import { toc } from "mdast-util-toc";
 import { remark } from "remark";
 import { visit } from "unist-util-visit";
+import GithubSlugger from "github-slugger";
 
 const textTypes = ["text", "emphasis", "strong", "inlineCode"];
 
@@ -25,7 +26,7 @@ interface Items {
   items?: Item[];
 }
 
-function getItems(node, current): Items {
+function getItems(node, current, slugger): Items {
   if (!node) {
     return {};
   }
@@ -33,8 +34,12 @@ function getItems(node, current): Items {
   if (node.type === "paragraph") {
     visit(node, (item) => {
       if (item.type === "link") {
-        current.url = item.url;
         current.title = flattenNode(node);
+        current.url =
+          "#" +
+          slugger.slug(
+            current.title?.replaceAll(" / ", " ")?.replaceAll("/", "")
+          );
       }
 
       if (item.type === "text") {
@@ -46,14 +51,14 @@ function getItems(node, current): Items {
   }
 
   if (node.type === "list") {
-    current.items = node.children.map((i) => getItems(i, {}));
+    current.items = node.children.map((i) => getItems(i, {}, slugger));
 
     return current;
   } else if (node.type === "listItem") {
-    const heading = getItems(node.children[0], {});
+    const heading = getItems(node.children[0], {}, slugger);
 
     if (node.children.length > 1) {
-      getItems(node.children[1], heading);
+      getItems(node.children[1], heading, slugger);
     }
 
     return heading;
@@ -64,7 +69,9 @@ function getItems(node, current): Items {
 
 const getToc = () => (node, file) => {
   const table = toc(node);
-  file.data = getItems(table.map, {});
+  const slugger = new GithubSlugger();
+
+  file.data = getItems(table.map, {}, slugger);
 };
 
 export type TableOfContents = Items;

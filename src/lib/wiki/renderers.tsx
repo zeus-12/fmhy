@@ -12,9 +12,12 @@ import { HelpCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { fontMono } from "@/lib/fonts";
 
-export const HeadingRenderer = (props: any, level: 1 | 2 | 3 | 4) => {
-  const { slug, text, href } = HeadingRendererHelper(props);
-
+export const HeadingRenderer = (
+  props: any,
+  level: 1 | 2 | 3 | 4,
+  slugger: any
+) => {
+  const { slug, text, href } = HeadingRendererHelper(props, slugger);
   return (
     <Link href={href}>
       {createElement(

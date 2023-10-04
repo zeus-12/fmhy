@@ -13,16 +13,21 @@ export const classMapping: ClassMappingType = {
   h4: "text-xl font-medium tracking-medium mt-4 hover:underline hover:cursor text-white",
 };
 
-export function HeadingRendererHelper(props: any) {
+export function HeadingRendererHelper(props: any, slugger: any) {
   const text = getTextFromProps(props);
-  const slug = githubSlug(text);
-  let href = "#" + slug;
+  const cleanedText = text.replaceAll(" / ", " ")?.replaceAll("/", "");
 
   const immediateChild = props.node.children[0];
+  let href;
+  let slug;
 
   if (immediateChild?.tagName === "a") {
     const eleHref = immediateChild?.properties.href;
+    slug = eleHref;
     href = redirectRedditAndGithubLinksToWebsite(eleHref);
+  } else {
+    slug = slugger.slug(cleanedText);
+    href = "#" + slug;
   }
 
   return { slug, text, href };
