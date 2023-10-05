@@ -3,115 +3,137 @@ export const MARKDOWN_RESOURCES = [
     title: "Home",
     urlEnding: "",
     emoji: "👋",
+    dlForSearch: false,
   },
   {
     title: "Adblock, Privacy",
     urlEnding: "AdblockVPNGuide",
     emoji: "📛",
+    dlForSearch: true,
   },
   {
     title: "AI Tools",
     urlEnding: "AI",
     emoji: "🤖",
+    dlForSearch: true,
   },
   {
     title: "Android, iOS",
     urlEnding: "Android-iOSGuide",
     emoji: "📱",
+    dlForSearch: true,
   },
   {
     title: "Base64",
     urlEnding: "base64",
     emoji: "🔗",
+    dlForSearch: false,
   },
   {
     title: "Beginners Guide",
     urlEnding: "Beginners-Guide",
     emoji: "🏴‍☠️",
+    dlForSearch: false,
   },
   {
     title: "Books, Comics, Manga",
     urlEnding: "ReadingPiracyGuide",
     emoji: "📗",
+    dlForSearch: true,
   },
 
   {
     title: "Developer Tools",
     urlEnding: "DEVTools",
     emoji: "👨‍💻",
+    dlForSearch: true,
   },
   {
     title: "Downloading",
     urlEnding: "DownloadPiracyGuide",
     emoji: "💾",
+    dlForSearch: true,
   },
   {
     title: "Educational",
     urlEnding: "EDUPiracyGuide",
     emoji: "🧠",
+    dlForSearch: true,
   },
 
   {
     title: "Gaming, Emulation",
     urlEnding: "GamingPiracyGuide",
     emoji: "🎮",
+    dlForSearch: true,
   },
   {
     title: "Image Tools",
     urlEnding: "img-tools",
     emoji: "🖼️",
+    dlForSearch: true,
   },
   {
     title: "Linux, MacOS",
     urlEnding: "LinuxGuide",
     emoji: "🐧",
+    dlForSearch: true,
   },
   {
     title: "Miscellaneous",
     urlEnding: "MISCGuide",
     emoji: "📂",
+    dlForSearch: true,
   },
   {
     title: "Movies, TV, Anime, Sports",
     urlEnding: "VideoPiracyGuide",
     emoji: "📺",
+    dlForSearch: true,
   },
   {
     title: "Music, Podcasts, Radio",
     urlEnding: "AudioPiracyGuide",
     emoji: "🎵",
+    dlForSearch: true,
   },
 
   {
     title: "Non-English",
     urlEnding: "Non-English",
     emoji: "🌍",
+    dlForSearch: true,
   },
 
   {
     title: "Storage",
     urlEnding: "STORAGE",
     emoji: "📦",
+    dlForSearch: true,
   },
   {
     title: "Tools",
     urlEnding: "TOOLSGuide",
     emoji: "🔧",
+    dlForSearch: true,
   },
   {
     title: "Torrenting",
     urlEnding: "TorrentPiracyGuide",
     emoji: "🌀",
+    dlForSearch: true,
   },
   {
     title: "Unsafe Sites",
     urlEnding: "UnsafeSites",
     emoji: "🚫",
+    dlForSearch: false,
   },
   {
     title: "NSFW",
     urlEnding: "NSFWPiracy",
     emoji: "🔞",
+    dlForSearch: true,
   },
 ];
 
@@ -932,3 +954,5 @@ export const testData = `
 `;
 
 export const isDevEnv = process.env.NODE_ENV === "development";
+
+export const SEARCH_RESULTS_PER_PAGE = 30;

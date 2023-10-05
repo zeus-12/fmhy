@@ -3,12 +3,9 @@ import { Search as SearchIcon } from "lucide-react";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { InferGetServerSidePropsType, NextPageContext } from "next";
-import { devLog } from "@/lib/utils";
 import { NextSeo, SiteLinksSearchBoxJsonLd } from "next-seo";
 import Link from "@/components/Link";
-
-const ITEMS_PER_PAGE = 30;
+import { SEARCH_RESULTS_PER_PAGE } from "@/lib/CONSTANTS";
 
 interface SearchResultType {
   id: string;
@@ -18,49 +15,56 @@ interface SearchResultType {
   isNsfw: boolean;
 }
 
-const Search = ({
-  query,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const router = useRouter();
+const Search = () => {
+  const { push, query, isReady } = useRouter();
 
-  const q = (query.q as string) ?? "";
-  const page = parseInt((query.page as string) ?? "1");
-  const nsfw = query.nsfw === "true" ? true : false;
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [activePage, setActivePage] = useState<number>();
+  const [includeNsfw, setIncludeNsfw] = useState<boolean>();
 
-  const [searchQuery, setSearchQuery] = useState<string>(q);
-  const [activePage, setActivePage] = useState(page);
-  const [includeNsfw, setIncludeNsfw] = useState(nsfw);
+  const [sQuery, setSQuery] = useState<string>("");
 
   const searchRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!isReady) return;
+
+    const q = (query.q as string) ?? "";
+    const page = parseInt((query.page as string) ?? "1");
+    const nsfw = query.nsfw === "true" ? true : false;
+
+    if (q) {
+      setSearchQuery(q);
+      setSQuery(q);
+    } else {
+      searchRef.current?.focus();
+    }
+
+    if (page) {
+      setActivePage(page);
+    }
+
+    if (nsfw) {
+      setIncludeNsfw(nsfw);
+    }
+  }, [isReady]);
 
   const {
     data: searchRes,
     fetchStatus,
     isLoading: isLoading_,
     isError,
-    refetch: refetchSearchResults,
   } = useQuery({
-    queryKey: ["search", searchQuery, activePage, includeNsfw],
+    queryKey: ["search", sQuery, activePage, includeNsfw],
     queryFn: async () => {
       const res = await fetch(
-        `/api/search?q=${searchQuery}&page=${activePage}&nsfw=${includeNsfw}`
+        `/api/search?q=${sQuery}&page=${activePage}&nsfw=${includeNsfw}`
       );
       const data = await res.json();
       return data;
     },
-    enabled: false,
+    enabled: !!sQuery,
   });
-
-  useEffect(() => {
-    if (q) return;
-    searchRef.current?.focus();
-  }, []);
-
-  useEffect(() => {
-    if (q) {
-      fetchSearchResults();
-    }
-  }, [q, page, nsfw]);
 
   // cause of weird reactq behaviour, isloading remaining true when enabled is false
   const isLoading = isLoading_ && fetchStatus !== "idle";
@@ -90,20 +94,10 @@ const Search = ({
       params.set("nsfw", nsfw.toString());
     }
 
-    router.push({
+    push({
       pathname: "/search",
       query: params.toString(),
     });
-  };
-
-  const fetchSearchResults = async () => {
-    if (!searchQuery || !searchQuery.trim()) return;
-
-    try {
-      await refetchSearchResults();
-    } catch (err: any) {
-      devLog(err.message);
-    }
   };
 
   const searchHandler = async () => {
@@ -122,9 +116,10 @@ const Search = ({
   };
 
   const resetSearch = () => {
-    router.push("/search");
+    push("/search");
     setSearchQuery("");
     setIncludeNsfw(false);
+    setSQuery("");
   };
 
   return (
@@ -164,6 +159,7 @@ const Search = ({
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
+              setSQuery(searchQuery);
               searchHandler();
             }
           }}
@@ -212,12 +208,12 @@ const Search = ({
               </div>
             ))}
 
-            {count && Math.ceil(count / ITEMS_PER_PAGE) > 1 && (
+            {count && Math.ceil(count / SEARCH_RESULTS_PER_PAGE) > 1 && (
               <div className="mt-4 flex justify-center pb-4">
                 <Pagination
                   value={activePage}
                   onChange={(cur) => paginationHandler(cur)}
-                  total={Math.ceil(count / ITEMS_PER_PAGE)}
+                  total={Math.ceil(count / SEARCH_RESULTS_PER_PAGE)}
                 />
               </div>
             )}
@@ -233,11 +229,3 @@ const Search = ({
   );
 };
 export default Search;
-
-export const getServerSideProps = async (context: NextPageContext) => {
-  return {
-    props: {
-      query: context.query,
-    },
-  };
-};

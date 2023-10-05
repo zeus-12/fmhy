@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
-
-const ITEMS_PER_PAGE = 30;
+import { SEARCH_RESULTS_PER_PAGE } from "@/lib/CONSTANTS";
 
 export default async function handler(
   req: NextApiRequest,
@@ -34,8 +33,8 @@ export default async function handler(
   const [results, count] = await prisma.$transaction([
     prisma.wiki.findMany({
       where: searchWhereQuery,
-      skip: (parsedPage - 1) * ITEMS_PER_PAGE,
-      take: ITEMS_PER_PAGE,
+      skip: (parsedPage - 1) * SEARCH_RESULTS_PER_PAGE,
+      take: SEARCH_RESULTS_PER_PAGE,
     }),
     prisma.wiki.count({
       where: searchWhereQuery,

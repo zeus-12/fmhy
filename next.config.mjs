@@ -2,7 +2,7 @@
 // import { withPlausibleProxy } from "next-plausible";
 
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   // images: {
   //   domains: ["images.clerk.dev"],
   // },

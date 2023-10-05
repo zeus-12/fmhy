@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "pnpm dl-wiki && prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "dev:scrape": "tsx watch ./src/scraper/index.ts",
-    "dev:scrape-wiki": "tsx watch ./src/scraper/wiki-v2/index.ts"
+    "dev:scrape-v2": "tsx watch ./src/scraper/wiki-v2/index.ts",
+    "dl-wiki": "tsx ./src/scraper/wiki-v2/dl-wiki.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
@@ -23,6 +24,7 @@
     "@prisma/client": "^5.2.0",
     "@tanstack/react-query": "^4.29.7",
     "@tanstack/react-query-devtools": "^4.29.7",
+    "axios": "^1.5.1",
     "cheerio": "^1.0.0-rc.12",
     "clsx": "^1.2.1",
     "github-slugger": "^2.0.0",
@@ -38,6 +40,7 @@
     "react-markdown": "^8.0.7",
     "react-wrap-balancer": "^1.0.0",
     "remark": "^14.0.3",
+    "sharp": "^0.32.6",
     "tailwind-merge": "^1.13.2",
     "unist-util-visit": "^4.1.2"
   },
