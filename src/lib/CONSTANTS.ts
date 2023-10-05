@@ -932,3 +932,5 @@ export const testData = `
 `;
 
 export const isDevEnv = process.env.NODE_ENV === "development";
+
+export const SEARCH_RESULTS_PER_PAGE = 30;
