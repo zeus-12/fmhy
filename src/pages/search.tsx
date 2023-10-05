@@ -1,7 +1,7 @@
 import { Input, Loader, Pagination, Switch } from "@mantine/core";
 import { Search as SearchIcon } from "lucide-react";
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { NextSeo, SiteLinksSearchBoxJsonLd } from "next-seo";
 import Link from "@/components/Link";
