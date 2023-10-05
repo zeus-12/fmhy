@@ -1,4 +1,3 @@
-import { devLog } from "@/lib/utils";
 import axios from "axios";
 import fs from "fs";
 
@@ -21,7 +20,7 @@ async function dlWikiChunk(
   // first, try to get the chunk locally
   try {
     // First, try to get it from the local file
-    devLog(`Loading ${fileName} from local file...`);
+    console.log(`Loading ${fileName} from local file...`);
     // const response = await axios.get(`src/scraper/wiki-v2/data/${fileName}`);
     const response = fs.readFileSync(
       `src/scraper/wiki-v2/data/${fileName}`,
@@ -29,19 +28,19 @@ async function dlWikiChunk(
     );
 
     lines = response.split("\n");
-    devLog("Loaded.");
+    console.log("Loaded.");
   } catch {
-    devLog(`Local file not found. Downloading ${fileName} from Github...`);
+    console.log(`Local file not found. Downloading ${fileName} from Github...`);
     const response = await axios.get(
       `https://raw.githubusercontent.com/nbats/FMHYedit/main/${fileName}`
     );
 
     // save data locally
-    devLog(`Saving ${fileName} locally...`);
+    console.log(`Saving ${fileName} locally...`);
     fs.writeFileSync(`src/scraper/wiki-v2/data/${fileName}`, response.data);
 
     lines = response.data.split("\n");
-    devLog("Downloaded and saved locally.");
+    console.log("Downloaded and saved locally.");
   }
 
   // add a pretext
@@ -87,25 +86,24 @@ async function alternativeWikiIndexing(): Promise<string[]> {
   ]);
   return wikiChunks.flat();
 }
-// --------------------------------
 
 async function standardWikiIndexing(): Promise<string[]> {
   let lines: string[];
   try {
     // First, try to get it from the local single-page file
-    devLog("Loading FMHY from local single-page...");
+    console.log("Loading FMHY from local single-page...");
     const response = await axios.get("single-page");
     lines = response.data.split("\n");
-    devLog("Loaded.");
+    console.log("Loaded.");
   } catch {
-    devLog("Local single-page file not found.");
+    console.log("Local single-page file not found.");
     // If that fails, try to get it from Github
-    devLog("Loading FMHY single-page file from Github...");
+    console.log("Loading FMHY single-page file from Github...");
     const response = await axios.get(
       "https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page"
     );
     lines = response.data.split("\n");
-    devLog("Loaded.");
+    console.log("Loaded.");
   }
   return lines;
 }
@@ -139,21 +137,21 @@ function checkMultiWordQueryContainedExactlyInLine(
   return line.toLowerCase().includes(searchQuery.toLowerCase());
 }
 
-function moveExactMatchesToFront(
-  myList: string[],
-  searchQuery: string
-): string[] {
-  const bumped: string[] = [];
-  const notBumped: string[] = [];
-  for (const element of myList) {
-    if (checkMultiWordQueryContainedExactlyInLine(element, searchQuery)) {
-      bumped.push(element);
-    } else {
-      notBumped.push(element);
-    }
-  }
-  return bumped.concat(notBumped);
-}
+// function moveExactMatchesToFront(
+//   myList: string[],
+//   searchQuery: string
+// ): string[] {
+//   const bumped: string[] = [];
+//   const notBumped: string[] = [];
+//   for (const element of myList) {
+//     if (checkMultiWordQueryContainedExactlyInLine(element, searchQuery)) {
+//       bumped.push(element);
+//     } else {
+//       notBumped.push(element);
+//     }
+//   }
+//   return bumped.concat(notBumped);
+// }
 
 function checkList1isInList2(list1: string[], list2: string[]): boolean {
   for (const element of list1) {
@@ -174,16 +172,16 @@ function checkWordForWordMatch(line: string, searchQuery: string): boolean {
   return checkList1isInList2(searchQueryWords, lineWords);
 }
 
-function checkWordForWordMatchCaseSensitive(
-  line: string,
-  searchQuery: string
-): boolean {
-  const lineWords = removeEmptyStringsFromList(
-    line.replace("[", " ").replace("]", " ").split(" ")
-  );
-  const searchQueryWords = removeEmptyStringsFromList(searchQuery.split(" "));
-  return checkList1isInList2(searchQueryWords, lineWords);
-}
+// function checkWordForWordMatchCaseSensitive(
+//   line: string,
+//   searchQuery: string
+// ): boolean {
+//   const lineWords = removeEmptyStringsFromList(
+//     line.replace("[", " ").replace("]", " ").split(" ")
+//   );
+//   const searchQueryWords = removeEmptyStringsFromList(searchQuery.split(" "));
+//   return checkList1isInList2(searchQueryWords, lineWords);
+// }
 
 function moveBetterMatchesToFront(
   myList: string[],
@@ -214,18 +212,18 @@ function getOnlyFullWordMatches(
   return bumped;
 }
 
-function getOnlyFullWordMatchesCaseSensitive(
-  myList: string[],
-  searchQuery: string
-): string[] {
-  const bumped: string[] = [];
-  for (const element of myList) {
-    if (checkWordForWordMatchCaseSensitive(element, searchQuery)) {
-      bumped.push(element);
-    }
-  }
-  return bumped;
-}
+// function getOnlyFullWordMatchesCaseSensitive(
+//   myList: string[],
+//   searchQuery: string
+// ): string[] {
+//   const bumped: string[] = [];
+//   for (const element of myList) {
+//     if (checkWordForWordMatchCaseSensitive(element, searchQuery)) {
+//       bumped.push(element);
+//     }
+//   }
+//   return bumped;
+// }
 
 function getLinesThatContainAllWords(
   lineList: string[],
@@ -315,15 +313,15 @@ async function doASearch(searchInput: string): Promise<void> {
   const myFilterWords = removeEmptyStringsFromList(
     searchInput.toLowerCase().split(" ")
   );
-  devLog("Looking for lines that contain all of these words:");
-  devLog(myFilterWords);
+  console.log("Looking for lines that contain all of these words:");
+  console.log(myFilterWords);
 
   // main results
   const myLineList = await lineList;
   let linesFoundPrev = filterLines(myLineList, searchInput);
 
   if (linesFoundPrev.length > 300) {
-    devLog(
+    console.log(
       `Too many results (${linesFoundPrev.length}). Showing only full-word matches.`
     );
     linesFoundPrev = getOnlyFullWordMatches(linesFoundPrev, searchInput);
@@ -344,32 +342,33 @@ async function doASearch(searchInput: string): Promise<void> {
   if (coloring) {
     const linesFoundColored = colorLinesFound(linesFound, myFilterWords);
     const textToPrint = linesFoundColored.join("\n");
-    devLog(`Printing ${linesFound.length} search results:
+    console.log(`Printing ${linesFound.length} search results:
 `);
-    devLog(textToPrint);
-    devLog(`
+    console.log(textToPrint);
+    console.log(`
 Search ended with ${linesFound.length} results found.
 `);
   } else {
     const textToPrint = linesFound.join("\n");
-    devLog(`Printing ${linesFound.length} search results:
+    console.log(`Printing ${linesFound.length} search results:
 `);
-    devLog(textToPrint);
-    devLog(`
+    console.log(textToPrint);
+    console.log(`
 Search ended with ${linesFound.length} results found.
 `);
   }
 
   // title section results
   if (sectionTitleList.length > 0) {
-    devLog("Also there are these section titles: ");
-    devLog(`
+    console.log("Also there are these section titles: ");
+    console.log(`
 ${sectionTitleList.join("\n")}`);
   }
 }
 
 const lineList = getAllLines();
-devLog(
+console.log(
   "Search examples: 'youtube frontend', 'streaming site', 'rare movies', 'userscripts'... You can also type 'exit' or nothing to close the script."
 );
-doASearch("google");
+console.log("searching");
+doASearch("india");
