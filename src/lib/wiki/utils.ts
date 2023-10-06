@@ -66,6 +66,23 @@ export const redditToGithubTitleMapping: RedditToGithubTitleMappingType = {
   // :"nsfwpiracy"
 };
 
+function generateReverseDictionary(
+  originalDict: RedditToGithubTitleMappingType
+) {
+  const reverseDict: RedditToGithubTitleMappingType = {};
+  for (const key in originalDict) {
+    if (originalDict.hasOwnProperty(key)) {
+      const value = originalDict[key];
+      reverseDict[value] = key;
+    }
+  }
+  return reverseDict;
+}
+
+export const githubToRedditTitleMapping = generateReverseDictionary(
+  redditToGithubTitleMapping
+);
+
 export function redirectRedditAndGithubLinksToWebsite(link: string) {
   if (link.startsWith(REDDIT_WIKI_URL)) {
     return redirectRedditLinksToWebsite(link);
