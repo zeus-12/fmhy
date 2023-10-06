@@ -1,4 +1,5 @@
 import data from "./data.json";
+const lineList = data.data?.split("\n");
 
 let doAltIndexing = true;
 const coloring = false;
@@ -331,9 +332,10 @@ type SearchResults = {
 };
 
 export async function doASearch(searchInput: string): Promise<SearchResults> {
-  if (!searchInput || !searchInput.trim())
+  if (!searchInput || !searchInput.trim()) {
+    console.log("empty search input");
     return { results: [], matchingSections: [] };
-
+  }
   const myFilterWords = removeEmptyStringsFromList(
     searchInput.toLowerCase().split(" ")
   );
@@ -356,39 +358,35 @@ export async function doASearch(searchInput: string): Promise<SearchResults> {
   // linesFoundPrev = moveExactMatchesToFront(linesFoundPrev, searchInput);
   linesFoundPrev = moveBetterMatchesToFront(linesFoundPrev, searchInput);
 
-  // reverse list for terminal
-  linesFoundPrev.reverse();
-
   // separate title lines
   const linesFoundAll = filterOutTitleLines(linesFoundPrev);
   const linesFound = linesFoundAll[0];
   const sectionTitleList = linesFoundAll[1];
 
-  if (coloring) {
-    const linesFoundColored = colorLinesFound(linesFound, myFilterWords);
-    const textToPrint = linesFoundColored.join("\n");
-    console.log(`Printing ${linesFound.length} search results:
-`);
-    console.log(textToPrint);
-    console.log(`
-Search ended with ${linesFound.length} results found.
-`);
-  } else {
-    const textToPrint = linesFound.join("\n");
-    console.log(`Printing ${linesFound.length} search results:
-`);
-    console.log(textToPrint);
-    console.log(`
-Search ended with ${linesFound.length} results found.
-`);
-  }
+  //   if (coloring) {
+  //     const linesFoundColored = colorLinesFound(linesFound, myFilterWords);
+  //     const textToPrint = linesFoundColored.join("\n");
+  //     console.log(`Printing ${linesFound.length} search results:
+  // `);
+  //     console.log(textToPrint);
+  //     console.log(`
+  // Search ended with ${linesFound.length} results found.
+  // `);
+  //   } else {
+  // const textToPrint = linesFound.join("\n");
+  //   console.log(`Printing ${linesFound.length} search results:
+  // `);
+  //   console.log(textToPrint);
+  //   console.log(`
+  // Search ended with ${linesFound.length} results found.
+  // `);
+  // }
 
-  // title section results
-  if (sectionTitleList.length > 0) {
-    console.log("Also there are these section titles: ");
-    console.log(`
-${sectionTitleList.join("\n")}`);
-  }
+  //   if (sectionTitleList.length > 0) {
+  //     console.log("Also there are these section titles: ");
+  //     console.log(`
+  // ${sectionTitleList.join("\n")}`);
+  //   }
 
   return {
     results: linesFound,
@@ -396,4 +394,6 @@ ${sectionTitleList.join("\n")}`);
   };
 }
 
-const lineList = data.data?.split("\n");
+doASearch("telegram").then((results) => {
+  console.log(results);
+});
