@@ -1,56 +1,47 @@
-import { devLog } from "@/lib/utils";
-import axios from "axios";
 import fs from "fs";
 import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
 
-Promise.all(
+const data = Promise.all(
   MARKDOWN_RESOURCES.filter((resource) => resource.dlForSearch).map(
     (resource) => {
-      return dlWikiChunk(`${resource.urlEnding}.md`);
+      return dlWikiChunk(resource.urlEnding, resource.emoji);
     }
   )
 );
 
-async function dlWikiChunk(
-  fileName: string
-  // icon: string,
-  // subURL: string
-): Promise<void> {
-  // let lines: string[];
-  // first, try to get the chunk locally
+data.then((results) => {
+  const combined = results.join("\n");
+  // save it as json
+  const jsonData = JSON.stringify({ data: combined });
+  fs.writeFileSync(`src/scraper/wiki-v2/data.json`, jsonData);
+  // fs.writeFileSync(`src/scraper/wiki-v2/data.txt`, combined);
+});
+
+async function dlWikiChunk(urlEnding: string, icon: string): Promise<string[]> {
   try {
-    // First, try to get it from the local file
-    devLog(`Loading ${fileName} from local file...`);
-    // const response = await axios.get(`src/scraper/wiki-v2/data/${fileName}`);
-    const response = fs.readFileSync(
-      `src/scraper/wiki-v2/data/${fileName}`,
-      "utf8"
+    const response = await fetch(
+      `https://raw.githubusercontent.com/nbats/FMHYedit/main/${urlEnding}.md`
     );
 
-    // lines = response.split("\n");
-    devLog("exists on file.");
-  } catch {
-    devLog(`Local file not found. Downloading ${fileName} from Github...`);
-    const response = await axios.get(
-      `https://raw.githubusercontent.com/nbats/FMHYedit/main/${fileName}`
-    );
+    const data = await response.text();
 
-    // save data locally
-    devLog(`Saving ${fileName} locally...`);
-    fs.writeFileSync(`src/scraper/wiki-v2/data/${fileName}`, response.data);
+    // add a pretext
+    let preText = "";
+    preText = `[${icon}](https://www.fmhy.net/${urlEnding}) `;
 
-    // lines = response.data.split("\n");
-    devLog("Downloaded and saved locally.");
+    const lines = data.split("\n");
+    const updatedLines = addPretext(lines, preText);
+
+    return updatedLines;
+  } catch (err: any) {
+    console.log("Error fetching data", err.message);
+    return [""];
   }
+}
 
-  // // add a pretext
-  // let preText = "";
-  // if (fileName !== "NSFWPiracy.md") {
-  //   preText = `[${icon}](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/${subURL}) `;
-  // } else {
-  //   preText = `[${icon}](${subURL}) `;
-  // }
-  // lines = addPretext(lines, preText);
-
-  // return lines;
+function addPretext(lines: string[], preText: string): string[] {
+  for (let i = 0; i < lines.length; i++) {
+    lines[i] = preText + lines[i];
+  }
+  return lines;
 }

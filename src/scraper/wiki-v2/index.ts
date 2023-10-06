@@ -1,141 +1,157 @@
-import axios from "axios";
-import fs from "fs";
+import data from "./data.json";
 
 let doAltIndexing = true;
 const coloring = false;
 
-function addPretext(lines: string[], preText: string): string[] {
-  for (let i = 0; i < lines.length; i++) {
-    lines[i] = preText + lines[i];
-  }
-  return lines;
-}
+// function addPretext(lines: string[], preText: string): string[] {
+//   for (let i = 0; i < lines.length; i++) {
+//     lines[i] = preText + lines[i];
+//   }
+//   return lines;
+// }
 
-async function dlWikiChunk(
-  fileName: string,
-  icon: string,
-  subURL: string
-): Promise<string[]> {
-  let lines: string[];
-  // first, try to get the chunk locally
-  try {
-    // First, try to get it from the local file
-    console.log(`Loading ${fileName} from local file...`);
-    // const response = await axios.get(`src/scraper/wiki-v2/data/${fileName}`);
-    const response = fs.readFileSync(
-      `src/scraper/wiki-v2/data/${fileName}`,
-      "utf8"
-    );
+// async function dlWikiChunk(
+//   fileName: string,
+//   icon: string,
+//   subURL: string
+// ): Promise<string[]> {
+//   let lines: string[];
+//   // first, try to get the chunk locally
+//   try {
+//     // First, try to get it from the local file
+//     console.log(`Loading ${fileName} from local file...`);
+//     // const response = await axios.get(`src/scraper/wiki-v2/data/${fileName}`);
+//     const response = require(`src/scraper/wiki-v2/data/${fileName}`);
+//     console.log(response, "res");
 
-    lines = response.split("\n");
-    console.log("Loaded.");
-  } catch {
-    console.log(`Local file not found. Downloading ${fileName} from Github...`);
-    const response = await axios.get(
-      `https://raw.githubusercontent.com/nbats/FMHYedit/main/${fileName}`
-    );
+//     // const response = fs.readFileSync(
+//     //   `src/scraper/wiki-v2/data/${fileName}`,
+//     //   "utf8"
+//     // );
 
-    // save data locally
-    console.log(`Saving ${fileName} locally...`);
-    fs.writeFileSync(`src/scraper/wiki-v2/data/${fileName}`, response.data);
+//     lines = response.split("\n");
+//     console.log("Loaded.");
+//   } catch {
+//     console.log(`Local file not found. Downloading ${fileName} from Github...`);
+//     const response = await axios.get(
+//       `https://raw.githubusercontent.com/nbats/FMHYedit/main/${fileName}`
+//     );
 
-    lines = response.data.split("\n");
-    console.log("Downloaded and saved locally.");
-  }
+//     // save data locally
+//     console.log(`Saving ${fileName} locally...`);
+//     // fs.writeFileSync(`src/scraper/wiki-v2/data/${fileName}`, response.data);
 
-  // add a pretext
-  let preText = "";
-  if (fileName !== "NSFWPiracy.md") {
-    preText = `[${icon}](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/${subURL}) `;
-  } else {
-    preText = `[${icon}](${subURL}) `;
-  }
-  lines = addPretext(lines, preText);
+//     lines = response.data.split("\n");
+//     console.log("Downloaded and saved locally.");
+//   }
 
-  return lines;
-}
+//   // add a pretext
+//   let preText = "";
+//   if (fileName !== "NSFWPiracy.md") {
+//     preText = `[${icon}](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/${subURL}) `;
+//   } else {
+//     preText = `[${icon}](${subURL}) `;
+//   }
+//   lines = addPretext(lines, preText);
+
+//   return lines;
+// }
 
 function cleanLineForSearchMatchChecks(line: string): string {
   return line.replace("https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/", "/");
 }
 
-async function alternativeWikiIndexing(): Promise<string[]> {
-  const wikiChunks = await Promise.all([
-    dlWikiChunk("VideoPiracyGuide.md", "📺", "video"),
-    dlWikiChunk("AI.md", "🤖", "ai"),
-    dlWikiChunk("Android-iOSGuide.md", "📱", "android"),
-    dlWikiChunk("AudioPiracyGuide.md", "🎵", "audio"),
-    dlWikiChunk("DownloadPiracyGuide.md", "💾", "download"),
-    dlWikiChunk("EDUPiracyGuide.md", "🧠", "edu"),
-    dlWikiChunk("GamingPiracyGuide.md", "🎮", "games"),
-    dlWikiChunk("AdblockVPNGuide.md", "📛", "adblock-vpn-privacy"),
-    dlWikiChunk("TOOLSGuide.md", "🔧", "tools-misc"),
-    dlWikiChunk("MISCGuide.md", "📂", "misc"),
-    dlWikiChunk("ReadingPiracyGuide.md", "📗", "reading"),
-    dlWikiChunk("TorrentPiracyGuide.md", "🌀", "torrent"),
-    dlWikiChunk("img-tools.md", "📷", "img-tools"),
-    dlWikiChunk("LinuxGuide.md", "🐧🍏", "linux"),
-    dlWikiChunk("DEVTools.md", "🖥️", "dev-tools"),
-    dlWikiChunk("Non-English.md", "🌏", "non-eng"),
-    dlWikiChunk("STORAGE.md", "🗄️", "storage"),
-    dlWikiChunk(
-      "NSFWPiracy.md",
-      "🌶",
-      "https://saidit.net/s/freemediafuckyeah/wiki/index"
-    ),
-  ]);
-  return wikiChunks.flat();
-}
+// async function alternativeWikiIndexing(): Promise<string[]> {
+//   const wikiChunks = await Promise.all(
+//     // dlWikiChunk("VideoPiracyGuide.md", "📺", "video"),
+//     // dlWikiChunk("AI.md", "🤖", "ai"),
+//     // dlWikiChunk("Android-iOSGuide.md", "📱", "android"),
+//     // dlWikiChunk("AudioPiracyGuide.md", "🎵", "audio"),
+//     // dlWikiChunk("DownloadPiracyGuide.md", "💾", "download"),
+//     // dlWikiChunk("EDUPiracyGuide.md", "🧠", "edu"),
+//     // dlWikiChunk("GamingPiracyGuide.md", "🎮", "games"),
+//     // dlWikiChunk("AdblockVPNGuide.md", "📛", "adblock-vpn-privacy"),
+//     // dlWikiChunk("TOOLSGuide.md", "🔧", "tools-misc"),
+//     // dlWikiChunk("MISCGuide.md", "📂", "misc"),
+//     // dlWikiChunk("ReadingPiracyGuide.md", "📗", "reading"),
+//     // dlWikiChunk("TorrentPiracyGuide.md", "🌀", "torrent"),
+//     // dlWikiChunk("img-tools.md", "📷", "img-tools"),
+//     // dlWikiChunk("LinuxGuide.md", "🐧🍏", "linux"),
+//     // dlWikiChunk("DEVTools.md", "🖥️", "dev-tools"),
+//     // dlWikiChunk("Non-English.md", "🌏", "non-eng"),
+//     // dlWikiChunk("STORAGE.md", "🗄️", "storage"),
+//     // dlWikiChunk(
+//     //   "NSFWPiracy.md",
+//     //   "🌶",
+//     //   "https://saidit.net/s/freemediafuckyeah/wiki/index"
+//     // ),
 
-async function standardWikiIndexing(): Promise<string[]> {
-  let lines: string[];
-  try {
-    // First, try to get it from the local single-page file
-    console.log("Loading FMHY from local single-page...");
-    const response = await axios.get("single-page");
-    lines = response.data.split("\n");
-    console.log("Loaded.");
-  } catch {
-    console.log("Local single-page file not found.");
-    // If that fails, try to get it from Github
-    console.log("Loading FMHY single-page file from Github...");
-    const response = await axios.get(
-      "https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page"
-    );
-    lines = response.data.split("\n");
-    console.log("Loaded.");
-  }
-  return lines;
-}
+//     MARKDOWN_RESOURCES.filter((resource) => resource.dlForSearch).map(
+//       (resource) => {
+//         if (!githubToRedditTitleMapping[resource.urlEnding.toLowerCase()]) {
+//           console.log("nomappng for ", resource.urlEnding);
+//         }
 
-async function getAllLines(): Promise<string[]> {
-  let lines: string[];
+//         return dlWikiChunk(
+//           `${resource.urlEnding}.md`,
+//           resource.emoji,
+//           githubToRedditTitleMapping[resource.urlEnding.toLowerCase()]
+//         );
+//       }
+//     )
+//   );
+//   return wikiChunks.flat();
+// }
 
-  if (doAltIndexing) {
-    try {
-      lines = await alternativeWikiIndexing();
-    } catch {
-      lines = await standardWikiIndexing();
-    }
-  } else {
-    lines = await standardWikiIndexing();
-  }
-  return lines;
-}
+// async function standardWikiIndexing(): Promise<string[]> {
+//   let lines: string[];
+//   try {
+//     // First, try to get it from the local single-page file
+//     console.log("Loading FMHY from local single-page...");
+//     const response = await axios.get("single-page");
+//     lines = response.data.split("\n");
+//     console.log("Loaded.");
+//   } catch {
+//     console.log("Local single-page file not found.");
+//     // If that fails, try to get it from Github
+//     console.log("Loading FMHY single-page file from Github...");
+//     const response = await axios.get(
+//       "https://raw.githubusercontent.com/nbats/FMHYedit/main/single-page"
+//     );
+//     lines = response.data.split("\n");
+//     console.log("Loaded.");
+//   }
+//   return lines;
+// }
+
+// async function getAllLines(): Promise<string[]> {
+//   let lines: string[];
+
+//   if (doAltIndexing) {
+//     try {
+//       lines = await alternativeWikiIndexing();
+//     } catch {
+//       lines = await standardWikiIndexing();
+//     }
+//   } else {
+//     lines = await standardWikiIndexing();
+//   }
+//   return lines;
+// }
 
 function removeEmptyStringsFromList(stringList: string[]): string[] {
   return stringList.filter((string) => string !== "");
 }
 
-function checkMultiWordQueryContainedExactlyInLine(
-  line: string,
-  searchQuery: string
-): boolean {
-  if (searchQuery.split(" ").length <= 1) {
-    return false;
-  }
-  return line.toLowerCase().includes(searchQuery.toLowerCase());
-}
+// function checkMultiWordQueryContainedExactlyInLine(
+//   line: string,
+//   searchQuery: string
+// ): boolean {
+//   if (searchQuery.split(" ").length <= 1) {
+//     return false;
+//   }
+//   return line.toLowerCase().includes(searchQuery.toLowerCase());
+// }
 
 // function moveExactMatchesToFront(
 //   myList: string[],
@@ -309,7 +325,15 @@ function colorLinesFound(
   return coloredLinesList;
 }
 
-async function doASearch(searchInput: string): Promise<void> {
+type SearchResults = {
+  results: string[];
+  matchingSections: string[];
+};
+
+export async function doASearch(searchInput: string): Promise<SearchResults> {
+  if (!searchInput || !searchInput.trim())
+    return { results: [], matchingSections: [] };
+
   const myFilterWords = removeEmptyStringsFromList(
     searchInput.toLowerCase().split(" ")
   );
@@ -317,8 +341,9 @@ async function doASearch(searchInput: string): Promise<void> {
   console.log(myFilterWords);
 
   // main results
-  const myLineList = await lineList;
-  let linesFoundPrev = filterLines(myLineList, searchInput);
+  // const myLineList = await lineList;
+
+  let linesFoundPrev = filterLines(lineList, searchInput);
 
   if (linesFoundPrev.length > 300) {
     console.log(
@@ -364,11 +389,11 @@ Search ended with ${linesFound.length} results found.
     console.log(`
 ${sectionTitleList.join("\n")}`);
   }
+
+  return {
+    results: linesFound,
+    matchingSections: sectionTitleList,
+  };
 }
 
-const lineList = getAllLines();
-console.log(
-  "Search examples: 'youtube frontend', 'streaming site', 'rare movies', 'userscripts'... You can also type 'exit' or nothing to close the script."
-);
-console.log("searching");
-doASearch("india");
+const lineList = data.data?.split("\n");
