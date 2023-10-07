@@ -65,7 +65,7 @@ const Search = () => {
     queryKey: ["search", debouncedQuery, activePage, includeNsfw],
     queryFn: async () => {
       const res = await fetch(
-        `/api/search?q=${debouncedQuery}&page=${activePage}&nsfw=${includeNsfw}`
+        `/api/lsearch?q=${debouncedQuery}&page=${activePage}&nsfw=${includeNsfw}`
       );
       const data = await res.json();
       return data;
@@ -102,7 +102,7 @@ const Search = () => {
     }
 
     push({
-      pathname: "/search",
+      pathname: "/lsearch",
       query: params.toString(),
     });
   };
@@ -123,7 +123,7 @@ const Search = () => {
   };
 
   const resetSearch = () => {
-    push("/search");
+    push("/lsearch");
     setSearchQuery("");
     if (!isLocalSearch) {
       setIncludeNsfw(false);
@@ -138,7 +138,7 @@ const Search = () => {
         url="https://www.fmhy.net"
         potentialActions={[
           {
-            target: "https://www.fmhy.net/search?q",
+            target: "https://www.fmhy.net/lsearch?q",
             queryInput: "search_term_string",
           },
         ]}
