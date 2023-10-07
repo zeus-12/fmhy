@@ -178,9 +178,9 @@ export const changelogsPRenderer = (props: any) => {
         isRemovalStarter && "text-red-400"
       )}
     >
-      {(isUnstarred || isStarred) && (
+      {/* {(isUnstarred || isStarred) && (
         <span className={cn(isUnstarred && "line-through")}>⭐️</span>
-      )}
+      )} */}
 
       {props.children}
     </p>
