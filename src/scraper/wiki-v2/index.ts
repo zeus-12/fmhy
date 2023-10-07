@@ -208,7 +208,7 @@ export async function doASearch(searchInput: string): Promise<SearchResults> {
     searchInput.toLowerCase().split(" ")
   );
   console.log("Looking for lines that contain all of these words:");
-  console.log(myFilterWords);
+  // console.log(myFilterWords);
 
   // main results
   // const myLineList = await lineList;
@@ -230,31 +230,6 @@ export async function doASearch(searchInput: string): Promise<SearchResults> {
   const linesFoundAll = filterOutTitleLines(linesFoundPrev);
   const linesFound = linesFoundAll[0];
   const sectionTitleList = linesFoundAll[1];
-
-  //   if (coloring) {
-  //     const linesFoundColored = colorLinesFound(linesFound, myFilterWords);
-  //     const textToPrint = linesFoundColored.join("\n");
-  //     console.log(`Printing ${linesFound.length} search results:
-  // `);
-  //     console.log(textToPrint);
-  //     console.log(`
-  // Search ended with ${linesFound.length} results found.
-  // `);
-  //   } else {
-  // const textToPrint = linesFound.join("\n");
-  //   console.log(`Printing ${linesFound.length} search results:
-  // `);
-  //   console.log(textToPrint);
-  //   console.log(`
-  // Search ended with ${linesFound.length} results found.
-  // `);
-  // }
-
-  //   if (sectionTitleList.length > 0) {
-  //     console.log("Also there are these section titles: ");
-  //     console.log(`
-  // ${sectionTitleList.join("\n")}`);
-  //   }
 
   return {
     results: linesFound,
