@@ -12,7 +12,7 @@ const LocalSearch = () => {
 
   const [index, setIndex] = useState(
     new Index({
-      tokenize: "full",
+      tokenize: "forward",
       language: "en",
       preset: "score",
       cache: true,
@@ -25,14 +25,27 @@ const LocalSearch = () => {
   // find the best parameters for index
   const [results, setResults] = useState<any[]>();
 
+  function extractText(input: string) {
+    input = input.replace(/<[^>]+>/g, "");
+
+    const regex = /(\[([^\]]+)\]\([^\)]+\))/g;
+    input = input.replace(regex, "$2");
+
+    input = input.trim();
+
+    return input;
+  }
+
   useEffect(() => {
     data.forEach((item, id) => {
-      setIndex(index.add(id, item));
+      const itemWithoutLinks = extractText(item);
+
+      setIndex(index.add(id, itemWithoutLinks));
     });
   }, []);
 
   useEffect(() => {
-    setResults(index.search(debouncedQuery));
+    setResults(index.search(debouncedQuery, 500));
   }, [debouncedQuery]);
 
   const finalResult = results?.map((result) => data[result]);
