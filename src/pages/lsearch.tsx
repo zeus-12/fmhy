@@ -8,7 +8,10 @@ import Link from "@/components/Link";
 import { SEARCH_RESULTS_PER_PAGE } from "@/lib/CONSTANTS";
 import ReactMarkdown from "react-markdown";
 import { useDebouncedValue } from "@mantine/hooks";
-import { doASearch } from "@/scraper/wiki-v2";
+// import { doASearch } from "@/scraper/wiki-v2";
+import WikiData from "@/scraper/wiki-v2/data.json";
+import { Index } from "flexsearch";
+import { cn } from "@/lib/utils";
 
 interface SearchResultType {
   id: string;
@@ -262,47 +265,74 @@ const Search = () => {
 };
 export default Search;
 
-interface SearchData {
-  results: string[];
-  matchingSections: string[];
-}
+const data = WikiData.data.split("\n");
 
 const LocalSearch = ({ query }: { query: string }) => {
-  const [data, setData] = useState<SearchData>();
   const [debouncedQuery] = useDebouncedValue(query, 200);
 
+  const [index, setIndex] = useState(
+    new Index({
+      tokenize: "forward",
+      language: "en",
+      preset: "score",
+      cache: true,
+
+      // give more weight to categories
+
+      // context: true,
+    })
+  );
+  const [results, setResults] = useState<any[]>();
+
+  function extractText(input: string) {
+    input = input.replace(/<[^>]+>/g, "");
+
+    const regex = /(\[([^\]]+)\]\([^\)]+\))/g;
+    input = input.replace(regex, "$2");
+
+    input = input.trim();
+
+    return input;
+  }
+
   useEffect(() => {
-    const searchLocal = async () => {
-      const { results, matchingSections } = await doASearch(query);
+    data.forEach((item, id) => {
+      const itemWithoutLinks = extractText(item);
 
-      setData({
-        results,
-        matchingSections,
-      });
-    };
+      setIndex(index.add(id, itemWithoutLinks));
+    });
+  }, []);
 
-    searchLocal();
+  useEffect(() => {
+    setResults(index.search(debouncedQuery, 200));
   }, [debouncedQuery]);
 
-  return debouncedQuery !== query ? (
-    <p>loading..</p>
-  ) : query === "" ? (
-    <></>
-  ) : data && data.results.length + data.matchingSections.length > 0 ? (
-    <>
-      <p className="text-gray-600">{`${data.results.length} results found`}</p>
-      {data?.results.map((result, idx) => (
-        <div key={idx}>
-          <ReactMarkdown>{result}</ReactMarkdown>
-        </div>
-      ))}
+  const finalResult = results?.map((result) => data[result]);
 
-      {/* <p>Matching categories</p>
-      {data.matchingSections.map((section, idx) => (
-        <ReactMarkdown key={idx}>{section}</ReactMarkdown>
-      ))} */}
-    </>
-  ) : (
-    <p> No results found</p>
+  return (
+    <div>
+      <div>
+        {debouncedQuery && (
+          <p className="text-gray-400 mb-2">
+            {results?.length} {results?.length === 20 ? ">" : ""} results{" "}
+          </p>
+        )}
+
+        {!query ? (
+          <p>Enter somethign</p>
+        ) : debouncedQuery !== query ? (
+          <p>loading</p>
+        ) : finalResult?.length === 0 ? (
+          <>no result found</>
+        ) : (
+          finalResult?.map((result: any, idx) => (
+            // add custom components for styling
+            <ReactMarkdown className={cn("my-2 ")} key={idx}>
+              {result}
+            </ReactMarkdown>
+          ))
+        )}
+      </div>
+    </div>
   );
 };
