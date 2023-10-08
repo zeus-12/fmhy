@@ -45,7 +45,7 @@ const LocalSearch = () => {
   }, []);
 
   useEffect(() => {
-    setResults(index.search(debouncedQuery, 500));
+    setResults(index.search(debouncedQuery, 200));
   }, [debouncedQuery]);
 
   const finalResult = results?.map((result) => data[result]);
