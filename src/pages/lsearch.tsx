@@ -277,7 +277,7 @@ const LocalSearch = ({ query }: { query: string }) => {
       preset: "score",
       cache: true,
 
-      // give more weight to categories
+      // give more weight to categories, and links with "⭐"
 
       // context: true,
     })
