@@ -11,6 +11,7 @@ import { DefaultSeo } from "next-seo";
 import { cn } from "@/lib/utils";
 import { fontSans } from "@/lib/fonts";
 import { SEO } from "../../next-seo.config";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
@@ -44,6 +45,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <Navbar />
             <div className="flex-1 flex overflow-y-scroll">
               <Component {...pageProps} />
+              <Analytics />
             </div>
           </div>
         </SpotlightProvider>
