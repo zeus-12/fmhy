@@ -33,6 +33,17 @@ export interface DlWikiLinkType {
   isStarred: boolean;
 }
 
+const ignoreList = [
+  "",
+  "***",
+  "***\r",
+  "\r",
+  "**[◄◄ Back to Wiki Index](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/index)**",
+  "**[◄◄ Back to Wiki Index](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/index)**\r",
+  "**[Table of Contents](https://ibb.co/SNGCnLP)** - For mobile users",
+  "**[Table of Contents](https://ibb.co/FndFxzS)** - For mobile users\r",
+];
+
 async function dlWikiChunk(
   urlEnding: string,
   icon: string
@@ -44,39 +55,16 @@ async function dlWikiChunk(
 
     const data = await res.text();
 
-    let stringList = data
-      .split("\n")
-      .filter((string) => string !== "")
-      .filter((string) => string !== "***")
-      .filter((string) => string !== "***\r")
-      .filter((string) => string !== "\r")
-      .filter(
-        (string) =>
-          string !==
-          "**[◄◄ Back to Wiki Index](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/index)**"
-      )
-      .filter(
-        (string) =>
-          string !==
-          "**[◄◄ Back to Wiki Index](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/index)**\r"
-      )
-
-      .filter(
-        (string) =>
-          string !==
-          "**[Table of Contents](https://ibb.co/SNGCnLP)** - For mobile users"
-      )
-      .filter(
-        (string) =>
-          string !==
-          "**[Table of Contents](https://ibb.co/FndFxzS)** - For mobile users\r"
-      );
+    let stringList = data.split("\n");
 
     const items = [];
     let curSubCategory = "";
     let curSubSubcategory = "";
 
     for (let item of stringList) {
+      if (ignoreList.includes(item)) {
+        continue;
+      }
       if (item.startsWith("# ►")) {
         curSubCategory = item;
         curSubSubcategory = "";
