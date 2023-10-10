@@ -9,6 +9,16 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: "/js/script.js",
+        destination: "https://plausible.io/js/script.js",
+        permanent: true,
+      },
+      {
+        source: "/api/event",
+        destination: "https://plausible.io/api/event",
+        permanent: true,
+      },
+      {
         source: "/wiki/:path*",
         destination: "/:path*",
         permanent: true,
