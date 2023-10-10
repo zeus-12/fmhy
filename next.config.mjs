@@ -10,12 +10,12 @@ const nextConfig = {
     return [
       {
         source: "/js/script.js",
-        destination: "https://plausible.io/js/script.js",
+        destination: "https://i-totally-love-easylist.swmg.top/js/script.js",
         permanent: true,
       },
       {
         source: "/api/event",
-        destination: "https://plausible.io/api/event",
+        destination: "https://i-totally-love-easylist.swmg.top/api/event",
         permanent: true,
       },
       {
@@ -31,9 +31,9 @@ const nextConfig = {
     ];
   },
 };
-export default nextConfig;
-// export default withPlausibleProxy({
-//   subdirectory: "analytics",
-//   scriptName: "script",
-//   customDomain: "https://i-totally-love-easylist.swmg.top",
-// })(nextConfig);
+// export default nextConfig;
+export default withPlausibleProxy({
+  subdirectory: "analytics",
+  scriptName: "script",
+  customDomain: "https://i-totally-love-easylist.swmg.top",
+})(nextConfig);
