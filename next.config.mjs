@@ -20,9 +20,10 @@ const nextConfig = {
   },
 };
 
-export default withPlausibleProxy()(nextConfig);
+export default withPlausibleProxy({
+  customDomain: "https://i-totally-love-easylist.swmg.top",
+})(nextConfig);
 // {
 // subdirectory: "analytics",
 // scriptName: "script",
-// customDomain: "https://i-totally-love-easylist.swmg.top",
 // }
