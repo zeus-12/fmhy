@@ -338,7 +338,7 @@ const LocalSearch = ({ query }: { query: string }) => {
         )}
 
         {!query ? (
-          <p>Enter somethign</p>
+          <></>
         ) : debouncedQuery !== query ? (
           <p>loading</p>
         ) : finalResult?.length === 0 ? (
