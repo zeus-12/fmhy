@@ -27,6 +27,7 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 
 - reset scroll to zero upon changing wiki category: seems to be an open nextjs issue => try using the workarounds.
 - move dl-wiki script into a cron job, deprecate wiki-v1 scraper => super overkill.
+- fix toc not working incases of collision (where the same header is used twice in a page, but toc gets updated,(number get appended), but the headings doesnt)
 - add client-side search for wiki page => checkout nextra docs
 - assign github-slugger-ids to each guide; also make the guides search filter-able by query params -> and add within search to spotlight
 - toc seems to break at times
