@@ -1,18 +1,21 @@
-import { Input, Loader, Pagination, Switch } from "@mantine/core";
-import { Search as SearchIcon } from "lucide-react";
+import { Badge, Input, Loader, Pagination, Switch } from "@mantine/core";
+import { Redo, Search as SearchIcon } from "lucide-react";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { NextSeo, SiteLinksSearchBoxJsonLd } from "next-seo";
 import Link from "@/components/Link";
-import { SEARCH_RESULTS_PER_PAGE } from "@/lib/CONSTANTS";
+import {
+  MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING,
+  SEARCH_RESULTS_PER_PAGE,
+} from "@/lib/CONSTANTS";
 import ReactMarkdown from "react-markdown";
 import { useDebouncedValue } from "@mantine/hooks";
-// import { doASearch } from "@/scraper/wiki-v2";
-import WikiData from "@/scraper/wiki-v2/data.json";
+import WikiData from "@/scraper/wiki-v2/wiki.json";
 import { Index } from "flexsearch";
 import { cn } from "@/lib/utils";
-
+import { DlWikiLinkType } from "@/scraper/wiki-v2/dl-wiki";
+import { slug as githubSlug } from "github-slugger";
 interface SearchResultType {
   id: string;
   title: string;
@@ -265,8 +268,6 @@ const Search = () => {
 };
 export default Search;
 
-const data = WikiData.data.split("\n");
-
 const LocalSearch = ({ query }: { query: string }) => {
   const [debouncedQuery] = useDebouncedValue(query, 200);
 
@@ -296,9 +297,8 @@ const LocalSearch = ({ query }: { query: string }) => {
   }
 
   useEffect(() => {
-    data.forEach((item, id) => {
-      const itemWithoutLinks = extractText(item);
-
+    (WikiData as DlWikiLinkType[]).forEach((item, id) => {
+      const itemWithoutLinks = extractText(item.content);
       setIndex(index.add(id, itemWithoutLinks));
     });
   }, []);
@@ -307,7 +307,26 @@ const LocalSearch = ({ query }: { query: string }) => {
     setResults(index.search(debouncedQuery, 200));
   }, [debouncedQuery]);
 
-  const finalResult = results?.map((result) => data[result]);
+  const finalResult = results?.map(
+    (result) => (WikiData as DlWikiLinkType[])[result]
+  );
+
+  // change category types to the one in constants.ts
+  const generateLink = (
+    category: string,
+    subcategory: string,
+    subsubcategory: string
+  ) => {
+    if (!category) return "";
+
+    return `/${githubSlug(category.toLowerCase())}#${
+      subsubcategory
+        ? githubSlug(subsubcategory.toLowerCase())
+        : subcategory
+        ? githubSlug(subcategory.toLowerCase())
+        : ""
+    }`;
+  };
 
   return (
     <div>
@@ -325,11 +344,39 @@ const LocalSearch = ({ query }: { query: string }) => {
         ) : finalResult?.length === 0 ? (
           <>no result found</>
         ) : (
-          finalResult?.map((result: any, idx) => (
-            // add custom components for styling
-            <ReactMarkdown className={cn("my-2 ")} key={idx}>
-              {result}
-            </ReactMarkdown>
+          finalResult?.map((result: DlWikiLinkType, idx) => (
+            // make sure links inside the markdown should override this
+
+            <div key={idx} className={cn("my-3 ")}>
+              <ReactMarkdown>{result.content}</ReactMarkdown>
+
+              <div className="flex gap-2">
+                {result.category && (
+                  <Badge>
+                    {
+                      MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING[
+                        result.category.toLowerCase()
+                      ]
+                    }{" "}
+                    {result.category}
+                  </Badge>
+                )}
+                {result.subcategory && <Badge>{result.subcategory}</Badge>}
+                {result.subsubcategory && (
+                  <Badge>{result.subsubcategory}</Badge>
+                )}
+
+                <Link
+                  href={generateLink(
+                    result.category,
+                    result.subcategory,
+                    result.subsubcategory
+                  )}
+                >
+                  <Redo className="h-5 w-5 text-gray-400 hover:text-gray-300" />
+                </Link>
+              </div>
+            </div>
           ))
         )}
       </div>
