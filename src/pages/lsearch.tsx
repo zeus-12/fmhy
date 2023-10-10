@@ -351,21 +351,6 @@ const LocalSearch = ({ query }: { query: string }) => {
               <ReactMarkdown>{result.content}</ReactMarkdown>
 
               <div className="flex gap-2">
-                {result.category && (
-                  <Badge>
-                    {
-                      MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING[
-                        result.category.toLowerCase()
-                      ]
-                    }{" "}
-                    {result.category}
-                  </Badge>
-                )}
-                {result.subcategory && <Badge>{result.subcategory}</Badge>}
-                {result.subsubcategory && (
-                  <Badge>{result.subsubcategory}</Badge>
-                )}
-
                 <Link
                   href={generateLink(
                     result.category,
@@ -373,7 +358,26 @@ const LocalSearch = ({ query }: { query: string }) => {
                     result.subsubcategory
                   )}
                 >
-                  <Redo className="h-5 w-5 text-gray-400 hover:text-gray-300" />
+                  {result.category && (
+                    <Badge>
+                      {
+                        MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING[
+                          result.category.toLowerCase()
+                        ]
+                      }{" "}
+                      {result.category}{" "}
+                      {result.subcategory && (
+                        <>
+                          <span>/</span> {result.subcategory}{" "}
+                        </>
+                      )}
+                      {result.subsubcategory && (
+                        <>
+                          <span>/</span> {result.subsubcategory}
+                        </>
+                      )}
+                    </Badge>
+                  )}
                 </Link>
               </div>
             </div>
