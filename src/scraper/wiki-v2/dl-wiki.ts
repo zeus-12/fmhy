@@ -1,5 +1,6 @@
 import fs from "fs";
 import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
+import fetch from "node-fetch";
 
 const data = Promise.all(
   MARKDOWN_RESOURCES.filter((resource) => resource.dlForSearch).map(
@@ -9,13 +10,33 @@ const data = Promise.all(
   )
 );
 
-data.then((results) => {
-  const combined = results.join("\n");
-  const jsonData = JSON.stringify({ data: combined });
-  fs.writeFileSync("src/scraper/wiki-v2/data.json", jsonData);
+data.then((arrayOfArrays) => {
+  const mergedArray: DlWikiLinkType[] = arrayOfArrays.reduce(
+    (accumulator, currentArray) => {
+      // Use concat or push to merge the current array into the accumulator
+      return accumulator.concat(currentArray);
+    },
+    []
+  );
+
+  fs.writeFileSync(
+    "src/scraper/wiki-v2/wiki.json",
+    JSON.stringify(mergedArray)
+  );
 });
 
-async function dlWikiChunk(urlEnding: string, icon: string): Promise<string> {
+export interface DlWikiLinkType {
+  category: string;
+  subcategory: string;
+  subsubcategory: string;
+  content: string;
+  isStarred: boolean;
+}
+
+async function dlWikiChunk(
+  urlEnding: string,
+  icon: string
+): Promise<DlWikiLinkType[]> {
   try {
     const res = await fetch(
       `https://raw.githubusercontent.com/nbats/FMHYedit/main/${urlEnding}.md`
@@ -23,15 +44,72 @@ async function dlWikiChunk(urlEnding: string, icon: string): Promise<string> {
 
     const data = await res.text();
 
-    const preText = `[${icon}](https://www.fmhy.net/${urlEnding}) `;
+    let stringList = data
+      .split("\n")
+      .filter((string) => string !== "")
+      .filter((string) => string !== "***")
+      .filter((string) => string !== "***\r")
+      .filter((string) => string !== "\r")
+      .filter(
+        (string) =>
+          string !==
+          "**[◄◄ Back to Wiki Index](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/index)**"
+      )
+      .filter(
+        (string) =>
+          string !==
+          "**[◄◄ Back to Wiki Index](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/index)**\r"
+      )
 
-    const lines = data.split("\n");
-    const updatedLines = addPretext(lines, preText);
+      .filter(
+        (string) =>
+          string !==
+          "**[Table of Contents](https://ibb.co/SNGCnLP)** - For mobile users"
+      )
+      .filter(
+        (string) =>
+          string !==
+          "**[Table of Contents](https://ibb.co/FndFxzS)** - For mobile users\r"
+      );
 
-    return updatedLines.join("\n");
+    const items = [];
+    let curSubCategory = "";
+    let curSubSubcategory = "";
+
+    for (let item of stringList) {
+      if (item.startsWith("# ►")) {
+        curSubCategory = item;
+        curSubSubcategory = "";
+        continue;
+      } else if (item.startsWith("## ▷")) {
+        curSubSubcategory = item;
+        continue;
+      }
+      let isStarred = false;
+
+      if (item.includes("⭐")) {
+        item = item.replace("⭐", "");
+        isStarred = true;
+      }
+
+      // replace reddit links with fmhy links
+      items.push({
+        category: urlEnding,
+        subcategory: curSubCategory.replace("# ►", "").trim(),
+        subsubcategory: curSubSubcategory.replace("## ▷", "").trim(),
+        content: item.replace("\r", ""),
+        isStarred,
+      });
+    }
+
+    return items;
+
+    // const updatedLines = addPretext(lines, preText);
+
+    // return updatedLines.join("\n");
   } catch (err: any) {
     console.log("Error fetching data", err.message);
-    return "";
+    return [];
   }
 }
 
