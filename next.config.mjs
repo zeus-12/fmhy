@@ -9,12 +9,18 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/js/script.js",
+        source: "/analytics/js/script.js",
         destination: "https://i-totally-love-easylist.swmg.top/js/script.js",
         permanent: true,
       },
       {
-        source: "/api/event",
+        source: "/analytics/js/script.local.js",
+        destination:
+          "https://i-totally-love-easylist.swmg.top/js/script.local.js",
+        permanent: true,
+      },
+      {
+        source: "/analytics/api/event",
         destination: "https://i-totally-love-easylist.swmg.top/api/event",
         permanent: true,
       },
