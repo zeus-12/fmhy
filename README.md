@@ -33,3 +33,7 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 - use stricter lint rules ,for eg: the dont use "!" to types rule
 - fix font sizes.
 - see if dom issues can be fixed eg: (Warning: Received `true` for a non-boolean attribute `inline`.), probably some remark issue
+
+- On fmhy.net/linuxguide, the Music Libraries / Players is hyperlinked to https://fmhy.net/storage#music-libraries-players which doesn't actually take you to the players section, just to the top of storage.
+  Correct link is https://fmhy.net/storage#music-libraries--players
+  (two hypehns before players instead of one)
