@@ -65,14 +65,14 @@ async function dlWikiChunk(
       if (ignoreList.includes(item)) {
         continue;
       }
-      if (item.startsWith("# ►")) {
+      if (
+        item.startsWith("# ►") ||
+        (item.startsWith("####") && urlEnding === "STORAGE")
+      ) {
         curSubCategory = item;
         curSubSubcategory = "";
         continue;
-      } else if (
-        item.startsWith("## ▷") ||
-        (item.startsWith("####") && urlEnding === "STORAGE")
-      ) {
+      } else if (item.startsWith("## ▷")) {
         curSubSubcategory = item;
         continue;
       }
@@ -86,11 +86,11 @@ async function dlWikiChunk(
       // replace reddit links with fmhy links
       items.push({
         category: urlEnding,
-        subcategory: curSubCategory.replace("# ►", "").trim(),
-        subsubcategory: curSubSubcategory
-          .replace("## ▷", "")
+        subcategory: curSubCategory
+          .replace("# ►", "")
           .replace("####", "")
           .trim(),
+        subsubcategory: curSubSubcategory.replace("## ▷", "").trim(),
         content: item.replace("\r", ""),
         isStarred,
       });
