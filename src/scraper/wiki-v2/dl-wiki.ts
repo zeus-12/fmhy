@@ -87,7 +87,7 @@ async function dlWikiChunk(
       items.push({
         category: urlEnding,
         subcategory: curSubCategory.replace("# ►", "").trim(),
-        subsubcategory: curSubSubcategory.replace("## ▷", "").trim(),
+        subsubcategory: curSubSubcategory.replace("####", "").trim(),
         content: item.replace("\r", ""),
         isStarred,
       });
