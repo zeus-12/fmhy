@@ -71,7 +71,7 @@ async function dlWikiChunk(
         continue;
       } else if (
         item.startsWith("## ▷") ||
-        (item.startsWith("### ▷") && urlEnding === "STORAGE")
+        (item.startsWith("####") && urlEnding === "STORAGE")
       ) {
         curSubSubcategory = item;
         continue;
@@ -87,7 +87,10 @@ async function dlWikiChunk(
       items.push({
         category: urlEnding,
         subcategory: curSubCategory.replace("# ►", "").trim(),
-        subsubcategory: curSubSubcategory.replace("####", "").trim(),
+        subsubcategory: curSubSubcategory
+          .replace("## ▷", "")
+          .replace("####", "")
+          .trim(),
         content: item.replace("\r", ""),
         isStarred,
       });
