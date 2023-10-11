@@ -69,7 +69,10 @@ async function dlWikiChunk(
         curSubCategory = item;
         curSubSubcategory = "";
         continue;
-      } else if (item.startsWith("## ▷")) {
+      } else if (
+        item.startsWith("## ▷") ||
+        (item.startsWith("### ▷") && urlEnding === "STORAGE")
+      ) {
         curSubSubcategory = item;
         continue;
       }
