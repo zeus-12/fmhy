@@ -13,7 +13,6 @@ const data = Promise.all(
 data.then((arrayOfArrays) => {
   const mergedArray: DlWikiLinkType[] = arrayOfArrays.reduce(
     (accumulator, currentArray) => {
-      // Use concat or push to merge the current array into the accumulator
       return accumulator.concat(currentArray);
     },
     []
@@ -44,6 +43,8 @@ const ignoreList = [
   "**[Table of Contents](https://ibb.co/FndFxzS)** - For mobile users\r",
 ];
 
+const ignoreStarters = ["* **Note**", "**Note**", "**Warning**"];
+
 async function dlWikiChunk(
   urlEnding: string,
   icon: string
@@ -62,9 +63,15 @@ async function dlWikiChunk(
     let curSubSubcategory = "";
 
     for (let item of stringList) {
+      item = item.trim();
       if (ignoreList.includes(item)) {
         continue;
       }
+
+      if (ignoreStarters.some((ignore) => item.startsWith(ignore))) {
+        continue;
+      }
+
       if (
         item.startsWith("# ►") ||
         (item.startsWith("####") && urlEnding === "STORAGE")
