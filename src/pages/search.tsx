@@ -15,7 +15,7 @@ import WikiData from "@/scraper/wiki-v2/wiki.json";
 import { Index } from "flexsearch";
 import { DlWikiLinkType } from "@/scraper/wiki-v2/dl-wiki";
 import { slug as githubSlug } from "github-slugger";
-import { LiRenderer, LinkRenderer, PRenderer } from "@/lib/wiki/renderers";
+import { LiRenderer, LinkRenderer } from "@/lib/wiki/renderers";
 interface SearchResultType {
   id: string;
   title: string;
