@@ -13,9 +13,9 @@ import ReactMarkdown from "react-markdown";
 import { useDebouncedValue } from "@mantine/hooks";
 import WikiData from "@/scraper/wiki-v2/wiki.json";
 import { Index } from "flexsearch";
-import { cn } from "@/lib/utils";
 import { DlWikiLinkType } from "@/scraper/wiki-v2/dl-wiki";
 import { slug as githubSlug } from "github-slugger";
+import { LiRenderer, LinkRenderer, PRenderer } from "@/lib/wiki/renderers";
 interface SearchResultType {
   id: string;
   title: string;
@@ -362,8 +362,22 @@ const LocalSearch = ({ query }: { query: string }) => {
           finalResult?.map((result: DlWikiLinkType, idx) => (
             // make sure links inside the markdown should override this
 
-            <div key={idx} className={cn("my-3 ")}>
-              <ReactMarkdown>{result.content}</ReactMarkdown>
+            <div
+              key={idx}
+              className="rounded-xl list-none my-2"
+              style={{
+                background: "#11151F",
+                padding: "0.5rem 1rem",
+              }}
+            >
+              <ReactMarkdown
+                components={{
+                  a: LinkRenderer,
+                  li: (props: any) => LiRenderer(props, false), //for storage only
+                }}
+              >
+                {result.content}
+              </ReactMarkdown>
 
               <div className="flex gap-2">
                 <Link
@@ -374,12 +388,18 @@ const LocalSearch = ({ query }: { query: string }) => {
                   )}
                 >
                   {result.category && (
-                    <Badge>
-                      {
-                        MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING[
-                          result.category.toLowerCase()
-                        ]
-                      }{" "}
+                    <Badge
+                      className="w-full overflow-ellipsis"
+                      leftSection={
+                        <>
+                          {
+                            MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING[
+                              result.category.toLowerCase()
+                            ]
+                          }
+                        </>
+                      }
+                    >
                       {result.category}{" "}
                       {result.subcategory && (
                         <>
