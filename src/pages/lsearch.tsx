@@ -299,7 +299,12 @@ const LocalSearch = ({ query }: { query: string }) => {
   useEffect(() => {
     (WikiData as DlWikiLinkType[]).forEach((item, id) => {
       const itemWithoutLinks = extractText(item.content);
-      setIndex(index.add(id, itemWithoutLinks));
+      setIndex(
+        index.add(
+          id,
+          `${itemWithoutLinks} ${item.category} ${item.subcategory} ${item.subsubcategory}`
+        )
+      );
     });
   }, []);
 
@@ -333,7 +338,7 @@ const LocalSearch = ({ query }: { query: string }) => {
       <div>
         {debouncedQuery && (
           <p className="text-gray-400 mb-2">
-            {results?.length} {results?.length === 20 ? ">" : ""} results{" "}
+            {results?.length === 200 ? ">" : ""} {results?.length} results{" "}
           </p>
         )}
 
