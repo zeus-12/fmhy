@@ -312,7 +312,7 @@ const LocalSearch = ({ query }: { query: string }) => {
       setIndex(
         index.add(
           id,
-          `${itemWithoutLinks} ${item.category} ${item.subcategory} ${item.subsubcategory}`
+          `${itemWithoutLinks} ${item.subcategory} ${item.subsubcategory}`
         )
       );
     });
