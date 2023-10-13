@@ -5,7 +5,7 @@ import fetch from "node-fetch";
 const data = Promise.all(
   MARKDOWN_RESOURCES.filter((resource) => resource.dlForSearch).map(
     (resource) => {
-      return dlWikiChunk(resource.urlEnding, resource.emoji);
+      return dlWikiChunk(resource.urlEnding);
     }
   )
 );
@@ -45,10 +45,7 @@ const ignoreList = [
 
 const ignoreStarters = ["* **Note**", "**Note**", "**Warning**"];
 
-async function dlWikiChunk(
-  urlEnding: string,
-  icon: string
-): Promise<DlWikiLinkType[]> {
+async function dlWikiChunk(urlEnding: string): Promise<DlWikiLinkType[]> {
   try {
     const res = await fetch(
       `https://raw.githubusercontent.com/nbats/FMHYedit/main/${urlEnding}.md`
