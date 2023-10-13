@@ -32,18 +32,16 @@ export interface DlWikiLinkType {
   isStarred: boolean;
 }
 
-const ignoreList = [
-  "",
-  "***",
-  "***\r",
-  "\r",
-  "**[◄◄ Back to Wiki Index](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/index)**",
-  "**[◄◄ Back to Wiki Index](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/index)**\r",
-  "**[Table of Contents](https://ibb.co/SNGCnLP)** - For mobile users",
-  "**[Table of Contents](https://ibb.co/FndFxzS)** - For mobile users\r",
-];
+const ignoreList = ["", "***", "***\r", "\r"];
 
-const ignoreStarters = ["* **Note**", "**Note**", "**Warning**"];
+const ignoreStarters = [
+  "* **Note**",
+  "**Note**",
+  "**Warning**",
+  "**[Table of Contents]",
+  "**[◄◄ Back to Wiki Index]",
+  "**Use [redirect bypassers]",
+];
 
 async function dlWikiChunk(urlEnding: string): Promise<DlWikiLinkType[]> {
   try {
