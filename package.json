@@ -11,7 +11,7 @@
     "dev:scrape": "tsx watch ./src/scraper/index.ts",
     "dev:scrape-v2": "tsx watch ./src/scraper/wiki-v2/index.ts",
     "dl-wiki": "tsx ./src/scraper/wiki-v2/dl-wiki.ts",
-    "test-format": "tsx watch ./src/scraper/wiki-v2/test-format.ts"
+    "test-format": "tsx ./src/scraper/wiki-v2/test-format.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
