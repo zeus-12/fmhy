@@ -11,6 +11,11 @@ const missingLinksInContent: DlWikiLinkType[] = [];
   }
 });
 
+fs.writeFileSync(
+  "src/scraper/wiki-v2/missing-links-in-content.json",
+  JSON.stringify(missingLinksInContent)
+);
+
 // also, separately(or use this istelf) index all the subcat, subsubcats, and display it in the UI
 
 const missingBothSubcatSubsubcat = (wiki as DlWikiLinkType[]).filter(
@@ -19,7 +24,6 @@ const missingBothSubcatSubsubcat = (wiki as DlWikiLinkType[]).filter(
 
 fs.writeFileSync(
   "src/scraper/wiki-v2/missing-both-subcat-and-subsubcat.json",
-  // @ts-ignore
   JSON.stringify(missingBothSubcatSubsubcat)
 );
 const missingSubcat = (wiki as DlWikiLinkType[]).filter(
@@ -28,12 +32,13 @@ const missingSubcat = (wiki as DlWikiLinkType[]).filter(
 
 fs.writeFileSync(
   "src/scraper/wiki-v2/missing-subcat.json",
-  // @ts-ignore
   JSON.stringify(missingSubcat)
+);
+const doesntStartWithAstrisk = (wiki as DlWikiLinkType[]).filter(
+  (item) => !item.content.startsWith("*")
 );
 
 fs.writeFileSync(
-  "src/scraper/wiki-v2/missing-links-in-content.json",
-  // @ts-ignore
-  JSON.stringify(missingLinksInContent)
+  "src/scraper/wiki-v2/doesnt-start-with-asterisk.json",
+  JSON.stringify(doesntStartWithAstrisk)
 );
