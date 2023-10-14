@@ -109,25 +109,25 @@ export const SpotlightProvider = ({
     {
       title: query,
       isSearch: true,
-      source: "DB",
+      source: "Local ",
       group: "search",
-      description: "Search on Db",
+      description: "Search",
       onTrigger: () => {
         router.push(`/search?q=${query}`);
       },
     },
-    {
-      title: query,
-      description: "Search on Streamlit",
-      isSearch: true,
-      source: "Streamlit",
-      group: "search",
+    // {
+    //   title: query,
+    //   description: "Search on Streamlit",
+    //   isSearch: true,
+    //   source: "Streamlit",
+    //   group: "search",
 
-      onTrigger: () => {
-        const q = query.replace(" ", "+");
-        window.open(`https://fmhy-search.streamlit.app/?q=${q}`);
-      },
-    },
+    //   onTrigger: () => {
+    //     const q = query.replace(" ", "+");
+    //     window.open(`https://fmhy-search.streamlit.app/?q=${q}`);
+    //   },
+    // },
   ];
 
   return (
