@@ -32,7 +32,7 @@ export interface DlWikiLinkType {
   isStarred: boolean;
 }
 
-const ignoreList = ["", "***", "***\r", "\r"];
+const ignoreList = ["", "***", "***\r", "\r", "****"];
 
 const ignoreStarters = [
   "* **Note**",
@@ -42,6 +42,8 @@ const ignoreStarters = [
   "**[◄◄ Back to Wiki Index]",
   "**Use [redirect bypassers]",
 ];
+
+// remove "Manually Scrape Sites" subcat from the wiki => ITS NOT NEEDED
 
 async function dlWikiChunk(urlEnding: string): Promise<DlWikiLinkType[]> {
   try {
@@ -69,12 +71,15 @@ async function dlWikiChunk(urlEnding: string): Promise<DlWikiLinkType[]> {
 
       if (
         item.startsWith("# ►") ||
-        (item.startsWith("####") && urlEnding === "STORAGE")
+        (item.startsWith("# ") && urlEnding === "STORAGE")
       ) {
         curSubCategory = item;
         curSubSubcategory = "";
         continue;
-      } else if (item.startsWith("## ▷")) {
+      } else if (
+        item.startsWith("## ▷") ||
+        (item.startsWith("## ") && urlEnding === "STORAGE")
+      ) {
         curSubSubcategory = item;
         continue;
       }
@@ -88,11 +93,11 @@ async function dlWikiChunk(urlEnding: string): Promise<DlWikiLinkType[]> {
       // replace reddit links with fmhy links
       items.push({
         category: urlEnding,
-        subcategory: curSubCategory
-          .replace("# ►", "")
-          .replace("####", "")
+        subcategory: curSubCategory.replace("# ►", "").replace("# ", "").trim(),
+        subsubcategory: curSubSubcategory
+          .replace("## ▷", "")
+          .replace("## ", "")
           .trim(),
-        subsubcategory: curSubSubcategory.replace("## ▷", "").trim(),
         content: item.replace("\r", ""),
         isStarred,
       });
