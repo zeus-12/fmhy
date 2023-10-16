@@ -52,10 +52,12 @@ export function LiRenderer(props: any, showOnlyStarredLinks: boolean) {
     const message = text.split("Note - ")[1];
     return <NoteAlert message={message} />;
   } else if (text.startsWith("https://") || text.startsWith("http://")) {
+    const link = text.split(" ")[0];
+
     return (
       <li>
         <Link
-          href={text}
+          href={link}
           className={cn("break-words font-semibold ", fontMono.className)}
         >
           {text}
