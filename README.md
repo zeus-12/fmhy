@@ -33,12 +33,13 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 - toc seems to break at times
 - hook the scrape script to vercel crons, and update the scraper scripts to only do table-drop if links are successfully fetched
 - use stricter lint rules ,for eg: the dont use "!" to types rule
-- fix font sizes.
+- TYPOGRAPHY => spend some time on fixing the typography => look into shadcn-typography
+- use react-virtualised, and remove limits for the search
 - see if dom issues can be fixed eg: (Warning: Received `true` for a non-boolean attribute `inline`.), probably some remark issue
 - highlight the searched word in /lsearch
 - on clicking the wiki link in /lsearch => upon redirecting to that page, highlight the searched word
 - add sitemap, all that good seo stuff
-- On fmhy.net/linuxguide, the Music Libraries / Players is hyperlinked to https://fmhy.net/storage#music-libraries-players which doesn't actually take you to the players section, just to the top of storage.
-  Correct link is https://fmhy.net/storage#music-libraries--players
-  (two hypehns before players instead of one)
--
+- issue reported: `On fmhy.net/linuxguide, the Music Libraries / Players is hyperlinked to https://fmhy.net/storage#music-libraries-players which doesn't actually take you to the players section, just to the top of storage.
+Correct link is https://fmhy.net/storage#music-libraries--players
+(two hypehns before players instead of one)`
+- remove "/" and other items while slugifying => create a standard fn and reuse that. look in to the open pr for this => should prob also look into fixing the links from linksrenderer.
