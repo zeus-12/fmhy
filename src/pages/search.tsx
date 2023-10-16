@@ -11,9 +11,9 @@ import {
 } from "@/lib/CONSTANTS";
 import ReactMarkdown from "react-markdown";
 import { useDebouncedValue } from "@mantine/hooks";
-import WikiData from "@/scraper/wiki-v2/wiki.json";
+import WikiData from "@/scraper/wiki.json";
 import { Index } from "flexsearch";
-import { DlWikiLinkType } from "@/scraper/wiki-v2/dl-wiki";
+import { DlWikiLinkType } from "@/scraper/dl-wiki";
 import { slug as githubSlug } from "github-slugger";
 import { LiRenderer, LinkRenderer } from "@/lib/wiki/renderers";
 interface SearchResultType {

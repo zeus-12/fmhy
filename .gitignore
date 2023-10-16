@@ -35,5 +35,4 @@ yarn-error.log*
 next-env.d.ts
 .env
 
-src/scraper/wiki-v2/data.json
-src/scraper/wiki-v2/wiki.json
+src/scraper/wiki.json

@@ -4,14 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "pnpm dl-wiki && prisma generate && next build",
+    "build": "pnpm scrape && prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "dev:scrape": "tsx watch ./src/scraper/index.ts",
-    "dev:scrape-v2": "tsx watch ./src/scraper/wiki-v2/index.ts",
-    "dl-wiki": "tsx ./src/scraper/wiki-v2/dl-wiki.ts",
-    "test-format": "tsx ./src/scraper/wiki-v2/test-format.ts"
+    "dev:scrape": "tsx watch ./src/scraper/dl-wiki.ts",
+    "scrape": "tsx ./src/scraper/dl-wiki.ts",
+    "test-format": "tsx ./src/scraper/test-format.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
