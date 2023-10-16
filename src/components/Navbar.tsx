@@ -7,7 +7,7 @@ import Link from "@/components/Link";
 const navItems = [
   { link: "/search", name: "Search" },
   { link: "/guides", name: "Guides" },
-  { link: "/changelogs", name: "Changelog" },
+  // { link: "/changelogs", name: "Changelog" },
 ];
 
 export const LinkElements = () => {
