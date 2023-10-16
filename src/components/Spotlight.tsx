@@ -1,4 +1,5 @@
-import { Badge, Group, UnstyledButton, createStyles } from "@mantine/core";
+import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
+import { Group, UnstyledButton, createStyles } from "@mantine/core";
 import { SpotlightActionProps } from "@mantine/spotlight";
 import { SpotlightProvider as MantineSpotlightProvider } from "@mantine/spotlight";
 import { Search } from "lucide-react";
@@ -82,52 +83,35 @@ export const SpotlightProvider = ({
 
   const spotlightActions = [
     {
-      title: "Wiki",
-      description: "Collection of all links scraped from FMHY Github ",
-      group: "page",
-      onTrigger: () => {
-        router.push("/");
-      },
-    },
-    {
-      title: "Guides",
-      description: "Collection of useful Guides!",
-      group: "page",
-
-      onTrigger: () => {
-        router.push("/guides");
-      },
-    },
-    {
-      title: "Base64 Links",
-      description: "All base64 links in r/fmhy",
-      group: "page",
-      onTrigger: () => {
-        router.push("/base64");
-      },
-    },
-    {
       title: query,
       isSearch: true,
-      source: "Local ",
+      source: "Fast ",
       group: "search",
       description: "Search",
       onTrigger: () => {
         router.push(`/search?q=${query}`);
       },
     },
-    // {
-    //   title: query,
-    //   description: "Search on Streamlit",
-    //   isSearch: true,
-    //   source: "Streamlit",
-    //   group: "search",
+    {
+      title: "Guides",
+      description: "Collection of useful Guides!",
+      group: "guides",
 
-    //   onTrigger: () => {
-    //     const q = query.replace(" ", "+");
-    //     window.open(`https://fmhy-search.streamlit.app/?q=${q}`);
-    //   },
-    // },
+      onTrigger: () => {
+        router.push("/guides");
+      },
+    },
+
+    // filter to remove "Home"
+
+    ...MARKDOWN_RESOURCES.filter((item) => item.urlEnding).map((res) => ({
+      title: res.title,
+      group: "wiki",
+      description: "Wiki",
+      onTrigger: () => {
+        router.push(`/${res.urlEnding}`);
+      },
+    })),
   ];
 
   return (
