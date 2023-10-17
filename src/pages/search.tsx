@@ -1,5 +1,5 @@
 import { Badge, Input, Loader, Pagination, Switch } from "@mantine/core";
-import { Redo, Search as SearchIcon } from "lucide-react";
+import { Search as SearchIcon } from "lucide-react";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -160,10 +160,6 @@ const Search = () => {
             </p>
             {isLocalSearch ? (
               <>
-                <p className="text-gray-400">
-                  Beta version. (Searches file locally)
-                </p>
-
                 <Link href="/feedback">Report bugs</Link>
               </>
             ) : (
