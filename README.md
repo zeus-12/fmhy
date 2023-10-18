@@ -8,7 +8,7 @@
 - **Mantine UI** For components
 - **Planetscale** As the database
 - **Prisma** As the ORM
-- **Cheerio** For parsing the HTMl
+- **Cheerio** For parsing the HTML (Old scraper)
 - **Plausible** For analytics
 
 ### Features:
