@@ -385,30 +385,32 @@ const LocalSearch = ({ query }: { query: string }) => {
                   )}
                 >
                   {result.category && (
-                    <Badge
-                      className="w-full overflow-ellipsis"
-                      leftSection={
-                        <>
-                          {
-                            MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING[
-                              result.category.toLowerCase()
-                            ]
-                          }
-                        </>
-                      }
-                    >
-                      {result.category}{" "}
-                      {result.subcategory && (
-                        <>
-                          <span>/</span> {result.subcategory}{" "}
-                        </>
-                      )}
-                      {result.subsubcategory && (
-                        <>
-                          <span>/</span> {result.subsubcategory}
-                        </>
-                      )}
-                    </Badge>
+                    <div className="max-w-[80vw] ">
+                      <Badge
+                        fullWidth
+                        leftSection={
+                          <>
+                            {
+                              MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING[
+                                result.category.toLowerCase()
+                              ]
+                            }
+                          </>
+                        }
+                      >
+                        {result.category}{" "}
+                        {result.subcategory && (
+                          <>
+                            <span>/</span> {result.subcategory}{" "}
+                          </>
+                        )}
+                        {result.subsubcategory && (
+                          <>
+                            <span>/</span> {result.subsubcategory}
+                          </>
+                        )}
+                      </Badge>
+                    </div>
                   )}
                 </Link>
               </div>
