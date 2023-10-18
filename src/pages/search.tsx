@@ -16,6 +16,7 @@ import { Index } from "flexsearch";
 import { DlWikiLinkType } from "@/scraper/dl-wiki";
 import { slug as githubSlug } from "github-slugger";
 import { LiRenderer, LinkRenderer } from "@/lib/wiki/renderers";
+import { removeSlashesForToc } from "@/lib/wiki/utils";
 interface SearchResultType {
   id: string;
   title: string;
@@ -330,11 +331,11 @@ const LocalSearch = ({ query }: { query: string }) => {
   ) => {
     if (!category) return "";
 
-    return `/${githubSlug(category.toLowerCase())}#${
+    return `/${githubSlug(removeSlashesForToc(category.toLowerCase()))}#${
       subsubcategory
-        ? githubSlug(subsubcategory.toLowerCase())
+        ? githubSlug(removeSlashesForToc(subsubcategory.toLowerCase()))
         : subcategory
-        ? githubSlug(subcategory.toLowerCase())
+        ? githubSlug(removeSlashesForToc(subcategory.toLowerCase()))
         : ""
     }`;
   };
