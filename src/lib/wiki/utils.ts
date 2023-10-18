@@ -13,16 +13,23 @@ export const classMapping: ClassMappingType = {
   h4: "text-xl font-medium tracking-medium mt-4 hover:underline hover:cursor text-white",
 };
 
-export function HeadingRendererHelper(props: any) {
+// maybe just remove all spaces then replace all / with space
+export const removeSlashesForToc = (text: string) =>
+  text.replaceAll(" / ", " ")?.replaceAll("/", "");
+
+export function HeadingRendererHelper(props: any, slugger: any) {
   const text = getTextFromProps(props);
-  const slug = githubSlug(text);
-  let href = "#" + slug;
+  const cleanedText = removeSlashesForToc(text);
 
   const immediateChild = props.node.children[0];
+  let href;
+  const slug = slugger.slug(cleanedText);
 
   if (immediateChild?.tagName === "a") {
     const eleHref = immediateChild?.properties.href;
     href = redirectRedditAndGithubLinksToWebsite(eleHref);
+  } else {
+    href = "#" + slug;
   }
 
   return { slug, text, href };

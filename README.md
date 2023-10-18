@@ -26,12 +26,9 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 ### What needs to be fixed | Open issues
 
 - reset scroll to zero upon changing wiki category: seems to be an open nextjs issue => try using the workarounds.
-- move dl-wiki script into a cron job, deprecate wiki-v1 scraper => super overkill.
-- fix toc not working incases of collision (where the same header is used twice in a page, but toc gets updated,(number get appended), but the headings doesnt)
-- add client-side search for wiki page => checkout nextra docs
+- move dl-wiki script into a cron job
+- look into IntersectionObserver fn inside toc.tsx => seems to be causing some issues
 - assign github-slugger-ids to each guide; also make the guides search filter-able by query params -> and add within search to spotlight
-- toc seems to break at times
-- hook the scrape script to vercel crons, and update the scraper scripts to only do table-drop if links are successfully fetched
 - use stricter lint rules ,for eg: the dont use "!" to types rule
 - TYPOGRAPHY => spend some time on fixing the typography => look into shadcn-typography
 - use react-virtualised, and remove limits for the search
@@ -39,7 +36,3 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 - highlight the searched word in /lsearch
 - on clicking the wiki link in /lsearch => upon redirecting to that page, highlight the searched word
 - add sitemap, all that good seo stuff
-- issue reported: `On fmhy.net/linuxguide, the Music Libraries / Players is hyperlinked to https://fmhy.net/storage#music-libraries-players which doesn't actually take you to the players section, just to the top of storage.
-Correct link is https://fmhy.net/storage#music-libraries--players
-(two hypehns before players instead of one)`
-- remove "/" and other items while slugifying => create a standard fn and reuse that. look in to the open pr for this => should prob also look into fixing the links from linksrenderer.

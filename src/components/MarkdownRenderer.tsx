@@ -10,6 +10,7 @@ import {
 import ReactMarkdown from "react-markdown";
 import { SpecialComponents } from "react-markdown/lib/ast-to-react";
 import { NormalComponents } from "react-markdown/lib/complex-types";
+import GithubSlugger from "github-slugger";
 
 const MarkdownRenderer = ({
   category,
@@ -26,13 +27,16 @@ const MarkdownRenderer = ({
       >
     | undefined;
 }) => {
+  const slugger = new GithubSlugger();
+  slugger.reset();
+
   return (
     <ReactMarkdown
       components={{
-        h1: (props: any) => HeadingRenderer(props, 1),
-        h2: (props: any) => HeadingRenderer(props, 2),
-        h3: (props: any) => HeadingRenderer(props, 3), //for beginners guide only
-        h4: (props: any) => HeadingRenderer(props, 4), //for storage only
+        h1: (props: any) => HeadingRenderer(props, 1, slugger),
+        h2: (props: any) => HeadingRenderer(props, 2, slugger),
+        h3: (props: any) => HeadingRenderer(props, 3, slugger), //for beginners guide only
+        h4: (props: any) => HeadingRenderer(props, 4, slugger), //for storage only
         p: PRenderer, // for beginners guide only
         a: LinkRenderer,
         li: (props: any) => LiRenderer(props, starredLinks), //for storage only
