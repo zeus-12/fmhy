@@ -19,14 +19,13 @@ export function HeadingRendererHelper(props: any, slugger: any) {
 
   const immediateChild = props.node.children[0];
   let href;
-  let slug;
+
+  const slug = slugger.slug(cleanedText);
 
   if (immediateChild?.tagName === "a") {
     const eleHref = immediateChild?.properties.href;
-    slug = eleHref;
     href = redirectRedditAndGithubLinksToWebsite(eleHref);
   } else {
-    slug = slugger.slug(cleanedText);
     href = "#" + slug;
   }
 
