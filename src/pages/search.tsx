@@ -281,7 +281,6 @@ const LocalSearch = ({ query }: { query: string }) => {
   const [index, setIndex] = useState(
     new Index({
       tokenize: "forward",
-      // tokenize: "full",
       language: "en",
       preset: "score",
       cache: true,
@@ -317,7 +316,7 @@ const LocalSearch = ({ query }: { query: string }) => {
   }, []);
 
   useEffect(() => {
-    setResults(index.search(debouncedQuery, 62.5));
+    setResults(index.search(debouncedQuery, 100));
   }, [debouncedQuery]);
 
   const finalResult = results?.map(
@@ -346,7 +345,8 @@ const LocalSearch = ({ query }: { query: string }) => {
       <div>
         {debouncedQuery && (
           <p className="text-gray-400 mb-2">
-            {results?.length === 100 ? ">" : ""} {results?.length} results{" "}
+            {results?.length === 100 ? "> " : " "}
+            {results?.length} results{" "}
           </p>
         )}
 
