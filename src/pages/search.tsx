@@ -276,11 +276,12 @@ const Search = () => {
 export default Search;
 
 const LocalSearch = ({ query }: { query: string }) => {
-  const [debouncedQuery] = useDebouncedValue(query, 200);
+  const [debouncedQuery] = useDebouncedValue(query, 150);
 
   const [index, setIndex] = useState(
     new Index({
-      tokenize: "forward",
+      // tokenize: "forward",
+      tokenize: "full",
       language: "en",
       preset: "score",
       cache: true,
@@ -316,7 +317,7 @@ const LocalSearch = ({ query }: { query: string }) => {
   }, []);
 
   useEffect(() => {
-    setResults(index.search(debouncedQuery, 200));
+    setResults(index.search(debouncedQuery, 62.5));
   }, [debouncedQuery]);
 
   const finalResult = results?.map(
@@ -345,14 +346,15 @@ const LocalSearch = ({ query }: { query: string }) => {
       <div>
         {debouncedQuery && (
           <p className="text-gray-400 mb-2">
-            {results?.length === 200 ? ">" : ""} {results?.length} results{" "}
+            {results?.length === 100 ? ">" : ""} {results?.length} results{" "}
           </p>
         )}
 
         {!query ? (
           <></>
         ) : debouncedQuery !== query ? (
-          <p>loading</p>
+          // <p className="text-gray-400">loading</p>
+          <></>
         ) : finalResult?.length === 0 ? (
           <>no result found</>
         ) : (
