@@ -280,8 +280,8 @@ const LocalSearch = ({ query }: { query: string }) => {
 
   const [index, setIndex] = useState(
     new Index({
-      // tokenize: "forward",
-      tokenize: "full",
+      tokenize: "forward",
+      // tokenize: "full",
       language: "en",
       preset: "score",
       cache: true,
