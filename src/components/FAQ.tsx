@@ -39,12 +39,7 @@ const faqs = [
       "The raw markdown files can all be download from the backups page. The formatting should work on any sites or apps that support markdown.",
     value: "download",
   },
-  {
-    question: "Why is there no NSFW section?",
-    answer:
-      "There is, its just separate from FMHY. You can find it by joining Divolt, or checking my saidit profile via backups.",
-    value: "nsfw",
-  },
+
   {
     question: "Divolt isn't loading, what should I do?",
     answer:
