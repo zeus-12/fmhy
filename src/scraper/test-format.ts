@@ -29,7 +29,7 @@ const getItemsMissingBothCatAndSubcat = () => {
   const missingBothSubcatSubsubcat = (wiki as DlWikiLinkType[]).filter(
     (item) => !item.subcategory && !item.subsubcategory
   );
-  writeToFile(missingBothSubcatSubsubcat, "missing-links-in-content");
+  writeToFile(missingBothSubcatSubsubcat, "missing-both-cat-and-subcat");
 };
 
 const getItemsMissingSubCat = () => {
