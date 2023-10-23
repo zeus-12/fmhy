@@ -40,8 +40,6 @@ const ignoreStarters = [
   "**Use [redirect bypassers]",
 ];
 
-// remove "Manually Scrape Sites" subcat from the wiki => ITS NOT NEEDED
-
 async function dlWikiChunk(urlEnding: string): Promise<DlWikiLinkType[]> {
   try {
     const res = await fetch(
