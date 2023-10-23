@@ -1,17 +1,12 @@
 import React, { useState, useEffect, useRef, ChangeEventHandler } from "react";
 import GuideItem from "@/components/GuideItem";
 import { Input } from "@mantine/core";
-import { FRONTEND_URL } from "@/lib/config";
 import { devLog } from "@/lib/utils";
 import { NextSeo } from "next-seo";
-import { Base64LinksType } from "@/pages/oldbase64";
+import cheerio from "cheerio";
 
 export interface GuideType {
-  credits?: string;
   link: string;
-  nsfw: boolean;
-  tags: string;
-  id: string;
   title: string;
 }
 
@@ -83,8 +78,8 @@ const Guides = ({
               (filterData(guides)?.length === 0 ? (
                 <p className="mt-2 px-4">No results match the entered query</p>
               ) : (
-                filterData(guides)?.map((item) => (
-                  <GuideItem key={item.id} data={item} />
+                filterData(guides)?.map((item, idx) => (
+                  <GuideItem key={idx} title={item.title} link={item.link} />
                 ))
               ))}
           </div>
@@ -98,47 +93,35 @@ export default Guides;
 
 export async function getStaticProps() {
   try {
-    const base64 = await fetch(`${FRONTEND_URL}/api/base64`);
-    const base64Data = (await base64.json()).data;
+    const html = await fetch("https://rentry.co/fmhy-guides");
+    const htmlData = await html.text();
 
-    const guideDomains = ["rentry", "pastelink", "telegra.ph", "pastebin"];
+    const $ = cheerio.load(htmlData);
+    const ul = $("ul").first();
+    const res: Array<{ title: string; link: string }> = [];
 
-    const scrapedGuides: any = [];
+    ul.find("li").each((i, el) => {
+      const li = $(el);
+      const link = li.children().first().attr("href");
+      const text = li.text();
 
-    base64Data.map((item: Base64LinksType) => {
-      try {
-        const decoded = atob(item.hash);
-        const link = decoded
-          .split("\n")
-          .filter((item) => !!item)
-          .filter((link) =>
-            guideDomains.some((domain) => link.includes(domain))
-          );
-
-        if (link.length === 0) return;
-
-        for (let i = 0; i < link.length; i++) {
-          scrapedGuides.push({
-            title: item.title + (link.length > 1 ? ` ${i + 1}` : ""),
-            link: link[i],
-            nsfw: false,
-            tags: "",
-            id: Math.random().toString(36).substr(2, 9),
-          });
-        }
-      } catch (err) {
-        devLog("Invalid base64 string");
+      if (!link) {
+        console.log(text, "NO LINK FOUND");
+        return;
       }
+
+      res.push({
+        title: text,
+        link: link,
+      });
     });
 
-    const res = await fetch(`${FRONTEND_URL}/api/guides`);
-    const data = await res.json();
     return {
       props: {
-        guides: [...data.data, ...scrapedGuides],
+        guides: res,
         isError: false,
       },
-      revalidate: 60 * 60 * 24, // 1 day
+      revalidate: 60 * 60 * 24 * 2, // 2 day
     };
   } catch (err: any) {
     devLog(err.message);
