@@ -147,52 +147,55 @@ export async function getStaticProps({
     )!;
     const markdownUrlEnding = markdownCategory?.urlEnding;
 
-    const markdownUrl =
-      "https://raw.githubusercontent.com/nbats/FMHYedit/main/" +
-      markdownUrlEnding +
-      ".md";
-
-    const res = await fetch(markdownUrl);
+    const res = await fetch(
+      `https://raw.githubusercontent.com/nbats/FMHYedit/main/${markdownUrlEnding}.md`
+    );
     const text = await res.text();
 
-    const cleanedText = (text.split("For mobile users")[1] ?? text)
+    const stringList = text.split("\n");
+
+    const ignoreList = ["", "***", "***\r", "\r", "****"];
+
+    const ignoreStarters = [
+      "* **Note**",
+      "**Note**",
+      "**Warning**",
+      "**[Table of Contents]",
+      "**[◄◄ Back to Wiki Index]",
+      "**Use [redirect bypassers]",
+      "**Table of Contents**",
+      "[TOC2]",
+      "# -> ***Beginners Guide to Piracy*** <-",
+      "Use any **[Base64 Decoding](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/storage#wiki_encode_.2F_decode_urls)** site or extension.",
+      "**[^ Back to Top]",
+      "**[Back to Wiki Index]",
+    ];
+
+    const cleanedList = stringList.filter(
+      (item) =>
+        !ignoreList.includes(item) &&
+        !ignoreStarters.some((starter) => item.startsWith(starter))
+    );
+
+    const joinedText = cleanedList.join("\n");
+
+    const cleanedText = (joinedText.split("For mobile users")[1] ?? joinedText)
       ?.replaceAll("►", "")
       ?.replaceAll("▷", "")
-      ?.replaceAll("Table of Contents", "")
-      ?.replaceAll("[TOC2]", "")
-      ?.replaceAll("-> ***Beginners Guide to Piracy*** <-", "")
-      ?.replaceAll("**[^ Back to Top](#beginners-guide-to-piracy)**", "")
+      ?.replace("#### How-to Decode Links", "")
+      .replace(`# Untrusted Sites / Software`, "")
       ?.replace(
-        "**[Back to Wiki Index](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/index)**",
-        ""
-      )
-      ?.replaceAll(
-        "If you have any suggestions or questions feel free to join us in [Divolt](https://redd.it/uto5vw) ♡",
-        ""
-      )
-      ?.replaceAll(
-        "Source: **[/r/FREEMEDIAHECKYEAH](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/index)**",
-        ""
-      )
-      ?.replace(
-        `#### How-to Decode Links
-
-Use any **[Base64 Decoding](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/storage#wiki_encode_.2F_decode_urls)** site or extension.
-
-***`,
+        `Use any **[Base64 Decoding](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/storage#wiki_encode_.2F_decode_urls)** site or extension.`,
         ""
       )
       .replace(`# Untrusted Sites / Software`, "")
       ?.replace(
         `### Mirrors
-
 * https://fmhy.net/base64
 * https://fmhy.pages.dev/base64/
 * https://github.com/nbats/FMHYedit/blob/main/base64.md
 * https://notabug.org/nbatman/freemediaheckyeah/wiki/base64
-* https://rentry.co/FMHYBase64
-
-***`,
+* https://rentry.co/FMHYBase64`,
         ""
       );
 
@@ -201,11 +204,7 @@ Use any **[Base64 Decoding](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/stor
     return {
       props: {
         data: cleanedText || text,
-        toc:
-          // // for some reason the toc for the beginners guide is nested one level deeper
-          markdownUrlEnding === "Beginners-Guide"
-            ? { items: toc?.items?.[0].items } ?? []
-            : toc,
+        toc,
         isError: false,
       },
       revalidate: 60 * 60 * 24 * 2, // 2 days
