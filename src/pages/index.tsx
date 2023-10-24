@@ -20,8 +20,8 @@ const quickLinks = [
     color: "pink",
   },
   {
-    title: "Divolt",
-    link: "https://fmhy.divolt.xyz/",
+    title: "Discord",
+    link: "https://discord.gg/5W9QJKuPkD",
     color: "green",
   },
   {
