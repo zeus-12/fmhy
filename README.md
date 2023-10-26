@@ -36,3 +36,4 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 - highlight the searched word in /lsearch
 - on clicking the wiki link in /lsearch => upon redirecting to that page, highlight the searched word
 - add sitemap, all that good seo stuff
+- toc stops working once u click on any of the toc links
