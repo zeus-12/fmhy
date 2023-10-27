@@ -25,15 +25,14 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 
 ### What needs to be fixed | Open issues
 
+- toc not updating for links linking to other pages
 - reset scroll to zero upon changing wiki category: seems to be an open nextjs issue => try using the workarounds.
 - move dl-wiki script into a cron job
-- look into IntersectionObserver fn inside toc.tsx => seems to be causing some issues
+- TYPOGRAPHY => spend some time on fixing the typography => look into shadcn-typography
+- see if dom issues can be fixed eg: (Warning: Received `true` for a non-boolean attribute `inline`.), probably some remark issue
+- highlight the searched word in /search
+- on clicking the wiki link in /search => upon redirecting to that page, highlight the searched word
+- add sitemap, all that good seo stuff
+- use react-virtualised, and remove limits for the search
 - assign github-slugger-ids to each guide; also make the guides search filter-able by query params -> and add within search to spotlight
 - use stricter lint rules ,for eg: the dont use "!" to types rule
-- TYPOGRAPHY => spend some time on fixing the typography => look into shadcn-typography
-- use react-virtualised, and remove limits for the search
-- see if dom issues can be fixed eg: (Warning: Received `true` for a non-boolean attribute `inline`.), probably some remark issue
-- highlight the searched word in /lsearch
-- on clicking the wiki link in /lsearch => upon redirecting to that page, highlight the searched word
-- add sitemap, all that good seo stuff
-- toc not updating for links linking to other pages
