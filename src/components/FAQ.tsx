@@ -17,7 +17,7 @@ const faqs = [
   {
     question: "How can I contact you?",
     answer:
-      "The best way is to join us in Divolt. Here you can submit links, get help or suggest changes to the wiki. My reddit DMs and mod messages are also open.",
+      "The best way is to join us in Discord. Here you can submit links, get help or suggest changes to the wiki. My reddit DMs and mod messages are also open.",
     value: "contact",
   },
   {
