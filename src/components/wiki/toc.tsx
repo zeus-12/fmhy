@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Drawer } from "@mantine/core";
 import { XIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/router";
 
 interface TableOfContentsProps {
   toc: TableOfContents;
@@ -96,6 +97,9 @@ function Toc({
 }
 
 function useActiveItem(itemIds: (string | undefined)[]) {
+  const router = useRouter();
+  const currentHash = router.asPath.split("#")[1] || "";
+
   const [activeId, setActiveId] = useState<string>("");
 
   useEffect(() => {
@@ -116,6 +120,7 @@ function useActiveItem(itemIds: (string | undefined)[]) {
       }
 
       const element = document.getElementById(id);
+      console.log("elemnent", element);
       if (element) {
         observer.observe(element);
       }
@@ -133,7 +138,7 @@ function useActiveItem(itemIds: (string | undefined)[]) {
         }
       });
     };
-  }, [itemIds]);
+  }, [itemIds, currentHash]);
 
   return activeId;
 }
