@@ -1,4 +1,4 @@
-import { ReactNode, createElement } from "react";
+import { createElement } from "react";
 import Link from "@/components/Link";
 import { NoteAlert, WarningAlert } from "@/components/Alert";
 import {
@@ -7,8 +7,7 @@ import {
   getTextFromProps,
   redirectRedditAndGithubLinksToWebsite,
 } from "./utils";
-import { Accordion, Alert } from "@mantine/core";
-import { HelpCircle } from "lucide-react";
+import { Accordion } from "@mantine/core";
 import { cn } from "@/lib/utils";
 import { fontMono } from "@/lib/fonts";
 import ReactMarkdown from "react-markdown";
