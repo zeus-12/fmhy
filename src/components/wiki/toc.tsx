@@ -120,7 +120,6 @@ function useActiveItem(itemIds: (string | undefined)[]) {
       }
 
       const element = document.getElementById(id);
-      console.log("elemnent", element);
       if (element) {
         observer.observe(element);
       }
