@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-import { withPlausibleProxy } from "next-plausible";
+// import { withPlausibleProxy } from "next-plausible";
 
 const nextConfig = {
   reactStrictMode: false,
@@ -20,9 +20,12 @@ const nextConfig = {
   },
 };
 
-export default withPlausibleProxy({
-  customDomain: "https://i-totally-love-easylist.swmg.top",
-})(nextConfig);
+export default nextConfig;
+
+// export default withPlausibleProxy({
+//   customDomain: "https://i-totally-love-easylist.swmg.top",
+// })(nextConfig);
+
 // {
 // subdirectory: "analytics",
 // scriptName: "script",

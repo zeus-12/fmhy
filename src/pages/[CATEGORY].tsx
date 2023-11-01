@@ -11,6 +11,7 @@ import { PanelRightOpen } from "lucide-react";
 import { NextSeo } from "next-seo";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import { devLog } from "@/lib/utils";
+import fs from "fs";
 
 const Wiki = ({
   data,
@@ -179,7 +180,7 @@ export async function getStaticProps({
 
     const joinedText = cleanedList.join("\n");
 
-    const cleanedText = (joinedText.split("For mobile users")[1] ?? joinedText)
+    let cleanedText = (joinedText.split("For mobile users")[1] ?? joinedText)
       ?.replaceAll("►", "")
       ?.replaceAll("▷", "")
       ?.replace("#### How-to Decode Links", "")
@@ -198,6 +199,42 @@ export async function getStaticProps({
 * https://rentry.co/FMHYBase64`,
         ""
       );
+
+    if (CATEGORY === "beginners-guide") {
+      // cleanedText = cleanedText.replace(
+      //   /(\n)?(\s*)!!!note/g,
+      //   function (match, newline, whitespace) {
+      //     console.log(match, newline, whitespace);
+      //     return "\n" + match;
+      //   }
+      // );
+      // cleanedText = cleanedText.replace(
+      //   /(\n)?(\s*)!!!info/g,
+      //   function (match, newline, whitespace) {
+      //     console.log(match, newline, whitespace);
+      //     return "\n" + match;
+      //   }
+      // );
+      // cleanedText = cleanedText.replace(
+      //   /(\n)?(\s*)!!!warning/g,
+      //   function (match, newline, whitespace) {
+      //     return "\n" + whitespace + match;
+      //   }
+      // );
+
+      cleanedText = cleanedText.replace(/(\s*)!!!info/g, "\n$1!!!note");
+      cleanedText = cleanedText.replace(/(\s*)!!!note/g, "\n$1!!!note");
+      cleanedText = cleanedText.replace(/(\s*)!!!warning/g, "\n$1!!!warning");
+
+      // cleanedText = cleanedText.replace(/>\s(.+?)\n/g, "> $1\n\n");
+      // cleanedText = cleanedText.replace(/!!!\n!!!\n/g, "!!!\n");
+      cleanedText = cleanedText.replace(/\n\*\*\[/g, "\n* **[");
+      // write cleanedText to a file
+      fs.writeFileSync(
+        "./src/lib/wiki/beginners-guide-cleaned.md",
+        cleanedText
+      );
+    }
 
     const toc = await getTableOfContents(cleanedText);
 
