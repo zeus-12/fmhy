@@ -30,7 +30,6 @@
     "github-slugger": "^2.0.0",
     "googleapis": "^123.0.0",
     "lucide-react": "^0.220.0",
-    "mdast-util-to-markdown": "^2.1.0",
     "mdast-util-toc": "^6.1.1",
     "next": "14.0.0",
     "next-plausible": "^3.8.0",

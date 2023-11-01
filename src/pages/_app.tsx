@@ -16,40 +16,40 @@ export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
 
   return (
-    // <PlausibleProvider
-    //   domain="fmhy.tk"
-    //   selfHosted={true}
-    //   customDomain="https://i-totally-love-easylist.swmg.top"
-    //   trackOutboundLinks={true}
-    //   taggedEvents={true}
-    //   // trackLocalhost={true}
-    //   // enabled={true}
-    // >
-    <MantineProvider
-      theme={{
-        colorScheme: "dark",
-      }}
+    <PlausibleProvider
+      domain="fmhy.net"
+      selfHosted={true}
+      customDomain="https://i-totally-love-easylist.swmg.top"
+      trackOutboundLinks={true}
+      taggedEvents={true}
+      // trackLocalhost={true}
+      // enabled={true}
     >
-      <QueryClientProvider client={queryClient}>
-        <SpotlightProvider>
-          <DefaultSeo {...SEO} />
+      <MantineProvider
+        theme={{
+          colorScheme: "dark",
+        }}
+      >
+        <QueryClientProvider client={queryClient}>
+          <SpotlightProvider>
+            <DefaultSeo {...SEO} />
 
-          <div
-            className={cn(
-              "antialiased flex flex-col h-screen gap-2 max-w-[100vw] ",
-              fontSans.className
-            )}
-          >
-            <Notifications />
-            <Navbar />
-            <div className="flex-1 flex overflow-y-scroll">
-              <Component {...pageProps} />
+            <div
+              className={cn(
+                "antialiased flex flex-col h-screen gap-2 max-w-[100vw] ",
+                fontSans.className
+              )}
+            >
+              <Notifications />
+              <Navbar />
+              <div className="flex-1 flex overflow-y-scroll">
+                <Component {...pageProps} />
+              </div>
             </div>
-          </div>
-        </SpotlightProvider>
-        <ReactQueryDevtools />
-      </QueryClientProvider>
-    </MantineProvider>
-    // </PlausibleProvider>
+          </SpotlightProvider>
+          <ReactQueryDevtools />
+        </QueryClientProvider>
+      </MantineProvider>
+    </PlausibleProvider>
   );
 }

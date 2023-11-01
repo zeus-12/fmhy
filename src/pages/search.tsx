@@ -142,10 +142,10 @@ const Search = () => {
     <>
       <NextSeo title="Search" description="Fmhy Search" />
       <SiteLinksSearchBoxJsonLd
-        url="https://www.fmhy.tk"
+        url="https://www.fmhy.net"
         potentialActions={[
           {
-            target: "https://www.fmhy.tk/search?q",
+            target: "https://www.fmhy.net/search?q",
             queryInput: "search_term_string",
           },
         ]}

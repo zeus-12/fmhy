@@ -12,7 +12,6 @@ import { cn } from "@/lib/utils";
 import { fontMono } from "@/lib/fonts";
 import ReactMarkdown from "react-markdown";
 import { beginnersGuideFaqs } from "@/lib/CONSTANTS";
-import { toMarkdown } from "mdast-util-to-markdown";
 
 export const HeadingRenderer = (
   props: any,
@@ -86,33 +85,23 @@ export function LiRenderer(props: any, showOnlyStarredLinks: boolean) {
 }
 
 export const PRenderer = (props: any) => {
-  try {
-    const text = getTextFromProps(props);
+  const text = getTextFromProps(props);
 
-    const NOTE_STARTERS = ["!!!note", "Note - ", "!!!info"];
-    const WARNING_STARTERS = ["!!!warning", "Warning - "];
+  const NOTE_STARTERS = ["!!!note", "Note - ", "!!!info"];
+  const WARNING_STARTERS = ["!!!warning", "Warning - "];
 
-    const noteStarter = NOTE_STARTERS.find((item) => text.startsWith(item));
-    if (noteStarter) {
-      const message = text.split(noteStarter)[1];
+  const noteStarter = NOTE_STARTERS.find((item) => text.startsWith(item));
+  if (noteStarter) {
+    const message = text.split(noteStarter)[1];
+    return <NoteAlert message={message} />;
+  }
 
-      console.log(props.node, "props");
-      const md = toMarkdown(props.node);
-      console.log(md, "md");
-      return <NoteAlert message={message} />;
-    }
-
-    const warningStarter = WARNING_STARTERS.find((item) =>
-      text.startsWith(item)
-    );
-    if (warningStarter) {
-      const message = text.split(warningStarter)[1];
-      return <WarningAlert message={message} />;
-    } else {
-      return <p>{props.children}</p>;
-    }
-  } catch (err: any) {
-    console.log("ERROR", err.message);
+  const warningStarter = WARNING_STARTERS.find((item) => text.startsWith(item));
+  if (warningStarter) {
+    const message = text.split(warningStarter)[1];
+    return <WarningAlert message={message} />;
+  } else {
+    return <p>{props.children}</p>;
   }
 };
 
@@ -162,8 +151,6 @@ const FaqMarkdownRenderer = ({ children }: { children: string }) => {
 };
 
 export const BlockquoteRenderer = (props: any, category: string) => {
-  // console.log(props.children);
-  return <blockquote>{props.children}</blockquote>;
   if (category.toLowerCase() !== "beginners-guide") {
     return <blockquote>{props.children}</blockquote>;
   }

@@ -5,11 +5,11 @@ export const SEO = {
     type: "website",
     locale: "en_US",
     url: "FMHY",
-    // // url: "https://www.fmhy.tk/",
+    // // url: "https://www.fmhy.net/",
     siteName: "FreeMediaHeckYeah",
-    images: [{ url: "https://fmhy.tk/assets/logo.png" }],
+    images: [{ url: "https://fmhy.net/assets/logo.png" }],
   },
-  // canonical:"https://www.fmhy.tk/"
+  // canonical:"https://www.fmhy.net/"
   themeColor: "black",
   additionalMetaTags: [
     {
@@ -25,7 +25,7 @@ export const SEO = {
   additionalLinkTags: [
     {
       rel: "icon",
-      href: "https://www.fmhy.tk/favicon.ico",
+      href: "https://www.fmhy.net/favicon.ico",
     },
   ],
 };
