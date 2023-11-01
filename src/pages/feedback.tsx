@@ -62,7 +62,7 @@ const Feedback = () => {
 
   return (
     <>
-      <NextSeo title="Feedback" description="Feedback for fmhy.net" />
+      <NextSeo title="Feedback" description="Feedback for fmhy.tk" />
 
       <div className="gap-2 flex-1 flex items-center sm:justify-center h-full flex-col">
         <p className="text-4xl font-bold pt-4">
