@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useEffect, useState } from "react";
 import { MARKDOWN_RESOURCES, isDevEnv, testData } from "@/lib/CONSTANTS";
 import { Switch } from "@mantine/core";
@@ -79,9 +79,24 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
   const [starredLinks, setStarredLinks] = useState(false);
   const [isTocOpen, setIsTocOpen] = useState(false);
 
+  // const linksRef = useRef(null);
+
+  // useEffect(() => {
+  //   if (!linksRef.current || !(linksRef.current as any)?.scrollTo) {
+  //     console.log("UNDEFINED");
+  //     return;
+  //   }
+  //   console.log("scrolliong up");
+
+  //   (linksRef.current as any)?.scrollTo(0, 0);
+  // }, []);
+
   return (
     <>
-      <div className="px-1 sm:px-4 md:px-8 lg:px-14 xl:px-20 overflow-scroll hideScrollbar flex-1 2xl:max-w-7xl">
+      <div
+        // ref={linksRef}
+        className="px-1 sm:px-4 md:px-8 lg:px-14 xl:px-20 overflow-scroll hideScrollbar flex-1 2xl:max-w-7xl"
+      >
         <div className="flex justify-between items-center">
           <p className="text-3xl underline underline-offset-2 font-semibold tracking-tighter">
             {markdownCategory?.title}
