@@ -34,7 +34,8 @@ export default async function handler(
 
     if (
       !["bug", "suggestion", "other", "appreciate"].includes(feedbackType) ||
-      !message
+      !message ||
+      message.length < 10
     ) {
       res.status(422).json({ error: "Invalid input." });
       return;
