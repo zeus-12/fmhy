@@ -72,12 +72,9 @@ export function LiRenderer(props: any, showOnlyStarredLinks: boolean) {
       </li>
     );
   } else {
+    if (showOnlyStarredLinks && !isStarred) return <></>;
     return (
-      <li
-        className={`list-disc ml-6 my-2 text-md text-slate-200 ${
-          showOnlyStarredLinks ? (isStarred ? "" : "hidden") : ""
-        }`}
-      >
+      <li className={`list-disc ml-6 my-2 text-md text-slate-200 `}>
         {props.children}
       </li>
     );
