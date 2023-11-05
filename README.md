@@ -36,3 +36,5 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 - use react-virtualised, and remove limits for the search
 - assign github-slugger-ids to each guide; also make the guides search filter-able by query params -> and add within search to spotlight
 - use stricter lint rules ,for eg: the dont use "!" to types rule
+- remove db search
+- stlye /base64 similar to /oldbase64
