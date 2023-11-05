@@ -32,15 +32,19 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 - add sitemap, all that good seo stuff
 - use stricter lint rules ,for eg: the dont use "!" to types rule
 - remove dbs and all other endpoints but /feedback.
+- add piracy glossary somewhere.
 
 ### Design
 
 - TYPOGRAPHY => spend some time on fixing the typography => look into shadcn-typography. better replace mantine w. shadcn. (toc drawer also needs a new design)
-- stlye /base64 similar to /oldbase64
+- style /base64 similar to /oldbase64
 
 ### Markdown related
 
 - see if dom issues can be fixed eg: (Warning: Received `true` for a non-boolean attribute `inline`.), probably can be fixed w. some remark package.
+- for links hardcode reddit mappings to the corresponding page on the website.
+- move all the notestarters,warningstarters,etc form all differetn renderers logic to single place.
+- fix links overlapping in beginners-guide, also fix notes hidden in b/w text in beginners-guide
 
 ### Search
 
