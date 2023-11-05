@@ -31,6 +31,7 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 - move dl-wiki script into a cron job
 - add sitemap, all that good seo stuff
 - use stricter lint rules ,for eg: the dont use "!" to types rule
+- remove dbs and all other endpoints but /feedback.
 
 ### Design
 
