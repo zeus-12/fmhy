@@ -18,8 +18,8 @@ const MarkdownRenderer = ({
   children,
   components,
 }: {
-  category: string;
-  starredLinks: boolean;
+  category?: string;
+  starredLinks?: boolean;
   children: string;
   components?:
     | Partial<

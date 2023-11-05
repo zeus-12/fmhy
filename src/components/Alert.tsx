@@ -1,3 +1,4 @@
+import MarkdownRenderer from "@/components/MarkdownRenderer";
 import { Alert } from "@mantine/core";
 import { AlertCircle, Siren } from "lucide-react";
 import { ReactNode } from "react";
@@ -32,7 +33,7 @@ export const AlertComponent: React.FC<{
       title={title}
       color={color}
     >
-      {message}
+      <MarkdownRenderer>{message}</MarkdownRenderer>
     </Alert>
   );
 };

@@ -4,11 +4,11 @@ import { NoteAlert, WarningAlert } from "@/components/Alert";
 import {
   HeadingRendererHelper,
   classMapping,
-  getTextFromProps,
+  getPlainTextFromProps,
   redirectRedditAndGithubLinksToWebsite,
 } from "./utils";
 import { Accordion } from "@mantine/core";
-import { cn } from "@/lib/utils";
+import { cn, getMarkdownFromProps } from "@/lib/utils";
 import { fontMono } from "@/lib/fonts";
 import ReactMarkdown from "react-markdown";
 import { beginnersGuideFaqs } from "@/lib/CONSTANTS";
@@ -48,8 +48,11 @@ export function LinkRenderer(props: any) {
   );
 }
 
-export function LiRenderer(props: any, showOnlyStarredLinks: boolean) {
-  const text = getTextFromProps(props);
+export function LiRenderer(props: any, showOnlyStarredLinks?: boolean) {
+  const text = getPlainTextFromProps(props);
+
+  const md = getMarkdownFromProps(props);
+  console.log(md);
 
   const isStarred = text.startsWith("⭐");
 
@@ -82,32 +85,32 @@ export function LiRenderer(props: any, showOnlyStarredLinks: boolean) {
 }
 
 export const PRenderer = (props: any) => {
-  const text = getTextFromProps(props);
+  const md = getMarkdownFromProps(props);
 
   const NOTE_STARTERS = ["!!!note", "Note - ", "!!!info"];
   const WARNING_STARTERS = ["!!!warning", "Warning - "];
 
-  const noteStarter = NOTE_STARTERS.find((item) => text.startsWith(item));
+  const noteStarter = NOTE_STARTERS.find((item) => md.startsWith(item));
   if (noteStarter) {
-    const message = text.split(noteStarter)[1];
+    const message = md.split(noteStarter)[1];
     return <NoteAlert message={message} />;
   }
 
-  const warningStarter = WARNING_STARTERS.find((item) => text.startsWith(item));
+  const warningStarter = WARNING_STARTERS.find((item) => md.startsWith(item));
   if (warningStarter) {
-    const message = text.split(warningStarter)[1];
+    const message = md.split(warningStarter)[1];
     return <WarningAlert message={message} />;
   } else {
     return <p>{props.children}</p>;
   }
 };
 
-export const CodeRenderer = (props: any, category: string) => {
+export const CodeRenderer = (props: any, category?: string) => {
   if (category !== "base64") {
     return <code {...props} />;
   } else {
     try {
-      const text = getTextFromProps(props);
+      const text = getPlainTextFromProps(props);
       const decrypted = atob(text);
       const split = decrypted.split("\n");
       return (
@@ -147,8 +150,8 @@ const FaqMarkdownRenderer = ({ children }: { children: string }) => {
   );
 };
 
-export const BlockquoteRenderer = (props: any, category: string) => {
-  if (category.toLowerCase() !== "beginners-guide") {
+export const BlockquoteRenderer = (props: any, category?: string) => {
+  if (!category || category.toLowerCase() !== "beginners-guide") {
     return <blockquote>{props.children}</blockquote>;
   }
 
@@ -191,7 +194,7 @@ const STARRED = "Starred";
 const UNSTARRED = "Unstarred";
 
 export const changelogsPRenderer = (props: any) => {
-  const text = getTextFromProps(props);
+  const text = getPlainTextFromProps(props);
   const firstWord = text.split(" ")[0];
 
   const isUnstarred = firstWord.includes(UNSTARRED);

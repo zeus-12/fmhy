@@ -18,7 +18,7 @@ export const removeSlashesForToc = (text: string) =>
   text.replaceAll(" / ", " ")?.replaceAll("/", "");
 
 export function HeadingRendererHelper(props: any, slugger: any) {
-  const text = getTextFromProps(props);
+  const text = getPlainTextFromProps(props);
   const cleanedText = removeSlashesForToc(text);
 
   const immediateChild = props.node.children[0];
@@ -41,7 +41,7 @@ export function flatten(text: string, child: any): any {
     : Children.toArray(child.props.children).reduce(flatten, text);
 }
 
-export function getTextFromProps(props: any) {
+export function getPlainTextFromProps(props: any) {
   const children = Children.toArray(props.children);
   const text = children.reduce(flatten, "");
   return text;
