@@ -26,7 +26,6 @@
     "@tanstack/react-query-devtools": "^4.29.7",
     "cheerio": "1.0.0-rc.12",
     "clsx": "^1.2.1",
-    "cors": "^2.8.5",
     "flexsearch": "0.7.21",
     "github-slugger": "^2.0.0",
     "googleapis": "^123.0.0",
