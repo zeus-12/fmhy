@@ -15,7 +15,7 @@ export const LinkElements = () => {
   const curLink = router.pathname;
 
   return (
-    <div className="text-gray-300 text-sm xs:text-base sm:text-lg font-medium flex gap-4 sm:gap-6 lg:gap-8">
+    <div className="text-gray-300 text-base sm:text-lg font-medium flex gap-4 sm:gap-6 lg:gap-8">
       {navItems.map((item, index) => (
         <Link key={index} href={item.link}>
           <p
