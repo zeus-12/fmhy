@@ -14,6 +14,8 @@ import { slug as githubSlug } from "github-slugger";
 import { LiRenderer, LinkRenderer } from "@/lib/wiki/renderers";
 import { removeSlashesForToc } from "@/lib/wiki/utils";
 
+const SEARCH_RESULTS_LIMIT = 100;
+
 const Search = () => {
   const { push, query, isReady } = useRouter();
 
@@ -142,7 +144,7 @@ const LocalSearch = ({ query }: { query: string }) => {
   }, []);
 
   useEffect(() => {
-    setResults(index.search(debouncedQuery, 100));
+    setResults(index.search(debouncedQuery, SEARCH_RESULTS_LIMIT));
   }, [debouncedQuery]);
 
   const finalResult = results?.map(
@@ -171,7 +173,7 @@ const LocalSearch = ({ query }: { query: string }) => {
       <div>
         {debouncedQuery && (
           <p className="text-gray-400 mb-2">
-            {results?.length === 100 ? "> " : " "}
+            {results?.length === SEARCH_RESULTS_LIMIT ? "> " : " "}
             {results?.length} results{" "}
           </p>
         )}
@@ -185,8 +187,6 @@ const LocalSearch = ({ query }: { query: string }) => {
           <>no result found</>
         ) : (
           finalResult?.map((result: DlWikiLinkType, idx) => (
-            // make sure links inside the markdown should override this
-
             <div
               key={idx}
               className="rounded-xl list-none my-2"
@@ -213,8 +213,9 @@ const LocalSearch = ({ query }: { query: string }) => {
                   )}
                 >
                   {result.category && (
-                    <div className="max-w-[80vw] ">
+                    <div className="max-w-[80vw]">
                       <Badge
+                        className="py-3"
                         fullWidth
                         leftSection={
                           <>
