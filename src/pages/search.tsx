@@ -10,9 +10,11 @@ import { useDebouncedValue } from "@mantine/hooks";
 import WikiData from "@/scraper/wiki.json";
 import { Index } from "flexsearch";
 import { DlWikiLinkType } from "@/scraper/dl-wiki";
-import { slug as githubSlug } from "github-slugger";
 import { LiRenderer, LinkRenderer } from "@/lib/wiki/renderers";
-import { removeSlashesForToc } from "@/lib/wiki/utils";
+import {
+  generateWikiLinkFromCategories,
+  stripLinksFromMarkdown,
+} from "@/lib/wiki/utils";
 
 const SEARCH_RESULTS_LIMIT = 100;
 
@@ -37,9 +39,7 @@ const Search = () => {
 
   const navigatePage = (query: string) => {
     let params = new URLSearchParams(window.location.search);
-    if (query !== undefined) {
-      params.set("q", query);
-    }
+    params.set("q", query);
 
     push({
       pathname: "/search",
@@ -120,20 +120,9 @@ const LocalSearch = ({ query }: { query: string }) => {
   );
   const [results, setResults] = useState<any[]>();
 
-  function extractText(input: string) {
-    input = input.replace(/<[^>]+>/g, "");
-
-    const regex = /(\[([^\]]+)\]\([^\)]+\))/g;
-    input = input.replace(regex, "$2");
-
-    input = input.trim();
-
-    return input;
-  }
-
   useEffect(() => {
     (WikiData as DlWikiLinkType[]).forEach((item, id) => {
-      const itemWithoutLinks = extractText(item.content);
+      const itemWithoutLinks = stripLinksFromMarkdown(item.content);
       setIndex(
         index.add(
           id,
@@ -150,23 +139,6 @@ const LocalSearch = ({ query }: { query: string }) => {
   const finalResult = results?.map(
     (result) => (WikiData as DlWikiLinkType[])[result]
   );
-
-  // change category types to the one in constants.ts
-  const generateLink = (
-    category: string,
-    subcategory: string,
-    subsubcategory: string
-  ) => {
-    if (!category) return "";
-
-    return `/${githubSlug(removeSlashesForToc(category.toLowerCase()))}#${
-      subsubcategory
-        ? githubSlug(removeSlashesForToc(subsubcategory.toLowerCase()))
-        : subcategory
-        ? githubSlug(removeSlashesForToc(subcategory.toLowerCase()))
-        : ""
-    }`;
-  };
 
   return (
     <div>
@@ -206,7 +178,7 @@ const LocalSearch = ({ query }: { query: string }) => {
 
               <div className="flex gap-2">
                 <Link
-                  href={generateLink(
+                  href={generateWikiLinkFromCategories(
                     result.category,
                     result.subcategory,
                     result.subsubcategory

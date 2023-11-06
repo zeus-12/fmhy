@@ -144,3 +144,29 @@ export function redirectGithubLinksToWebsite(link: string) {
 
 const REDDIT_WIKI_URL = "https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/";
 const GITHUB_WIKI_URL = "https://github.com/nbats/FMHYedit/blob/main/";
+
+export const generateWikiLinkFromCategories = (
+  category: string,
+  subcategory: string,
+  subsubcategory: string
+) => {
+  if (!category) return "";
+
+  return `/${githubSlug(removeSlashesForToc(category.toLowerCase()))}#${
+    subsubcategory
+      ? githubSlug(removeSlashesForToc(subsubcategory.toLowerCase()))
+      : subcategory
+      ? githubSlug(removeSlashesForToc(subcategory.toLowerCase()))
+      : ""
+  }`;
+};
+
+export const stripLinksFromMarkdown = (input: string) => {
+  input = input.replace(/<[^>]+>/g, "");
+
+  const regex = /(\[([^\]]+)\]\([^\)]+\))/g;
+  input = input.replace(regex, "$2");
+  input = input.trim();
+
+  return input;
+};
