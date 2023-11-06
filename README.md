@@ -37,7 +37,7 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 ### Design
 
 - TYPOGRAPHY => spend some time on fixing the typography => look into shadcn-typography. better replace mantine w. shadcn. (toc drawer also needs a new design)
-- style /base64 similar to /oldbase64
+- maybe, style /base64 similar to /oldbase64??
 
 ### Markdown related
 
@@ -48,8 +48,6 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 
 ### Search
 
-- remove db search
 - add a "copy item as markdown" button right next to each entry in search.
-- on clicking the category of any items in search results, make sure to add the current searchq to the url history. that way when the user goes back, the previous results shows
 - use react-virtualised, and remove limits for the search
 - assign github-slugger-ids to each guide; also make the guides search filter-able by query params -> and add within search to spotlight
