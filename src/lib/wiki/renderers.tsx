@@ -52,7 +52,6 @@ export function LiRenderer(props: any, showOnlyStarredLinks?: boolean) {
   const text = getPlainTextFromProps(props);
 
   const md = getMarkdownFromProps(props);
-  console.log(md);
 
   const isStarred = text.startsWith("⭐");
 
