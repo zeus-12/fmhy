@@ -133,6 +133,14 @@ const LocalSearch = ({ query }: { query: string }) => {
   }, []);
 
   useEffect(() => {
+    if (!debouncedQuery) return;
+
+    // update url history
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("q", debouncedQuery);
+    const newUrl = window.location.pathname + "?" + urlParams.toString();
+    history.pushState(null, "", newUrl);
+
     setResults(index.search(debouncedQuery, SEARCH_RESULTS_LIMIT));
   }, [debouncedQuery]);
 
