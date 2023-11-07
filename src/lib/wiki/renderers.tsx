@@ -4,11 +4,12 @@ import { NoteAlert, WarningAlert } from "@/components/Alert";
 import {
   HeadingRendererHelper,
   classMapping,
+  getMarkdownFromProps,
   getPlainTextFromProps,
   redirectRedditAndGithubLinksToWebsite,
 } from "./utils";
 import { Accordion } from "@mantine/core";
-import { cn, getMarkdownFromProps } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { fontMono } from "@/lib/fonts";
 import { beginnersGuideFaqs } from "@/lib/CONSTANTS";
 import MarkdownRenderer from "@/components/MarkdownRenderer";

@@ -1,7 +1,8 @@
 import { Children } from "react";
 import { slug as githubSlug } from "github-slugger";
 import { devLog } from "@/lib/utils";
-
+import { toMdast } from "hast-util-to-mdast";
+import { toMarkdown } from "mdast-util-to-markdown";
 interface ClassMappingType {
   [key: string]: string;
 }
@@ -169,10 +170,14 @@ export const generateWikiLinkFromCategories = (
 
 export const stripLinksFromMarkdown = (input: string) => {
   input = input.replace(/<[^>]+>/g, "");
-
   const regex = /(\[([^\]]+)\]\([^\)]+\))/g;
-  input = input.replace(regex, "$2");
-  input = input.trim();
+  return input.replace(regex, "$2").trim();
 
   return input;
+};
+
+export const getMarkdownFromProps = (props: any) => {
+  const mdast = toMdast(props.node);
+  const md = toMarkdown(mdast);
+  return md;
 };
