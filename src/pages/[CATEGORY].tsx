@@ -172,9 +172,6 @@ export async function getStaticProps({
     const ignoreList = ["", "***", "***\r", "\r", "****"];
 
     const ignoreStarters = [
-      "* **Note**",
-      "**Note**",
-      "**Warning**",
       "**[Table of Contents]",
       "**[◄◄ Back to Wiki Index]",
       "**Use [redirect bypassers]",
@@ -218,6 +215,8 @@ export async function getStaticProps({
     if (CATEGORY === "beginners-guide") {
       cleanedText = cleanedText.replace(/\n\*\*\[/g, "\n* **[");
     }
+
+    console.log(cleanedText);
 
     const toc = await getTableOfContents(cleanedText);
 
