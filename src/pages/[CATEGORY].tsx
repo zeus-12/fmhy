@@ -194,7 +194,7 @@ export async function getStaticProps({
 
     const joinedText = cleanedList.join("\n");
 
-    const cleanedText = (joinedText.split("For mobile users")[1] ?? joinedText)
+    let cleanedText = (joinedText.split("For mobile users")[1] ?? joinedText)
       ?.replaceAll("►", "")
       ?.replaceAll("▷", "")
       ?.replace("#### How-to Decode Links", "")
@@ -213,6 +213,11 @@ export async function getStaticProps({
 * https://rentry.co/FMHYBase64`,
         ""
       );
+
+    // FIX links appearing in single line in beginners-guide
+    if (CATEGORY === "beginners-guide") {
+      cleanedText = cleanedText.replace(/\n\*\*\[/g, "\n* **[");
+    }
 
     const toc = await getTableOfContents(cleanedText);
 
