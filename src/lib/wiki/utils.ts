@@ -90,7 +90,13 @@ export const githubToRedditTitleMapping = generateReverseDictionary(
   redditToGithubTitleMapping
 );
 
+const LINK_REDIRECT: Record<string, string> = {};
+
 export function redirectRedditAndGithubLinksToWebsite(link: string) {
+  if (link in LINK_REDIRECT) {
+    return LINK_REDIRECT[link];
+  }
+
   if (link.startsWith(REDDIT_WIKI_URL)) {
     return redirectRedditLinksToWebsite(link);
   } else if (link.startsWith(GITHUB_WIKI_URL)) {
