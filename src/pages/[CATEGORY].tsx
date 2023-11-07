@@ -1,4 +1,3 @@
-import React, { useRef } from "react";
 import { useEffect, useState } from "react";
 import { MARKDOWN_RESOURCES, isDevEnv, testData } from "@/lib/CONSTANTS";
 import { Switch } from "@mantine/core";
