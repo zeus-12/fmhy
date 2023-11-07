@@ -53,9 +53,6 @@ export function LiRenderer(props: any, showOnlyStarredLinks?: boolean) {
   const md = getMarkdownFromProps(props);
   const isStarred = md.includes("⭐");
 
-  const NOTE_STARTERS = ["!!!note", "Note - ", "!!!info"];
-  const WARNING_STARTERS = ["!!!warning", "Warning - "];
-
   const noteStarter = NOTE_STARTERS.find((item) => md.includes(item));
 
   // make a separate helper function to dynamically create the relevant html tag, and populate the data
@@ -96,11 +93,11 @@ export function LiRenderer(props: any, showOnlyStarredLinks?: boolean) {
   return getLinkData(md, false);
 }
 
+const NOTE_STARTERS = ["!!!note", "**Note** - ", "!!!info"];
+const WARNING_STARTERS = ["!!!warning", "**Warning** - "];
+
 export const PRenderer = (props: any) => {
   const md = getMarkdownFromProps(props);
-
-  const NOTE_STARTERS = ["!!!note", "Note - ", "!!!info"];
-  const WARNING_STARTERS = ["!!!warning", "Warning - "];
 
   const noteStarter = NOTE_STARTERS.find((item) => md.includes(item));
   if (noteStarter) {
