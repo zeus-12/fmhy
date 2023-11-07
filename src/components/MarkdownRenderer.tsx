@@ -41,7 +41,7 @@ const MarkdownRenderer = ({
         a: LinkRenderer,
         li: (props: any) => LiRenderer(props, starredLinks), //for storage only
         hr: () => <></>,
-        code: (props: any) => CodeRenderer(props, category),
+        code: (props: any) => CodeRenderer(props, category), // for base64 only
         ul: (props: any) => UlRenderer(props),
         blockquote: (props: any) => BlockquoteRenderer(props, category),
         ...components,
