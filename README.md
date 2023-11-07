@@ -43,8 +43,7 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 
 - see if dom issues can be fixed eg: (Warning: Received `true` for a non-boolean attribute `inline`.), probably can be fixed w. some remark package.
 - for links hardcode reddit mappings to the corresponding page on the website.
-- move all the notestarters,warningstarters,etc form all differetn renderers logic to single place.
-- fix links overlapping in beginners-guide, also fix notes hidden in b/w text in beginners-guide
+- move all the notestarters,warningstarters,etc form all differetn renderers logic to single place: (`LiRenderer` is working fine => abstract the logic from there, and reuse)
 
 ### Search
 
