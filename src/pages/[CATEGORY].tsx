@@ -216,8 +216,6 @@ export async function getStaticProps({
       cleanedText = cleanedText.replace(/\n\*\*\[/g, "\n* **[");
     }
 
-    console.log(cleanedText);
-
     const toc = await getTableOfContents(cleanedText);
 
     return {
