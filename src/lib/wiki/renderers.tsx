@@ -10,8 +10,9 @@ import {
 import { Accordion } from "@mantine/core";
 import { cn, getMarkdownFromProps } from "@/lib/utils";
 import { fontMono } from "@/lib/fonts";
-import ReactMarkdown from "react-markdown";
 import { beginnersGuideFaqs } from "@/lib/CONSTANTS";
+import MarkdownRenderer from "@/components/MarkdownRenderer";
+import ReactMarkdown from "react-markdown";
 
 export const HeadingRenderer = (
   props: any,
@@ -49,38 +50,50 @@ export function LinkRenderer(props: any) {
 }
 
 export function LiRenderer(props: any, showOnlyStarredLinks?: boolean) {
-  const text = getPlainTextFromProps(props);
-
   const md = getMarkdownFromProps(props);
+  const isStarred = md.includes("⭐");
 
-  const isStarred = text.startsWith("⭐");
+  const NOTE_STARTERS = ["!!!note", "Note - ", "!!!info"];
+  const WARNING_STARTERS = ["!!!warning", "Warning - "];
 
-  if (text.startsWith("Note - ")) {
-    const message = text.split("Note - ")[1];
-    return <NoteAlert message={message} />;
-  } else if (text.startsWith("https://") || text.startsWith("http://")) {
-    const splitText = text.split(" ");
-    const link = splitText[0];
+  const noteStarter = NOTE_STARTERS.find((item) => md.includes(item));
 
-    return (
-      <li>
-        <Link
-          href={link}
-          className={cn("break-words font-semibold ", fontMono.className)}
-        >
-          {link}
-        </Link>
-        <span>{splitText.slice(1).join(" ")}</span>
-      </li>
-    );
-  } else {
+  // make a separate helper function to dynamically create the relevant html tag, and populate the data
+  const getLinkData = (md: string, isModified: boolean) => {
     if (showOnlyStarredLinks && !isStarred) return <></>;
+
+    if (!isModified) {
+      return (
+        <li className={`list-disc ml-6 my-2 text-md text-slate-200 `}>
+          {props.children}
+        </li>
+      );
+    }
+    return <UnstyledMarkdownRenderer>{md}</UnstyledMarkdownRenderer>;
+  };
+
+  if (noteStarter) {
+    const splitData = md.split(noteStarter);
     return (
-      <li className={`list-disc ml-6 my-2 text-md text-slate-200 `}>
-        {props.children}
-      </li>
+      <>
+        {getLinkData(splitData[0], true)}
+        <NoteAlert message={splitData[1]} />
+      </>
     );
   }
+
+  const warningStarter = WARNING_STARTERS.find((item) => md.includes(item));
+  if (warningStarter) {
+    const splitData = md.split(warningStarter);
+    return (
+      <>
+        {getLinkData(splitData[0], true)}
+        <WarningAlert message={splitData[1]} />
+      </>
+    );
+  }
+
+  return getLinkData(md, false);
 }
 
 export const PRenderer = (props: any) => {
@@ -89,10 +102,15 @@ export const PRenderer = (props: any) => {
   const NOTE_STARTERS = ["!!!note", "Note - ", "!!!info"];
   const WARNING_STARTERS = ["!!!warning", "Warning - "];
 
-  const noteStarter = NOTE_STARTERS.find((item) => md.startsWith(item));
+  const noteStarter = NOTE_STARTERS.find((item) => md.includes(item));
   if (noteStarter) {
     const message = md.split(noteStarter)[1];
-    return <NoteAlert message={message} />;
+    return (
+      <>
+        <MarkdownRenderer>{md.split(noteStarter)[0]}</MarkdownRenderer>
+        <NoteAlert message={message} />
+      </>
+    );
   }
 
   const warningStarter = WARNING_STARTERS.find((item) => md.startsWith(item));
@@ -132,6 +150,22 @@ export const CodeRenderer = (props: any, category?: string) => {
       return <code {...props} />;
     }
   }
+};
+
+// update this w.o any padding or margin => such that calling this multiple times wont change the elements appearance
+const UnstyledMarkdownRenderer = ({ children }: { children: string }) => {
+  return (
+    <ReactMarkdown
+      components={{
+        a: LinkRenderer,
+        // p: PRenderer, // for beginners guide only
+        // li: LiRenderer, //for storage only
+        // code: CodeRenderer,
+      }}
+    >
+      {children}
+    </ReactMarkdown>
+  );
 };
 
 const FaqMarkdownRenderer = ({ children }: { children: string }) => {
