@@ -7,9 +7,7 @@ import {
   UlRenderer,
   BlockquoteRenderer,
 } from "@/lib/wiki/renderers";
-import ReactMarkdown from "react-markdown";
-import { SpecialComponents } from "react-markdown/lib/ast-to-react";
-import { NormalComponents } from "react-markdown/lib/complex-types";
+import ReactMarkdown, { Components } from "react-markdown";
 import GithubSlugger from "github-slugger";
 
 const MarkdownRenderer = ({
@@ -21,11 +19,7 @@ const MarkdownRenderer = ({
   category?: string;
   starredLinks?: boolean;
   children: string;
-  components?:
-    | Partial<
-        Omit<NormalComponents, keyof SpecialComponents> & SpecialComponents
-      >
-    | undefined;
+  components?: Partial<Components> | null | undefined;
 }) => {
   const slugger = new GithubSlugger();
   slugger.reset();
@@ -33,17 +27,17 @@ const MarkdownRenderer = ({
   return (
     <ReactMarkdown
       components={{
-        h1: (props: any) => HeadingRenderer(props, 1, slugger),
-        h2: (props: any) => HeadingRenderer(props, 2, slugger),
-        h3: (props: any) => HeadingRenderer(props, 3, slugger), //for beginners guide only
-        h4: (props: any) => HeadingRenderer(props, 4, slugger), //for storage only
+        h1: (props) => HeadingRenderer(props, 1, slugger),
+        h2: (props) => HeadingRenderer(props, 2, slugger),
+        h3: (props) => HeadingRenderer(props, 3, slugger), //for beginners guide only
+        h4: (props) => HeadingRenderer(props, 4, slugger), //for storage only
         p: PRenderer, // for beginners guide only
         a: LinkRenderer,
-        li: (props: any) => LiRenderer(props, starredLinks), //for storage only
+        li: (props) => LiRenderer(props, starredLinks), //for storage only
         hr: () => <></>,
-        code: (props: any) => CodeRenderer(props, category), // for base64 only
-        ul: (props: any) => UlRenderer(props),
-        blockquote: (props: any) => BlockquoteRenderer(props, category),
+        code: (props) => CodeRenderer(props, category), // for base64 only
+        ul: (props) => UlRenderer(props),
+        blockquote: (props) => BlockquoteRenderer(props, category),
         ...components,
       }}
     >

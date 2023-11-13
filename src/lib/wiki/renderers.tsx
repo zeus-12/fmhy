@@ -1,4 +1,4 @@
-import { createElement } from "react";
+import { ClassAttributes, HTMLAttributes, createElement } from "react";
 import Link from "@/components/Link";
 import { NoteAlert, WarningAlert } from "@/components/Alert";
 import {
@@ -13,10 +13,12 @@ import { cn } from "@/lib/utils";
 import { fontMono } from "@/lib/fonts";
 import { beginnersGuideFaqs } from "@/lib/CONSTANTS";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown, { ExtraProps } from "react-markdown";
+
+type PropsType<T> = ClassAttributes<T> & HTMLAttributes<T> & ExtraProps;
 
 export const HeadingRenderer = (
-  props: any,
+  props: PropsType<HTMLHeadingElement>,
   level: 1 | 2 | 3 | 4,
   slugger: any
 ) => {
@@ -36,9 +38,9 @@ export const HeadingRenderer = (
   );
 };
 
-export function LinkRenderer(props: any) {
-  const newProps = { ...props };
-  let href = redirectRedditAndGithubLinksToWebsite(newProps.href);
+export function LinkRenderer(props: PropsType<HTMLAnchorElement>) {
+  const newProps = { ...props } as any;
+  let href = redirectRedditAndGithubLinksToWebsite(newProps?.href);
 
   return (
     <Link
@@ -50,7 +52,10 @@ export function LinkRenderer(props: any) {
   );
 }
 
-export function LiRenderer(props: any, showOnlyStarredLinks?: boolean) {
+export function LiRenderer(
+  props: PropsType<HTMLLIElement>,
+  showOnlyStarredLinks?: boolean
+) {
   const md = getMarkdownFromProps(props);
   const isStarred = md.includes("⭐");
 
@@ -97,7 +102,7 @@ export function LiRenderer(props: any, showOnlyStarredLinks?: boolean) {
 const NOTE_STARTERS = ["!!!note", "**Note** - ", "!!!info"];
 const WARNING_STARTERS = ["!!!warning", "**Warning** - "];
 
-export const PRenderer = (props: any) => {
+export const PRenderer = (props: PropsType<HTMLParagraphElement>) => {
   const md = getMarkdownFromProps(props);
 
   const noteStarter = NOTE_STARTERS.find((item) => md.includes(item));
@@ -120,7 +125,10 @@ export const PRenderer = (props: any) => {
   }
 };
 
-export const CodeRenderer = (props: any, category?: string) => {
+export const CodeRenderer = (
+  props: PropsType<HTMLElement>,
+  category?: string
+) => {
   if (category !== "base64") {
     return <code {...props} />;
   } else {
@@ -155,7 +163,7 @@ const UnstyledMarkdownRenderer = ({ children }: { children: string }) => {
   return (
     <ReactMarkdown
       components={{
-        a: LinkRenderer,
+        a: (props) => LinkRenderer(props),
         // p: PRenderer, // for beginners guide only
         // li: LiRenderer, //for storage only
         // code: CodeRenderer,
@@ -181,7 +189,10 @@ const FaqMarkdownRenderer = ({ children }: { children: string }) => {
   );
 };
 
-export const BlockquoteRenderer = (props: any, category?: string) => {
+export const BlockquoteRenderer = (
+  props: PropsType<HTMLQuoteElement>,
+  category?: string
+) => {
   if (!category || category.toLowerCase() !== "beginners-guide") {
     return <blockquote>{props.children}</blockquote>;
   }
@@ -204,7 +215,7 @@ export const BlockquoteRenderer = (props: any, category?: string) => {
   );
 };
 
-export const UlRenderer = (props: any) => {
+export const UlRenderer = (props: PropsType<HTMLUListElement>) => {
   return (
     <ul
       className="rounded-xl list-none"
@@ -224,7 +235,7 @@ const REMOVAL_STARTERS = ["Removed"];
 const STARRED = "Starred";
 const UNSTARRED = "Unstarred";
 
-export const changelogsPRenderer = (props: any) => {
+export const changelogsPRenderer = (props: PropsType<HTMLParagraphElement>) => {
   const text = getPlainTextFromProps(props);
   const firstWord = text.split(" ")[0];
 
