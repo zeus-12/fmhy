@@ -97,6 +97,7 @@ const Search = () => {
         />
 
         <LocalSearch query={searchQuery} />
+        {/* <MiniSearchLocalSearch query={searchQuery} /> */}
       </div>
     </>
   );
@@ -230,3 +231,131 @@ const LocalSearch = ({ query }: { query: string }) => {
     </div>
   );
 };
+
+// import { useMiniSearch } from "react-minisearch";
+
+// const MiniSearchLocalSearch = ({ query }: { query: string }) => {
+//   const [debouncedQuery] = useDebouncedValue(query, 150);
+
+//   // const [index, setIndex] = useState(
+//   //   new Index({
+//   //     tokenize: "forward",
+//   //     language: "en",
+//   //     preset: "score",
+//   //     cache: true,
+
+//   //     // give more weight to categories, and links with "⭐"
+
+//   //     // context: true,
+//   //   })
+//   // );
+//   const { search, searchResults } = useMiniSearch(
+//     WikiData.map((item, idx) => ({
+//       ...item,
+//       id: idx,
+//       // content: stripLinksFromMarkdown(item.content),
+//     })),
+
+//     {
+//       fields: ["content", "subsubcategory", "subcategory"],
+//       searchOptions: {
+//         fuzzy: 0.2,
+//       },
+
+//       processTerm(term, fieldName) {
+//         if (fieldName === "content") {
+//           return stripLinksFromMarkdown(term);
+//         }
+//         return term;
+//       },
+//     }
+//   );
+
+//   useEffect(() => {
+//     if (!debouncedQuery) return;
+
+//     search(debouncedQuery, {});
+//   }, [debouncedQuery]);
+
+//   return (
+//     <div>
+//       <div>
+//         {/* {debouncedQuery && (
+//           <p className="text-gray-400 mb-2">
+//             {searchResults?.length === SEARCH_RESULTS_LIMIT ? "> " : " "}
+//             {searchResults?.length} results{" "}
+//           </p>
+//         )} */}
+
+//         {!query ? (
+//           <></>
+//         ) : debouncedQuery !== query ? (
+//           // <p className="text-gray-400">loading</p>
+//           <></>
+//         ) : searchResults?.length === 0 ? (
+//           <>no result found</>
+//         ) : (
+//           searchResults?.map((result: DlWikiLinkType, idx) => (
+//             <div
+//               key={idx}
+//               className="rounded-xl list-none my-2"
+//               style={{
+//                 background: "#11151F",
+//                 padding: "0.5rem 1rem",
+//               }}
+//             >
+//               <ReactMarkdown
+//                 components={{
+//                   a: LinkRenderer,
+//                   li: (props: any) => LiRenderer(props, false), //for storage only
+//                 }}
+//               >
+//                 {result.content}
+//               </ReactMarkdown>
+
+//               <div className="flex gap-2">
+//                 <Link
+//                   href={generateWikiLinkFromCategories(
+//                     result.category,
+//                     result.subcategory,
+//                     result.subsubcategory
+//                   )}
+//                 >
+//                   {result.category && (
+//                     <div className="max-w-[80vw]">
+//                       <Badge
+//                         className="py-3"
+//                         fullWidth
+//                         leftSection={
+//                           <>
+//                             {
+//                               MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING[
+//                                 result.category.toLowerCase()
+//                               ]
+//                             }
+//                           </>
+//                         }
+//                       >
+//                         {result.category}{" "}
+//                         {result.subcategory && (
+//                           <>
+//                             <span>/</span> {result.subcategory}{" "}
+//                           </>
+//                         )}
+//                         {result.subsubcategory && (
+//                           <>
+//                             <span>/</span> {result.subsubcategory}
+//                           </>
+//                         )}
+//                       </Badge>
+//                     </div>
+//                   )}
+//                 </Link>
+//               </div>
+//             </div>
+//           ))
+//         )}
+//       </div>
+//     </div>
+//   );
+// };

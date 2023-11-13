@@ -65,6 +65,9 @@ dependencies:
   mdast-util-toc:
     specifier: ^6.1.1
     version: 6.1.1
+  minisearch:
+    specifier: ^6.2.0
+    version: 6.2.0
   next:
     specifier: 14.0.0
     version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
@@ -86,6 +89,9 @@ dependencies:
   react-markdown:
     specifier: ^8.0.7
     version: 8.0.7(@types/react@18.2.6)(react@18.2.0)
+  react-minisearch:
+    specifier: ^6.2.0
+    version: 6.2.0(minisearch@6.2.0)(react@18.2.0)
   react-wrap-balancer:
     specifier: ^1.0.0
     version: 1.1.0(react@18.2.0)
@@ -3825,6 +3831,10 @@ packages:
   /minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
 
+  /minisearch@6.2.0:
+    resolution: {integrity: sha512-BECkorDF1TY2rGKt9XHdSeP9TP29yUbrAaCh/C03wpyf1vx3uYcP/+8XlMcpTkgoU0rBVnHMAOaP83Rc9Tm+TQ==}
+    dev: false
+
   /mkdirp-classic@0.5.3:
     resolution: {integrity: sha512-gKLcREMhtuZRwRAfqP3RFW+TK4JqApVBtOIftVgjuABpAtpxhPGaDcfvbhNvD0B8iD1oUr/txX35NjcaY6Ns/A==}
     dev: false
@@ -4386,6 +4396,16 @@ packages:
       vfile: 5.3.7
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /react-minisearch@6.2.0(minisearch@6.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-FUil0TiJKJyfM8PikggD4TJMH+zMgyWGKQIZlINo2INWu16wmWasDj+nueHA3FzYNGPGp8hR+X2LljQgC1MhcQ==}
+    peerDependencies:
+      minisearch: ^6.2.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      minisearch: 6.2.0
+      react: 18.2.0
     dev: false
 
   /react-property@2.0.0:
