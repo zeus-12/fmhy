@@ -86,11 +86,11 @@ const Home = () => {
           <Image
             src={"/assets/fmhy.gif"}
             alt="logo"
-            // className="w-full h-auto sm:w-3/4 md:w-2/3 mx-auto"
+            className="h-[20rem] w-auto"
             blurDataURL={blurDataUrlForLogo}
             placeholder="blur"
-            width={600}
-            height={300}
+            width={100}
+            height={100}
           />
           <div className="flex gap-2 flex-wrap justify-center">
             {quickLinks.map((item) => (
