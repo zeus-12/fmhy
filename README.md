@@ -50,3 +50,5 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 - add a "copy item as markdown" button right next to each entry in search.
 - use react-virtualised, and remove limits for the search
 - assign github-slugger-ids to each guide; also make the guides search filter-able by query params -> and add within search to spotlight
+- highlight the word searched => use any of the syntaxhighlighting extensions for react-markdown for this
+- check the `minisearch` see if its good enough to replace flexsearch => esp the fuzzysearch
