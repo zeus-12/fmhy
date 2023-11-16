@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "dev:scrape": "tsx watch ./src/scraper/dl-wiki.ts",
-    "scrape": "tsx ./src/scraper/dl-wiki.ts",
+    "dev:scrape": "tsx watch ./src/scraper/index.ts",
+    "scrape": "tsx ./src/scraper/index.ts",
     "test-format": "tsx ./src/scraper/test-format.ts"
   },
   "dependencies": {

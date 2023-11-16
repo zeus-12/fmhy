@@ -2,24 +2,26 @@ import fs from "fs";
 import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
 import fetch from "node-fetch";
 
-const data = Promise.all(
-  MARKDOWN_RESOURCES.filter((resource) => resource.dlForSearch).map(
-    (resource) => {
-      return dlWikiChunk(resource.urlEnding);
-    }
-  )
-);
-
-data.then((arrayOfArrays) => {
-  const mergedArray: DlWikiLinkType[] = arrayOfArrays.reduce(
-    (accumulator, currentArray) => {
-      return accumulator.concat(currentArray);
-    },
-    []
+const ScrapeWikiScript = () => {
+  const data = Promise.all(
+    MARKDOWN_RESOURCES.filter((resource) => resource.dlForSearch).map(
+      (resource) => {
+        return dlWikiChunk(resource.urlEnding);
+      }
+    )
   );
 
-  fs.writeFileSync("src/scraper/wiki.json", JSON.stringify(mergedArray));
-});
+  data.then((arrayOfArrays) => {
+    const mergedArray: DlWikiLinkType[] = arrayOfArrays.reduce(
+      (accumulator, currentArray) => {
+        return accumulator.concat(currentArray);
+      },
+      []
+    );
+
+    fs.writeFileSync("src/scraper/wiki.json", JSON.stringify(mergedArray));
+  });
+};
 
 export interface DlWikiLinkType {
   category: string;
@@ -106,3 +108,5 @@ async function dlWikiChunk(urlEnding: string): Promise<DlWikiLinkType[]> {
     return [];
   }
 }
+
+export default ScrapeWikiScript;
