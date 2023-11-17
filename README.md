@@ -33,6 +33,7 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 - use stricter lint rules ,for eg: the dont use "!" to types rule
 - remove dbs and all other endpoints but /feedback.
 - add piracy glossary somewhere.
+- get rid of prisma => since no db being used
 
 ### Design
 
