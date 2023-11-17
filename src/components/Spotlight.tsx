@@ -104,14 +104,14 @@ export const SpotlightProvider = ({
 
     // filter to remove "Home"
 
-    ...MARKDOWN_RESOURCES.filter((item) => item.urlEnding).map((res) => ({
-      title: res.title,
-      group: "wiki",
-      description: "Wiki",
-      onTrigger: () => {
-        router.push(`/${res.urlEnding}`);
-      },
-    })),
+    // ...MARKDOWN_RESOURCES.filter((item) => item.urlEnding).map((res) => ({
+    //   title: res.title,
+    //   group: "wiki",
+    //   description: "Wiki",
+    //   onTrigger: () => {
+    //     router.push(`/${res.urlEnding}`);
+    //   },
+    // })),
   ];
 
   return (

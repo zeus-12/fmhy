@@ -33,6 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <SpotlightProvider>
           <DefaultSeo {...SEO} />
+          <Navbar />
 
           <div
             className={cn(
@@ -41,7 +42,6 @@ export default function App({ Component, pageProps }: AppProps) {
             )}
           >
             <Notifications />
-            <Navbar />
             <div className="flex-1 flex overflow-y-scroll">
               <Component {...pageProps} />
             </div>
