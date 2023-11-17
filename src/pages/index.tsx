@@ -86,7 +86,7 @@ const Home = () => {
           <Image
             src={"/assets/fmhy.gif"}
             alt="logo"
-            className="h-[20rem] w-auto"
+            className="h-[15rem] sm:h-[20rem] w-auto"
             blurDataURL={blurDataUrlForLogo}
             placeholder="blur"
             width={100}
