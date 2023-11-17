@@ -10,14 +10,7 @@ export interface GuideType {
   title: string;
 }
 
-const Guides = ({
-  guides,
-  isError,
-}: {
-  guides: GuideType[];
-  isError: boolean;
-  errorMessage?: string;
-}) => {
+const Guides = ({ guides }: { guides: GuideType[] }) => {
   const [inputText, setInputText] = useState("");
 
   const inputElement = useRef<HTMLInputElement>(null);
@@ -70,7 +63,6 @@ const Guides = ({
             placeholder="Search Guide"
           />
         </div>
-        {isError && <p>Can&apos;t connect to the server</p>}
 
         <div className="space-y-2 flex-1 flex">
           <div className="w-full">
@@ -119,17 +111,13 @@ export async function getStaticProps() {
     return {
       props: {
         guides: res,
-        isError: false,
       },
       revalidate: 60 * 60 * 24 * 2, // 2 day
     };
   } catch (err: any) {
     devLog(err.message);
     return {
-      props: {
-        guides: [],
-        isError: true,
-      },
+      notFound: true,
     };
   }
 }
