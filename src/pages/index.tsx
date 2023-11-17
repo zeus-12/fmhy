@@ -9,16 +9,16 @@ import { Badge } from "@mantine/core";
 import Balancer from "react-wrap-balancer";
 
 const quickLinks = [
-  {
-    title: "About",
-    link: "#about",
-    color: "cyan",
-  },
-  {
-    title: "FAQs",
-    link: "#faq",
-    color: "pink",
-  },
+  // {
+  //   title: "About",
+  //   link: "#about",
+  //   color: "cyan",
+  // },
+  // {
+  //   title: "FAQs",
+  //   link: "#faq",
+  //   color: "pink",
+  // },
   {
     title: "Discord",
     link: "https://discord.gg/5W9QJKuPkD",
@@ -28,6 +28,11 @@ const quickLinks = [
     title: "Feedback",
     link: "/feedback",
     color: "orange",
+  },
+  {
+    title: "Guides",
+    link: "https://rentry.co/fmhy-guides",
+    color: "pink",
   },
 ];
 
@@ -78,7 +83,7 @@ const Home = () => {
       <CategoriesSidebar markdownCategory={MARKDOWN_RESOURCES[0]} />
       <div className="flex-1 px-2 sm:px-4 md:px-8 lg:px-14 xl:px-28 overflow-scroll space-y-4 overflow-x-hidden hideScrollbar mb-4">
         <div className="justify-center min-h-full items-center flex flex-col">
-          <p className="text-5xl md:text-6xl font-semibold tracking-tighter text-center">
+          <p className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tighter text-center">
             <Balancer>
               The largest collection of Free stuff on the Internet!
             </Balancer>
@@ -86,7 +91,7 @@ const Home = () => {
           <Image
             src={"/assets/fmhy.gif"}
             alt="logo"
-            className="h-[15rem] sm:h-[20rem] w-auto"
+            className="h-[12rem] sm:h-[20rem] w-auto"
             blurDataURL={blurDataUrlForLogo}
             placeholder="blur"
             width={100}
@@ -103,7 +108,7 @@ const Home = () => {
           </div>
         </div>
 
-        <div
+        {/* <div
           className="flex gap-3 flex-col items-center xl:flex-row"
           id="about"
         >
@@ -131,7 +136,7 @@ const Home = () => {
             src={PirateImage}
             className="w-[400px] h-auto max-w-[90%]"
           />
-        </div>
+        </div> */}
 
         <div className="min-h-screen items-center flex justify-center" id="faq">
           <FAQ />

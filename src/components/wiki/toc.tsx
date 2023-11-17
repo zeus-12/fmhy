@@ -40,7 +40,7 @@ export default function TableOfContents({
           opened={open}
           className="bg-black md:hidden hideScrollbar"
           classNames={{
-            body: "mt-16 p-8",
+            body: "p-8",
             content: "hideScrollbar",
           }}
           position="right"

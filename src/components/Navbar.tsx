@@ -86,7 +86,7 @@ import { Command } from "lucide-react";
 let navItems = [
   { href: "/", name: "Home" },
   { href: "/search", name: "Search" },
-  { href: "/guides", name: "Guides" },
+  // { href: "/guides", name: "Guides" },
 ];
 
 const Navbar = () => {

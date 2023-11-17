@@ -95,10 +95,28 @@ export const SpotlightProvider = ({
     {
       title: "Guides",
       description: "Collection of useful Guides!",
-      group: "guides",
+      group: "other",
 
       onTrigger: () => {
-        router.push("/guides");
+        window.open("https://rentry.co/fmhy-guides", "_blank");
+      },
+    },
+    {
+      title: "Discord",
+      description: "Fmhy official discord server!",
+      group: "other",
+
+      onTrigger: () => {
+        window.open("https://discord.gg/5W9QJKuPkD", "_blank");
+      },
+    },
+    {
+      title: "Feedback",
+      description: "Provide feedback to improve the website!",
+      group: "other",
+
+      onTrigger: () => {
+        router.push("/feedback");
       },
     },
 

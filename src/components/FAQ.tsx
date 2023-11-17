@@ -57,7 +57,7 @@ const faqs = [
 const FAQ = () => {
   return (
     <div className="">
-      <p className="text-3xl font-semibold tracking-tighter text-center mb-4">
+      <p className="text-3xl font-semibold tracking-tighter text-center mb-6">
         Frequently Asked <span className="text-cyan-400">Questions</span>
       </p>
 

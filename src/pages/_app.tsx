@@ -42,7 +42,7 @@ export default function App({ Component, pageProps }: AppProps) {
             )}
           >
             <Notifications />
-            <div className="flex-1 flex overflow-y-scroll">
+            <div className="flex-1 flex overflow-y-scroll mt-4">
               <Component {...pageProps} />
             </div>
           </div>
