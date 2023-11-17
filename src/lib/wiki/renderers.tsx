@@ -228,34 +228,3 @@ export const UlRenderer = (props: PropsType<HTMLUListElement>) => {
     </ul>
   );
 };
-
-const ADDITION_STARTERS = ["Added"];
-const REMOVAL_STARTERS = ["Removed"];
-
-const STARRED = "Starred";
-const UNSTARRED = "Unstarred";
-
-export const changelogsPRenderer = (props: PropsType<HTMLParagraphElement>) => {
-  const text = getPlainTextFromProps(props);
-  const firstWord = text.split(" ")[0];
-
-  const isUnstarred = firstWord.includes(UNSTARRED);
-  const isStarred = firstWord.includes(STARRED);
-  const isAdditionStarter = ADDITION_STARTERS.includes(firstWord);
-  const isRemovalStarter = REMOVAL_STARTERS.includes(firstWord);
-
-  return (
-    <p
-      className={cn(
-        isAdditionStarter && "text-green-400",
-        isRemovalStarter && "text-red-400"
-      )}
-    >
-      {/* {(isUnstarred || isStarred) && (
-        <span className={cn(isUnstarred && "line-through")}>⭐️</span>
-      )} */}
-
-      {props.children}
-    </p>
-  );
-};
