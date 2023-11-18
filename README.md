@@ -27,7 +27,6 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 ### Common
 
 - reset scroll to zero upon changing wiki category: seems to be an open nextjs issue => try using the workarounds.
-- move dl-wiki script into a cron job
 - add sitemap, all that good seo stuff
 - use stricter lint rules ,for eg: the dont use "!" to types rule
 - add piracy glossary somewhere.
@@ -47,6 +46,5 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 
 - add a "copy item as markdown" button right next to each entry in search.
 - use react-virtualised, and remove limits for the search
-- assign github-slugger-ids to each guide; also make the guides search filter-able by query params -> and add within search to spotlight
 - highlight the word searched => use any of the syntaxhighlighting extensions for react-markdown for this
 - check the `minisearch` see if its good enough to replace flexsearch => esp the fuzzysearch
