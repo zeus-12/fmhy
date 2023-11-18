@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { MARKDOWN_RESOURCES, isDevEnv, testData } from "@/lib/CONSTANTS";
-import { Switch } from "@mantine/core";
+
 import BottomNavigator from "@/components/wiki/BottomNavigator";
 import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
 import { useRouter } from "next/router";
@@ -10,6 +10,7 @@ import { PanelRightOpen } from "lucide-react";
 import { NextSeo } from "next-seo";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import { devLog } from "@/lib/utils";
+import { useWiki } from "@/lib/store";
 
 const Wiki = ({
   data,
@@ -75,7 +76,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
   markdownCategory,
   toc,
 }) => {
-  const [starredLinks, setStarredLinks] = useState(false);
+  // const [starredLinks, setStarredLinks] = useState(false);
   const [isTocOpen, setIsTocOpen] = useState(false);
 
   // const linksRef = useRef(null);
@@ -90,6 +91,8 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
   //   (linksRef.current as any)?.scrollTo(0, 0);
   // }, []);
 
+  const { showOnlyStarred } = useWiki();
+
   return (
     <>
       <div
@@ -101,7 +104,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
             {markdownCategory?.title}
           </p>
           <div className="flex items-center">
-            <div className="plausible-event-name=recommended-toggle pr-6 md:pr-0">
+            {/* <div className="plausible-event-name=recommended-toggle pr-6 md:pr-0">
               <Switch
                 size="sm"
                 checked={starredLinks}
@@ -111,7 +114,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
                 offLabel={<span className="text-base">⭐️</span>}
                 onLabel={<span className="text-xs">All</span>}
               />
-            </div>
+            </div> */}
 
             {toc?.items && toc?.items.length > 0 && (
               // temp fix
@@ -127,7 +130,10 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
 
         {data && data.length > 0 && (
           <>
-            <MarkdownRenderer category={category} starredLinks={starredLinks}>
+            <MarkdownRenderer
+              category={category}
+              showOnlyStarred={showOnlyStarred}
+            >
               {data}
             </MarkdownRenderer>
 

@@ -1,7 +1,12 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { Kbd } from "@mantine/core";
+// import { Kbd } from "@mantine/core";
 import { useSpotlight } from "@mantine/spotlight";
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import { Command, Star } from "lucide-react";
+import { useWiki } from "@/lib/store";
+import { cn } from "@/lib/utils";
 
 // const navItems = [
 //   { link: "/search", name: "Search" },
@@ -79,10 +84,6 @@ export const SearchBar = () => {
 };
 // export default Navbar;
 
-import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
-import { Command } from "lucide-react";
-
 let navItems = [
   { href: "/", name: "Home" },
   { href: "/search", name: "Search" },
@@ -95,9 +96,9 @@ const Navbar = () => {
   const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);
   const router = useRouter();
 
-  useEffect(() => {
-    // setIsMounted(true);
+  const { showOnlyStarred, toggleWikiToggleStarred } = useWiki();
 
+  useEffect(() => {
     const path = window.location.pathname;
     const currentPath = path.split("/")[1];
     const currentTab = navItems.findIndex(
@@ -157,6 +158,20 @@ const Navbar = () => {
         <div className="px-4">
           <SearchBar />
         </div>
+
+        {/* hardcoding for now */}
+        {router.pathname === "/[CATEGORY]" && (
+          <div className="px-4">
+            <Star
+              onClick={toggleWikiToggleStarred}
+              size={26}
+              className={cn(
+                "text-gray-400 hover:cursor-pointer ",
+                showOnlyStarred && "fill-yellow-400 text-transparent"
+              )}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
