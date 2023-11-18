@@ -29,9 +29,6 @@ dependencies:
   '@mantine/spotlight':
     specifier: ^6.0.11
     version: 6.0.21(@mantine/core@6.0.21)(@mantine/hooks@6.0.21)(react-dom@18.2.0)(react@18.2.0)
-  '@prisma/client':
-    specifier: ^5.2.0
-    version: 5.4.2(prisma@5.4.2)
   '@tanstack/react-query':
     specifier: ^4.29.7
     version: 4.36.1(react-dom@18.2.0)(react@18.2.0)
@@ -101,6 +98,9 @@ dependencies:
   unist-util-visit:
     specifier: ^4.1.2
     version: 4.1.2
+  zustand:
+    specifier: ^4.4.6
+    version: 4.4.6(@types/react@18.2.6)(react@18.2.0)
 
 devDependencies:
   '@types/cors':
@@ -133,9 +133,6 @@ devDependencies:
   postcss:
     specifier: 8.4.23
     version: 8.4.23
-  prisma:
-    specifier: ^5.2.0
-    version: 5.4.2
   tailwindcss:
     specifier: 3.3.2
     version: 3.3.2
@@ -880,28 +877,6 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
     dev: true
-
-  /@prisma/client@5.4.2(prisma@5.4.2):
-    resolution: {integrity: sha512-2xsPaz4EaMKj1WS9iW6MlPhmbqtBsXAOeVttSePp8vTFTtvzh2hZbDgswwBdSCgPzmmwF+tLB259QzggvCmJqA==}
-    engines: {node: '>=16.13'}
-    requiresBuild: true
-    peerDependencies:
-      prisma: '*'
-    peerDependenciesMeta:
-      prisma:
-        optional: true
-    dependencies:
-      '@prisma/engines-version': 5.4.1-2.ac9d7041ed77bcc8a8dbd2ab6616b39013829574
-      prisma: 5.4.2
-    dev: false
-
-  /@prisma/engines-version@5.4.1-2.ac9d7041ed77bcc8a8dbd2ab6616b39013829574:
-    resolution: {integrity: sha512-wvupDL4AA1vf4TQNANg7kR7y98ITqPsk6aacfBxZKtrJKRIsWjURHkZCGcQliHdqCiW/hGreO6d6ZuSv9MhdAA==}
-    dev: false
-
-  /@prisma/engines@5.4.2:
-    resolution: {integrity: sha512-fqeucJ3LH0e1eyFdT0zRx+oETLancu5+n4lhiYECyEz6H2RDskPJHJYHkVc0LhkU4Uv7fuEnppKU3nVKNzMh8g==}
-    requiresBuild: true
 
   /@radix-ui/number@1.0.0:
     resolution: {integrity: sha512-Ofwh/1HX69ZfJRiRBMTy7rgjAzHmwe4kW9C9Y99HTRUcYLUuVT0KESFj15rPjRgKJs20GPq8Bm5aEDJ8DuA3vA==}
@@ -4411,14 +4386,6 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prisma@5.4.2:
-    resolution: {integrity: sha512-GDMZwZy7mysB2oXU+angQqJ90iaPFdD0rHaZNkn+dio5NRkGLmMqmXs31//tg/qXT3iB0cTQwnGGQNuirhSTZg==}
-    engines: {node: '>=16.13'}
-    hasBin: true
-    requiresBuild: true
-    dependencies:
-      '@prisma/engines': 5.4.2
-
   /process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
     dev: false
@@ -5713,6 +5680,26 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zustand@4.4.6(@types/react@18.2.6)(react@18.2.0):
+    resolution: {integrity: sha512-Rb16eW55gqL4W2XZpJh0fnrATxYEG3Apl2gfHTyDSE965x/zxslTikpNch0JgNjJA9zK6gEFW8Fl6d1rTZaqgg==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      '@types/react': '>=16.8'
+      immer: '>=9.0'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      '@types/react': 18.2.6
+      react: 18.2.0
+      use-sync-external-store: 1.2.0(react@18.2.0)
+    dev: false
 
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}

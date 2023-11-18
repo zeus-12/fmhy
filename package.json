@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "pnpm scrape && prisma generate && next build",
+    "build": "pnpm scrape  && next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
@@ -21,7 +21,6 @@
     "@mantine/next": "^6.0.11",
     "@mantine/notifications": "^6.0.11",
     "@mantine/spotlight": "^6.0.11",
-    "@prisma/client": "^5.2.0",
     "@tanstack/react-query": "^4.29.7",
     "@tanstack/react-query-devtools": "^4.29.7",
     "cheerio": "1.0.0-rc.12",
@@ -44,7 +43,8 @@
     "remark": "^14.0.3",
     "sharp": "^0.32.6",
     "tailwind-merge": "^1.13.2",
-    "unist-util-visit": "^4.1.2"
+    "unist-util-visit": "^4.1.2",
+    "zustand": "^4.4.6"
   },
   "devDependencies": {
     "@types/cors": "^2.8.15",
@@ -57,7 +57,6 @@
     "eslint": "8.41.0",
     "eslint-config-next": "14.0.0",
     "postcss": "8.4.23",
-    "prisma": "^5.2.0",
     "tailwindcss": "3.3.2",
     "tsx": "^3.12.7",
     "typescript": "5.0.4"
