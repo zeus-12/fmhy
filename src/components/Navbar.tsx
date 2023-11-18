@@ -86,18 +86,14 @@ import { Command } from "lucide-react";
 let navItems = [
   { href: "/", name: "Home" },
   { href: "/search", name: "Search" },
-  // { href: "/guides", name: "Guides" },
 ];
 
 const Navbar = () => {
-  // const { theme, setTheme } = useTheme();
-  // const [isMounted, setIsMounted] = useState(false);
   const tabsRef = useRef<(HTMLElement | null)[]>([]);
   const [activeTabIndex, setActiveTabIndex] = useState<number | null>(null);
   const [tabUnderlineWidth, setTabUnderlineWidth] = useState(0);
   const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);
   const router = useRouter();
-  // const [effect, setEffect] = useState(false);
 
   useEffect(() => {
     // setIsMounted(true);
@@ -126,12 +122,6 @@ const Navbar = () => {
 
     return () => window.removeEventListener("resize", setTabPosition);
   }, [activeTabIndex]);
-
-  // const switchTheme = () => {
-  //   if (isMounted) {
-  //     setTheme(theme === 'light' ? 'dark' : 'light');
-  //   }
-  // };
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-20 mx-auto mb-4 flex h-12 px-6 sm:h-16">
