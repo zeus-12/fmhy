@@ -54,7 +54,7 @@ export function LinkRenderer(props: PropsType<HTMLAnchorElement>) {
 
 export function LiRenderer(
   props: PropsType<HTMLLIElement>,
-  showOnlyStarredLinks?: boolean
+  showOnlyStarred?: boolean
 ) {
   const md = getMarkdownFromProps(props);
   const isStarred = md.includes("⭐");
@@ -63,7 +63,7 @@ export function LiRenderer(
 
   // make a separate helper function to dynamically create the relevant html tag, and populate the data
   const getLinkData = (md: string, isModified: boolean) => {
-    if (showOnlyStarredLinks && !isStarred) return <></>;
+    if (showOnlyStarred && !isStarred) return <></>;
 
     if (!isModified) {
       return (
