@@ -38,7 +38,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
           <div
             className={cn(
-              "antialiased flex flex-col gap-2 h-screen",
+              "antialiased flex flex-col gap-2 hd-screen",
               fontSans.className
             )}
           >
