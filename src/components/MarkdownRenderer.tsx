@@ -12,12 +12,12 @@ import GithubSlugger from "github-slugger";
 
 const MarkdownRenderer = ({
   category,
-  starredLinks,
+  showOnlyStarred,
   children,
   components,
 }: {
   category?: string;
-  starredLinks?: boolean;
+  showOnlyStarred?: boolean;
   children: string;
   components?: Partial<Components> | null | undefined;
 }) => {
@@ -33,7 +33,7 @@ const MarkdownRenderer = ({
         h4: (props) => HeadingRenderer(props, 4, slugger), //for storage only
         p: PRenderer, // for beginners guide only
         a: LinkRenderer,
-        li: (props) => LiRenderer(props, starredLinks), //for storage only
+        li: (props) => LiRenderer(props, showOnlyStarred), //for storage only
         hr: () => <></>,
         code: (props) => CodeRenderer(props, category), // for base64 only
         ul: (props) => UlRenderer(props),
