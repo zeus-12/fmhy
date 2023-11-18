@@ -33,11 +33,12 @@ export default function App({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <SpotlightProvider>
           <DefaultSeo {...SEO} />
+
           <Navbar />
 
           <div
             className={cn(
-              "antialiased flex flex-col h-screen gap-2 max-w-[100vw] ",
+              "antialiased flex flex-col gap-2 h-screen",
               fontSans.className
             )}
           >

@@ -69,7 +69,7 @@ const Search = () => {
           },
         ]}
       />
-      <div className="flex flex-1 flex-col px-6 sm:px-8 md:px-12 md:py-2 lg:px-16 lg:py-4 xl:py-6 mb-8 w-screen">
+      <div className="flex flex-1 flex-col px-6 sm:px-8 md:px-12 md:py-2 lg:px-16 lg:py-4 xl:py-6 mb-8 w-screen pt-4">
         <div className="flex items-center justify-between">
           <div>
             <p
@@ -149,84 +149,82 @@ const LocalSearch = ({ query }: { query: string }) => {
   );
 
   return (
-    <div>
-      <div>
-        {debouncedQuery && (
-          <p className="text-gray-400 mb-2">
-            {results?.length === SEARCH_RESULTS_LIMIT ? "> " : " "}
-            {results?.length} results{" "}
-          </p>
-        )}
+    <div className="pb-14 pt-2">
+      {debouncedQuery && (
+        <p className="text-gray-400 mb-2">
+          {results?.length === SEARCH_RESULTS_LIMIT ? "> " : " "}
+          {results?.length} results{" "}
+        </p>
+      )}
 
-        {!query ? (
-          <></>
-        ) : debouncedQuery !== query ? (
-          // <p className="text-gray-400">loading</p>
-          <></>
-        ) : finalResult?.length === 0 ? (
-          <>no result found</>
-        ) : (
-          finalResult?.map((result: DlWikiLinkType, idx) => (
-            <div
-              key={idx}
-              className="rounded-xl list-none my-2"
-              style={{
-                background: "#11151F",
-                padding: "0.5rem 1rem",
+      {!query ? (
+        <></>
+      ) : debouncedQuery !== query ? (
+        // <p className="text-gray-400">loading</p>
+        <></>
+      ) : finalResult?.length === 0 ? (
+        <>no result found</>
+      ) : (
+        finalResult?.map((result: DlWikiLinkType, idx) => (
+          <div
+            key={idx}
+            className="rounded-xl list-none my-2"
+            style={{
+              background: "#11151F",
+              padding: "0.5rem 1rem",
+            }}
+          >
+            <ReactMarkdown
+              components={{
+                a: LinkRenderer,
+                li: (props: any) => LiRenderer(props, false), //for storage only
               }}
             >
-              <ReactMarkdown
-                components={{
-                  a: LinkRenderer,
-                  li: (props: any) => LiRenderer(props, false), //for storage only
-                }}
-              >
-                {result.content}
-              </ReactMarkdown>
+              {result.content}
+            </ReactMarkdown>
 
-              <div className="flex gap-2">
-                <Link
-                  href={generateWikiLinkFromCategories(
-                    result.category,
-                    result.subcategory,
-                    result.subsubcategory
-                  )}
-                >
-                  {result.category && (
-                    <div className="max-w-[80vw]">
-                      <Badge
-                        className="py-3"
-                        fullWidth
-                        leftSection={
-                          <>
-                            {
-                              MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING[
-                                result.category.toLowerCase()
-                              ]
-                            }
-                          </>
-                        }
-                      >
-                        {result.category}{" "}
-                        {result.subcategory && (
-                          <>
-                            <span>/</span> {result.subcategory}{" "}
-                          </>
-                        )}
-                        {result.subsubcategory && (
-                          <>
-                            <span>/</span> {result.subsubcategory}
-                          </>
-                        )}
-                      </Badge>
-                    </div>
-                  )}
-                </Link>
-              </div>
+            <div className="flex gap-2">
+              <Link
+                href={generateWikiLinkFromCategories(
+                  result.category,
+                  result.subcategory,
+                  result.subsubcategory
+                )}
+              >
+                {result.category && (
+                  <div className="max-w-[80vw]">
+                    <Badge
+                      className="py-3"
+                      fullWidth
+                      leftSection={
+                        <>
+                          {
+                            MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING[
+                              result.category.toLowerCase()
+                            ]
+                          }
+                        </>
+                      }
+                    >
+                      {result.category}{" "}
+                      {result.subcategory && (
+                        <>
+                          <span>/</span> {result.subcategory}{" "}
+                        </>
+                      )}
+                      {result.subsubcategory && (
+                        <>
+                          <span>/</span> {result.subsubcategory}
+                        </>
+                      )}
+                    </Badge>
+                  </div>
+                )}
+              </Link>
             </div>
-          ))
-        )}
-      </div>
+          </div>
+        ))
+      )}
     </div>
   );
 };
