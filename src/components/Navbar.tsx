@@ -174,12 +174,12 @@ const Navbar = () => {
               />
             </div>
 
-            <div className="px-4">
+            <div className="px-4 md:hidden ">
               <PanelRightOpen
                 size={23}
                 className={cn(
                   showOnlyStarred && "fill-yellow-400 text-transparent",
-                  "md:hidden text-gray-400 hover:cursor-pointer "
+                  "text-gray-400 hover:cursor-pointer "
                 )}
                 onClick={toggleShowToc}
               />
