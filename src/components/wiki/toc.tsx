@@ -32,7 +32,9 @@ export default function TableOfContents({
   return (
     <>
       <div className="hidden md:block overflow-y-scroll hideScrollbar">
-        {toc?.items ? <Toc toc={toc} activeHeading={activeHeading} /> : null}
+        {toc?.items && toc?.items?.length > 0 ? (
+          <Toc toc={toc} activeHeading={activeHeading} />
+        ) : null}
       </div>
 
       {toc?.items && toc?.items?.length > 0 ? (
