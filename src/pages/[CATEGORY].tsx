@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { MARKDOWN_RESOURCES, isDevEnv, testData } from "@/lib/CONSTANTS";
 
 import BottomNavigator from "@/components/wiki/BottomNavigator";
@@ -6,7 +6,6 @@ import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
 import { useRouter } from "next/router";
 import { getTableOfContents } from "@/lib/toc";
 import WikiTableOfContents from "@/components/wiki/toc";
-import { PanelRightOpen } from "lucide-react";
 import { NextSeo } from "next-seo";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import { devLog } from "@/lib/utils";
