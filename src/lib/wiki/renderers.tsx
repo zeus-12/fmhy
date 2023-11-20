@@ -98,12 +98,10 @@ export function LiRenderer(
 
   const split = md.split(" ");
   const modified = split.map((item, index) => {
-    item = item.trimEnd("\n");
     const isLink =
       /^(https?|ftp|file):\/\/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/.test(
         item
       );
-    console.log(isLink, item);
     if (isLink) {
       return `[${item}](${item})`;
     }
@@ -149,7 +147,6 @@ export const CodeRenderer = (
   } else {
     try {
       const text = getPlainTextFromProps(props);
-      // const decrypted = atob(text);
       const decrypted = Buffer.from(text, "base64").toString("binary");
       const split = decrypted.split("\n");
       return (
