@@ -12,15 +12,7 @@ import MarkdownRenderer from "@/components/MarkdownRenderer";
 import { devLog } from "@/lib/utils";
 import { useWiki } from "@/lib/store";
 
-const Wiki = ({
-  data,
-  toc,
-  isError,
-}: {
-  data: string;
-  isError: boolean;
-  toc: any;
-}) => {
+const Wiki = ({ data, toc }: { data: string; toc: any }) => {
   const router = useRouter();
 
   const category = router.query.CATEGORY as string;
@@ -47,7 +39,6 @@ const Wiki = ({
         <CategoriesSidebar markdownCategory={markdownCategory} />
 
         <LinkDataRenderer
-          isError={isError}
           data={data}
           category={category}
           markdownCategory={markdownCategory}
@@ -60,7 +51,6 @@ const Wiki = ({
 
 interface LinkDataRendererProps {
   data: string;
-  isError: boolean;
   category: string;
   toc: any;
   markdownCategory: {
@@ -72,7 +62,6 @@ interface LinkDataRendererProps {
 const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
   data,
   category,
-  isError,
   markdownCategory,
   toc,
 }) => {
@@ -126,8 +115,6 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
           </div>
         </div>
 
-        {isError && <p>Something went wrong!</p>}
-
         {data && data.length > 0 && (
           <>
             <MarkdownRenderer
@@ -153,14 +140,13 @@ export async function getStaticProps({
 }: {
   params: { CATEGORY: string };
 }) {
-  // if (isDevEnv) {
-  //   return {
-  //     props: {
-  //       data: testData,
-  //       isError: false,
-  //     },
-  //   };
-  // }
+  if (isDevEnv) {
+    return {
+      props: {
+        data: testData,
+      },
+    };
+  }
   try {
     const markdownCategory = MARKDOWN_RESOURCES.find(
       (item) => item.urlEnding.toLowerCase() === CATEGORY?.toLowerCase()
@@ -227,18 +213,15 @@ export async function getStaticProps({
       props: {
         data: cleanedText || text,
         toc,
-        isError: false,
       },
       revalidate: 60 * 60 * 24 * 2, // 2 days
     };
   } catch (err: any) {
     // todo show 404 page
-    devLog(err.message, "Err");
+    devLog(err, "Err");
+
     return {
-      props: {
-        isError: true,
-        data: "",
-      },
+      notFound: true,
     };
   }
 }
