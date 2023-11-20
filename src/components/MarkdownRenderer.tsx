@@ -9,6 +9,7 @@ import {
 } from "@/lib/wiki/renderers";
 import ReactMarkdown, { Components } from "react-markdown";
 import GithubSlugger from "github-slugger";
+import gfm from "remark-gfm";
 
 const MarkdownRenderer = ({
   category,
@@ -26,6 +27,7 @@ const MarkdownRenderer = ({
 
   return (
     <ReactMarkdown
+      remarkPlugins={[gfm]}
       components={{
         h1: (props) => HeadingRenderer(props, 1, slugger),
         h2: (props) => HeadingRenderer(props, 2, slugger),

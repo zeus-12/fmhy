@@ -14,6 +14,7 @@ import { fontMono } from "@/lib/fonts";
 import { beginnersGuideFaqs } from "@/lib/CONSTANTS";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import ReactMarkdown, { ExtraProps } from "react-markdown";
+import gfm from "remark-gfm";
 
 type PropsType<T> = ClassAttributes<T> & HTMLAttributes<T> & ExtraProps;
 
@@ -56,7 +57,7 @@ export function LiRenderer(
   props: PropsType<HTMLLIElement>,
   showOnlyStarred?: boolean
 ) {
-  const md = getMarkdownFromProps(props);
+  const md = getMarkdownFromProps(props).trim();
   const isStarred = md.includes("⭐");
 
   const noteStarter = NOTE_STARTERS.find((item) => md.includes(item));
@@ -96,20 +97,7 @@ export function LiRenderer(
     );
   }
 
-  const split = md.split(" ");
-  const modified = split.map((item, index) => {
-    const isLink =
-      /^(https?|ftp|file):\/\/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/.test(
-        item
-      );
-    if (isLink) {
-      return `[${item}](${item})`;
-    }
-    return item;
-  });
-
-  const modifiedMd = modified.join(" ");
-  return getLinkData(modifiedMd, true);
+  return getLinkData(md, false);
 }
 
 const NOTE_STARTERS = ["!!!note", "**Note** - ", "!!!info"];
@@ -175,6 +163,7 @@ export const CodeRenderer = (
 const UnstyledMarkdownRenderer = ({ children }: { children: string }) => {
   return (
     <ReactMarkdown
+      remarkPlugins={[gfm]}
       components={{
         a: (props) => LinkRenderer(props),
         // p: PRenderer, // for beginners guide only
