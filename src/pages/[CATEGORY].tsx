@@ -233,7 +233,7 @@ export async function getStaticProps({
     };
   } catch (err: any) {
     // todo show 404 page
-    devLog(err, "Err");
+    devLog(err.message, "Err");
     return {
       props: {
         isError: true,
