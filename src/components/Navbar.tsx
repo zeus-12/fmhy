@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useSpotlight } from "@mantine/spotlight";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Command, Star } from "lucide-react";
+import { Command, PanelRightOpen, Star } from "lucide-react";
 import { useWiki } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
@@ -96,7 +96,8 @@ const Navbar = () => {
   const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);
   const router = useRouter();
 
-  const { showOnlyStarred, toggleWikiToggleStarred } = useWiki();
+  const { showOnlyStarred, toggleWikiToggleStarred, toggleShowToc, showToc } =
+    useWiki();
 
   useEffect(() => {
     const path = window.location.pathname;
@@ -161,16 +162,29 @@ const Navbar = () => {
 
         {/* hardcoding for now */}
         {router.pathname === "/[CATEGORY]" && (
-          <div className="px-4">
-            <Star
-              onClick={toggleWikiToggleStarred}
-              size={23}
-              className={cn(
-                "text-gray-400 hover:cursor-pointer ",
-                showOnlyStarred && "fill-yellow-400 text-transparent"
-              )}
-            />
-          </div>
+          <>
+            <div className="px-4">
+              <Star
+                onClick={toggleWikiToggleStarred}
+                size={23}
+                className={cn(
+                  "text-gray-400 hover:cursor-pointer ",
+                  showOnlyStarred && "fill-yellow-400 text-transparent"
+                )}
+              />
+            </div>
+
+            <div className="px-4">
+              <PanelRightOpen
+                size={23}
+                className={cn(
+                  showOnlyStarred && "fill-yellow-400 text-transparent",
+                  "md:hidden text-gray-400 hover:cursor-pointer "
+                )}
+                onClick={toggleShowToc}
+              />
+            </div>
+          </>
         )}
       </div>
     </div>
