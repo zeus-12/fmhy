@@ -9,13 +9,13 @@ import { useRouter } from "next/router";
 interface TableOfContentsProps {
   toc: TableOfContents;
   open: boolean;
-  setOpen: (open: boolean) => void;
+  toggle: () => void;
 }
 
 export default function TableOfContents({
   toc,
   open,
-  setOpen,
+  toggle,
 }: TableOfContentsProps) {
   const itemIds = useMemo(
     () =>
@@ -45,7 +45,7 @@ export default function TableOfContents({
           }}
           position="right"
           size="sm"
-          onClose={() => setOpen(false)}
+          onClose={toggle}
           overlayProps={{
             opacity: 0.55,
             blur: 3,
@@ -53,11 +53,7 @@ export default function TableOfContents({
           withCloseButton={false}
           zIndex={20}
         >
-          <Toc
-            toc={toc}
-            activeHeading={activeHeading}
-            closeModal={() => setOpen(false)}
-          />
+          <Toc toc={toc} activeHeading={activeHeading} closeModal={toggle} />
         </Drawer>
       ) : null}
     </>
