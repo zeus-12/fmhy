@@ -164,7 +164,7 @@ const Navbar = () => {
           <div className="px-4">
             <Star
               onClick={toggleWikiToggleStarred}
-              size={26}
+              size={23}
               className={cn(
                 "text-gray-400 hover:cursor-pointer ",
                 showOnlyStarred && "fill-yellow-400 text-transparent"
