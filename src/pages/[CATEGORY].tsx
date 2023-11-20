@@ -66,7 +66,6 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
   toc,
 }) => {
   // const [starredLinks, setStarredLinks] = useState(false);
-  const [isTocOpen, setIsTocOpen] = useState(false);
 
   // const linksRef = useRef(null);
 
@@ -80,7 +79,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
   //   (linksRef.current as any)?.scrollTo(0, 0);
   // }, []);
 
-  const { showOnlyStarred } = useWiki();
+  const { showOnlyStarred, showToc, toggleShowToc } = useWiki();
 
   return (
     <>
@@ -104,14 +103,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
                 onLabel={<span className="text-xs">All</span>}
               />
             </div> */}
-
-            {toc?.items && toc?.items.length > 0 && (
-              // temp fix
-              <PanelRightOpen
-                className="h-6 w-6 md:hidden text-gray-400 absolute right-0"
-                onClick={() => setIsTocOpen(true)}
-              />
-            )}
+            {/* {toc?.items && toc?.items.length > 0 && ( */}
           </div>
         </div>
 
@@ -128,7 +120,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
           </>
         )}
       </div>
-      <WikiTableOfContents toc={toc} open={isTocOpen} setOpen={setIsTocOpen} />
+      <WikiTableOfContents toc={toc} open={showToc} toggle={toggleShowToc} />
     </>
   );
 };
@@ -140,13 +132,13 @@ export async function getStaticProps({
 }: {
   params: { CATEGORY: string };
 }) {
-  if (isDevEnv) {
-    return {
-      props: {
-        data: testData,
-      },
-    };
-  }
+  // if (isDevEnv) {
+  //   return {
+  //     props: {
+  //       data: testData,
+  //     },
+  //   };
+  // }
   try {
     const markdownCategory = MARKDOWN_RESOURCES.find(
       (item) => item.urlEnding.toLowerCase() === CATEGORY?.toLowerCase()
