@@ -100,4 +100,9 @@ a:hover {
     height: 100vh;
     height: 100dvh;
   }
+
+  .min-h-dscreen {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
 }

@@ -138,7 +138,10 @@ const Home = () => {
           />
         </div> */}
 
-        <div className="min-h-screen items-center flex justify-center" id="faq">
+        <div
+          className="min-h-dscreen items-center flex justify-center"
+          id="faq"
+        >
           <FAQ />
         </div>
         <WikiBottomNavigator category={""} />
