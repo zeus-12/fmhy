@@ -95,6 +95,9 @@ a:hover {
 
 @layer utilities {
   .hd-screen {
+    /* 100vh for browsers not supporting dvh */
+    /* the ones that suppport dvh overrides vh */
+    height: 100vh;
     height: 100dvh;
   }
 }
