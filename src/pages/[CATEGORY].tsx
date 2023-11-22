@@ -202,7 +202,7 @@ export async function getStaticProps({
 
     return {
       props: {
-        data: cleanedText || text,
+        data: cleanedText,
         toc,
       },
       revalidate: 60 * 60 * 24 * 2, // 2 days
