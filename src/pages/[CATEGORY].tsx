@@ -208,9 +208,7 @@ export async function getStaticProps({
       revalidate: 60 * 60 * 24 * 2, // 2 days
     };
   } catch (err: any) {
-    // todo show 404 page
     devLog(err, "Err");
-
     return {
       notFound: true,
     };
