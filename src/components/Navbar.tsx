@@ -62,12 +62,13 @@ export const Logo = () => (
 //   );
 // };
 
+import { spotlight } from "@mantine/spotlight";
+
 export const SearchBar = () => {
-  const spotlight = useSpotlight();
   return (
     <div
       className="hover:cursor-pointer plausible-event-name=spotlight-toggle"
-      onClick={spotlight.openSpotlight}
+      onClick={spotlight.open}
     >
       <Command size={22} className="text-gray-400" />
       {/* <Kbd className="ml-auto"> */}
