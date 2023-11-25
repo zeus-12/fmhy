@@ -1,31 +1,30 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { MARKDOWN_RESOURCES, isDevEnv, testData } from "@/lib/CONSTANTS";
 import BottomNavigator from "@/components/wiki/BottomNavigator";
 import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
-import { useRouter } from "next/router";
 import { getTableOfContents } from "@/lib/toc";
 import WikiTableOfContents from "@/components/wiki/toc";
 import { NextSeo } from "next-seo";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import { devLog } from "@/lib/utils";
 import { useWiki } from "@/lib/store";
+import LinkDataRenderer from "@/app/[category]/LinkDataRenderer";
 
-const Wiki = ({ data, toc }: { data: string; toc: any }) => {
-  const router = useRouter();
-
-  const category = router.query.CATEGORY as string;
-
+const Wiki = async ({
+  params: { category },
+}: {
+  params: { category: string };
+}) => {
   // export a set of all the categories from constants and check that instead
   const markdownCategory = MARKDOWN_RESOURCES.find(
     (item) => item.urlEnding.toLowerCase() === category?.toLowerCase()
-  )!;
-  // todo remove ! from above line
+  );
+  if (!markdownCategory) return <>errorr</>;
 
-  useEffect(() => {
-    if (category && !markdownCategory) {
-      router.push("/");
-    }
-  }, [category, markdownCategory]);
+  const { props } = await getData({ params: { CATEGORY: category } });
+  if (!props) return <>errorr</>;
+
+  const { data, toc } = props;
 
   return (
     <>
@@ -47,85 +46,9 @@ const Wiki = ({ data, toc }: { data: string; toc: any }) => {
   );
 };
 
-interface LinkDataRendererProps {
-  data: string;
-  category: string;
-  toc: any;
-  markdownCategory: {
-    title: string;
-    urlEnding: string;
-  };
-}
-
-const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
-  data,
-  category,
-  markdownCategory,
-  toc,
-}) => {
-  // const [starredLinks, setStarredLinks] = useState(false);
-
-  // const linksRef = useRef(null);
-
-  // useEffect(() => {
-  //   if (!linksRef.current || !(linksRef.current as any)?.scrollTo) {
-  //     console.log("UNDEFINED");
-  //     return;
-  //   }
-  //   console.log("scrolliong up");
-
-  //   (linksRef.current as any)?.scrollTo(0, 0);
-  // }, []);
-
-  const { showOnlyStarred, showToc, toggleShowToc } = useWiki();
-
-  return (
-    <>
-      <div
-        // ref={linksRef}
-        className="px-1 sm:px-4 md:px-8 lg:px-14 xl:px-20 overflow-scroll hideScrollbar flex-1 2xl:max-w-7xl  pb-12"
-      >
-        <div className="flex justify-between items-center">
-          <p className="text-3xl underline underline-offset-2 font-semibold tracking-tighter">
-            {markdownCategory?.title}
-          </p>
-          <div className="flex items-center">
-            {/* <div className="plausible-event-name=recommended-toggle pr-6 md:pr-0">
-              <Switch
-                size="sm"
-                checked={starredLinks}
-                onChange={(event) => {
-                  setStarredLinks(event.currentTarget.checked);
-                }}
-                offLabel={<span className="text-base">⭐️</span>}
-                onLabel={<span className="text-xs">All</span>}
-              />
-            </div> */}
-            {/* {toc?.items && toc?.items.length > 0 && ( */}
-          </div>
-        </div>
-
-        {data && data.length > 0 && (
-          <>
-            <MarkdownRenderer
-              category={category}
-              showOnlyStarred={showOnlyStarred}
-            >
-              {data}
-            </MarkdownRenderer>
-
-            <BottomNavigator category={category} />
-          </>
-        )}
-      </div>
-      <WikiTableOfContents toc={toc} open={showToc} toggle={toggleShowToc} />
-    </>
-  );
-};
-
 export default Wiki;
 
-export async function getStaticProps({
+async function getData({
   params: { CATEGORY },
 }: {
   params: { CATEGORY: string };
@@ -184,11 +107,11 @@ export async function getStaticProps({
       .replace(`# Untrusted Sites / Software`, "")
       ?.replace(
         `### Mirrors
-* https://fmhy.net/base64
-* https://fmhy.pages.dev/base64/
-* https://github.com/nbats/FMHYedit/blob/main/base64.md
-* https://notabug.org/nbatman/freemediaheckyeah/wiki/base64
-* https://rentry.co/FMHYBase64`,
+  * https://fmhy.net/base64
+  * https://fmhy.pages.dev/base64/
+  * https://github.com/nbats/FMHYedit/blob/main/base64.md
+  * https://notabug.org/nbatman/freemediaheckyeah/wiki/base64
+  * https://rentry.co/FMHYBase64`,
         ""
       );
 
@@ -214,15 +137,15 @@ export async function getStaticProps({
   }
 }
 
-export async function getStaticPaths() {
-  const paths = MARKDOWN_RESOURCES.filter(
-    (resource) => !!resource.urlEnding
-  ).map((resource) => ({
-    params: { CATEGORY: resource.urlEnding.toLowerCase() },
-  }));
+// export async function getStaticPaths() {
+//   const paths = MARKDOWN_RESOURCES.filter(
+//     (resource) => !!resource.urlEnding
+//   ).map((resource) => ({
+//     params: { CATEGORY: resource.urlEnding.toLowerCase() },
+//   }));
 
-  return {
-    paths,
-    fallback: false,
-  };
-}
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
