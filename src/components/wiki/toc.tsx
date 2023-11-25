@@ -53,7 +53,7 @@ export default function TableOfContents({
             blur: 3,
           }}
           withCloseButton={false}
-          zIndex={20}
+          zIndex={10}
         >
           <Toc toc={toc} activeHeading={activeHeading} closeModal={toggle} />
         </Drawer>
