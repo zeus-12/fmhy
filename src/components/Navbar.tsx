@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useSpotlight } from "@mantine/spotlight";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Command, PanelRightOpen, Star } from "lucide-react";
+import { Command, PanelLeftOpen, PanelRightOpen, Star } from "lucide-react";
 import { useWiki } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
@@ -96,8 +96,13 @@ const Navbar = () => {
   const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);
   const router = useRouter();
 
-  const { showOnlyStarred, toggleWikiToggleStarred, toggleShowToc, showToc } =
-    useWiki();
+  const {
+    showOnlyStarred,
+    toggleWikiToggleStarred,
+    toggleShowToc,
+    // showToc,
+    toggleHideCategory,
+  } = useWiki();
 
   useEffect(() => {
     const path = window.location.pathname;
@@ -142,6 +147,19 @@ const Navbar = () => {
         >
           <Logo />
         </Link> */}
+
+        {/* hardcoding for now */}
+        {router.pathname === "/[CATEGORY]" && (
+          <>
+            <div className="px-4 md:hidden ">
+              <PanelLeftOpen
+                size={23}
+                className={cn("text-gray-400 hover:cursor-pointer ")}
+                onClick={toggleHideCategory}
+              />
+            </div>
+          </>
+        )}
         {navItems.map((tab, index) => {
           return (
             <Link

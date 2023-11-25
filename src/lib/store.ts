@@ -6,6 +6,9 @@ type Wiki = {
 
   showToc: boolean;
   toggleShowToc: () => void;
+
+  hideCategory: boolean;
+  toggleHideCategory: () => void;
 };
 
 export const useWiki = create<Wiki>((set) => ({
@@ -16,4 +19,8 @@ export const useWiki = create<Wiki>((set) => ({
 
   showToc: false,
   toggleShowToc: () => set((state) => ({ showToc: !state.showToc })),
+
+  hideCategory: true,
+  toggleHideCategory: () =>
+    set((state) => ({ hideCategory: !state.hideCategory })),
 }));

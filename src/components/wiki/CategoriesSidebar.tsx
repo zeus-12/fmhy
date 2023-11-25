@@ -1,5 +1,7 @@
 import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
 import Link from "@/components/Link";
+import { cn } from "@/lib/utils";
+import { useWiki } from "@/lib/store";
 
 interface CategoriesSidebarProps {
   markdownCategory: {
@@ -14,7 +16,7 @@ const CategoriesSidebar: React.FC<CategoriesSidebarProps> = ({
 }) => {
   // const toggleNsfw = () => setIncludeNsfw((prev) => !prev);
   // const [includeNsfw, setIncludeNsfw] = useState(false);
-
+  const { hideCategory } = useWiki();
   return (
     <div className="bg-[#050a15] border-gray-700 border-r-[1px] h-full overflow-scroll hideScrollbar">
       {/* <div className="items-center pt-2 justify-between hidden md:flex"> */}
@@ -43,7 +45,12 @@ const CategoriesSidebar: React.FC<CategoriesSidebarProps> = ({
           >
             <p className="group-hover:text-slate-200 text-base">
               <span className="group-hover:animate-pulse">{item.emoji}</span>
-              <span className="hidden md:inline-flex">
+              <span
+                className={cn(
+                  hideCategory && "hidden md:inline-flex",
+                  "transition-all duration-100 ease-in-out"
+                )}
+              >
                 &nbsp;&nbsp;{item.title}
               </span>
             </p>
