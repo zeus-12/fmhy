@@ -1,4 +1,15 @@
-export const MARKDOWN_RESOURCES = [
+interface ResourceEle {
+  title: string;
+  urlEnding: string;
+  emoji: string;
+  dlForSearch: boolean;
+}
+
+interface Resource extends ResourceEle {
+  items?: ResourceEle[];
+}
+
+export const MARKDOWN_RESOURCES: Resource[] = [
   {
     title: "Home",
     urlEnding: "",
@@ -41,7 +52,6 @@ export const MARKDOWN_RESOURCES = [
     emoji: "📗",
     dlForSearch: true,
   },
-
   {
     title: "Developer Tools",
     urlEnding: "DEVTools",
@@ -116,6 +126,62 @@ export const MARKDOWN_RESOURCES = [
     urlEnding: "TOOLSGuide",
     emoji: "🔧",
     dlForSearch: true,
+    items: [
+      {
+        dlForSearch: true,
+        title: "System Tools",
+        emoji: "💻",
+        urlEnding: "System-Tools",
+      },
+      {
+        dlForSearch: true,
+        emoji: "🗃️",
+        title: "File Tools",
+        urlEnding: "File-Tools",
+      },
+      {
+        dlForSearch: true,
+        emoji: "🔗",
+        title: "Internet Tools",
+        urlEnding: "Internet-Tools",
+      },
+      {
+        dlForSearch: true,
+        emoji: "📝",
+        title: "Text Tools",
+        urlEnding: "Text-Tools",
+      },
+      {
+        dlForSearch: true,
+        emoji: "👾",
+        title: "Gaming Tools",
+        urlEnding: "Gaming-Tools",
+      },
+      {
+        dlForSearch: true,
+        emoji: "📷",
+        title: "Image Tools",
+        urlEnding: "img-tools",
+      },
+      {
+        dlForSearch: true,
+        emoji: "📼",
+        title: "Video Tools",
+        urlEnding: "Video-Tools",
+      },
+      {
+        dlForSearch: true,
+        emoji: "🔊",
+        title: "Audio Tools",
+        urlEnding: "Audio-Tools",
+      },
+      {
+        dlForSearch: true,
+        emoji: "🍎",
+        title: "Educational Tools",
+        urlEnding: "EDUPiracyGuide",
+      },
+    ],
   },
   {
     title: "Torrenting",
@@ -137,14 +203,14 @@ export const MARKDOWN_RESOURCES = [
   },
 ];
 
-const MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING: { [key: string]: string } = {};
-
-MARKDOWN_RESOURCES.forEach((resource) => {
-  MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING[resource.urlEnding.toLowerCase()] =
-    resource.emoji;
-});
-
-export { MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING };
+export const MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING: { [key: string]: string } =
+  MARKDOWN_RESOURCES.reduce(
+    (mapping: { [key: string]: string }, resource: Resource) => {
+      mapping[resource.urlEnding.toLowerCase()] = resource.emoji;
+      return mapping;
+    },
+    {}
+  );
 
 // make next image do this instead of hardcoding
 export const blurDataUrlForLogo =
