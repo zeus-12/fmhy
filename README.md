@@ -8,7 +8,7 @@
 - **Mantine UI** For components
 - **Planetscale** As the database
 - **Cheerio** For parsing the HTML (Old scraper)
-- **Plausible** For analytics
+- **Plausible** For analytics (stopped)
 
 ## Features:
 
@@ -20,9 +20,9 @@
 - **Scraper**
   - Base 64, Wiki scrapers
 
-## Peak Usage stats
+## Usage stats
 
-![image](public/assets/usage-stats.png)
+![Usage Stats](public/assets/usage-stats.png)
 
 Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and backend from [Express Version](https://github.com/zeus-12/fmhy-server), and the scraper from [Fmhy Scraper](https://github.com/zeus-12/fmhy-scraper)
 
