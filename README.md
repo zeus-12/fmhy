@@ -28,7 +28,6 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 
 - reset scroll to zero upon changing wiki category: seems to be an open nextjs issue => try using the workarounds.
 - add sitemap, all that good seo stuff
-- use stricter lint rules ,for eg: the dont use "!" to types rule
 - add piracy glossary somewhere.
 
 ### Design
