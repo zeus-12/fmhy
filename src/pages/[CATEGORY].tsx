@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { MARKDOWN_RESOURCES, isDevEnv, testData } from "@/lib/CONSTANTS";
 import BottomNavigator from "@/components/wiki/BottomNavigator";
 import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
@@ -9,6 +8,8 @@ import { NextSeo } from "next-seo";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import { devLog } from "@/lib/utils";
 import { useWiki } from "@/lib/store";
+import { type Resource } from "@/lib/CONSTANTS";
+import { useEffect } from "react";
 
 const Wiki = ({ data, toc }: { data: string; toc: any }) => {
   const router = useRouter();
@@ -16,16 +17,33 @@ const Wiki = ({ data, toc }: { data: string; toc: any }) => {
   const category = router.query.CATEGORY as string;
 
   // export a set of all the categories from constants and check that instead
-  const markdownCategory = MARKDOWN_RESOURCES.find(
-    (item) => item.urlEnding.toLowerCase() === category?.toLowerCase()
-  )!;
-  // todo remove ! from above line
+  let markdownCategory: Resource | undefined;
+
+  MARKDOWN_RESOURCES.forEach((item) => {
+    if (!item.hasSubItems) {
+      if (item.urlEnding.toLowerCase() === category?.toLowerCase()) {
+        markdownCategory = item;
+        return;
+      }
+    } else {
+      const ele = item.items?.find(
+        (subItem) => subItem.urlEnding.toLowerCase() === category?.toLowerCase()
+      );
+
+      if (ele) {
+        markdownCategory = ele;
+        return;
+      }
+    }
+  });
 
   useEffect(() => {
     if (category && !markdownCategory) {
       router.push("/");
     }
   }, [category, markdownCategory]);
+
+  if (!markdownCategory) return <>Error</>;
 
   return (
     <>
@@ -89,20 +107,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
           <p className="text-3xl underline underline-offset-2 font-semibold tracking-tighter">
             {markdownCategory?.title}
           </p>
-          <div className="flex items-center">
-            {/* <div className="plausible-event-name=recommended-toggle pr-6 md:pr-0">
-              <Switch
-                size="sm"
-                checked={starredLinks}
-                onChange={(event) => {
-                  setStarredLinks(event.currentTarget.checked);
-                }}
-                offLabel={<span className="text-base">⭐️</span>}
-                onLabel={<span className="text-xs">All</span>}
-              />
-            </div> */}
-            {/* {toc?.items && toc?.items.length > 0 && ( */}
-          </div>
+          <div className="flex items-center"></div>
         </div>
 
         {data && data.length > 0 && (
@@ -138,10 +143,29 @@ export async function getStaticProps({
   //   };
   // }
   try {
-    const markdownCategory = MARKDOWN_RESOURCES.find(
-      (item) => item.urlEnding.toLowerCase() === CATEGORY?.toLowerCase()
-    )!;
+    let markdownCategory: Resource | undefined;
+
+    MARKDOWN_RESOURCES.forEach((item) => {
+      if (!item.hasSubItems) {
+        if (item.urlEnding.toLowerCase() === CATEGORY?.toLowerCase()) {
+          markdownCategory = item;
+          return;
+        }
+      } else {
+        const ele = item.items?.find(
+          (subItem) =>
+            subItem.urlEnding.toLowerCase() === CATEGORY?.toLowerCase()
+        );
+
+        if (ele) {
+          markdownCategory = ele;
+          return;
+        }
+      }
+    });
+
     const markdownUrlEnding = markdownCategory?.urlEnding;
+    if (!markdownUrlEnding) throw new Error("MARKDOWNURL is undefined => SSG");
 
     const res = await fetch(
       `https://raw.githubusercontent.com/nbats/FMHYedit/main/${markdownUrlEnding}.md`
@@ -215,11 +239,23 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths() {
-  const paths = MARKDOWN_RESOURCES.filter(
-    (resource) => !!resource.urlEnding
-  ).map((resource) => ({
-    params: { CATEGORY: resource.urlEnding.toLowerCase() },
-  }));
+  const paths: { params: { CATEGORY: string } }[] = [];
+
+  MARKDOWN_RESOURCES.filter((resource) => !!resource.urlEnding).forEach(
+    (resource) => {
+      if (resource.hasSubItems) {
+        resource.items?.forEach((item) => {
+          paths.push({
+            params: { CATEGORY: item.urlEnding.toLowerCase() },
+          });
+        });
+      } else {
+        paths.push({
+          params: { CATEGORY: resource.urlEnding.toLowerCase() },
+        });
+      }
+    }
+  );
 
   return {
     paths,

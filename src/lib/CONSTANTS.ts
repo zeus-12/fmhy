@@ -5,9 +5,10 @@ interface ResourceEle {
   dlForSearch: boolean;
 }
 
-interface Resource extends ResourceEle {
+export type Resource = ResourceEle & {
   items?: ResourceEle[];
-}
+  hasSubItems?: boolean;
+};
 
 export const MARKDOWN_RESOURCES: Resource[] = [
   {
@@ -53,12 +54,6 @@ export const MARKDOWN_RESOURCES: Resource[] = [
     dlForSearch: true,
   },
   {
-    title: "Developer Tools",
-    urlEnding: "DEVTools",
-    emoji: "👨‍💻",
-    dlForSearch: true,
-  },
-  {
     title: "Downloading",
     urlEnding: "DownloadPiracyGuide",
     emoji: "💾",
@@ -70,17 +65,10 @@ export const MARKDOWN_RESOURCES: Resource[] = [
     emoji: "🧠",
     dlForSearch: true,
   },
-
   {
     title: "Gaming, Emulation",
     urlEnding: "GamingPiracyGuide",
     emoji: "🎮",
-    dlForSearch: true,
-  },
-  {
-    title: "Image Tools",
-    urlEnding: "img-tools",
-    emoji: "🖼️",
     dlForSearch: true,
   },
   {
@@ -107,7 +95,6 @@ export const MARKDOWN_RESOURCES: Resource[] = [
     emoji: "🎵",
     dlForSearch: true,
   },
-
   {
     title: "Non-English",
     urlEnding: "Non-English",
@@ -125,13 +112,20 @@ export const MARKDOWN_RESOURCES: Resource[] = [
     title: "Tools",
     urlEnding: "TOOLSGuide",
     emoji: "🔧",
-    dlForSearch: true,
+    dlForSearch: false,
+    hasSubItems: true,
     items: [
       {
         dlForSearch: true,
         title: "System Tools",
         emoji: "💻",
         urlEnding: "System-Tools",
+      },
+      {
+        title: "Developer Tools",
+        dlForSearch: true,
+        emoji: "👨‍💻",
+        urlEnding: "DEVTools",
       },
       {
         dlForSearch: true,
@@ -151,12 +145,7 @@ export const MARKDOWN_RESOURCES: Resource[] = [
         title: "Text Tools",
         urlEnding: "Text-Tools",
       },
-      {
-        dlForSearch: true,
-        emoji: "👾",
-        title: "Gaming Tools",
-        urlEnding: "Gaming-Tools",
-      },
+
       {
         dlForSearch: true,
         emoji: "📷",
@@ -175,12 +164,18 @@ export const MARKDOWN_RESOURCES: Resource[] = [
         title: "Audio Tools",
         urlEnding: "Audio-Tools",
       },
-      {
-        dlForSearch: true,
-        emoji: "🍎",
-        title: "Educational Tools",
-        urlEnding: "EDUPiracyGuide",
-      },
+      // {
+      //   dlForSearch: false,
+      //   emoji: "👾",
+      //   title: "Gaming Tools",
+      //   urlEnding: "GamingPiracyGuide#gaming-tools",
+      // },
+      // {
+      //   dlForSearch: false,
+      //   emoji: "🍎",
+      //   title: "Educational Tools",
+      //   urlEnding: "EDUPiracyGuide#educational-tools",
+      // },
     ],
   },
   {
@@ -206,7 +201,13 @@ export const MARKDOWN_RESOURCES: Resource[] = [
 export const MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING: { [key: string]: string } =
   MARKDOWN_RESOURCES.reduce(
     (mapping: { [key: string]: string }, resource: Resource) => {
-      mapping[resource.urlEnding.toLowerCase()] = resource.emoji;
+      if (resource.hasSubItems) {
+        resource.items?.forEach((item) => {
+          mapping[item.urlEnding.toLowerCase()] = item.emoji;
+        });
+      } else {
+        mapping[resource.urlEnding.toLowerCase()] = resource.emoji;
+      }
       return mapping;
     },
     {}
