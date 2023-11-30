@@ -20,6 +20,10 @@
 - **Scraper**
   - Base 64, Wiki scrapers
 
+## Peak Usage stats
+
+![image](public/assets/usage-stats.png)
+
 Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and backend from [Express Version](https://github.com/zeus-12/fmhy-server), and the scraper from [Fmhy Scraper](https://github.com/zeus-12/fmhy-scraper)
 
 ## What needs to be fixed | Open issues
