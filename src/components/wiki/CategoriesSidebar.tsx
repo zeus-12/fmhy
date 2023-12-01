@@ -138,7 +138,9 @@ const CategoryCard = ({
           &nbsp;&nbsp;{title}
         </span>
       </p>
-      {hasSubItems && <ChevronDown size={20} className="ml-auto" />}
+      {hasSubItems && (
+        <ChevronDown size={20} className="ml-auto hidden md:inline-flex" />
+      )}
     </div>
   );
 };
