@@ -3,12 +3,25 @@ import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
 import fetch from "node-fetch";
 
 const ScrapeWikiScript = () => {
+  const urls: string[] = [];
+  MARKDOWN_RESOURCES.forEach((resource) => {
+    if (!resource.dlForSearch) {
+      return;
+    }
+    if (resource.hasSubItems) {
+      resource.items?.forEach((subItem) => {
+        urls.push(subItem.urlEnding);
+      });
+      return;
+    }
+
+    return urls.push(resource.urlEnding);
+  });
+
   const data = Promise.all(
-    MARKDOWN_RESOURCES.filter((resource) => resource.dlForSearch).map(
-      (resource) => {
-        return dlWikiChunk(resource.urlEnding);
-      }
-    )
+    urls.map((url) => {
+      return dlWikiChunk(url);
+    })
   );
 
   data.then((arrayOfArrays) => {

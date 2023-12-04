@@ -112,7 +112,7 @@ export const MARKDOWN_RESOURCES: Resource[] = [
     title: "Tools",
     urlEnding: "TOOLSGuide",
     emoji: "🔧",
-    dlForSearch: false,
+    dlForSearch: true,
     hasSubItems: true,
     items: [
       {
