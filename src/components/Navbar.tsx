@@ -139,14 +139,6 @@ const Navbar = () => {
         >
           <span className="h-full w-full rounded-xl bg-neutral-200 backdrop-blur-xl dark:bg-neutral-800" />
         </span>
-        {/* <Link
-          href={"/"}
-          ref={(el) => (tabsRef.current[2] = el)}
-          className="text-white hover:text-gray-400 font-base inline-flex cursor-pointer items-center justify-center rounded-full px-4 text-center text-sm transition hover:text-black/80 dark:hover:text-white/80 sm:text-base"
-          onClick={() => setActiveTabIndex(2)}
-        >
-          <Logo />
-        </Link> */}
 
         {/* hardcoding for now */}
         {router.pathname === "/[CATEGORY]" && (
