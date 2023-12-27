@@ -37,6 +37,7 @@ Migrated frontend from [React version](https://github.com/zeus-12/fmhy-ui), and 
 ### Design
 
 - TYPOGRAPHY => spend some time on fixing the typography => look into shadcn-typography. better replace mantine w. shadcn. (toc drawer also needs a new design)
+- toc drawer looks ugly.
 
 ### Markdown related
 
