@@ -143,7 +143,7 @@ const Navbar = () => {
           <span className="h-full w-full rounded-xl bg-neutral-200 backdrop-blur-xl dark:bg-neutral-800" />
         </span>
 
-        {isWikiPage && (
+        {/* {isWikiPage && (
           <>
             <div className="px-3 md:px-4 md:hidden ">
               <PanelLeftOpen
@@ -154,7 +154,7 @@ const Navbar = () => {
               />
             </div>
           </>
-        )}
+        )} */}
         {navItems.map((tab, index) => {
           return (
             <Link
