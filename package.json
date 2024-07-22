@@ -8,9 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "dev:scrape": "tsx watch ./src/scraper/index.ts --loader",
-    "scrape": "tsx ./src/scraper/index.ts --loader",
-    "test-format": "tsx ./src/scraper/test-format.ts --loader"
+    "dev:scrape": "tsx watch ./src/scraper/index.ts",
+    "scrape": "tsx ./src/scraper/index.ts",
+    "test-format": "tsx ./src/scraper/test-format.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
