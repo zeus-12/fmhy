@@ -237,7 +237,6 @@ export async function getStaticProps({
       revalidate: 60 * 60 * 24 * 2, // 2 days
     };
   } catch (err: any) {
-    console.log(err.message, "erroorrr");
     devLog(err, "Err");
     return {
       notFound: true,
@@ -262,7 +261,6 @@ export async function getStaticPaths() {
     }
   });
 
-  console.log(paths, "pATSHS");
   return {
     paths,
     fallback: false,
