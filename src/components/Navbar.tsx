@@ -145,7 +145,7 @@ const Navbar = () => {
 
         {/* {isWikiPage && (
           <>
-            <div className="px-3 md:px-4 md:hidden ">
+            <div className="px-3 md:hidden ">
               <PanelLeftOpen
                 className={cn(
                   "text-gray-400 hover:cursor-pointer w-5 h-5 md:w-6 md:h-6"
@@ -161,7 +161,7 @@ const Navbar = () => {
               key={index}
               href={tab.href as string}
               ref={(el) => (tabsRef.current[index] = el)}
-              className="text-white hover:text-gray-400 font-base inline-flex cursor-pointer items-center justify-center rounded-full px-3 md:px-4 text-center text-sm transition hover:text-black/80 dark:hover:text-white/80 sm:text-base"
+              className="text-white hover:text-gray-400 font-base inline-flex cursor-pointer items-center justify-center rounded-full px-3 text-center text-sm transition hover:text-black/80 dark:hover:text-white/80 sm:text-base"
               onClick={() => setActiveTabIndex(index)}
             >
               {tab.name}
@@ -169,13 +169,13 @@ const Navbar = () => {
           );
         })}
 
-        <div className="px-3 md:px-4">
+        <div className="px-3">
           <SearchBar />
         </div>
 
         {isWikiPage && (
           <>
-            <div className="px-3 md:px-4">
+            <div className="px-3">
               <Star
                 onClick={toggleWikiToggleStarred}
                 className={cn(
@@ -185,7 +185,7 @@ const Navbar = () => {
               />
             </div>
 
-            <div className="px-3 md:px-4 md:hidden ">
+            <div className="px-3 md:hidden ">
               <PanelRightOpen
                 className={cn(
                   "text-gray-400 hover:cursor-pointer w-5 h-5 md:w-6 md:h-6"
