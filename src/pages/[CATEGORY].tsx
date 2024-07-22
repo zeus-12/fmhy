@@ -1,8 +1,8 @@
 import {
   ChildResource,
   MARKDOWN_RESOURCES,
-  isDevEnv,
-  testData,
+  // isDevEnv,
+  // testData,
 } from "@/lib/CONSTANTS";
 import BottomNavigator from "@/components/wiki/BottomNavigator";
 import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
@@ -103,7 +103,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
     <>
       <div
         // ref={linksRef}
-        className="px-1 sm:px-4 md:px-8 lg:px-14 xl:px-20 overflow-scroll hideScrollbar flex-1 2xl:max-w-7xl  pb-12"
+        className="px-1 sm:px-4 md:px-8 lg:px-14 xl:px-20 overflow-scroll hideScrollbar flex-1 2xl:max-w-7xl pt-4 pb-12"
       >
         <div className="flex justify-between items-center">
           <p className="text-3xl underline underline-offset-2 font-semibold tracking-tighter">

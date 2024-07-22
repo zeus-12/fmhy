@@ -61,7 +61,7 @@ const calculateCategories = (category: string) => {
         const next = MARKDOWN_RESOURCES[i + 1];
         const prev = MARKDOWN_RESOURCES[i - 1];
 
-        if (next.hasSubItems) {
+        if (next?.hasSubItems) {
           nextCategory = {
             ele: next.items[0] as ChildResource,
             icon: <ChevronRight className="w-5 h-5 text-gray-100" />,
@@ -76,7 +76,7 @@ const calculateCategories = (category: string) => {
                 };
         }
 
-        if (prev.hasSubItems) {
+        if (prev?.hasSubItems) {
           previousCategory = {
             ele: prev.items[prev.items.length - 1] as ChildResource,
             icon: <ChevronLeft className="w-5 h-5 text-gray-100" />,
@@ -127,7 +127,7 @@ const WikiBottomNavigator: React.FC<{ category: string }> = ({ category }) => {
       >
         {[previousCategory, nextCategory].map(
           (item: NavigatorType | null, i) => {
-            if (!item) {
+            if (!item || !item.ele?.urlEnding) {
               return <div key={i} />;
             }
             return (
