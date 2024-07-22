@@ -61,10 +61,10 @@ const Search = () => {
     <>
       <NextSeo title="Search" description="Fmhy Search" />
       <SiteLinksSearchBoxJsonLd
-        url="https://www.fmhy.tk"
+        url="https://fmhy.vercel.app"
         potentialActions={[
           {
-            target: "https://www.fmhy.tk/search?q",
+            target: "https://fmhy.vercel.app/search?q",
             queryInput: "search_term_string",
           },
         ]}

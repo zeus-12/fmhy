@@ -12,7 +12,7 @@ import { SEO } from "../../next-seo.config";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     // <PlausibleProvider
-    //   domain="fmhy.tk"
+    //   domain="fmhy.vercel.app"
     //   selfHosted={true}
     //   customDomain="https://i-totally-love-easylist.swmg.top"
     //   trackOutboundLinks={true}
