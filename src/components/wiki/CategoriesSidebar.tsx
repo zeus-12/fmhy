@@ -1,20 +1,19 @@
-import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
+import {
+  MARKDOWN_RESOURCES,
+  ChildResource,
+  ParentResource,
+} from "@/lib/CONSTANTS";
 import Link from "@/components/Link";
 import { cn } from "@/lib/utils";
 import { useWiki } from "@/lib/store";
 import { useState } from "react";
-import { ChevronDown, ChevronsDownIcon } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import { useRouter } from "next/router";
 
-interface CategoriesSidebarProps {
-  markdownCategory: {
-    title: string;
-    urlEnding: string;
-    emoji: string;
-  };
-}
-
-const CategoriesSidebar: React.FC<CategoriesSidebarProps> = ({
+const CategoriesSidebar = ({
   markdownCategory,
+}: {
+  markdownCategory: ChildResource;
 }) => {
   const { hideCategory } = useWiki();
   return (
@@ -24,12 +23,12 @@ const CategoriesSidebar: React.FC<CategoriesSidebarProps> = ({
           return (
             <ToggleableCategory
               hideCategory={hideCategory}
-              urlEnding={markdownCategory.urlEnding}
-              key={item.urlEnding}
+              key={item.title}
               item={item}
             />
           );
         }
+
         return (
           <Link
             key={item.emoji}
@@ -57,13 +56,14 @@ export default CategoriesSidebar;
 
 const ToggleableCategory = ({
   item,
-  urlEnding,
   hideCategory,
 }: {
-  item: (typeof MARKDOWN_RESOURCES)[0];
-  urlEnding: string;
+  item: ParentResource;
   hideCategory: boolean;
 }) => {
+  const router = useRouter();
+
+  const category = router.query.CATEGORY as string;
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = () => setIsOpen((prev) => !prev);
 
@@ -80,18 +80,19 @@ const ToggleableCategory = ({
           emoji={item.emoji}
           title={item.title}
           onClick={toggleOpen}
-          hasSubItems={item.hasSubItems}
+          hasSubItems={item.hasSubItems && item.items.length > 0}
         />
       </div>
 
       {isOpen &&
+        item.hasSubItems &&
         item.items?.map((subItem) => {
           return (
             <Link
               key={subItem.emoji}
               href={`/${subItem.urlEnding.toLowerCase()}`}
               className={cn(
-                subItem.urlEnding.toLowerCase() === urlEnding.toLowerCase()
+                subItem.urlEnding.toLowerCase() === category.toLowerCase()
                   ? "text-gray-300 font-semibold border-r-[2px] border-white"
                   : "text-gray-500",
                 "rounded-sm px-2 sm:px-4 md:pl-8 my-2 py-2 group block"
