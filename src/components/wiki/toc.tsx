@@ -28,6 +28,7 @@ export default function TableOfContents({
         : [],
     [toc]
   );
+
   const activeHeading = useActiveItem(itemIds);
   return (
     <>

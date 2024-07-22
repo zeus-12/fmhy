@@ -1,9 +1,12 @@
 import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
-import { MARKDOWN_RESOURCES, blurDataUrlForLogo } from "@/lib/CONSTANTS";
+import {
+  ChildResource,
+  MARKDOWN_RESOURCES,
+  blurDataUrlForLogo,
+} from "@/lib/CONSTANTS";
 import WikiBottomNavigator from "@/components/wiki/BottomNavigator";
 import Link from "@/components/Link";
 import Image from "next/image";
-import PirateImage from "/public/assets/pirate.png";
 import FAQ from "@/components/FAQ";
 import { Badge } from "@mantine/core";
 import Balancer from "react-wrap-balancer";
@@ -80,7 +83,9 @@ const quickLinks = [
 const Home = () => {
   return (
     <div className="flex justify-between gap-2">
-      <CategoriesSidebar markdownCategory={MARKDOWN_RESOURCES[0]} />
+      <CategoriesSidebar
+        markdownCategory={MARKDOWN_RESOURCES[0] as ChildResource}
+      />
       <div className="flex-1 px-2 sm:px-4 md:px-8 lg:px-14 xl:px-28 overflow-scroll space-y-4 overflow-x-hidden hideScrollbar mb-4">
         <div className="justify-center min-h-full items-center flex flex-col">
           <p className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tighter text-center">

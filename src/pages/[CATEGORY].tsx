@@ -1,4 +1,9 @@
-import { MARKDOWN_RESOURCES, isDevEnv, testData } from "@/lib/CONSTANTS";
+import {
+  ChildResource,
+  MARKDOWN_RESOURCES,
+  isDevEnv,
+  testData,
+} from "@/lib/CONSTANTS";
 import BottomNavigator from "@/components/wiki/BottomNavigator";
 import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
 import { useRouter } from "next/router";
@@ -8,7 +13,7 @@ import { NextSeo } from "next-seo";
 import MarkdownRenderer from "@/components/MarkdownRenderer";
 import { devLog } from "@/lib/utils";
 import { useWiki } from "@/lib/store";
-import { type Resource } from "@/lib/CONSTANTS";
+import { ResourceEle } from "@/lib/CONSTANTS";
 import { useEffect } from "react";
 
 const Wiki = ({ data, toc }: { data: string; toc: any }) => {
@@ -17,7 +22,7 @@ const Wiki = ({ data, toc }: { data: string; toc: any }) => {
   const category = router.query.CATEGORY as string;
 
   // export a set of all the categories from constants and check that instead
-  let markdownCategory: Resource | undefined;
+  let markdownCategory: ChildResource | undefined;
 
   MARKDOWN_RESOURCES.forEach((item) => {
     if (!item.hasSubItems) {
@@ -69,10 +74,7 @@ interface LinkDataRendererProps {
   data: string;
   category: string;
   toc: any;
-  markdownCategory: {
-    title: string;
-    urlEnding: string;
-  };
+  markdownCategory: ResourceEle | undefined;
 }
 
 const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
@@ -143,8 +145,7 @@ export async function getStaticProps({
   //   };
   // }
   try {
-    let markdownCategory: Resource | undefined;
-
+    let markdownCategory: ResourceEle | undefined;
     MARKDOWN_RESOURCES.forEach((item) => {
       if (!item.hasSubItems) {
         if (item.urlEnding.toLowerCase() === CATEGORY?.toLowerCase()) {
@@ -164,12 +165,17 @@ export async function getStaticProps({
       }
     });
 
+    if (markdownCategory?.hasSubItems)
+      throw new Error(
+        "Parent resource found => MARKDOWNURL is undefined => SSG"
+      );
+
     const markdownUrlEnding = markdownCategory?.urlEnding;
-    if (!markdownUrlEnding) throw new Error("MARKDOWNURL is undefined => SSG");
 
     const res = await fetch(
       `https://raw.githubusercontent.com/nbats/FMHYedit/main/${markdownUrlEnding}.md`
     );
+
     const text = await res.text();
 
     const stringList = text.split("\n");
@@ -231,6 +237,7 @@ export async function getStaticProps({
       revalidate: 60 * 60 * 24 * 2, // 2 days
     };
   } catch (err: any) {
+    console.log(err.message, "erroorrr");
     devLog(err, "Err");
     return {
       notFound: true,
@@ -241,22 +248,21 @@ export async function getStaticProps({
 export async function getStaticPaths() {
   const paths: { params: { CATEGORY: string } }[] = [];
 
-  MARKDOWN_RESOURCES.filter((resource) => !!resource.urlEnding).forEach(
-    (resource) => {
-      if (resource.hasSubItems) {
-        resource.items?.forEach((item) => {
-          paths.push({
-            params: { CATEGORY: item.urlEnding.toLowerCase() },
-          });
-        });
-      } else {
+  MARKDOWN_RESOURCES.forEach((resource) => {
+    if (resource.hasSubItems) {
+      resource.items?.forEach((item) => {
         paths.push({
-          params: { CATEGORY: resource.urlEnding.toLowerCase() },
+          params: { CATEGORY: item.urlEnding.toLowerCase() },
         });
-      }
+      });
+    } else {
+      paths.push({
+        params: { CATEGORY: resource.urlEnding.toLowerCase() },
+      });
     }
-  );
+  });
 
+  console.log(paths, "pATSHS");
   return {
     paths,
     fallback: false,

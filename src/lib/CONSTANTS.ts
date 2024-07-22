@@ -1,116 +1,140 @@
-interface ResourceEle {
+interface CommonResourceFields {
   title: string;
-  urlEnding: string;
   emoji: string;
   dlForSearch: boolean;
+  useAbsoluteUrl?: boolean;
 }
 
-export type Resource = ResourceEle & {
-  items?: ResourceEle[];
-  hasSubItems?: boolean;
-};
+export interface ParentResource extends CommonResourceFields {
+  hasSubItems: true;
+  // assuming no sub-sub items => might need to change this
+  items: ChildResource[];
+}
 
-export const MARKDOWN_RESOURCES: Resource[] = [
+export interface ChildResource extends CommonResourceFields {
+  hasSubItems: false;
+  urlEnding: string;
+}
+
+export type ResourceEle = ChildResource | ParentResource;
+
+export const MARKDOWN_RESOURCES: ResourceEle[] = [
   {
     title: "Home",
-    urlEnding: "",
+    // urlEnding: "",
     emoji: "👋",
     dlForSearch: false,
+    hasSubItems: true,
+    items: [],
   },
   {
     title: "Adblock, Privacy",
     urlEnding: "AdblockVPNGuide",
     emoji: "📛",
     dlForSearch: true,
+    hasSubItems: false,
   },
   {
     title: "AI Tools",
     urlEnding: "AI",
     emoji: "🤖",
     dlForSearch: true,
-  },
-  {
-    title: "Android, iOS",
-    urlEnding: "Android-iOSGuide",
-    emoji: "📱",
-    dlForSearch: true,
-  },
-  {
-    title: "Base64",
-    urlEnding: "base64",
-    emoji: "🔗",
-    dlForSearch: false,
-  },
-  {
-    title: "Beginners Guide",
-    urlEnding: "Beginners-Guide",
-    emoji: "🏴‍☠️",
-    dlForSearch: false,
-  },
-  {
-    title: "Books, Comics, Manga",
-    urlEnding: "ReadingPiracyGuide",
-    emoji: "📗",
-    dlForSearch: true,
-  },
-  {
-    title: "Downloading",
-    urlEnding: "DownloadPiracyGuide",
-    emoji: "💾",
-    dlForSearch: true,
-  },
-  {
-    title: "Educational",
-    urlEnding: "EDUPiracyGuide",
-    emoji: "🧠",
-    dlForSearch: true,
-  },
-  {
-    title: "Gaming, Emulation",
-    urlEnding: "GamingPiracyGuide",
-    emoji: "🎮",
-    dlForSearch: true,
-  },
-  {
-    title: "Linux, MacOS",
-    urlEnding: "LinuxGuide",
-    emoji: "🐧",
-    dlForSearch: true,
-  },
-  {
-    title: "Miscellaneous",
-    urlEnding: "MISCGuide",
-    emoji: "📂",
-    dlForSearch: true,
+    hasSubItems: false,
   },
   {
     title: "Movies, TV, Anime, Sports",
     urlEnding: "VideoPiracyGuide",
     emoji: "📺",
     dlForSearch: true,
+    hasSubItems: false,
   },
   {
     title: "Music, Podcasts, Radio",
     urlEnding: "AudioPiracyGuide",
     emoji: "🎵",
     dlForSearch: true,
+    hasSubItems: false,
   },
+  {
+    title: "Gaming, Emulation",
+    urlEnding: "GamingPiracyGuide",
+    emoji: "🎮",
+    dlForSearch: true,
+    hasSubItems: false,
+  },
+  {
+    title: "Books, Comics, Manga",
+    urlEnding: "ReadingPiracyGuide",
+    emoji: "📗",
+    dlForSearch: true,
+    hasSubItems: false,
+  },
+
+  {
+    title: "Downloading",
+    urlEnding: "DownloadPiracyGuide",
+    emoji: "💾",
+    dlForSearch: true,
+    hasSubItems: false,
+  },
+
+  {
+    title: "Torrenting",
+    urlEnding: "TorrentPiracyGuide",
+    emoji: "🌀",
+    dlForSearch: true,
+    hasSubItems: false,
+  },
+
+  {
+    title: "Educational",
+    urlEnding: "EDUPiracyGuide",
+    emoji: "🧠",
+    dlForSearch: true,
+    hasSubItems: false,
+  },
+
+  {
+    title: "Android, iOS",
+    urlEnding: "Android-iOSGuide",
+    emoji: "📱",
+    dlForSearch: true,
+    hasSubItems: false,
+  },
+
+  // {
+  //   title: "Base64",
+  //   urlEnding: "base64",
+  //   emoji: "🔗",
+  //   dlForSearch: false,
+  // },
+
+  {
+    title: "Linux, MacOS",
+    urlEnding: "LinuxGuide",
+    emoji: "🐧",
+    dlForSearch: true,
+    hasSubItems: false,
+  },
+
   {
     title: "Non-English",
     urlEnding: "Non-English",
     emoji: "🌍",
     dlForSearch: true,
+    hasSubItems: false,
   },
 
   {
-    title: "Storage",
-    urlEnding: "STORAGE",
-    emoji: "📦",
+    title: "Miscellaneous",
+    urlEnding: "MISCGuide",
+    emoji: "📂",
     dlForSearch: true,
+    hasSubItems: false,
   },
+
   {
     title: "Tools",
-    urlEnding: "TOOLSGuide",
     emoji: "🔧",
     dlForSearch: true,
     hasSubItems: true,
@@ -120,87 +144,130 @@ export const MARKDOWN_RESOURCES: Resource[] = [
         title: "System Tools",
         emoji: "💻",
         urlEnding: "System-Tools",
+        hasSubItems: false,
       },
-      {
-        title: "Developer Tools",
-        dlForSearch: true,
-        emoji: "👨‍💻",
-        urlEnding: "DEVTools",
-      },
+
       {
         dlForSearch: true,
         emoji: "🗃️",
         title: "File Tools",
         urlEnding: "File-Tools",
+        hasSubItems: false,
       },
       {
         dlForSearch: true,
         emoji: "🔗",
         title: "Internet Tools",
         urlEnding: "Internet-Tools",
+        hasSubItems: false,
+      },
+
+      {
+        dlForSearch: true,
+        emoji: "💬",
+        title: "Social Media Tools",
+        urlEnding: "social-media-tools",
+        hasSubItems: false,
       },
       {
         dlForSearch: true,
         emoji: "📝",
         title: "Text Tools",
         urlEnding: "Text-Tools",
+        hasSubItems: false,
       },
-
+      {
+        dlForSearch: true,
+        emoji: "🎮",
+        title: "Gaming Tools",
+        urlEnding: "gaming-tools",
+        hasSubItems: false,
+      },
       {
         dlForSearch: true,
         emoji: "📷",
         title: "Image Tools",
         urlEnding: "img-tools",
+        hasSubItems: false,
       },
+
       {
         dlForSearch: true,
         emoji: "📼",
         title: "Video Tools",
         urlEnding: "Video-Tools",
+        hasSubItems: false,
       },
+
       {
-        dlForSearch: true,
         emoji: "🔊",
         title: "Audio Tools",
-        urlEnding: "Audio-Tools",
+        useAbsoluteUrl: true,
+        urlEnding: "audiopiracyguide#audio-tools",
+        dlForSearch: false,
+        hasSubItems: false,
       },
-      // {
-      //   dlForSearch: false,
-      //   emoji: "👾",
-      //   title: "Gaming Tools",
-      //   urlEnding: "GamingPiracyGuide#gaming-tools",
-      // },
-      // {
-      //   dlForSearch: false,
-      //   emoji: "🍎",
-      //   title: "Educational Tools",
-      //   urlEnding: "EDUPiracyGuide#educational-tools",
-      // },
+
+      {
+        dlForSearch: false,
+        emoji: "🍎",
+        title: "Educational Tools",
+        useAbsoluteUrl: true,
+        urlEnding: "edupiracyguide#educational-tools",
+        hasSubItems: false,
+      },
+      {
+        title: "Developer Tools",
+        dlForSearch: true,
+        emoji: "👨‍💻",
+        urlEnding: "DEVTools",
+        hasSubItems: false,
+      },
+    ],
+  },
+
+  {
+    title: "More",
+    emoji: "➕",
+    dlForSearch: true,
+    hasSubItems: true,
+    items: [
+      {
+        title: "NSFW",
+        urlEnding: "NSFWPiracy",
+        emoji: "🔞",
+        dlForSearch: true,
+        hasSubItems: false,
+      },
+      {
+        title: "Unsafe Sites",
+        urlEnding: "UnsafeSites",
+        emoji: "🚫",
+        dlForSearch: false,
+        hasSubItems: false,
+      },
+
+      {
+        title: "Storage",
+        urlEnding: "STORAGE",
+        emoji: "📦",
+        dlForSearch: true,
+        hasSubItems: false,
+      },
     ],
   },
   {
-    title: "Torrenting",
-    urlEnding: "TorrentPiracyGuide",
-    emoji: "🌀",
-    dlForSearch: true,
-  },
-  {
-    title: "Unsafe Sites",
-    urlEnding: "UnsafeSites",
-    emoji: "🚫",
+    title: "Beginners Guide",
+    urlEnding: "Beginners-Guide",
+    emoji: "🏴‍☠️",
     dlForSearch: false,
-  },
-  {
-    title: "NSFW",
-    urlEnding: "NSFWPiracy",
-    emoji: "🔞",
-    dlForSearch: true,
+    hasSubItems: false,
   },
 ];
 
 export const MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING: { [key: string]: string } =
   MARKDOWN_RESOURCES.reduce(
-    (mapping: { [key: string]: string }, resource: Resource) => {
+    (mapping: { [key: string]: string }, resource: ResourceEle) => {
       if (resource.hasSubItems) {
         resource.items?.forEach((item) => {
           mapping[item.urlEnding.toLowerCase()] = item.emoji;
@@ -334,3 +401,67 @@ For games use [Rezi](https://rezi.one) or any site listed [here](https://www.red
     answer: `You can use [this](https://downloader.la/) if this doesn't work you can find similar stock image downloaders [here](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/storage/#wiki_stock_photo_sites).`,
   },
 ];
+
+// headers = {
+//   "AdblockVPNGuide.md": [
+//       "Adblocking / Privacy",
+//       "Adblocking, Privacy, VPN's, Proxies, Antivirus",
+//   ],
+//   "AI.md": [
+//       "Artificial Intelligence",
+//       "Chat Bots, Text Generators, Image Generators, ChatGPT Tools",
+//   ],
+//   "Android-iOSGuide.md": ["Android / iOS", "Apps, Jailbreaking, Android Emulators"],
+//   "AudioPiracyGuide.md": [
+//       "Music / Podcasts / Radio",
+//       "Stream Audio, Download Audio, Torrent Audio",
+//   ],
+//   "Beginners-Guide.md": ["Beginners Guide", "A Guide for Beginners to Piracy"],
+//   "DownloadPiracyGuide.md": [
+//       "Downloading",
+//       "Download Sites, Software Sites, Open Directories",
+//   ],
+//   "EDUPiracyGuide.md": ["Educational", "Courses, Documentaries, Learning Resources"],
+//   "GamingPiracyGuide.md": [
+//       "Gaming / Emulation",
+//       "Download Games, ROMs, Gaming Tools",
+//   ],
+//   "LinuxGuide.md": ["Linux / MacOS", "Apps, Software Sites, Gaming"],
+//   "MISCGuide.md": ["Miscellaneous", "Extensions, Indexes, News, Health, Food, Fun"],
+//   "NSFWPiracy.md": ["NSFW", "NSFW Indexes, Streaming, Downloading"],
+//   "Non-English.md": ["Non-English", "International Piracy Sites"],
+//   "ReadingPiracyGuide.md": [
+//       "Books / Comics / Manga",
+//       "Books, Comics, Magazines, Newspapers",
+//   ],
+//   "gaming-tools.md": ["Gaming Tools", "Gaming Optimization, Game Launchers, Multiplayer"],
+//   "DEVTools.md": ["Developer Tools", "Git, Hosting, App Dev, Software Dev"],
+//   "img-tools.md": ["Image Tools", "Image Editors, Generators, Compress"],
+//   "Audio-Tools.md": [
+//       "Audio Tools",
+//       "Audio Players, Audio Editors, Audio Downloaders",
+//   ],
+//   "System-Tools.md": [
+//       "System Tools",
+//       "System Tools, Hardware Tools, Windows ISOs, Customization",
+//   ],
+//   "File-Tools.md": ["File Tools", "Download Managers, File Hosting, File Archivers"],
+//   "Video-Tools.md": [
+//       "Video Tools",
+//       "Video Players, Video Editors, Live Streaming, Animation",
+//   ],
+//   "Text-Tools.md": ["Text Tools", "Text Editors, Pastebins, Fonts, Translators"],
+//   # "Internet-Tools.md": ["Internet Tools", "Browsers, Extensions, Search Engines"],
+//   "Social-Media-Tools.md": [
+//       "Social Media Tools",
+//       "Discord Tools, Reddit Tools, YouTube Tools",
+//   ],
+//   "STORAGE.md": ["Storage", "Sections too big to fit on main pages"],
+//   "TorrentPiracyGuide.md": ["Torrenting", "Torrent Clients, Torrent Sites, Trackers"],
+//   "VideoPiracyGuide.md": [
+//       "Movies / TV / Anime",
+//       "Stream Videos, Download Videos, Torrent Videos",
+//   ],
+//   "base64.md": ["Base64", "Base64 storage"],
+//   "UnsafeSites.md": ["Unsafe Sites", "Unsafe/harmful sites to avoid."],
+// }
