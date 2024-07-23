@@ -248,8 +248,23 @@ export async function getStaticPaths() {
   const paths: { params: { CATEGORY: string } }[] = [];
 
   MARKDOWN_RESOURCES.forEach((resource) => {
+    // THIS IS JUST TO TARGET THE HOME PAGE AND SUB PAGES (ones with '#')
+    if (
+      !resource.hasSubItems &&
+      (!resource.urlEnding || resource.urlEnding.includes("#"))
+    ) {
+      return;
+    }
+
     if (resource.hasSubItems) {
       resource.items?.forEach((item) => {
+        // THIS IS JUST TO TARGET THE HOME PAGE AND SUB PAGES (ones with '#')
+        if (
+          !item.hasSubItems &&
+          (!item.urlEnding || item.urlEnding.includes("#"))
+        ) {
+          return;
+        }
         paths.push({
           params: { CATEGORY: item.urlEnding.toLowerCase() },
         });
