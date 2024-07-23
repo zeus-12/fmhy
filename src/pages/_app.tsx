@@ -1,8 +1,8 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { MantineProvider } from "@mantine/core";
-import { SpotlightProvider } from "@/components/Spotlight";
-import Navbar from "@/components/Navbar";
+import { SpotlightProvider } from "@/components/spotlight";
+import Navbar from "@/components/navbar";
 // import PlausibleProvider from "next-plausible";
 import { DefaultSeo } from "next-seo";
 import { cn } from "@/lib/utils";

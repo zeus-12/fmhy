@@ -1,4 +1,4 @@
-import MarkdownRenderer from "@/components/MarkdownRenderer";
+import MarkdownRenderer from "@/components/markdown-renderer";
 import { Alert } from "@mantine/core";
 import { AlertCircle, Siren } from "lucide-react";
 import { ReactNode } from "react";

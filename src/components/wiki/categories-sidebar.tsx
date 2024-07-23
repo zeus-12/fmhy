@@ -2,8 +2,8 @@ import {
   MARKDOWN_RESOURCES,
   ChildResource,
   ParentResource,
-} from "@/lib/CONSTANTS";
-import Link from "@/components/Link";
+} from "@/lib/constants";
+import Link from "@/components/link";
 import { cn } from "@/lib/utils";
 import { useWiki } from "@/lib/store";
 import { useState } from "react";

@@ -1,5 +1,5 @@
-import Link from "@/components/Link";
-import { ChildResource, MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
+import Link from "@/components/link";
+import { ChildResource, MARKDOWN_RESOURCES } from "@/lib/constants";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type NavigatorType = { ele: ChildResource; icon: JSX.Element } | null;

@@ -1,4 +1,4 @@
-import Link from "@/components/Link";
+import Link from "@/components/link";
 
 const GuideItem: React.FC<{ title: string; link: string }> = ({
   title,

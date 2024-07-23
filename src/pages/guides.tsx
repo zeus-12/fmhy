@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, ChangeEventHandler } from "react";
-import GuideItem from "@/components/GuideItem";
+import GuideItem from "@/components/guide-item";
 import { Input } from "@mantine/core";
 import { devLog } from "@/lib/utils";
 import { NextSeo } from "next-seo";

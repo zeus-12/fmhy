@@ -1,5 +1,5 @@
 import fs from "fs";
-import { MARKDOWN_RESOURCES } from "@/lib/CONSTANTS";
+import { MARKDOWN_RESOURCES } from "@/lib/constants";
 import fetch from "node-fetch";
 
 const ScrapeWikiScript = () => {

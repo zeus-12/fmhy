@@ -1,13 +1,13 @@
-import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
+import CategoriesSidebar from "@/components/wiki/categories-sidebar";
 import {
   ChildResource,
   MARKDOWN_RESOURCES,
   blurDataUrlForLogo,
-} from "@/lib/CONSTANTS";
-import WikiBottomNavigator from "@/components/wiki/BottomNavigator";
-import Link from "@/components/Link";
+} from "@/lib/constants";
+import WikiBottomNavigator from "@/components/wiki/bottom-navigator";
+import Link from "@/components/link";
 import Image from "next/image";
-import FAQ from "@/components/FAQ";
+import FAQ from "@/components/faq";
 import { Badge } from "@mantine/core";
 import Balancer from "react-wrap-balancer";
 

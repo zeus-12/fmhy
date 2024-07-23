@@ -3,17 +3,17 @@ import {
   MARKDOWN_RESOURCES,
   // isDevEnv,
   // testData,
-} from "@/lib/CONSTANTS";
-import BottomNavigator from "@/components/wiki/BottomNavigator";
-import CategoriesSidebar from "@/components/wiki/CategoriesSidebar";
+} from "@/lib/constants";
+import BottomNavigator from "@/components/wiki/bottom-navigator";
+import CategoriesSidebar from "@/components/wiki/categories-sidebar";
 import { useRouter } from "next/router";
 import { getTableOfContents } from "@/lib/toc";
 import WikiTableOfContents from "@/components/wiki/toc";
 import { NextSeo } from "next-seo";
-import MarkdownRenderer from "@/components/MarkdownRenderer";
+import MarkdownRenderer from "@/components/markdown-renderer";
 import { devLog } from "@/lib/utils";
 import { useWiki } from "@/lib/store";
-import { ResourceEle } from "@/lib/CONSTANTS";
+import { ResourceEle } from "@/lib/constants";
 import { useEffect } from "react";
 
 const Wiki = ({ data, toc }: { data: string; toc: any }) => {

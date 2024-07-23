@@ -1,4 +1,4 @@
-import Link from "@/components/Link";
+import Link from "@/components/link";
 import { Button, Select, TextInput, Textarea } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { NextSeo } from "next-seo";

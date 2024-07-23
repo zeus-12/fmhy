@@ -1,4 +1,4 @@
-import Link from "@/components/Link";
+import Link from "@/components/link";
 import { TableOfContents } from "@/lib/toc";
 import { cn } from "@/lib/utils";
 import { Drawer } from "@mantine/core";

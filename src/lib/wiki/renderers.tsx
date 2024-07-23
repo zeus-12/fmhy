@@ -1,6 +1,6 @@
 import { ClassAttributes, HTMLAttributes, createElement } from "react";
-import Link from "@/components/Link";
-import { NoteAlert, WarningAlert } from "@/components/Alert";
+import Link from "@/components/link";
+import { NoteAlert, WarningAlert } from "@/components/alert";
 import {
   HeadingRendererHelper,
   classMapping,
@@ -11,8 +11,8 @@ import {
 import { Accordion } from "@mantine/core";
 import { cn } from "@/lib/utils";
 import { fontMono } from "@/lib/fonts";
-import { beginnersGuideFaqs } from "@/lib/CONSTANTS";
-import MarkdownRenderer from "@/components/MarkdownRenderer";
+import { beginnersGuideFaqs } from "@/lib/constants";
+import MarkdownRenderer from "@/components/markdown-renderer";
 import ReactMarkdown, { ExtraProps } from "react-markdown";
 import gfm from "remark-gfm";
 
