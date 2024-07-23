@@ -36,7 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
             fontSans.className
           )}
         >
-          <div className="flex-1 flex overflow-y-scroll mt-4">
+          <div className="flex-1 flex overflow-y-scroll">
             <Component {...pageProps} />
           </div>
         </div>

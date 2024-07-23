@@ -1,5 +1,5 @@
 import Link from "@/components/link";
-import { TableOfContents } from "@/lib/toc";
+import { type TableOfContents } from "@/lib/toc";
 import { cn } from "@/lib/utils";
 import { Drawer } from "@mantine/core";
 import { XIcon } from "lucide-react";
@@ -75,7 +75,7 @@ function Toc({
   const isModal = !!closeModal;
 
   return (
-    <div className="overflow-scroll lg:pr-8 md:pr-2 hideScrollbar mb-6">
+    <div className="overflow-scroll lg:pr-8 md:pr-2 hideScrollbar py-4">
       <div className="flex justify-between items-center">
         <p className={cn(`font-semibold`, isModal && "text-xl")}>Contents</p>
         {isModal && (

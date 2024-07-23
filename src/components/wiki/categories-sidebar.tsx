@@ -17,7 +17,7 @@ const CategoriesSidebar = ({
 }) => {
   const { hideCategory } = useWiki();
   return (
-    <div className="bg-[#050a15] border-gray-700 border-r-[1px] h-full overflow-scroll hideScrollbar">
+    <div className="bg-[#050a15] border-gray-700 border-r-[1px] h-full overflow-scroll hideScrollbar py-4">
       {MARKDOWN_RESOURCES.map((item) => {
         if (item.hasSubItems) {
           return (

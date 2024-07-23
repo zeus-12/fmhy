@@ -21,11 +21,10 @@ export type ResourceEle = ChildResource | ParentResource;
 export const MARKDOWN_RESOURCES: ResourceEle[] = [
   {
     title: "Home",
-    // urlEnding: "",
+    urlEnding: "",
     emoji: "👋",
     dlForSearch: false,
-    hasSubItems: true,
-    items: [],
+    hasSubItems: false,
   },
   {
     title: "Adblock, Privacy",
