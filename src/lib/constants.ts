@@ -165,7 +165,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
         dlForSearch: true,
         emoji: "💬",
         title: "Social Media Tools",
-        urlEnding: "social-media-tools",
+        urlEnding: "Social-Media-Tools",
         hasSubItems: false,
       },
       {

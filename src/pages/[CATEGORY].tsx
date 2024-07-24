@@ -173,10 +173,13 @@ export async function getStaticProps({
     const markdownUrlEnding = markdownCategory?.urlEnding;
 
     const res = await fetch(
-      `https://raw.githubusercontent.com/nbats/FMHYedit/main/${markdownUrlEnding}.md`
+      `https://raw.githubusercontent.com/fmhy/FMHYedit/main/${markdownUrlEnding}.md`
     );
 
     const text = await res.text();
+    if (!text) {
+      devLog("No text found", "Err");
+    }
 
     const stringList = text.split("\n");
 
