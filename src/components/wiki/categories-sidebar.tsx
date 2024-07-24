@@ -92,7 +92,8 @@ const ToggleableCategory = ({
               key={subItem.emoji}
               href={`/${subItem.urlEnding.toLowerCase()}`}
               className={cn(
-                subItem.urlEnding.toLowerCase() === category.toLowerCase()
+                category &&
+                  subItem.urlEnding.toLowerCase() === category.toLowerCase()
                   ? "text-gray-300 font-semibold border-r-[2px] border-white"
                   : "text-gray-500",
                 "rounded-sm px-2 sm:px-4 md:pl-8 my-2 py-2 group block"
