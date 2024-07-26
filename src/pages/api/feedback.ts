@@ -1,23 +1,23 @@
-import { google } from "googleapis";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next"
+import { google } from "googleapis"
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    const { message, feedbackType, contactEmail } = req.body;
+    const { message, feedbackType, contactEmail } = req.body
 
     if (
       !["bug", "suggestion", "other", "appreciate"].includes(feedbackType) ||
       !message ||
       message.length < 10
     ) {
-      res.status(422).json({ error: "Invalid input." });
-      return;
+      res.status(422).json({ error: "Invalid input." })
+      return
     }
 
-    let fields = [feedbackType, contactEmail, message];
+    let fields = [feedbackType, contactEmail, message]
 
     const auth = new google.auth.GoogleAuth({
       credentials: {
@@ -33,12 +33,12 @@ export default async function handler(
         "https://www.googleapis.com/auth/drive.file",
         "https://www.googleapis.com/auth/spreadsheets",
       ],
-    });
+    })
 
     const sheets = google.sheets({
       auth,
       version: "v4",
-    });
+    })
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.SPREADSHEET_ID,
@@ -47,11 +47,11 @@ export default async function handler(
       requestBody: {
         values: [Object.values(fields)],
       },
-    });
+    })
 
-    res.status(200).json({ success: "success" });
-    return;
+    res.status(200).json({ success: "success" })
+    return
   } else {
-    res.status(400).json({ error: "Invalid method!" });
+    res.status(400).json({ error: "Invalid method!" })
   }
 }

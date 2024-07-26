@@ -1,15 +1,16 @@
+import GithubSlugger from "github-slugger"
+import ReactMarkdown, { Components } from "react-markdown"
+import gfm from "remark-gfm"
+
 import {
+  BlockquoteRenderer,
+  CodeRenderer,
+  HeadingRenderer,
   LiRenderer,
   LinkRenderer,
   PRenderer,
-  CodeRenderer,
-  HeadingRenderer,
   UlRenderer,
-  BlockquoteRenderer,
-} from "@/lib/wiki/renderers";
-import ReactMarkdown, { Components } from "react-markdown";
-import GithubSlugger from "github-slugger";
-import gfm from "remark-gfm";
+} from "@/lib/wiki/renderers"
 
 const MarkdownRenderer = ({
   category,
@@ -17,13 +18,13 @@ const MarkdownRenderer = ({
   children,
   components,
 }: {
-  category?: string;
-  showOnlyStarred?: boolean;
-  children: string;
-  components?: Partial<Components> | null | undefined;
+  category?: string
+  showOnlyStarred?: boolean
+  children: string
+  components?: Partial<Components> | null | undefined
 }) => {
-  const slugger = new GithubSlugger();
-  slugger.reset();
+  const slugger = new GithubSlugger()
+  slugger.reset()
 
   return (
     <ReactMarkdown
@@ -45,6 +46,6 @@ const MarkdownRenderer = ({
     >
       {children}
     </ReactMarkdown>
-  );
-};
-export default MarkdownRenderer;
+  )
+}
+export default MarkdownRenderer

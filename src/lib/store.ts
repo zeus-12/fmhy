@@ -1,15 +1,15 @@
-import { create } from "zustand";
+import { create } from "zustand"
 
 type Wiki = {
-  showOnlyStarred: boolean;
-  toggleWikiToggleStarred: () => void;
+  showOnlyStarred: boolean
+  toggleWikiToggleStarred: () => void
 
-  showToc: boolean;
-  toggleShowToc: () => void;
+  showToc: boolean
+  toggleShowToc: () => void
 
-  hideCategory: boolean;
-  toggleHideCategory: () => void;
-};
+  hideCategory: boolean
+  toggleHideCategory: () => void
+}
 
 export const useWiki = create<Wiki>((set) => ({
   showOnlyStarred: false,
@@ -23,4 +23,4 @@ export const useWiki = create<Wiki>((set) => ({
   hideCategory: true,
   toggleHideCategory: () =>
     set((state) => ({ hideCategory: !state.hideCategory })),
-}));
+}))

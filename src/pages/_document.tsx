@@ -1,13 +1,21 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import { Head, Html, Main, NextScript } from "next/document"
+
+import { fontSans } from "@/lib/config"
+import { cn } from "@/lib/utils"
 
 export default function Document() {
   return (
-    <Html lang="en" className="scroll-smooth scroll-mt-6">
+    <Html lang="en">
       <Head />
-      <body>
+      <body
+        className={cn(
+          "min-h-screen scroll-smooth bg-background font-sans antialiased",
+          fontSans.variable
+        )}
+      >
         <Main />
         <NextScript />
       </body>
     </Html>
-  );
+  )
 }

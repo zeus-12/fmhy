@@ -1,61 +1,62 @@
-import { Badge, Input } from "@mantine/core";
-import { Search as SearchIcon } from "lucide-react";
-import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
-import { NextSeo, SiteLinksSearchBoxJsonLd } from "next-seo";
-import Link from "@/components/link";
-import { MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING } from "@/lib/constants";
-import ReactMarkdown from "react-markdown";
-import { useDebouncedValue } from "@mantine/hooks";
-import WikiData from "@/scraper/wiki.json";
-import { Index } from "flexsearch";
-import { DlWikiLinkType } from "@/scraper/dl-wiki";
-import { LiRenderer, LinkRenderer } from "@/lib/wiki/renderers";
+import { useEffect, useRef, useState } from "react"
+import { useRouter } from "next/router"
+import { DlWikiLinkType } from "@/scraper/dl-wiki"
+import WikiData from "@/scraper/wiki.json"
+import { Badge, Input } from "@mantine/core"
+import { useDebouncedValue } from "@mantine/hooks"
+import { Index } from "flexsearch"
+import { Search as SearchIcon } from "lucide-react"
+import { NextSeo, SiteLinksSearchBoxJsonLd } from "next-seo"
+import ReactMarkdown from "react-markdown"
+
+import { MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING } from "@/lib/constants"
+import { LiRenderer, LinkRenderer } from "@/lib/wiki/renderers"
 import {
   generateWikiLinkFromCategories,
   stripLinksFromMarkdown,
-} from "@/lib/wiki/utils";
+} from "@/lib/wiki/utils"
+import Link from "@/components/link"
 
-const SEARCH_RESULTS_LIMIT = 100;
+const SEARCH_RESULTS_LIMIT = 100
 
 const Search = () => {
-  const { push, query, isReady } = useRouter();
+  const { push, query, isReady } = useRouter()
 
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("")
 
-  const searchRef = useRef<HTMLInputElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    if (!isReady) return;
+    if (!isReady) return
 
-    const q = (query.q as string) ?? "";
+    const q = (query.q as string) ?? ""
 
     if (q) {
-      setSearchQuery(q);
+      setSearchQuery(q)
     } else {
-      searchRef.current?.focus();
+      searchRef.current?.focus()
     }
-  }, [isReady]);
+  }, [isReady])
 
   const navigatePage = (query: string) => {
-    let params = new URLSearchParams(window.location.search);
-    params.set("q", query);
+    let params = new URLSearchParams(window.location.search)
+    params.set("q", query)
 
     push({
       pathname: "/search",
       query: params.toString(),
-    });
-  };
+    })
+  }
 
   const searchHandler = async () => {
-    navigatePage(searchQuery);
-    searchRef.current?.blur();
-  };
+    navigatePage(searchQuery)
+    searchRef.current?.blur()
+  }
 
   const resetSearch = () => {
-    push("/search");
-    setSearchQuery("");
-  };
+    push("/search")
+    setSearchQuery("")
+  }
 
   return (
     <>
@@ -69,7 +70,7 @@ const Search = () => {
           },
         ]}
       />
-      <div className="flex flex-1 flex-col px-6 sm:px-8 md:px-12 md:py-2 lg:px-16 lg:py-4 xl:py-6 mb-8 w-screen pt-4">
+      <div className="mb-8 flex w-screen flex-1 flex-col px-6 pt-4 sm:px-8 md:px-12 md:py-2 lg:px-16 lg:py-4 xl:py-6">
         <div className="flex items-center justify-between">
           <div>
             <p
@@ -88,7 +89,7 @@ const Search = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
-              searchHandler();
+              searchHandler()
             }
           }}
           ref={searchRef}
@@ -99,12 +100,12 @@ const Search = () => {
         <LocalSearch query={searchQuery} />
       </div>
     </>
-  );
-};
-export default Search;
+  )
+}
+export default Search
 
 const LocalSearch = ({ query }: { query: string }) => {
-  const [debouncedQuery] = useDebouncedValue(query, 150);
+  const [debouncedQuery] = useDebouncedValue(query, 150)
 
   const [index, setIndex] = useState(
     new Index({
@@ -117,41 +118,41 @@ const LocalSearch = ({ query }: { query: string }) => {
 
       // context: true,
     })
-  );
-  const [results, setResults] = useState<any[]>();
+  )
+  const [results, setResults] = useState<any[]>()
 
   useEffect(() => {
-    (WikiData as DlWikiLinkType[]).forEach((item, id) => {
-      const itemWithoutLinks = stripLinksFromMarkdown(item.content);
+    ;(WikiData as DlWikiLinkType[]).forEach((item, id) => {
+      const itemWithoutLinks = stripLinksFromMarkdown(item.content)
       setIndex(
         index.add(
           id,
           `${itemWithoutLinks} ${item.subcategory} ${item.subsubcategory}`
         )
-      );
-    });
-  }, []);
+      )
+    })
+  }, [])
 
   useEffect(() => {
-    if (!debouncedQuery) return;
+    if (!debouncedQuery) return
 
     // update url history
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.set("q", debouncedQuery);
-    const newUrl = window.location.pathname + "?" + urlParams.toString();
-    history.pushState(null, "", newUrl);
+    const urlParams = new URLSearchParams(window.location.search)
+    urlParams.set("q", debouncedQuery)
+    const newUrl = window.location.pathname + "?" + urlParams.toString()
+    history.pushState(null, "", newUrl)
 
-    setResults(index.search(debouncedQuery, SEARCH_RESULTS_LIMIT));
-  }, [debouncedQuery]);
+    setResults(index.search(debouncedQuery, SEARCH_RESULTS_LIMIT))
+  }, [debouncedQuery])
 
   const finalResult = results?.map(
     (result) => (WikiData as DlWikiLinkType[])[result]
-  );
+  )
 
   return (
     <div className="pb-14 pt-2">
       {debouncedQuery && (
-        <p className="text-gray-400 mb-2">
+        <p className="mb-2 text-gray-400">
           {results?.length === SEARCH_RESULTS_LIMIT ? "> " : " "}
           {results?.length} results{" "}
         </p>
@@ -168,7 +169,7 @@ const LocalSearch = ({ query }: { query: string }) => {
         finalResult?.map((result: DlWikiLinkType, idx) => (
           <div
             key={idx}
-            className="rounded-xl list-none my-2"
+            className="my-2 list-none rounded-xl"
             style={{
               background: "#11151F",
               padding: "0.5rem 1rem",
@@ -226,5 +227,5 @@ const LocalSearch = ({ query }: { query: string }) => {
         ))
       )}
     </div>
-  );
-};
+  )
+}

@@ -1,13 +1,14 @@
-import Link from "@/components/link";
-import { Button, Select, TextInput, Textarea } from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { NextSeo } from "next-seo";
-import { useState } from "react";
+import { useState } from "react"
+import { Button, Select, TextInput, Textarea } from "@mantine/core"
+import { useForm } from "@mantine/form"
+import { NextSeo } from "next-seo"
+
+import Link from "@/components/link"
 
 const Feedback = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
+  const [success, setSuccess] = useState(false)
 
   const form = useForm({
     initialValues: {
@@ -25,17 +26,17 @@ const Feedback = () => {
           ? null
           : "Invalid value",
     },
-  });
+  })
 
   const submitFeedbackHandler = async () => {
-    setSuccess(false);
-    setError(false);
-    const validationResult = form.validate();
+    setSuccess(false)
+    setError(false)
+    const validationResult = form.validate()
 
     if (Object.keys(validationResult.errors).length > 0) {
-      return;
+      return
     }
-    setLoading(true);
+    setLoading(true)
     try {
       const res = await fetch("/api/feedback", {
         method: "POST",
@@ -43,29 +44,29 @@ const Feedback = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(form.values),
-      });
-      const data = await res.json();
+      })
+      const data = await res.json()
       if (data.error) {
-        setError(true);
-        setLoading(false);
-        return;
+        setError(true)
+        setLoading(false)
+        return
       }
     } catch (err) {
-      setError(true);
-      setLoading(false);
-      return;
+      setError(true)
+      setLoading(false)
+      return
     }
-    setLoading(false);
-    setSuccess(true);
-    form.reset();
-  };
+    setLoading(false)
+    setSuccess(true)
+    form.reset()
+  }
 
   return (
     <>
       <NextSeo title="Feedback" description="Feedback for fmhy.vercel.app" />
 
-      <div className="gap-2 flex-1 flex items-center sm:justify-center h-full flex-col">
-        <p className="text-4xl font-bold pt-4">
+      <div className="flex h-full flex-1 flex-col items-center gap-2 sm:justify-center">
+        <p className="pt-4 text-4xl font-bold">
           Submit <span className="text-rose-400">Feedback</span>!
         </p>
         <p className="-mt-2 text-gray-400">
@@ -101,7 +102,7 @@ const Feedback = () => {
           {...form.getInputProps("contactEmail")}
         />
 
-        <p className="text-gray-400 text-center">
+        <p className="text-center text-gray-400">
           Feedbacks are anonymous (
           <Link href="https://github.com/zeus-12/fmhy/blob/main/src/pages/feedback.tsx">
             source code
@@ -117,15 +118,15 @@ const Feedback = () => {
           Submit
         </Button>
         {error && (
-          <p className="text-red-400 font-semibold">Something went wrong</p>
+          <p className="font-semibold text-red-400">Something went wrong</p>
         )}
         {success && (
-          <p className="text-green-400 font-semibold">
+          <p className="font-semibold text-green-400">
             Successfully submitted!
           </p>
         )}
       </div>
     </>
-  );
-};
-export default Feedback;
+  )
+}
+export default Feedback

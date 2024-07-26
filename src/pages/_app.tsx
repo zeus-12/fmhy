@@ -1,47 +1,26 @@
-import "@/styles/globals.css";
-import type { AppProps } from "next/app";
-import { MantineProvider } from "@mantine/core";
-import { SpotlightProvider } from "@/components/spotlight";
-import Navbar from "@/components/navbar";
-// import PlausibleProvider from "next-plausible";
-import { DefaultSeo } from "next-seo";
-import { cn } from "@/lib/utils";
-import { fontSans } from "@/lib/fonts";
-import { SEO } from "../../next-seo.config";
+import { DefaultSeo } from "next-seo"
 
-export default function App({ Component, pageProps }: AppProps) {
+import "/src/styles/globals.css"
+import type { AppProps } from "next/app"
+
+import { SiteHeader } from "@/components/header"
+import { ThemeProvider } from "@/components/theme-provider"
+
+import { SEO } from "../../next-seo.config"
+
+function App({ Component, pageProps }: AppProps) {
   return (
-    // <PlausibleProvider
-    //   domain="fmhy.vercel.app"
-    //   selfHosted={true}
-    //   customDomain="https://i-totally-love-easylist.swmg.top"
-    //   trackOutboundLinks={true}
-    //   taggedEvents={true}
-    //   // trackLocalhost={true}
-    //   // enabled={true}
-    // >
-    <MantineProvider
-      theme={{
-        colorScheme: "dark",
-      }}
-    >
-      <SpotlightProvider>
-        <DefaultSeo {...SEO} />
+    <ThemeProvider {...pageProps}>
+      <DefaultSeo {...SEO} />
 
-        <Navbar />
-
-        <div
-          className={cn(
-            "antialiased flex flex-col gap-2 hd-screen",
-            fontSans.className
-          )}
-        >
-          <div className="flex-1 flex overflow-y-scroll">
-            <Component {...pageProps} />
-          </div>
+      <div className="relative flex min-h-screen flex-col">
+        <SiteHeader />
+        <div className="flex-1">
+          <Component {...pageProps} />
         </div>
-      </SpotlightProvider>
-    </MantineProvider>
-    // </PlausibleProvider>
-  );
+      </div>
+    </ThemeProvider>
+  )
 }
+
+export default App

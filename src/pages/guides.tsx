@@ -1,54 +1,55 @@
-import React, { useState, useEffect, useRef, ChangeEventHandler } from "react";
-import GuideItem from "@/components/guide-item";
-import { Input } from "@mantine/core";
-import { devLog } from "@/lib/utils";
-import { NextSeo } from "next-seo";
-import cheerio from "cheerio";
+import React, { ChangeEventHandler, useEffect, useRef, useState } from "react"
+import { Input } from "@mantine/core"
+import cheerio from "cheerio"
+import { NextSeo } from "next-seo"
+
+import { devLog } from "@/lib/utils"
+import GuideItem from "@/components/guide-item"
 
 export interface GuideType {
-  link: string;
-  title: string;
+  link: string
+  title: string
 }
 
 const Guides = ({ guides }: { guides: GuideType[] }) => {
-  const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState("")
 
-  const inputElement = useRef<HTMLInputElement>(null);
+  const inputElement = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     if (inputElement.current) {
-      inputElement.current?.focus();
+      inputElement.current?.focus()
     }
-  }, []);
+  }, [])
 
   let inputHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
-    var lowerCase = (e.target as HTMLInputElement).value;
-    setInputText(lowerCase);
-  };
+    var lowerCase = (e.target as HTMLInputElement).value
+    setInputText(lowerCase)
+  }
 
   const filterData = (data: GuideType[]) => {
     if (data) {
       const filter_data = data.filter((el) => {
         if (inputText === "") {
-          return el;
+          return el
         } else {
-          return el.title.toLowerCase().includes(inputText.toLowerCase());
+          return el.title.toLowerCase().includes(inputText.toLowerCase())
         }
-      });
+      })
 
-      return filter_data;
+      return filter_data
     }
-  };
+  }
 
   return (
     <>
       <NextSeo title="Guides" description="Collection of useful guides" />
 
-      <div className="sm:p-4 sm:px-8 md:px-12 lg:px-16 md:py-2 lg:py-4 xl:py-6 pt-0 flex-1 flex flex-col mx-auto w-[95vw] max-w-[80rem]">
+      <div className="mx-auto flex w-[95vw] max-w-[80rem] flex-1 flex-col pt-0 sm:p-4 sm:px-8 md:px-12 md:py-2 lg:px-16 lg:py-4 xl:py-6">
         <div className="px-4 py-2">
           <p
             onClick={() => setInputText("")}
-            className="mb-0 inline text-3xl tracking-tighter font-semibold md:text-4xl"
+            className="mb-0 inline text-3xl font-semibold tracking-tighter md:text-4xl"
           >
             Guides
           </p>
@@ -64,7 +65,7 @@ const Guides = ({ guides }: { guides: GuideType[] }) => {
           />
         </div>
 
-        <div className="space-y-2 flex-1 flex">
+        <div className="flex flex-1 space-y-2">
           <div className="w-full">
             {guides.length > 0 &&
               (filterData(guides)?.length === 0 ? (
@@ -78,46 +79,46 @@ const Guides = ({ guides }: { guides: GuideType[] }) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Guides;
+export default Guides
 
 export async function getStaticProps() {
   try {
-    const html = await fetch("https://rentry.co/fmhy-guides");
-    const htmlData = await html.text();
+    const html = await fetch("https://rentry.co/fmhy-guides")
+    const htmlData = await html.text()
 
-    const $ = cheerio.load(htmlData);
-    const ul = $("ul").first();
-    const res: Array<{ title: string; link: string }> = [];
+    const $ = cheerio.load(htmlData)
+    const ul = $("ul").first()
+    const res: Array<{ title: string; link: string }> = []
 
     ul.find("li").each((i, el) => {
-      const li = $(el);
-      const link = li.children().first().attr("href");
-      const text = li.text();
+      const li = $(el)
+      const link = li.children().first().attr("href")
+      const text = li.text()
 
       if (!link) {
-        console.log(text, "NO LINK FOUND");
-        return;
+        console.log(text, "NO LINK FOUND")
+        return
       }
 
       res.push({
         title: text,
         link: link,
-      });
-    });
+      })
+    })
 
     return {
       props: {
         guides: res,
       },
       revalidate: 60 * 60 * 24 * 2, // 2 day
-    };
+    }
   } catch (err: any) {
-    devLog(err.message);
+    devLog(err.message)
     return {
       notFound: true,
-    };
+    }
   }
 }

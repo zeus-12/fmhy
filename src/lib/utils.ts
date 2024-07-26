@@ -1,12 +1,12 @@
-import { ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { ClassValue, clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+  return twMerge(clsx(inputs))
 }
 
 export const devLog = (...args: any) => {
   if (process.env.NODE_ENV === "development") {
-    console.log(`%c[DEV]`, "color: #green; font-weight: bold;", ...args);
+    console.log(`%c[DEV]`, "color: #green; font-weight: bold;", ...args)
   }
-};
+}

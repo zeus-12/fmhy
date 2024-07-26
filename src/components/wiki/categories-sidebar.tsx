@@ -1,23 +1,24 @@
+import { useState } from "react"
+import { useRouter } from "next/router"
+import { ChevronDown } from "lucide-react"
+
 import {
-  MARKDOWN_RESOURCES,
   ChildResource,
+  MARKDOWN_RESOURCES,
   ParentResource,
-} from "@/lib/constants";
-import Link from "@/components/link";
-import { cn } from "@/lib/utils";
-import { useWiki } from "@/lib/store";
-import { useState } from "react";
-import { ChevronDown } from "lucide-react";
-import { useRouter } from "next/router";
+} from "@/lib/constants"
+import { useWiki } from "@/lib/store"
+import { cn } from "@/lib/utils"
+import Link from "@/components/link"
 
 const CategoriesSidebar = ({
   markdownCategory,
 }: {
-  markdownCategory: ChildResource;
+  markdownCategory: ChildResource
 }) => {
-  const { hideCategory } = useWiki();
+  const { hideCategory } = useWiki()
   return (
-    <div className="bg-[#050a15] border-gray-700 border-r-[1px] h-full overflow-scroll hideScrollbar py-4">
+    <div className="hideScrollbar h-full overflow-scroll border-r-[1px] border-gray-700 bg-secondary py-4">
       {MARKDOWN_RESOURCES.map((item) => {
         if (item.hasSubItems) {
           return (
@@ -26,7 +27,7 @@ const CategoriesSidebar = ({
               key={item.title}
               item={item}
             />
-          );
+          )
         }
 
         return (
@@ -35,9 +36,9 @@ const CategoriesSidebar = ({
             href={`/${item.urlEnding.toLowerCase()}`}
             className={cn(
               item.urlEnding === markdownCategory?.urlEnding
-                ? "text-gray-300 font-semibold border-r-[2px] border-white"
+                ? "border-r-[2px] border-white font-semibold text-gray-300"
                 : "text-gray-500",
-              "rounded-sm px-2 sm:px-4 my-2 py-2 group block"
+              "group my-2 block rounded-sm px-2 py-2 sm:px-4"
             )}
           >
             <CategoryCard
@@ -46,33 +47,33 @@ const CategoriesSidebar = ({
               title={item.title}
             />
           </Link>
-        );
+        )
       })}
     </div>
-  );
-};
+  )
+}
 
-export default CategoriesSidebar;
+export default CategoriesSidebar
 
 const ToggleableCategory = ({
   item,
   hideCategory,
 }: {
-  item: ParentResource;
-  hideCategory: boolean;
+  item: ParentResource
+  hideCategory: boolean
 }) => {
-  const router = useRouter();
+  const router = useRouter()
 
-  const category = router.query.CATEGORY as string;
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleOpen = () => setIsOpen((prev) => !prev);
+  const category = router.query.CATEGORY as string
+  const [isOpen, setIsOpen] = useState(false)
+  const toggleOpen = () => setIsOpen((prev) => !prev)
 
   return (
     <>
       <div
         className={cn(
-          "rounded-sm px-2 sm:px-4 my-2 py-2 group block text-gray-500",
-          isOpen && "bg-gray-900 rounded-lg "
+          "group my-2 block rounded-sm px-2 py-2 text-gray-500 sm:px-4",
+          isOpen && "rounded-lg bg-gray-900"
         )}
       >
         <CategoryCard
@@ -94,9 +95,9 @@ const ToggleableCategory = ({
               className={cn(
                 category &&
                   subItem.urlEnding.toLowerCase() === category.toLowerCase()
-                  ? "text-gray-300 font-semibold border-r-[2px] border-white"
+                  ? "border-r-[2px] border-white font-semibold text-gray-300"
                   : "text-gray-500",
-                "rounded-sm px-2 sm:px-4 md:pl-8 my-2 py-2 group block"
+                "group my-2 block rounded-sm px-2 py-2 sm:px-4 md:pl-8"
               )}
             >
               <CategoryCard
@@ -105,11 +106,11 @@ const ToggleableCategory = ({
                 title={subItem.title}
               />
             </Link>
-          );
+          )
         })}
     </>
-  );
-};
+  )
+}
 
 const CategoryCard = ({
   hideCategory,
@@ -118,18 +119,18 @@ const CategoryCard = ({
   onClick,
   hasSubItems,
 }: {
-  hideCategory: boolean;
-  title: string;
-  emoji: string;
-  hasSubItems?: boolean;
-  onClick?: () => void;
+  hideCategory: boolean
+  title: string
+  emoji: string
+  hasSubItems?: boolean
+  onClick?: () => void
 }) => {
   return (
     <div
       className="flex items-center justify-between hover:cursor-pointer"
       onClick={onClick}
     >
-      <p className="group-hover:text-slate-200 text-base">
+      <p className="text-base group-hover:text-slate-200">
         <span className="group-hover:animate-pulse">{emoji}</span>
         <span
           className={cn(
@@ -144,5 +145,5 @@ const CategoryCard = ({
         <ChevronDown size={20} className="ml-auto hidden md:inline-flex" />
       )}
     </div>
-  );
-};
+  )
+}

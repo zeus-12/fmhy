@@ -28,4 +28,4 @@ export const SEO = {
       href: "https://fmhy.vercel.app/favicon.ico",
     },
   ],
-};
+}

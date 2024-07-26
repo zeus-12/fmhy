@@ -1,16 +1,17 @@
-import React, { DetailedHTMLProps, AnchorHTMLAttributes, Ref } from "react";
-import NextLink from "next/link";
-import { cn } from "@/lib/utils";
+import React, { AnchorHTMLAttributes, DetailedHTMLProps, Ref } from "react"
+import NextLink from "next/link"
+
+import { cn } from "@/lib/utils"
 
 type LinkProps = DetailedHTMLProps<
   AnchorHTMLAttributes<HTMLAnchorElement>,
   HTMLAnchorElement
 > & {
-  ref?: Ref<HTMLAnchorElement>;
-};
+  ref?: Ref<HTMLAnchorElement>
+}
 
 const Link = ({ href, className, children, ...rest }: LinkProps) => {
-  const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
+  const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"))
 
   if (isInternalLink) {
     return (
@@ -21,7 +22,7 @@ const Link = ({ href, className, children, ...rest }: LinkProps) => {
       >
         {children}
       </NextLink>
-    );
+    )
   }
 
   return (
@@ -34,7 +35,7 @@ const Link = ({ href, className, children, ...rest }: LinkProps) => {
     >
       {children}
     </a>
-  );
-};
+  )
+}
 
-export default Link;
+export default Link

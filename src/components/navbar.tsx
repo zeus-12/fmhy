@@ -1,12 +1,13 @@
-import { useRouter } from "next/router";
-import Image from "next/image";
+import { useEffect, useRef, useState } from "react"
+import Image from "next/image"
+import Link from "next/link"
+import { useRouter } from "next/router"
 // import { Kbd } from "@mantine/core";
-import { useSpotlight } from "@mantine/spotlight";
-import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
-import { Command, PanelLeftOpen, PanelRightOpen, Star } from "lucide-react";
-import { useWiki } from "@/lib/store";
-import { cn } from "@/lib/utils";
+import { useSpotlight } from "@mantine/spotlight"
+import { Command, PanelLeftOpen, PanelRightOpen, Star } from "lucide-react"
+
+import { useWiki } from "@/lib/store"
+import { cn } from "@/lib/utils"
 
 // const navItems = [
 //   { link: "/search", name: "Search" },
@@ -36,19 +37,19 @@ import { cn } from "@/lib/utils";
 // };
 
 export const Logo = () => (
-  <div className="flex gap-1 sm:gap-2 items-center h-full w-full">
+  <div className="flex h-full w-full items-center gap-1 sm:gap-2">
     <Image
       src="/assets/logo.png"
       alt="logo"
       width={40}
       height={40}
-      className="xs:w-10 xs:h-10 w-7 h-7"
+      className="xs:w-10 xs:h-10 h-7 w-7"
     />
     {/* <p className="font-semibold tracking-tight text-gray-200 font-mono text-base xs:text-lg sm:text-2xl md:text-lg ">
         FMHY
       </p> */}
   </div>
-);
+)
 
 // const Navbar = () => {
 //   return (
@@ -63,13 +64,13 @@ export const Logo = () => (
 // };
 
 export const SearchBar = () => {
-  const spotlight = useSpotlight();
+  const spotlight = useSpotlight()
   return (
     <div
-      className="hover:cursor-pointer plausible-event-name=spotlight-toggle"
+      className="plausible-event-name=spotlight-toggle hover:cursor-pointer"
       onClick={spotlight.openSpotlight}
     >
-      <Command className="text-gray-400 w-5 h-5 md:w-6 md:h-6" />
+      <Command className="h-5 w-5 text-gray-400 md:h-6 md:w-6" />
       {/* <Kbd className="ml-auto"> */}
       {/* {navigator.appVersion.includes("Macintosh") ? (
           <>
@@ -80,21 +81,21 @@ export const SearchBar = () => {
         )} */}
       {/* </Kbd> */}
     </div>
-  );
-};
+  )
+}
 // export default Navbar;
 
 let navItems = [
   { href: "/", name: "Home" },
   { href: "/search", name: "Search" },
-];
+]
 
 const Navbar = () => {
-  const tabsRef = useRef<(HTMLElement | null)[]>([]);
-  const [activeTabIndex, setActiveTabIndex] = useState<number | null>(null);
-  const [tabUnderlineWidth, setTabUnderlineWidth] = useState(0);
-  const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);
-  const router = useRouter();
+  const tabsRef = useRef<(HTMLElement | null)[]>([])
+  const [activeTabIndex, setActiveTabIndex] = useState<number | null>(null)
+  const [tabUnderlineWidth, setTabUnderlineWidth] = useState(0)
+  const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0)
+  const router = useRouter()
 
   const {
     showOnlyStarred,
@@ -102,39 +103,39 @@ const Navbar = () => {
     toggleShowToc,
     // showToc,
     toggleHideCategory,
-  } = useWiki();
+  } = useWiki()
 
   useEffect(() => {
-    const path = window.location.pathname;
-    const currentPath = path.split("/")[1];
+    const path = window.location.pathname
+    const currentPath = path.split("/")[1]
     const currentTab = navItems.findIndex(
       (tab) => tab.href === `/${currentPath}`
-    );
-    setActiveTabIndex(currentTab);
-  }, [router.pathname]);
+    )
+    setActiveTabIndex(currentTab)
+  }, [router.pathname])
 
   useEffect(() => {
     if (activeTabIndex === null) {
-      return;
+      return
     }
 
     const setTabPosition = () => {
-      const currentTab = tabsRef.current[activeTabIndex] as HTMLElement;
-      setTabUnderlineLeft(currentTab?.offsetLeft ?? 0);
-      setTabUnderlineWidth(currentTab?.clientWidth ?? 0);
-    };
+      const currentTab = tabsRef.current[activeTabIndex] as HTMLElement
+      setTabUnderlineLeft(currentTab?.offsetLeft ?? 0)
+      setTabUnderlineWidth(currentTab?.clientWidth ?? 0)
+    }
 
-    setTabPosition();
-    window.addEventListener("resize", setTabPosition);
+    setTabPosition()
+    window.addEventListener("resize", setTabPosition)
 
-    return () => window.removeEventListener("resize", setTabPosition);
-  }, [activeTabIndex]);
+    return () => window.removeEventListener("resize", setTabPosition)
+  }, [activeTabIndex])
 
   // hardcoding for now
-  const isWikiPage = router.pathname === "/[CATEGORY]";
+  const isWikiPage = router.pathname === "/[CATEGORY]"
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-20 mx-auto mb-4 flex h-12 px-6 sm:h-16 w-fit">
+    <div className="fixed inset-x-0 bottom-0 z-20 mx-auto mb-4 flex h-12 w-fit px-6 sm:h-16">
       <div className="relative mx-auto flex h-full items-center rounded-md border border-neutral-400/20 bg-white/40 backdrop-blur-md dark:border-neutral-600/30 dark:bg-black/40 dark:text-white">
         <span
           className="absolute bottom-0 top-0 -z-10 flex overflow-hidden rounded-[4px] p-1 transition-all duration-300 sm:p-2"
@@ -161,12 +162,12 @@ const Navbar = () => {
               key={index}
               href={tab.href as string}
               ref={(el) => (tabsRef.current[index] = el)}
-              className="text-white hover:text-gray-400 font-base inline-flex cursor-pointer items-center justify-center rounded-full px-3 text-center text-sm transition hover:text-black/80 dark:hover:text-white/80 sm:text-base"
+              className="font-base inline-flex cursor-pointer items-center justify-center rounded-full px-3 text-center text-sm text-white transition hover:text-black/80 hover:text-gray-400 dark:hover:text-white/80 sm:text-base"
               onClick={() => setActiveTabIndex(index)}
             >
               {tab.name}
             </Link>
-          );
+          )
         })}
 
         <div className="px-3">
@@ -179,16 +180,16 @@ const Navbar = () => {
               <Star
                 onClick={toggleWikiToggleStarred}
                 className={cn(
-                  "text-gray-400 hover:cursor-pointer w-5 h-5 md:w-6 md:h-6",
+                  "h-5 w-5 text-gray-400 hover:cursor-pointer md:h-6 md:w-6",
                   showOnlyStarred && "fill-yellow-400 text-transparent"
                 )}
               />
             </div>
 
-            <div className="px-3 md:hidden ">
+            <div className="px-3 md:hidden">
               <PanelRightOpen
                 className={cn(
-                  "text-gray-400 hover:cursor-pointer w-5 h-5 md:w-6 md:h-6"
+                  "h-5 w-5 text-gray-400 hover:cursor-pointer md:h-6 md:w-6"
                 )}
                 onClick={toggleShowToc}
               />
@@ -197,7 +198,7 @@ const Navbar = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar

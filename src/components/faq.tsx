@@ -1,5 +1,11 @@
-import Link from "@/components/link";
-import { Accordion } from "@mantine/core";
+import Link from "@/components/link"
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "./ui/accordion"
 
 const faqs = [
   {
@@ -52,29 +58,29 @@ const faqs = [
       "We appreciate that people want to support us, but we never have and never will accept donations. We maintain this project because its fun and we want to help others, not make money.",
     value: "donate",
   },
-];
+]
 
 const FAQ = () => {
   return (
     <div className="">
-      <p className="text-3xl font-semibold tracking-tighter text-center mb-6">
+      <p className="mb-6 text-center text-3xl font-semibold tracking-tighter">
         Frequently Asked <span className="text-cyan-400">Questions</span>
       </p>
 
       <Accordion
-        variant="separated"
-        radius="md"
-        className="max-w-[80vw] md:max-w-[60vw] w-[48rem] mx-auto"
+        type="single"
+        collapsible
+        className="mx-auto w-[48rem] max-w-[80vw] md:max-w-[60vw]"
       >
         {faqs.map((item, index) => (
-          <Accordion.Item key={index} value={item.value}>
-            <Accordion.Control>{item.question}</Accordion.Control>
-            <Accordion.Panel>{item.answer}</Accordion.Panel>
-          </Accordion.Item>
+          <AccordionItem key={index} value={item.value}>
+            <AccordionTrigger>{item.question}</AccordionTrigger>
+            <AccordionContent>{item.answer}</AccordionContent>
+          </AccordionItem>
         ))}
       </Accordion>
     </div>
-  );
-};
+  )
+}
 
-export default FAQ;
+export default FAQ

@@ -1,3 +1,3 @@
-import ScrapeWikiScript from "@/scraper/dl-wiki";
+import ScrapeWikiScript from "@/scraper/dl-wiki"
 
-ScrapeWikiScript();
+ScrapeWikiScript()

@@ -16,11 +16,11 @@ const nextConfig = {
         destination: "/:path*",
         permanent: true,
       },
-    ];
+    ]
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig
 //   withPlausibleProxy({
 //   customDomain: "https://i-totally-love-easylist.swmg.top",
 // })(nextConfig);

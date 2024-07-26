@@ -1,50 +1,51 @@
-import fs from "fs";
-import { MARKDOWN_RESOURCES } from "@/lib/constants";
-import fetch from "node-fetch";
+import fs from "fs"
+import fetch from "node-fetch"
+
+import { MARKDOWN_RESOURCES } from "@/lib/constants"
 
 const ScrapeWikiScript = () => {
-  const urls: string[] = [];
+  const urls: string[] = []
   MARKDOWN_RESOURCES.forEach((resource) => {
     if (!resource.dlForSearch) {
-      return;
+      return
     }
     if (resource.hasSubItems) {
       resource.items?.forEach((subItem) => {
-        urls.push(subItem.urlEnding);
-      });
-      return;
+        urls.push(subItem.urlEnding)
+      })
+      return
     }
 
-    return urls.push(resource.urlEnding);
-  });
+    return urls.push(resource.urlEnding)
+  })
 
   const data = Promise.all(
     urls.map((url) => {
-      return dlWikiChunk(url);
+      return dlWikiChunk(url)
     })
-  );
+  )
 
   data.then((arrayOfArrays) => {
     const mergedArray: DlWikiLinkType[] = arrayOfArrays.reduce(
       (accumulator, currentArray) => {
-        return accumulator.concat(currentArray);
+        return accumulator.concat(currentArray)
       },
       []
-    );
+    )
 
-    fs.writeFileSync("src/scraper/wiki.json", JSON.stringify(mergedArray));
-  });
-};
-
-export interface DlWikiLinkType {
-  category: string;
-  subcategory: string;
-  subsubcategory: string;
-  content: string;
-  isStarred: boolean;
+    fs.writeFileSync("src/scraper/wiki.json", JSON.stringify(mergedArray))
+  })
 }
 
-const ignoreList = ["", "***", "***\r", "\r", "****"];
+export interface DlWikiLinkType {
+  category: string
+  subcategory: string
+  subsubcategory: string
+  content: string
+  isStarred: boolean
+}
+
+const ignoreList = ["", "***", "***\r", "\r", "****"]
 
 const ignoreStarters = [
   "* **Note**",
@@ -53,51 +54,51 @@ const ignoreStarters = [
   "**[Table of Contents]",
   "**[◄◄ Back to Wiki Index]",
   "**Use [redirect bypassers]",
-];
+]
 
 async function dlWikiChunk(urlEnding: string): Promise<DlWikiLinkType[]> {
   try {
     const res = await fetch(
       `https://raw.githubusercontent.com/nbats/FMHYedit/main/${urlEnding}.md`
-    );
+    )
 
-    const data = await res.text();
+    const data = await res.text()
 
-    let stringList = data.split("\n");
+    let stringList = data.split("\n")
 
-    const items = [];
-    let curSubCategory = "";
-    let curSubSubcategory = "";
+    const items = []
+    let curSubCategory = ""
+    let curSubSubcategory = ""
 
     for (let item of stringList) {
-      item = item.trim();
+      item = item.trim()
       if (ignoreList.includes(item)) {
-        continue;
+        continue
       }
 
       if (ignoreStarters.some((ignore) => item.startsWith(ignore))) {
-        continue;
+        continue
       }
 
       if (
         item.startsWith("# ►") ||
         (item.startsWith("## ") && urlEnding === "STORAGE")
       ) {
-        curSubCategory = item;
-        curSubSubcategory = "";
-        continue;
+        curSubCategory = item
+        curSubSubcategory = ""
+        continue
       } else if (
         item.startsWith("## ▷") ||
         (item.startsWith("### ") && urlEnding === "STORAGE")
       ) {
-        curSubSubcategory = item;
-        continue;
+        curSubSubcategory = item
+        continue
       }
-      let isStarred = false;
+      let isStarred = false
 
       if (item.includes("⭐")) {
-        item = item.replace("⭐", "");
-        isStarred = true;
+        item = item.replace("⭐", "")
+        isStarred = true
       }
 
       items.push({
@@ -112,14 +113,14 @@ async function dlWikiChunk(urlEnding: string): Promise<DlWikiLinkType[]> {
           .trim(),
         content: item.replace("\r", ""),
         isStarred,
-      });
+      })
     }
 
-    return items;
+    return items
   } catch (err: any) {
-    console.log("Error fetching data", err.message);
-    return [];
+    console.log("Error fetching data", err.message)
+    return []
   }
 }
 
-export default ScrapeWikiScript;
+export default ScrapeWikiScript

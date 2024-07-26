@@ -1,22 +1,22 @@
 interface CommonResourceFields {
-  title: string;
-  emoji: string;
-  dlForSearch: boolean;
-  useAbsoluteUrl?: boolean;
+  title: string
+  emoji: string
+  dlForSearch: boolean
+  useAbsoluteUrl?: boolean
 }
 
 export interface ParentResource extends CommonResourceFields {
-  hasSubItems: true;
+  hasSubItems: true
   // assuming no sub-sub items => might need to change this
-  items: ChildResource[];
+  items: ChildResource[]
 }
 
 export interface ChildResource extends CommonResourceFields {
-  hasSubItems: false;
-  urlEnding: string;
+  hasSubItems: false
+  urlEnding: string
 }
 
-export type ResourceEle = ChildResource | ParentResource;
+export type ResourceEle = ChildResource | ParentResource
 
 export const MARKDOWN_RESOURCES: ResourceEle[] = [
   {
@@ -262,26 +262,26 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
     dlForSearch: false,
     hasSubItems: false,
   },
-];
+]
 
 export const MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING: { [key: string]: string } =
   MARKDOWN_RESOURCES.reduce(
     (mapping: { [key: string]: string }, resource: ResourceEle) => {
       if (resource.hasSubItems) {
         resource.items?.forEach((item) => {
-          mapping[item.urlEnding.toLowerCase()] = item.emoji;
-        });
+          mapping[item.urlEnding.toLowerCase()] = item.emoji
+        })
       } else {
-        mapping[resource.urlEnding.toLowerCase()] = resource.emoji;
+        mapping[resource.urlEnding.toLowerCase()] = resource.emoji
       }
-      return mapping;
+      return mapping
     },
     {}
-  );
+  )
 
 // make next image do this instead of hardcoding
 export const blurDataUrlForLogo =
-  "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAB3AHkDASIAAhEBAxEB/8QAGQABAQEBAQEAAAAAAAAAAAAAAAIBAwQG/8QAGBABAQEBAQAAAAAAAAAAAAAAAAECETH/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwD4xWPUqx6D0ZdMuWXXKquNZGqrKjS6ig5acdO2nHQIAZZI6Zc46ZBcCAOCs+pVn0HfLrlxy6xVXGpjRSoqqiqI046ddOWgQAyyLyhcBcayAOLc+sbPQdsusccukqq6St6mU6DaiqtRaKjTlp0050EgIyKiWwHSCY0HNsYA65dJXLLpKKuVvU9OqNtTaWptBOnOr0igwBEGxgCmpAYAC8rlc4uAvreplOqrbU2tqaCamtqQAEQABowAABsXERUBTUxoFZWpqqmsaxEAAAAAAAAFRKoChjQE1SaqsY1iIAAAAAAAAKgA1oAxlBVYwEQAAAAAB//Z";
+  "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAB3AHkDASIAAhEBAxEB/8QAGQABAQEBAQEAAAAAAAAAAAAAAAIBAwQG/8QAGBABAQEBAQAAAAAAAAAAAAAAAAECETH/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwD4xWPUqx6D0ZdMuWXXKquNZGqrKjS6ig5acdO2nHQIAZZI6Zc46ZBcCAOCs+pVn0HfLrlxy6xVXGpjRSoqqiqI046ddOWgQAyyLyhcBcayAOLc+sbPQdsusccukqq6St6mU6DaiqtRaKjTlp0050EgIyKiWwHSCY0HNsYA65dJXLLpKKuVvU9OqNtTaWptBOnOr0igwBEGxgCmpAYAC8rlc4uAvreplOqrbU2tqaCamtqQAEQABowAABsXERUBTUxoFZWpqqmsaxEAAAAAAAAFRKoChjQE1SaqsY1iIAAAAAAAAKgA1oAxlBVYwEQAAAAAB//Z"
 
 // these are actual data for development purposes
 export const testData = `
@@ -338,11 +338,11 @@ export const testData = `
   - [Scrambled Exif](https://gitlab.com/juanitobananas/scrambled-exif/tree/HEAD) or [exif-eraser](https://github.com/Tommy-Geenexus/exif-eraser) 
   ---
   
-  `;
+  `
 
-export const isDevEnv = process.env.NODE_ENV === "development";
+export const isDevEnv = process.env.NODE_ENV === "development"
 
-export const SEARCH_RESULTS_PER_PAGE = 30;
+export const SEARCH_RESULTS_PER_PAGE = 30
 
 export const beginnersGuideFaqs = [
   {
@@ -399,7 +399,7 @@ export const beginnersGuideFaqs = [
     question: "How do I download image from *insert stock site*?",
     answer: `You can use [this](https://downloader.la/) if this doesn't work you can find similar stock image downloaders [here](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/storage/#wiki_stock_photo_sites).`,
   },
-];
+]
 
 // headers = {
 //   "AdblockVPNGuide.md": [

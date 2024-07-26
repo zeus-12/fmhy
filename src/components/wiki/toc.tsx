@@ -1,15 +1,17 @@
-import Link from "@/components/link";
-import { type TableOfContents } from "@/lib/toc";
-import { cn } from "@/lib/utils";
-import { Drawer } from "@mantine/core";
-import { XIcon } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/router";
+import { useEffect, useMemo, useState } from "react"
+import { useRouter } from "next/router"
+import { XIcon } from "lucide-react"
+
+import { type TableOfContents } from "@/lib/toc"
+import { cn } from "@/lib/utils"
+import Link from "@/components/link"
+
+import { Drawer, DrawerHeader, DrawerTitle } from "../ui/drawer"
 
 interface TableOfContentsProps {
-  toc: TableOfContents;
-  open: boolean;
-  toggle: () => void;
+  toc: TableOfContents
+  open: boolean
+  toggle: () => void
 }
 
 export default function TableOfContents({
@@ -27,40 +29,27 @@ export default function TableOfContents({
             .map((id) => id?.split("#")[1])
         : [],
     [toc]
-  );
+  )
 
-  const activeHeading = useActiveItem(itemIds);
+  const activeHeading = useActiveItem(itemIds)
   return (
     <>
-      <div className="hidden md:block overflow-y-scroll hideScrollbar">
+      <div className="hideScrollbar hidden overflow-y-scroll md:block">
         {toc?.items && toc?.items?.length > 0 ? (
           <Toc toc={toc} activeHeading={activeHeading} />
         ) : null}
       </div>
 
       {toc?.items && toc?.items?.length > 0 ? (
-        <Drawer
-          opened={open}
-          className="bg-black md:hidden hideScrollbar"
-          classNames={{
-            body: "p-8",
-            content: "hideScrollbar",
-          }}
-          position="right"
-          size="sm"
-          onClose={toggle}
-          overlayProps={{
-            opacity: 0.55,
-            blur: 3,
-          }}
-          withCloseButton={false}
-          zIndex={10}
-        >
+        <Drawer open={open} onClose={toggle}>
+          <DrawerHeader>
+            <DrawerTitle>{activeHeading}</DrawerTitle>
+          </DrawerHeader>
           <Toc toc={toc} activeHeading={activeHeading} closeModal={toggle} />
         </Drawer>
       ) : null}
     </>
-  );
+  )
 }
 
 function Toc({
@@ -68,19 +57,19 @@ function Toc({
   activeHeading,
   closeModal,
 }: {
-  toc: TableOfContents;
-  activeHeading?: string | null;
-  closeModal?: () => void;
+  toc: TableOfContents
+  activeHeading?: string | null
+  closeModal?: () => void
 }) {
-  const isModal = !!closeModal;
+  const isModal = !!closeModal
 
   return (
-    <div className="overflow-scroll lg:pr-8 md:pr-2 hideScrollbar py-4">
-      <div className="flex justify-between items-center">
+    <div className="hideScrollbar overflow-scroll py-4 md:pr-2 lg:pr-8">
+      <div className="flex items-center justify-between">
         <p className={cn(`font-semibold`, isModal && "text-xl")}>Contents</p>
         {isModal && (
           <XIcon
-            className="text-gray-400 cursor-pointer"
+            className="cursor-pointer text-gray-400"
             onClick={closeModal}
           />
         )}
@@ -92,61 +81,61 @@ function Toc({
         isModal={isModal}
       />
     </div>
-  );
+  )
 }
 
 function useActiveItem(itemIds: (string | undefined)[]) {
-  const router = useRouter();
-  const currentHash = router.asPath.split("#")[1] || "";
+  const router = useRouter()
+  const currentHash = router.asPath.split("#")[1] || ""
 
-  const [activeId, setActiveId] = useState<string>("");
+  const [activeId, setActiveId] = useState<string>("")
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
+            setActiveId(entry.target.id)
           }
-        });
+        })
       },
       { rootMargin: `0% 0% -80% 0%` }
-    );
+    )
 
     itemIds?.forEach((id) => {
       if (!id) {
-        return;
+        return
       }
 
-      const element = document.getElementById(id);
+      const element = document.getElementById(id)
       if (element) {
-        observer.observe(element);
+        observer.observe(element)
       }
-    });
+    })
 
     return () => {
       itemIds?.forEach((id) => {
         if (!id) {
-          return;
+          return
         }
 
-        const element = document.getElementById(id);
+        const element = document.getElementById(id)
         if (element) {
-          observer.unobserve(element);
+          observer.unobserve(element)
         }
-      });
-    };
-  }, [itemIds, currentHash]);
+      })
+    }
+  }, [itemIds, currentHash])
 
-  return activeId;
+  return activeId
 }
 
 interface TreeProps {
-  tree: TableOfContents;
-  level?: number;
-  activeItem?: string | null;
-  closeModal?: () => void;
-  isModal?: boolean;
+  tree: TableOfContents
+  level?: number
+  activeItem?: string | null
+  closeModal?: () => void
+  isModal?: boolean
 }
 
 function Tree({ tree, level = 1, activeItem, closeModal, isModal }: TreeProps) {
@@ -162,7 +151,7 @@ function Tree({ tree, level = 1, activeItem, closeModal, isModal }: TreeProps) {
             <Link
               href={item.url}
               className={cn(
-                "inline-block no-underline text-sm hover:text-slate-100",
+                "inline-block text-sm no-underline hover:text-slate-100",
                 item.url === `#${activeItem}`
                   ? "text-slate-100"
                   : "text-slate-500",
@@ -180,8 +169,8 @@ function Tree({ tree, level = 1, activeItem, closeModal, isModal }: TreeProps) {
               />
             ) : null}
           </li>
-        );
+        )
       })}
     </ul>
-  ) : null;
+  ) : null
 }

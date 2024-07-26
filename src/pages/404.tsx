@@ -1,13 +1,13 @@
-import { NextSeo } from "next-seo";
-import Image from "next/image";
-import React from "react";
+import React from "react"
+import Image from "next/image"
+import { NextSeo } from "next-seo"
 
 const Error404 = () => {
   return (
     <>
       <NextSeo title="404" description="Page not found" />
 
-      <div className="flex justify-center items-center w-full">
+      <div className="flex w-full items-center justify-center">
         <Image
           width={300}
           height={300}
@@ -17,7 +17,7 @@ const Error404 = () => {
         />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Error404;
+export default Error404
