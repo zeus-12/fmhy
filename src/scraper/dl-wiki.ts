@@ -21,7 +21,7 @@ const ScrapeWikiScript = () => {
   const data = Promise.all(
     urls.map((url) => {
       return dlWikiChunk(url);
-    })
+    }),
   );
 
   data.then((arrayOfArrays) => {
@@ -29,7 +29,7 @@ const ScrapeWikiScript = () => {
       (accumulator, currentArray) => {
         return accumulator.concat(currentArray);
       },
-      []
+      [],
     );
 
     fs.writeFileSync("src/scraper/wiki.json", JSON.stringify(mergedArray));
@@ -58,7 +58,7 @@ const ignoreStarters = [
 async function dlWikiChunk(urlEnding: string): Promise<DlWikiLinkType[]> {
   try {
     const res = await fetch(
-      `https://raw.githubusercontent.com/nbats/FMHYedit/main/${urlEnding}.md`
+      `https://raw.githubusercontent.com/nbats/FMHYedit/main/docs/${urlEnding}.md`,
     );
 
     const data = await res.text();
