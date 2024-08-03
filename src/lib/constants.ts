@@ -28,42 +28,42 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
   },
   {
     title: "Adblock, Privacy",
-    urlEnding: "AdblockVPNGuide",
+    urlEnding: "adblockvpnguide",
     emoji: "📛",
     dlForSearch: true,
     hasSubItems: false,
   },
   {
     title: "AI Tools",
-    urlEnding: "AI",
+    urlEnding: "ai",
     emoji: "🤖",
     dlForSearch: true,
     hasSubItems: false,
   },
   {
     title: "Movies, TV, Anime, Sports",
-    urlEnding: "VideoPiracyGuide",
+    urlEnding: "videopiracyguide",
     emoji: "📺",
     dlForSearch: true,
     hasSubItems: false,
   },
   {
     title: "Music, Podcasts, Radio",
-    urlEnding: "AudioPiracyGuide",
+    urlEnding: "audiopiracyguide",
     emoji: "🎵",
     dlForSearch: true,
     hasSubItems: false,
   },
   {
     title: "Gaming, Emulation",
-    urlEnding: "GamingPiracyGuide",
+    urlEnding: "gamingpiracyguide",
     emoji: "🎮",
     dlForSearch: true,
     hasSubItems: false,
   },
   {
     title: "Books, Comics, Manga",
-    urlEnding: "ReadingPiracyGuide",
+    urlEnding: "readingpiracyguide",
     emoji: "📗",
     dlForSearch: true,
     hasSubItems: false,
@@ -71,7 +71,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
 
   {
     title: "Downloading",
-    urlEnding: "DownloadPiracyGuide",
+    urlEnding: "downloadpiracyguide",
     emoji: "💾",
     dlForSearch: true,
     hasSubItems: false,
@@ -79,7 +79,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
 
   {
     title: "Torrenting",
-    urlEnding: "TorrentPiracyGuide",
+    urlEnding: "torrentpiracyguide",
     emoji: "🌀",
     dlForSearch: true,
     hasSubItems: false,
@@ -87,7 +87,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
 
   {
     title: "Educational",
-    urlEnding: "EDUPiracyGuide",
+    urlEnding: "edupiracyguide",
     emoji: "🧠",
     dlForSearch: true,
     hasSubItems: false,
@@ -95,7 +95,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
 
   {
     title: "Android, iOS",
-    urlEnding: "Android-iOSGuide",
+    urlEnding: "android-iosguide",
     emoji: "📱",
     dlForSearch: true,
     hasSubItems: false,
@@ -110,7 +110,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
 
   {
     title: "Linux, MacOS",
-    urlEnding: "LinuxGuide",
+    urlEnding: "linuxguide",
     emoji: "🐧",
     dlForSearch: true,
     hasSubItems: false,
@@ -118,7 +118,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
 
   {
     title: "Non-English",
-    urlEnding: "Non-English",
+    urlEnding: "non-english",
     emoji: "🌍",
     dlForSearch: true,
     hasSubItems: false,
@@ -126,7 +126,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
 
   {
     title: "Miscellaneous",
-    urlEnding: "MISCGuide",
+    urlEnding: "miscguide",
     emoji: "📂",
     dlForSearch: true,
     hasSubItems: false,
@@ -142,22 +142,22 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
         dlForSearch: true,
         title: "System Tools",
         emoji: "💻",
-        urlEnding: "System-Tools",
+        urlEnding: "system-tools",
         hasSubItems: false,
       },
 
       {
         dlForSearch: true,
-        emoji: "🗃️",
+        emoji: "🗃",
         title: "File Tools",
-        urlEnding: "File-Tools",
+        urlEnding: "file-tools",
         hasSubItems: false,
       },
       {
         dlForSearch: true,
         emoji: "🔗",
         title: "Internet Tools",
-        urlEnding: "Internet-Tools",
+        urlEnding: "internet-tools",
         hasSubItems: false,
       },
 
@@ -165,14 +165,14 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
         dlForSearch: true,
         emoji: "💬",
         title: "Social Media Tools",
-        urlEnding: "Social-Media-Tools",
+        urlEnding: "social-media-tools",
         hasSubItems: false,
       },
       {
         dlForSearch: true,
         emoji: "📝",
         title: "Text Tools",
-        urlEnding: "Text-Tools",
+        urlEnding: "text-tools",
         hasSubItems: false,
       },
       {
@@ -194,7 +194,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
         dlForSearch: true,
         emoji: "📼",
         title: "Video Tools",
-        urlEnding: "Video-Tools",
+        urlEnding: "video-tools",
         hasSubItems: false,
       },
 
@@ -218,8 +218,8 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
       {
         title: "Developer Tools",
         dlForSearch: true,
-        emoji: "👨‍💻",
-        urlEnding: "DEVTools",
+        emoji: "👨",
+        urlEnding: "devtools",
         hasSubItems: false,
       },
     ],
@@ -233,14 +233,14 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
     items: [
       {
         title: "NSFW",
-        urlEnding: "NSFWPiracy",
+        urlEnding: "nsfwpiracy",
         emoji: "🔞",
         dlForSearch: true,
         hasSubItems: false,
       },
       {
         title: "Unsafe Sites",
-        urlEnding: "UnsafeSites",
+        urlEnding: "unsafesites",
         emoji: "🚫",
         dlForSearch: false,
         hasSubItems: false,
@@ -248,7 +248,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
 
       {
         title: "Storage",
-        urlEnding: "STORAGE",
+        urlEnding: "storage",
         emoji: "📦",
         dlForSearch: true,
         hasSubItems: false,
@@ -257,8 +257,8 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
   },
   {
     title: "Beginners Guide",
-    urlEnding: "Beginners-Guide",
-    emoji: "🏴‍☠️",
+    urlEnding: "beginners-guide",
+    emoji: "🏴",
     dlForSearch: false,
     hasSubItems: false,
   },
@@ -276,7 +276,7 @@ export const MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING: { [key: string]: string } =
       }
       return mapping;
     },
-    {}
+    {},
   );
 
 // make next image do this instead of hardcoding

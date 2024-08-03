@@ -32,7 +32,8 @@ const Wiki = ({ data, toc }: { data: string; toc: any }) => {
       }
     } else {
       const ele = item.items?.find(
-        (subItem) => subItem.urlEnding.toLowerCase() === category?.toLowerCase()
+        (subItem) =>
+          subItem.urlEnding.toLowerCase() === category?.toLowerCase(),
       );
 
       if (ele) {
@@ -155,7 +156,7 @@ export async function getStaticProps({
       } else {
         const ele = item.items?.find(
           (subItem) =>
-            subItem.urlEnding.toLowerCase() === CATEGORY?.toLowerCase()
+            subItem.urlEnding.toLowerCase() === CATEGORY?.toLowerCase(),
         );
 
         if (ele) {
@@ -167,13 +168,13 @@ export async function getStaticProps({
 
     if (markdownCategory?.hasSubItems)
       throw new Error(
-        "Parent resource found => MARKDOWNURL is undefined => SSG"
+        "Parent resource found => MARKDOWNURL is undefined => SSG",
       );
 
     const markdownUrlEnding = markdownCategory?.urlEnding;
 
     const res = await fetch(
-      `https://raw.githubusercontent.com/fmhy/FMHYedit/main/${markdownUrlEnding}.md`
+      `https://raw.githubusercontent.com/fmhy/FMHYedit/main/docs/${markdownUrlEnding}.md`,
     );
 
     const text = await res.text();
@@ -200,7 +201,7 @@ export async function getStaticProps({
     const cleanedList = stringList.filter(
       (item) =>
         !ignoreList.includes(item) &&
-        !ignoreStarters.some((starter) => item.startsWith(starter))
+        !ignoreStarters.some((starter) => item.startsWith(starter)),
     );
 
     const joinedText = cleanedList.join("\n");
@@ -212,7 +213,7 @@ export async function getStaticProps({
       .replace(`# Untrusted Sites / Software`, "")
       ?.replace(
         `Use any **[Base64 Decoding](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/storage#wiki_encode_.2F_decode_urls)** site or extension.`,
-        ""
+        "",
       )
       .replace(`# Untrusted Sites / Software`, "")
       ?.replace(
@@ -222,7 +223,7 @@ export async function getStaticProps({
 * https://github.com/nbats/FMHYedit/blob/main/base64.md
 * https://notabug.org/nbatman/freemediaheckyeah/wiki/base64
 * https://rentry.co/FMHYBase64`,
-        ""
+        "",
       );
 
     // FIX links appearing in single line in beginners-guide
