@@ -4,7 +4,14 @@ import Image from "next/image";
 import { useSpotlight } from "@mantine/spotlight";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Command, PanelLeftOpen, PanelRightOpen, Star } from "lucide-react";
+import {
+  Command,
+  Home,
+  // PanelLeftOpen,
+  PanelRightOpen,
+  Search,
+  Star,
+} from "lucide-react";
 import { useWiki } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
@@ -85,8 +92,11 @@ export const SearchBar = () => {
 // export default Navbar;
 
 let navItems = [
-  { href: "/", name: "Home" },
-  { href: "/search", name: "Search" },
+  { href: "/", icon: <Home className="text-gray-400 w-5 h-5 md:w-6 md:h-6" /> },
+  {
+    href: "/search",
+    icon: <Search className="text-gray-400 w-5 h-5 md:w-6 md:h-6" />,
+  },
 ];
 
 const Navbar = () => {
@@ -134,10 +144,10 @@ const Navbar = () => {
   const isWikiPage = router.pathname === "/[CATEGORY]";
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-20 mx-auto mb-4 flex h-12 px-6 sm:h-16 w-fit">
+    <div className="fixed inset-x-0 bottom-0 z-20 mx-auto mb-4 flex h-14 w-fit">
       <div className="relative mx-auto flex h-full items-center rounded-md border border-neutral-400/20 bg-white/40 backdrop-blur-md dark:border-neutral-600/30 dark:bg-black/40 dark:text-white">
         <span
-          className="absolute bottom-0 top-0 -z-10 flex overflow-hidden rounded-[4px] p-1 transition-all duration-300 sm:p-2"
+          className="absolute bottom-0 top-0 -z-10 flex overflow-hidden rounded-[4px] p-1 transition-all duration-300 sm:p-1"
           style={{ left: tabUnderlineLeft, width: tabUnderlineWidth }}
         >
           <span className="h-full w-full rounded-xl bg-neutral-200 backdrop-blur-xl dark:bg-neutral-800" />
@@ -164,7 +174,7 @@ const Navbar = () => {
               className="text-white hover:text-gray-400 font-base inline-flex cursor-pointer items-center justify-center rounded-full px-3 text-center text-sm transition hover:text-black/80 dark:hover:text-white/80 sm:text-base"
               onClick={() => setActiveTabIndex(index)}
             >
-              {tab.name}
+              {tab.icon}
             </Link>
           );
         })}
