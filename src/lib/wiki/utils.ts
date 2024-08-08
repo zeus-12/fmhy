@@ -1,8 +1,8 @@
-import { Children } from "react";
-import { slug as githubSlug } from "github-slugger";
 import { devLog } from "@/lib/utils";
+import { slug as githubSlug } from "github-slugger";
 import { toMdast } from "hast-util-to-mdast";
 import { toMarkdown } from "mdast-util-to-markdown";
+import { Children } from "react";
 interface ClassMappingType {
   [key: string]: string;
 }
@@ -75,7 +75,7 @@ export const redditToGithubTitleMapping: RedditToGithubTitleMappingType = {
 };
 
 function generateReverseDictionary(
-  originalDict: RedditToGithubTitleMappingType
+  originalDict: RedditToGithubTitleMappingType,
 ) {
   const reverseDict: RedditToGithubTitleMappingType = {};
   for (const key in originalDict) {
@@ -88,7 +88,7 @@ function generateReverseDictionary(
 }
 
 export const githubToRedditTitleMapping = generateReverseDictionary(
-  redditToGithubTitleMapping
+  redditToGithubTitleMapping,
 );
 
 const LINK_REDIRECT: Record<string, string> = {};
@@ -155,7 +155,7 @@ const GITHUB_WIKI_URL = "https://github.com/nbats/FMHYedit/blob/main/";
 export const generateWikiLinkFromCategories = (
   category: string,
   subcategory: string,
-  subsubcategory: string
+  subsubcategory: string,
 ) => {
   if (!category) return "";
 
@@ -163,8 +163,8 @@ export const generateWikiLinkFromCategories = (
     subsubcategory
       ? githubSlug(removeSlashesForToc(subsubcategory.toLowerCase()))
       : subcategory
-      ? githubSlug(removeSlashesForToc(subcategory.toLowerCase()))
-      : ""
+        ? githubSlug(removeSlashesForToc(subcategory.toLowerCase()))
+        : ""
   }`;
 };
 

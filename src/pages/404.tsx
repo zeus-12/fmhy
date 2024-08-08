@@ -1,13 +1,12 @@
 import { NextSeo } from "next-seo";
 import Image from "next/image";
-import React from "react";
 
 const Error404 = () => {
   return (
     <>
       <NextSeo title="404" description="Page not found" />
 
-      <div className="flex justify-center items-center w-full">
+      <div className="flex w-full items-center justify-center">
         <Image
           width={300}
           height={300}

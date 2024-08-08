@@ -1,6 +1,13 @@
-import { ClassAttributes, HTMLAttributes, createElement } from "react";
-import Link from "@/components/link";
 import { NoteAlert, WarningAlert } from "@/components/alert";
+import Link from "@/components/link";
+import MarkdownRenderer from "@/components/markdown-renderer";
+import { beginnersGuideFaqs } from "@/lib/constants";
+import { fontMono } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+import { Accordion } from "@mantine/core";
+import { ClassAttributes, HTMLAttributes, createElement } from "react";
+import ReactMarkdown, { ExtraProps } from "react-markdown";
+import gfm from "remark-gfm";
 import {
   HeadingRendererHelper,
   classMapping,
@@ -8,20 +15,13 @@ import {
   getPlainTextFromProps,
   redirectRedditAndGithubLinksToWebsite,
 } from "./utils";
-import { Accordion } from "@mantine/core";
-import { cn } from "@/lib/utils";
-import { fontMono } from "@/lib/fonts";
-import { beginnersGuideFaqs } from "@/lib/constants";
-import MarkdownRenderer from "@/components/markdown-renderer";
-import ReactMarkdown, { ExtraProps } from "react-markdown";
-import gfm from "remark-gfm";
 
 type PropsType<T> = ClassAttributes<T> & HTMLAttributes<T> & ExtraProps;
 
 export const HeadingRenderer = (
   props: PropsType<HTMLHeadingElement>,
   level: 1 | 2 | 3 | 4,
-  slugger: any
+  slugger: any,
 ) => {
   const { slug, text, href } = HeadingRendererHelper(props, slugger);
 
@@ -33,7 +33,7 @@ export const HeadingRenderer = (
           className: classMapping["h" + level],
           id: slug,
         },
-        text
+        text,
       )}
     </Link>
   );
@@ -45,7 +45,7 @@ export function LinkRenderer(props: PropsType<HTMLAnchorElement>) {
 
   return (
     <Link
-      className={cn("break-words font-semibold ", fontMono.className)}
+      className={cn("break-words font-semibold", fontMono.className)}
       href={href}
     >
       {props.children}
@@ -55,7 +55,7 @@ export function LinkRenderer(props: PropsType<HTMLAnchorElement>) {
 
 export function LiRenderer(
   props: PropsType<HTMLLIElement>,
-  showOnlyStarred?: boolean
+  showOnlyStarred?: boolean,
 ) {
   const md = getMarkdownFromProps(props).trim();
   const isStarred = md.includes("⭐");
@@ -68,7 +68,7 @@ export function LiRenderer(
 
     if (!isModified) {
       return (
-        <li className={`list-disc ml-6 my-2 text-md text-slate-200 `}>
+        <li className={`text-md my-2 ml-6 list-disc text-slate-200`}>
           {props.children}
         </li>
       );
@@ -128,7 +128,7 @@ export const PRenderer = (props: PropsType<HTMLParagraphElement>) => {
 
 export const CodeRenderer = (
   props: PropsType<HTMLElement>,
-  category?: string
+  category?: string,
 ) => {
   if (category !== "base64") {
     return <code {...props} />;
@@ -144,8 +144,8 @@ export const CodeRenderer = (
               key={index}
               href={link}
               className={cn(
-                "font-semibold block break-words",
-                fontMono.className
+                "block break-words font-semibold",
+                fontMono.className,
               )}
             >
               {link}
@@ -193,7 +193,7 @@ const FaqMarkdownRenderer = ({ children }: { children: string }) => {
 
 export const BlockquoteRenderer = (
   props: PropsType<HTMLQuoteElement>,
-  category?: string
+  category?: string,
 ) => {
   if (!category || category.toLowerCase() !== "beginners-guide") {
     return <blockquote>{props.children}</blockquote>;
@@ -203,7 +203,7 @@ export const BlockquoteRenderer = (
     <Accordion
       variant="separated"
       radius="md"
-      className="max-w-[80%] md:max-w-[60%]  mx-auto"
+      className="mx-auto max-w-[80%] md:max-w-[60%]"
     >
       {beginnersGuideFaqs.map((item, index) => (
         <Accordion.Item key={index} value={item.question}>
@@ -220,7 +220,7 @@ export const BlockquoteRenderer = (
 export const UlRenderer = (props: PropsType<HTMLUListElement>) => {
   return (
     <ul
-      className="rounded-xl list-none"
+      className="list-none rounded-xl"
       style={{
         background: "#11151F",
         padding: "0.5rem 1rem",

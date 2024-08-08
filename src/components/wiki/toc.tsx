@@ -3,8 +3,8 @@ import { type TableOfContents } from "@/lib/toc";
 import { cn } from "@/lib/utils";
 import { Drawer } from "@mantine/core";
 import { XIcon } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
+import { useEffect, useMemo, useState } from "react";
 
 interface TableOfContentsProps {
   toc: TableOfContents;
@@ -26,13 +26,13 @@ export default function TableOfContents({
             .filter(Boolean)
             .map((id) => id?.split("#")[1])
         : [],
-    [toc]
+    [toc],
   );
 
   const activeHeading = useActiveItem(itemIds);
   return (
     <>
-      <div className="hidden md:block overflow-y-scroll hideScrollbar">
+      <div className="hideScrollbar hidden overflow-y-scroll md:block">
         {toc?.items && toc?.items?.length > 0 ? (
           <Toc toc={toc} activeHeading={activeHeading} />
         ) : null}
@@ -41,7 +41,7 @@ export default function TableOfContents({
       {toc?.items && toc?.items?.length > 0 ? (
         <Drawer
           opened={open}
-          className="bg-black md:hidden hideScrollbar"
+          className="hideScrollbar bg-black md:hidden"
           classNames={{
             body: "p-8",
             content: "hideScrollbar",
@@ -75,12 +75,12 @@ function Toc({
   const isModal = !!closeModal;
 
   return (
-    <div className="overflow-scroll lg:pr-8 md:pr-2 hideScrollbar py-4">
-      <div className="flex justify-between items-center">
+    <div className="hideScrollbar overflow-scroll py-4 md:pr-2 lg:pr-8">
+      <div className="flex items-center justify-between">
         <p className={cn(`font-semibold`, isModal && "text-xl")}>Contents</p>
         {isModal && (
           <XIcon
-            className="text-gray-400 cursor-pointer"
+            className="cursor-pointer text-gray-400"
             onClick={closeModal}
           />
         )}
@@ -110,7 +110,7 @@ function useActiveItem(itemIds: (string | undefined)[]) {
           }
         });
       },
-      { rootMargin: `0% 0% -80% 0%` }
+      { rootMargin: `0% 0% -80% 0%` },
     );
 
     itemIds?.forEach((id) => {
@@ -162,11 +162,11 @@ function Tree({ tree, level = 1, activeItem, closeModal, isModal }: TreeProps) {
             <Link
               href={item.url}
               className={cn(
-                "inline-block no-underline text-sm hover:text-slate-100",
+                "inline-block text-sm no-underline hover:text-slate-100",
                 item.url === `#${activeItem}`
                   ? "text-slate-100"
                   : "text-slate-500",
-                isModal && "text-md"
+                isModal && "text-md",
               )}
             >
               {item.title}

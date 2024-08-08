@@ -1,7 +1,9 @@
 import { cn } from "@/lib/utils";
 import { Group, UnstyledButton } from "@mantine/core";
-import { SpotlightActionProps } from "@mantine/spotlight";
-import { SpotlightProvider as MantineSpotlightProvider } from "@mantine/spotlight";
+import {
+  SpotlightProvider as MantineSpotlightProvider,
+  SpotlightActionProps,
+} from "@mantine/spotlight";
 import { Search } from "lucide-react";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -17,8 +19,8 @@ const CustomSpotlight = ({
   return (
     <UnstyledButton
       className={cn(
-        `w-full px-3 py-2 mt-1  hover:bg-gray-900 `,
-        hovered && "bg-gray-900"
+        `mt-1 w-full px-3 py-2 hover:bg-gray-900`,
+        hovered && "bg-gray-900",
       )}
       data-hovered={hovered || undefined}
       tabIndex={-1}
@@ -38,7 +40,7 @@ const CustomSpotlight = ({
           ) : (
             <p>{action.title}</p>
           )}
-          <p className="text-gray-500 text-sm">{action.description}</p>
+          <p className="text-sm text-gray-500">{action.description}</p>
         </div>
       </Group>
     </UnstyledButton>
@@ -105,7 +107,7 @@ export const SpotlightProvider = ({
       searchPlaceholder="Search..."
       query={query}
       onQueryChange={setQuery}
-      searchIcon={<Search className="w-5 h-5 text-gray-500" />}
+      searchIcon={<Search className="h-5 w-5 text-gray-500" />}
     >
       {children}
     </MantineSpotlightProvider>

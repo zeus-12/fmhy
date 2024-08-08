@@ -1,10 +1,10 @@
 // @ts-nocheck
 
+import { removeSlashesForToc } from "@/lib/wiki/utils";
+import GithubSlugger from "github-slugger";
 import { toc } from "mdast-util-toc";
 import { remark } from "remark";
 import { visit } from "unist-util-visit";
-import GithubSlugger from "github-slugger";
-import { removeSlashesForToc } from "@/lib/wiki/utils";
 
 const textTypes = ["text", "emphasis", "strong", "inlineCode"];
 
@@ -74,7 +74,7 @@ const getToc = () => (node, file) => {
 export type TableOfContents = Items;
 
 export async function getTableOfContents(
-  content: string
+  content: string,
 ): Promise<TableOfContents> {
   const result = await remark().use(getToc).process(content);
 

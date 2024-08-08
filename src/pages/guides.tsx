@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef, ChangeEventHandler } from "react";
 import GuideItem from "@/components/guide-item";
-import { Input } from "@mantine/core";
 import { devLog } from "@/lib/utils";
-import { NextSeo } from "next-seo";
+import { Input } from "@mantine/core";
 import cheerio from "cheerio";
+import { NextSeo } from "next-seo";
+import { ChangeEventHandler, useEffect, useRef, useState } from "react";
 
 export interface GuideType {
   link: string;
@@ -44,11 +44,11 @@ const Guides = ({ guides }: { guides: GuideType[] }) => {
     <>
       <NextSeo title="Guides" description="Collection of useful guides" />
 
-      <div className="sm:p-4 sm:px-8 md:px-12 lg:px-16 md:py-2 lg:py-4 xl:py-6 pt-0 flex-1 flex flex-col mx-auto w-[95vw] max-w-[80rem]">
+      <div className="mx-auto flex w-[95vw] max-w-[80rem] flex-1 flex-col pt-0 sm:p-4 sm:px-8 md:px-12 md:py-2 lg:px-16 lg:py-4 xl:py-6">
         <div className="px-4 py-2">
           <p
             onClick={() => setInputText("")}
-            className="mb-0 inline text-3xl tracking-tighter font-semibold md:text-4xl"
+            className="mb-0 inline text-3xl font-semibold tracking-tighter md:text-4xl"
           >
             Guides
           </p>
@@ -64,7 +64,7 @@ const Guides = ({ guides }: { guides: GuideType[] }) => {
           />
         </div>
 
-        <div className="space-y-2 flex-1 flex">
+        <div className="flex flex-1 space-y-2">
           <div className="w-full">
             {guides.length > 0 &&
               (filterData(guides)?.length === 0 ? (

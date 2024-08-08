@@ -1,20 +1,20 @@
-import { Badge, Input } from "@mantine/core";
-import { Search as SearchIcon } from "lucide-react";
-import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
-import { NextSeo, SiteLinksSearchBoxJsonLd } from "next-seo";
 import Link from "@/components/link";
 import { MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING } from "@/lib/constants";
-import ReactMarkdown from "react-markdown";
-import { useDebouncedValue } from "@mantine/hooks";
-import WikiData from "@/scraper/wiki.json";
-import { Index } from "flexsearch";
-import { DlWikiLinkType } from "@/scraper/dl-wiki";
 import { LiRenderer, LinkRenderer } from "@/lib/wiki/renderers";
 import {
   generateWikiLinkFromCategories,
   stripLinksFromMarkdown,
 } from "@/lib/wiki/utils";
+import { DlWikiLinkType } from "@/scraper/dl-wiki";
+import WikiData from "@/scraper/wiki.json";
+import { Badge, Input } from "@mantine/core";
+import { useDebouncedValue } from "@mantine/hooks";
+import { Index } from "flexsearch";
+import { Search as SearchIcon } from "lucide-react";
+import { NextSeo, SiteLinksSearchBoxJsonLd } from "next-seo";
+import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 const SEARCH_RESULTS_LIMIT = 100;
 
@@ -69,7 +69,7 @@ const Search = () => {
           },
         ]}
       />
-      <div className="flex flex-1 flex-col px-6 sm:px-8 md:px-12 md:py-2 lg:px-16 lg:py-4 xl:py-6 mb-8 w-screen pt-4">
+      <div className="mb-8 flex w-screen flex-1 flex-col px-6 pt-4 sm:px-8 md:px-12 md:py-2 lg:px-16 lg:py-4 xl:py-6">
         <div className="flex items-center justify-between">
           <div>
             <p
@@ -116,7 +116,7 @@ const LocalSearch = ({ query }: { query: string }) => {
       // give more weight to categories, and links with "⭐"
 
       // context: true,
-    })
+    }),
   );
   const [results, setResults] = useState<any[]>();
 
@@ -126,8 +126,8 @@ const LocalSearch = ({ query }: { query: string }) => {
       setIndex(
         index.add(
           id,
-          `${itemWithoutLinks} ${item.subcategory} ${item.subsubcategory}`
-        )
+          `${itemWithoutLinks} ${item.subcategory} ${item.subsubcategory}`,
+        ),
       );
     });
   }, []);
@@ -145,13 +145,13 @@ const LocalSearch = ({ query }: { query: string }) => {
   }, [debouncedQuery]);
 
   const finalResult = results?.map(
-    (result) => (WikiData as DlWikiLinkType[])[result]
+    (result) => (WikiData as DlWikiLinkType[])[result],
   );
 
   return (
     <div className="pb-14 pt-2">
       {debouncedQuery && (
-        <p className="text-gray-400 mb-2">
+        <p className="mb-2 text-gray-400">
           {results?.length === SEARCH_RESULTS_LIMIT ? "> " : " "}
           {results?.length} results{" "}
         </p>
@@ -168,7 +168,7 @@ const LocalSearch = ({ query }: { query: string }) => {
         finalResult?.map((result: DlWikiLinkType, idx) => (
           <div
             key={idx}
-            className="rounded-xl list-none my-2"
+            className="my-2 list-none rounded-xl"
             style={{
               background: "#11151F",
               padding: "0.5rem 1rem",
@@ -188,7 +188,7 @@ const LocalSearch = ({ query }: { query: string }) => {
                 href={generateWikiLinkFromCategories(
                   result.category,
                   result.subcategory,
-                  result.subsubcategory
+                  result.subsubcategory,
                 )}
               >
                 {result.category && (

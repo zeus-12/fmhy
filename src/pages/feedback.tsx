@@ -64,8 +64,8 @@ const Feedback = () => {
     <>
       <NextSeo title="Feedback" description="Feedback for fmhy.vercel.app" />
 
-      <div className="gap-2 flex-1 flex items-center sm:justify-center h-full flex-col">
-        <p className="text-4xl font-bold pt-4">
+      <div className="flex h-full flex-1 flex-col items-center gap-2 sm:justify-center">
+        <p className="pt-4 text-4xl font-bold">
           Submit <span className="text-rose-400">Feedback</span>!
         </p>
         <p className="-mt-2 text-gray-400">
@@ -101,7 +101,7 @@ const Feedback = () => {
           {...form.getInputProps("contactEmail")}
         />
 
-        <p className="text-gray-400 text-center">
+        <p className="text-center text-gray-400">
           Feedbacks are anonymous (
           <Link href="https://github.com/zeus-12/fmhy/blob/main/src/pages/feedback.tsx">
             source code
@@ -117,10 +117,10 @@ const Feedback = () => {
           Submit
         </Button>
         {error && (
-          <p className="text-red-400 font-semibold">Something went wrong</p>
+          <p className="font-semibold text-red-400">Something went wrong</p>
         )}
         {success && (
-          <p className="text-green-400 font-semibold">
+          <p className="font-semibold text-green-400">
             Successfully submitted!
           </p>
         )}

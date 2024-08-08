@@ -1,19 +1,17 @@
+import MarkdownRenderer from "@/components/markdown-renderer";
+import BottomNavigator from "@/components/wiki/bottom-navigator";
+import CategoriesSidebar from "@/components/wiki/categories-sidebar";
+import WikiTableOfContents from "@/components/wiki/toc";
 import {
   ChildResource,
   MARKDOWN_RESOURCES,
-  // isDevEnv,
-  // testData,
+  ResourceEle,
 } from "@/lib/constants";
-import BottomNavigator from "@/components/wiki/bottom-navigator";
-import CategoriesSidebar from "@/components/wiki/categories-sidebar";
-import { useRouter } from "next/router";
-import { getTableOfContents } from "@/lib/toc";
-import WikiTableOfContents from "@/components/wiki/toc";
-import { NextSeo } from "next-seo";
-import MarkdownRenderer from "@/components/markdown-renderer";
-import { devLog } from "@/lib/utils";
 import { useWiki } from "@/lib/store";
-import { ResourceEle } from "@/lib/constants";
+import { getTableOfContents } from "@/lib/toc";
+import { devLog } from "@/lib/utils";
+import { NextSeo } from "next-seo";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 const Wiki = ({ data, toc }: { data: string; toc: any }) => {
@@ -57,7 +55,7 @@ const Wiki = ({ data, toc }: { data: string; toc: any }) => {
         title={`Wiki | ${markdownCategory?.title}`}
         description={`Wiki for ${markdownCategory?.title}`}
       />
-      <div className="flex justify-between overflow-hidden gap-2 w-screen">
+      <div className="flex w-screen justify-between gap-2 overflow-hidden">
         <CategoriesSidebar markdownCategory={markdownCategory} />
 
         <LinkDataRenderer
@@ -104,10 +102,10 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
     <>
       <div
         // ref={linksRef}
-        className="px-1 sm:px-4 md:px-8 lg:px-14 xl:px-20 overflow-scroll hideScrollbar flex-1 2xl:max-w-7xl pt-4 pb-12"
+        className="hideScrollbar flex-1 overflow-scroll px-1 pb-12 pt-4 sm:px-4 md:px-8 lg:px-14 xl:px-20 2xl:max-w-7xl"
       >
-        <div className="flex justify-between items-center">
-          <p className="text-3xl underline underline-offset-2 font-semibold tracking-tighter">
+        <div className="flex items-center justify-between">
+          <p className="text-3xl font-semibold tracking-tighter underline underline-offset-2">
             {markdownCategory?.title}
           </p>
           <div className="flex items-center"></div>

@@ -1,14 +1,14 @@
+import Link from "@/components/link";
 import {
-  MARKDOWN_RESOURCES,
   ChildResource,
+  MARKDOWN_RESOURCES,
   ParentResource,
 } from "@/lib/constants";
-import Link from "@/components/link";
-import { cn } from "@/lib/utils";
 import { useWiki } from "@/lib/store";
-import { useState } from "react";
+import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const CategoriesSidebar = ({
   markdownCategory,
@@ -17,7 +17,7 @@ const CategoriesSidebar = ({
 }) => {
   const { hideCategory } = useWiki();
   return (
-    <div className="bg-[#050a15] border-gray-700 border-r-[1px] h-full overflow-scroll hideScrollbar py-4">
+    <div className="hideScrollbar h-full overflow-scroll border-r-[1px] border-gray-700 bg-[#050a15] py-4">
       {MARKDOWN_RESOURCES.map((item) => {
         if (item.hasSubItems) {
           return (
@@ -35,9 +35,9 @@ const CategoriesSidebar = ({
             href={`/${item.urlEnding.toLowerCase()}`}
             className={cn(
               item.urlEnding === markdownCategory?.urlEnding
-                ? "text-gray-300 font-semibold border-r-[2px] border-white"
+                ? "border-r-[2px] border-white font-semibold text-gray-300"
                 : "text-gray-500",
-              "rounded-sm px-2 sm:px-4 my-2 py-2 group block"
+              "group my-2 block rounded-sm px-2 py-2 sm:px-4",
             )}
           >
             <CategoryCard
@@ -71,8 +71,8 @@ const ToggleableCategory = ({
     <>
       <div
         className={cn(
-          "rounded-sm px-2 sm:px-4 my-2 py-2 group block text-gray-500",
-          isOpen && "bg-gray-900 rounded-lg "
+          "group my-2 block rounded-sm px-2 py-2 text-gray-500 sm:px-4",
+          isOpen && "rounded-lg bg-gray-900",
         )}
       >
         <CategoryCard
@@ -94,9 +94,9 @@ const ToggleableCategory = ({
               className={cn(
                 category &&
                   subItem.urlEnding.toLowerCase() === category.toLowerCase()
-                  ? "text-gray-300 font-semibold border-r-[2px] border-white"
+                  ? "border-r-[2px] border-white font-semibold text-gray-300"
                   : "text-gray-500",
-                "rounded-sm px-2 sm:px-4 md:pl-8 my-2 py-2 group block"
+                "group my-2 block rounded-sm px-2 py-2 sm:px-4 md:pl-8",
               )}
             >
               <CategoryCard
@@ -129,12 +129,12 @@ const CategoryCard = ({
       className="flex items-center justify-between hover:cursor-pointer"
       onClick={onClick}
     >
-      <p className="group-hover:text-slate-200 text-base">
+      <p className="text-base group-hover:text-slate-200">
         <span className="group-hover:animate-pulse">{emoji}</span>
         <span
           className={cn(
             hideCategory && "hidden md:inline-flex",
-            "transition-all duration-100 ease-in-out"
+            "transition-all duration-100 ease-in-out",
           )}
         >
           &nbsp;&nbsp;{title}

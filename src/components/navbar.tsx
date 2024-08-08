@@ -1,9 +1,9 @@
-import { useRouter } from "next/router";
 import Image from "next/image";
+import { useRouter } from "next/router";
 // import { Kbd } from "@mantine/core";
+import { useWiki } from "@/lib/store";
+import { cn } from "@/lib/utils";
 import { useSpotlight } from "@mantine/spotlight";
-import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
 import {
   Command,
   Home,
@@ -12,8 +12,8 @@ import {
   Search,
   Star,
 } from "lucide-react";
-import { useWiki } from "@/lib/store";
-import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
 // const navItems = [
 //   { link: "/search", name: "Search" },
@@ -43,13 +43,13 @@ import { cn } from "@/lib/utils";
 // };
 
 export const Logo = () => (
-  <div className="flex gap-1 sm:gap-2 items-center h-full w-full">
+  <div className="flex h-full w-full items-center gap-1 sm:gap-2">
     <Image
       src="/assets/logo.png"
       alt="logo"
       width={40}
       height={40}
-      className="xs:w-10 xs:h-10 w-7 h-7"
+      className="h-7 w-7 xs:h-10 xs:w-10"
     />
     {/* <p className="font-semibold tracking-tight text-gray-200 font-mono text-base xs:text-lg sm:text-2xl md:text-lg ">
         FMHY
@@ -73,10 +73,10 @@ export const SearchBar = () => {
   const spotlight = useSpotlight();
   return (
     <div
-      className="hover:cursor-pointer plausible-event-name=spotlight-toggle"
+      className="plausible-event-name=spotlight-toggle hover:cursor-pointer"
       onClick={spotlight.openSpotlight}
     >
-      <Command className="text-gray-400 w-5 h-5 md:w-6 md:h-6" />
+      <Command className="h-5 w-5 text-gray-400 md:h-6 md:w-6" />
       {/* <Kbd className="ml-auto"> */}
       {/* {navigator.appVersion.includes("Macintosh") ? (
           <>
@@ -92,10 +92,10 @@ export const SearchBar = () => {
 // export default Navbar;
 
 let navItems = [
-  { href: "/", icon: <Home className="text-gray-400 w-5 h-5 md:w-6 md:h-6" /> },
+  { href: "/", icon: <Home className="h-5 w-5 text-gray-400 md:h-6 md:w-6" /> },
   {
     href: "/search",
-    icon: <Search className="text-gray-400 w-5 h-5 md:w-6 md:h-6" />,
+    icon: <Search className="h-5 w-5 text-gray-400 md:h-6 md:w-6" />,
   },
 ];
 
@@ -118,7 +118,7 @@ const Navbar = () => {
     const path = window.location.pathname;
     const currentPath = path.split("/")[1];
     const currentTab = navItems.findIndex(
-      (tab) => tab.href === `/${currentPath}`
+      (tab) => tab.href === `/${currentPath}`,
     );
     setActiveTabIndex(currentTab);
   }, [router.pathname]);
@@ -171,7 +171,7 @@ const Navbar = () => {
               key={index}
               href={tab.href as string}
               ref={(el) => (tabsRef.current[index] = el)}
-              className="text-white hover:text-gray-400 font-base inline-flex cursor-pointer items-center justify-center rounded-full px-3 text-center text-sm transition hover:text-black/80 dark:hover:text-white/80 sm:text-base"
+              className="font-base inline-flex cursor-pointer items-center justify-center rounded-full px-3 text-center text-sm text-white transition hover:text-black/80 hover:text-gray-400 dark:hover:text-white/80 sm:text-base"
               onClick={() => setActiveTabIndex(index)}
             >
               {tab.icon}
@@ -189,16 +189,16 @@ const Navbar = () => {
               <Star
                 onClick={toggleWikiToggleStarred}
                 className={cn(
-                  "text-gray-400 hover:cursor-pointer w-5 h-5 md:w-6 md:h-6",
-                  showOnlyStarred && "fill-yellow-400 text-transparent"
+                  "h-5 w-5 text-gray-400 hover:cursor-pointer md:h-6 md:w-6",
+                  showOnlyStarred && "fill-yellow-400 text-transparent",
                 )}
               />
             </div>
 
-            <div className="px-3 md:hidden ">
+            <div className="px-3 md:hidden">
               <PanelRightOpen
                 className={cn(
-                  "text-gray-400 hover:cursor-pointer w-5 h-5 md:w-6 md:h-6"
+                  "h-5 w-5 text-gray-400 hover:cursor-pointer md:h-6 md:w-6",
                 )}
                 onClick={toggleShowToc}
               />

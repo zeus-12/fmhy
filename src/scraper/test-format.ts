@@ -1,6 +1,6 @@
+import { DlWikiLinkType } from "@/scraper/dl-wiki";
 import fs from "fs";
 import wiki from "./wiki.json";
-import { DlWikiLinkType } from "@/scraper/dl-wiki";
 
 const writeToFile = (data: any, fileName: string) => {
   try {
@@ -27,14 +27,14 @@ const getItemsWithMissingLinksInContent = () => {
 
 const getItemsMissingBothCatAndSubcat = () => {
   const missingBothSubcatSubsubcat = (wiki as DlWikiLinkType[]).filter(
-    (item) => !item.subcategory && !item.subsubcategory
+    (item) => !item.subcategory && !item.subsubcategory,
   );
   writeToFile(missingBothSubcatSubsubcat, "missing-both-cat-and-subcat");
 };
 
 const getItemsMissingSubCat = () => {
   const missingSubcat = (wiki as DlWikiLinkType[]).filter(
-    (item) => !item.subcategory
+    (item) => !item.subcategory,
   );
 
   writeToFile(missingSubcat, "missing-subcat");
@@ -42,7 +42,7 @@ const getItemsMissingSubCat = () => {
 
 const getItemsWithContentNotStartingWithAsterisk = () => {
   const doesntStartWithAstrisk = (wiki as DlWikiLinkType[]).filter(
-    (item) => !item.content.startsWith("*")
+    (item) => !item.content.startsWith("*"),
   );
 
   writeToFile(doesntStartWithAstrisk, "doesnt-start-with-asterisk");

@@ -57,14 +57,14 @@ const faqs = [
 const FAQ = () => {
   return (
     <div className="">
-      <p className="text-3xl font-semibold tracking-tighter text-center mb-6">
+      <p className="mb-6 text-center text-3xl font-semibold tracking-tighter">
         Frequently Asked <span className="text-cyan-400">Questions</span>
       </p>
 
       <Accordion
         variant="separated"
         radius="md"
-        className="max-w-[80vw] md:max-w-[60vw] w-[48rem] mx-auto"
+        className="mx-auto w-[48rem] max-w-[80vw] md:max-w-[60vw]"
       >
         {faqs.map((item, index) => (
           <Accordion.Item key={index} value={item.value}>

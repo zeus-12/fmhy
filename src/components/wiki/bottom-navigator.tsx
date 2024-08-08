@@ -37,14 +37,14 @@ const calculateCategories = (category: string) => {
         previousCategory = previousCategoryEle
           ? {
               ele: previousCategoryEle,
-              icon: <ChevronLeft className="w-5 h-5 text-gray-100" />,
+              icon: <ChevronLeft className="h-5 w-5 text-gray-100" />,
             }
           : null;
 
         nextCategory = nextCategoryEle
           ? {
               ele: nextCategoryEle,
-              icon: <ChevronRight className="w-5 h-5 text-gray-100" />,
+              icon: <ChevronRight className="h-5 w-5 text-gray-100" />,
             }
           : null;
 
@@ -64,7 +64,7 @@ const calculateCategories = (category: string) => {
         if (next?.hasSubItems) {
           nextCategory = {
             ele: next.items[0] as ChildResource,
-            icon: <ChevronRight className="w-5 h-5 text-gray-100" />,
+            icon: <ChevronRight className="h-5 w-5 text-gray-100" />,
           };
         } else {
           nextCategory =
@@ -72,14 +72,14 @@ const calculateCategories = (category: string) => {
               ? null
               : {
                   ele: MARKDOWN_RESOURCES[i + 1] as ChildResource,
-                  icon: <ChevronRight className="w-5 h-5 text-gray-100" />,
+                  icon: <ChevronRight className="h-5 w-5 text-gray-100" />,
                 };
         }
 
         if (prev?.hasSubItems) {
           previousCategory = {
             ele: prev.items[prev.items.length - 1] as ChildResource,
-            icon: <ChevronLeft className="w-5 h-5 text-gray-100" />,
+            icon: <ChevronLeft className="h-5 w-5 text-gray-100" />,
           };
         } else {
           previousCategory =
@@ -87,7 +87,7 @@ const calculateCategories = (category: string) => {
               ? null
               : {
                   ele: MARKDOWN_RESOURCES[i - 1] as ChildResource,
-                  icon: <ChevronLeft className="w-5 h-5 text-gray-100" />,
+                  icon: <ChevronLeft className="h-5 w-5 text-gray-100" />,
                 };
         }
 
@@ -115,14 +115,14 @@ const WikiBottomNavigator: React.FC<{ category: string }> = ({ category }) => {
 
   return (
     <>
-      <div className="border-gray-800 border-[0.2px] my-8" />
+      <div className="my-8 border-[0.2px] border-gray-800" />
       <div
-        className={`flex gap-2 my-8 w-full ${
+        className={`my-8 flex w-full gap-2 ${
           isFirstCategory
             ? "justify-end"
             : isLastCategory
-            ? "justify-start"
-            : "justify-between"
+              ? "justify-start"
+              : "justify-between"
         }`}
       >
         {[previousCategory, nextCategory].map(
@@ -133,7 +133,7 @@ const WikiBottomNavigator: React.FC<{ category: string }> = ({ category }) => {
             return (
               <Link key={i} href={`/${item.ele.urlEnding?.toLowerCase()}`}>
                 <div
-                  className={`px-4 py-2 items-center rounded-lg flex gap-2 justify-center hover:bg-gray-900 ${
+                  className={`flex items-center justify-center gap-2 rounded-lg px-4 py-2 hover:bg-gray-900 ${
                     i === 0 ? "" : "flex-row-reverse"
                   } ${isFirstCategory ? "ml-auto" : "mr-auto"}`}
                 >
@@ -142,7 +142,7 @@ const WikiBottomNavigator: React.FC<{ category: string }> = ({ category }) => {
                 </div>
               </Link>
             );
-          }
+          },
         )}
       </div>
     </>

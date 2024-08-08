@@ -1,6 +1,6 @@
-import React, { DetailedHTMLProps, AnchorHTMLAttributes, Ref } from "react";
-import NextLink from "next/link";
 import { cn } from "@/lib/utils";
+import NextLink from "next/link";
+import { AnchorHTMLAttributes, DetailedHTMLProps, Ref } from "react";
 
 type LinkProps = DetailedHTMLProps<
   AnchorHTMLAttributes<HTMLAnchorElement>,

@@ -1,14 +1,14 @@
+import FAQ from "@/components/faq";
+import Link from "@/components/link";
+import WikiBottomNavigator from "@/components/wiki/bottom-navigator";
 import CategoriesSidebar from "@/components/wiki/categories-sidebar";
 import {
   ChildResource,
   MARKDOWN_RESOURCES,
   blurDataUrlForLogo,
 } from "@/lib/constants";
-import WikiBottomNavigator from "@/components/wiki/bottom-navigator";
-import Link from "@/components/link";
-import Image from "next/image";
-import FAQ from "@/components/faq";
 import { Badge } from "@mantine/core";
+import Image from "next/image";
 import Balancer from "react-wrap-balancer";
 
 const quickLinks = [
@@ -86,9 +86,9 @@ const Home = () => {
       <CategoriesSidebar
         markdownCategory={MARKDOWN_RESOURCES[0] as ChildResource}
       />
-      <div className="flex-1 px-2 sm:px-4 md:px-8 lg:px-14 xl:px-28 overflow-scroll space-y-4 overflow-x-hidden hideScrollbar mb-4">
-        <div className="justify-center min-h-full items-center flex flex-col">
-          <p className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tighter text-center">
+      <div className="hideScrollbar mb-4 flex-1 space-y-4 overflow-scroll overflow-x-hidden px-2 sm:px-4 md:px-8 lg:px-14 xl:px-28">
+        <div className="flex min-h-full flex-col items-center justify-center">
+          <p className="text-center text-4xl font-semibold tracking-tighter sm:text-5xl md:text-6xl">
             <Balancer>
               The largest collection of Free stuff on the Internet!
             </Balancer>
@@ -96,13 +96,13 @@ const Home = () => {
           <Image
             src={"/assets/fmhy.gif"}
             alt="logo"
-            className="h-[12rem] sm:h-[20rem] w-auto"
+            className="h-[12rem] w-auto sm:h-[20rem]"
             blurDataURL={blurDataUrlForLogo}
             placeholder="blur"
             width={100}
             height={100}
           />
-          <div className="flex gap-2 flex-wrap justify-center">
+          <div className="flex flex-wrap justify-center gap-2">
             {quickLinks.map((item) => (
               <Link key={item.title} href={item.link}>
                 <Badge size="lg" color={item.color}>
@@ -144,7 +144,7 @@ const Home = () => {
         </div> */}
 
         <div
-          className="min-h-dscreen items-center flex justify-center"
+          className="min-h-dscreen flex items-center justify-center"
           id="faq"
         >
           <FAQ />

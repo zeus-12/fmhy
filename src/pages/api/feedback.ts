@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (req.method === "POST") {
     const { message, feedbackType, contactEmail } = req.body;
@@ -25,7 +25,7 @@ export default async function handler(
         client_id: process.env.CLIENT_ID,
         private_key: (process.env.GOOGLE_SERVICE_PRIVATE_KEY as string).replace(
           /\\n/g,
-          "\n"
+          "\n",
         ),
       },
       scopes: [

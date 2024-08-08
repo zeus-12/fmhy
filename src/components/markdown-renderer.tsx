@@ -1,14 +1,14 @@
 import {
+  BlockquoteRenderer,
+  CodeRenderer,
+  HeadingRenderer,
   LiRenderer,
   LinkRenderer,
   PRenderer,
-  CodeRenderer,
-  HeadingRenderer,
   UlRenderer,
-  BlockquoteRenderer,
 } from "@/lib/wiki/renderers";
-import ReactMarkdown, { Components } from "react-markdown";
 import GithubSlugger from "github-slugger";
+import ReactMarkdown, { Components } from "react-markdown";
 import gfm from "remark-gfm";
 
 const MarkdownRenderer = ({

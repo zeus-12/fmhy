@@ -7,7 +7,7 @@ const GuideItem: React.FC<{ title: string; link: string }> = ({
   return (
     <div className="guide-item my-2 rounded-xl px-4 py-2">
       <div>
-        <div className="flex justify-between items-center pt-2">
+        <div className="flex items-center justify-between pt-2">
           <Link className="inline" style={{ fontSize: "1.1rem" }} href={link}>
             {title}
             {/* {data.nsfw && <Badge color="red">NSFW</Badge>} */}

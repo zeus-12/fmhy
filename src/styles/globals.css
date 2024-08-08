@@ -80,16 +80,16 @@ a:hover {
 
 @layer base {
   h1 {
-    @apply text-3xl font-semibold tracking-tighter mt-4 mb-2  text-white;
+    @apply mb-2 mt-4 text-3xl font-semibold tracking-tighter text-white;
   }
   h2 {
-    @apply text-2xl font-medium my-2 mt-4 mb-2  text-white;
+    @apply my-2 mb-2 mt-4 text-2xl font-medium text-white;
   }
   h3 {
-    @apply text-2xl font-semibold tracking-tight mb-3 mt-4  text-white;
+    @apply mb-3 mt-4 text-2xl font-semibold tracking-tight text-white;
   }
   h4 {
-    @apply text-xl font-medium  mt-4  text-white;
+    @apply mt-4 text-xl font-medium text-white;
   }
 }
 
