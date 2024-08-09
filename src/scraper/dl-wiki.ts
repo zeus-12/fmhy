@@ -120,8 +120,7 @@ async function dlWikiChunk(urlEnding: string): Promise<DlWikiLinkType[]> {
 
     return items;
   } catch (err: any) {
-    console.log("Error fetching data", err.message);
-    return [];
+    throw new Error("Issue fetching data::: ", err.message);
   }
 }
 
