@@ -10,6 +10,7 @@ import {
 import { useWiki } from "@/lib/store";
 import { getTableOfContents } from "@/lib/toc";
 import { devLog } from "@/lib/utils";
+import { getWikiUrl } from "@/lib/wiki/utils";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -170,10 +171,12 @@ export async function getStaticProps({
       );
 
     const markdownUrlEnding = markdownCategory?.urlEnding;
+    if (!markdownUrlEnding) {
+      throw new Error("Undefined markdown-url-ending, possibly ChildResource");
+    }
 
-    const res = await fetch(
-      `https://raw.githubusercontent.com/fmhy/FMHYedit/main/docs/${markdownUrlEnding}.md`,
-    );
+    const url = getWikiUrl(markdownUrlEnding);
+    const res = await fetch(url);
 
     const text = await res.text();
     if (!text) {

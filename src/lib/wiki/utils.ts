@@ -181,3 +181,7 @@ export const getMarkdownFromProps = (props: any) => {
   const md = toMarkdown(mdast);
   return md;
 };
+
+export const getWikiUrl = (resource: string) => {
+  return `https://raw.githubusercontent.com/fmhy/FMHYedit/main/docs/${resource}.md`;
+};

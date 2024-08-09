@@ -1,4 +1,5 @@
 import { MARKDOWN_RESOURCES } from "@/lib/constants";
+import { getWikiUrl } from "@/lib/wiki/utils";
 import fs from "fs";
 import fetch from "node-fetch";
 
@@ -60,9 +61,8 @@ const ignoreStarters = [
 
 async function dlWikiChunk(urlEnding: string): Promise<DlWikiLinkType[]> {
   try {
-    const res = await fetch(
-      `https://raw.githubusercontent.com/nbats/FMHYedit/main/docs/${urlEnding}.md`,
-    );
+    const url = getWikiUrl(urlEnding);
+    const res = await fetch(url);
 
     const data = await res.text();
 
