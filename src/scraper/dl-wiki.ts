@@ -10,6 +10,9 @@ const ScrapeWikiScript = () => {
     }
     if (resource.hasSubItems) {
       resource.items?.forEach((subItem) => {
+        if (!subItem.dlForSearch) {
+          return;
+        }
         urls.push(subItem.urlEnding);
       });
       return;
