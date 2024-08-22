@@ -27,12 +27,11 @@ export default function App({ Component, pageProps }: AppProps) {
     >
       <SpotlightProvider>
         <DefaultSeo {...SEO} />
-
         <Navbar />
 
         <div
           className={cn(
-            "hd-screen flex flex-col gap-2 antialiased",
+            "hd-screen dark flex flex-col gap-2 antialiased",
             fontSans.className,
           )}
         >

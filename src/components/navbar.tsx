@@ -49,7 +49,7 @@ export const Logo = () => (
       alt="logo"
       width={40}
       height={40}
-      className="h-7 w-7 xs:h-10 xs:w-10"
+      className="xs:h-10 xs:w-10 h-7 w-7"
     />
     {/* <p className="font-semibold tracking-tight text-gray-200 font-mono text-base xs:text-lg sm:text-2xl md:text-lg ">
         FMHY
@@ -144,7 +144,7 @@ const Navbar = () => {
   const isWikiPage = router.pathname === "/[CATEGORY]";
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-20 mx-auto mb-4 flex h-14 w-fit">
+    <div className="dark fixed inset-x-0 bottom-0 z-20 mx-auto mb-4 flex h-14 w-fit">
       <div className="relative mx-auto flex h-full items-center rounded-md border border-neutral-400/20 bg-white/40 backdrop-blur-md dark:border-neutral-600/30 dark:bg-black/40 dark:text-white">
         <span
           className="absolute bottom-0 top-0 -z-10 flex overflow-hidden rounded-[4px] p-1 transition-all duration-300 sm:p-1"
