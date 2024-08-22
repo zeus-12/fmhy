@@ -15,33 +15,6 @@ import {
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-// const navItems = [
-//   { link: "/search", name: "Search" },
-//   { link: "/guides", name: "Guides" },
-//   // { link: "/changelogs", name: "Changelog" },
-// ];
-
-// export const LinkElements = () => {
-//   const router = useRouter();
-//   const curLink = router.pathname;
-
-//   return (
-//     <div className="text-gray-300 text-base sm:text-lg font-medium flex gap-4 sm:gap-6 lg:gap-8">
-//       {navItems.map((item, index) => (
-//         <Link key={index} href={item.link}>
-//           <p
-//             className={`px-0.5 lg:px-2 rounded-md hover:text-white cursor-pointer text-center hover:bg-gray-900 ${
-//               curLink.startsWith(item.link) ? "text-white" : "text-gray-500"
-//             }`}
-//           >
-//             {item.name}
-//           </p>
-//         </Link>
-//       ))}
-//     </div>
-//   );
-// };
-
 export const Logo = () => (
   <div className="flex h-full w-full items-center gap-1 sm:gap-2">
     <Image
@@ -153,18 +126,6 @@ const Navbar = () => {
           <span className="h-full w-full rounded-xl bg-neutral-200 backdrop-blur-xl dark:bg-neutral-800" />
         </span>
 
-        {/* {isWikiPage && (
-          <>
-            <div className="px-3 md:hidden ">
-              <PanelLeftOpen
-                className={cn(
-                  "text-gray-400 hover:cursor-pointer w-5 h-5 md:w-6 md:h-6"
-                )}
-                onClick={toggleHideCategory}
-              />
-            </div>
-          </>
-        )} */}
         {navItems.map((tab, index) => {
           return (
             <Link
