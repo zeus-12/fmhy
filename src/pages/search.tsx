@@ -1,4 +1,5 @@
 import Link from "@/components/link";
+import { Input } from "@/components/ui/input";
 import { MARKDOWN_URL_ENDING_TO_EMOJI_MAPPING } from "@/lib/constants";
 import { LiRenderer, LinkRenderer } from "@/lib/wiki/renderers";
 import {
@@ -7,7 +8,7 @@ import {
 } from "@/lib/wiki/utils";
 import { DlWikiLinkType } from "@/scraper/dl-wiki";
 import WikiData from "@/scraper/wiki.json";
-import { Badge, Input } from "@mantine/core";
+import { Badge } from "@mantine/core";
 import { useDebouncedValue } from "@mantine/hooks";
 import { Index } from "flexsearch";
 import { Search as SearchIcon } from "lucide-react";
@@ -63,15 +64,17 @@ const Search = () => {
           </p>
         </div>
 
-        <Input
-          autoFocus
-          placeholder="Try Adblocker"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          rightSection={<SearchIcon className="h-5 w-5 text-gray-400" />}
-          className="w-[85vw] sm:w-96"
-        />
-
+        {/* PS: When using `endIcon`: Dont change width of the Input element, instead use the parent div to control the width. */}
+        <div className="sm:w-96">
+          <Input
+            autoFocus
+            placeholder="Try Adblocker"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="bg-[#25262B]"
+            endIcon={() => <SearchIcon className="h-5 w-5 text-gray-500" />}
+          />
+        </div>
         <LocalSearch query={searchQuery} />
       </div>
     </>
