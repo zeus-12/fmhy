@@ -13,6 +13,7 @@ import { Index } from "flexsearch";
 import { Search as SearchIcon } from "lucide-react";
 import { NextSeo, SiteLinksSearchBoxJsonLd } from "next-seo";
 import { useRouter } from "next/router";
+import { useQueryState } from "nuqs";
 import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
@@ -21,36 +22,19 @@ const SEARCH_RESULTS_LIMIT = 100;
 const Search = () => {
   const { push, query, isReady } = useRouter();
 
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useQueryState("q", {
+    defaultValue: "",
+  });
 
   const searchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!isReady) return;
 
-    const q = (query.q as string) ?? "";
-
-    if (q) {
-      setSearchQuery(q);
-    } else {
+    if (!query.q) {
       searchRef.current?.focus();
     }
   }, [isReady]);
-
-  const navigatePage = (query: string) => {
-    let params = new URLSearchParams(window.location.search);
-    params.set("q", query);
-
-    push({
-      pathname: "/search",
-      query: params.toString(),
-    });
-  };
-
-  const searchHandler = async () => {
-    navigatePage(searchQuery);
-    searchRef.current?.blur();
-  };
 
   const resetSearch = () => {
     push("/search");
@@ -69,29 +53,21 @@ const Search = () => {
           },
         ]}
       />
-      <div className="mb-8 flex w-screen flex-1 flex-col px-6 pt-4 sm:px-8 md:px-12 md:py-2 lg:px-16 lg:py-4 xl:py-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <p
-              onClick={resetSearch}
-              className="text-3xl font-semibold tracking-tighter hover:cursor-pointer"
-            >
-              <span className="text-cyan-400">FMHY</span> Search
-            </p>
-          </div>
-          <div className="space-y-2"></div>
+      <div className="mb-8 flex w-screen flex-1 flex-col px-6 pt-4 sm:px-8 md:px-12 md:py-4 lg:px-16 lg:py-6 xl:py-10">
+        <div className="mb-2 flex items-center justify-between">
+          <p
+            onClick={resetSearch}
+            className="text-3xl font-semibold tracking-tighter hover:cursor-pointer"
+          >
+            <span className="text-cyan-400">FMHY</span> Search
+          </p>
         </div>
 
         <Input
+          autoFocus
           placeholder="Try Adblocker"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              searchHandler();
-            }
-          }}
-          ref={searchRef}
           rightSection={<SearchIcon className="h-5 w-5 text-gray-400" />}
           className="w-[85vw] sm:w-96"
         />
@@ -112,7 +88,6 @@ const LocalSearch = ({ query }: { query: string }) => {
       language: "en",
       preset: "score",
       cache: true,
-
       // give more weight to categories, and links with "⭐"
 
       // context: true,
@@ -168,11 +143,7 @@ const LocalSearch = ({ query }: { query: string }) => {
         finalResult?.map((result: DlWikiLinkType, idx) => (
           <div
             key={idx}
-            className="my-2 list-none rounded-xl"
-            style={{
-              background: "#11151F",
-              padding: "0.5rem 1rem",
-            }}
+            className="my-2 list-none rounded-xl bg-[#11151F] px-4 py-2"
           >
             <ReactMarkdown
               components={{
