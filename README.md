@@ -1,4 +1,6 @@
 # Website for [FMHY](https://www.reddit.com/r/FREEMEDIAHECKYEAH/)
+**This project is no longer actively maintained**
+
 
 ## Built using
 
@@ -6,7 +8,6 @@
 - **Typescript** For type safety
 - **Tailwind CSS** For styling
 - **Mantine UI** For components
-- **Planetscale** As the database
 - **Cheerio** For parsing the HTML (Old scraper)
 - **Plausible** For analytics (stopped)
 
