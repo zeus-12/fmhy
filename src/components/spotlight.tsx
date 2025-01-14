@@ -81,7 +81,7 @@ export const SpotlightProvider = ({
       group: "other",
 
       onTrigger: () => {
-        window.open("https://discord.gg/5W9QJKuPkD", "_blank");
+        window.open("https://rentry.co/fmhy-invite", "_blank");
       },
     },
     {

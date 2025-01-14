@@ -24,7 +24,7 @@ const quickLinks = [
   // },
   {
     title: "Discord",
-    link: "https://discord.gg/5W9QJKuPkD",
+    link: "https://rentry.co/fmhy-invite",
     color: "green",
   },
   {
