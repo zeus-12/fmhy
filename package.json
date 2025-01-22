@@ -26,6 +26,8 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^1.2.1",
     "flexsearch": "0.7.21",
+    "fumadocs-core": "^14.7.4",
+    "fumadocs-ui": "^14.7.4",
     "github-slugger": "^2.0.0",
     "googleapis": "^123.0.0",
     "hast-util-to-mdast": "^10.1.0",
