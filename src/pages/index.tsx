@@ -32,11 +32,11 @@ const quickLinks = [
     link: "/feedback",
     color: "orange",
   },
-  {
-    title: "Guides",
-    link: "https://rentry.co/fmhy-guides",
-    color: "pink",
-  },
+  // {
+  //   title: "Guides",
+  //   link: "https://rentry.co/fmhy-guides",
+  //   color: "pink",
+  // },
 ];
 
 const Home = () => {
