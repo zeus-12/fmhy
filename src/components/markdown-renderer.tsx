@@ -1,5 +1,4 @@
 import {
-  BlockquoteRenderer,
   CodeRenderer,
   HeadingRenderer,
   LiRenderer,
@@ -39,7 +38,7 @@ const MarkdownRenderer = ({
         hr: () => <></>,
         code: (props) => CodeRenderer(props, category), // for base64 only
         ul: (props) => UlRenderer(props),
-        blockquote: (props) => BlockquoteRenderer(props, category),
+        // blockquote: (props) => BlockquoteRenderer(props, category),
         ...components,
       }}
     >
