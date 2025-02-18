@@ -65,6 +65,7 @@
 
 html {
   background-color: #0c0d0e !important;
+  overscroll-behavior: none !important;
 }
 
 body ::-webkit-scrollbar {
@@ -171,7 +172,6 @@ a {
   -ms-word-break: break-all;
   word-break: break-word;
 }
-
 
 /* Prevents zooming in on clicking forms in Safari. */
 input[type="color"],
