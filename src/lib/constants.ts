@@ -231,13 +231,13 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
     dlForSearch: true,
     hasSubItems: true,
     items: [
-      {
-        title: "NSFW",
-        urlEnding: "nsfwpiracy",
-        emoji: "🔞",
-        dlForSearch: true,
-        hasSubItems: false,
-      },
+      // {
+      //   title: "NSFW",
+      //   urlEnding: "nsfwpiracy",
+      //   emoji: "🔞",
+      //   dlForSearch: true,
+      //   hasSubItems: false,
+      // },
       {
         title: "Unsafe Sites",
         urlEnding: "unsafesites",
