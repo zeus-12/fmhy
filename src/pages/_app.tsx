@@ -7,9 +7,42 @@ import type { AppProps } from "next/app";
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 import { DefaultSeo } from "next-seo";
+import { useEffect, useState } from "react";
 import { SEO } from "../../next-seo.config";
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [isIframe, setIsIframe] = useState(false);
+
+  useEffect(() => {
+    if (window.top !== window.self) {
+      setIsIframe(true);
+      handleRedirection();
+    }
+  }, []);
+
+  const handleRedirection = (openNew?: boolean) => {
+    try {
+      if (window.top) {
+        window.top.location.href = window.location.href;
+      }
+    } catch (error) {
+      if (openNew) {
+        window.open(window.location.href, "_blank");
+      }
+    }
+  };
+
+  if (isIframe) {
+    return (
+      <div
+        className="flex h-screen cursor-pointer items-center justify-center font-sans"
+        onClick={() => handleRedirection(true)}
+      >
+        <p className="text-lg font-semibold">Click to continue.</p>
+      </div>
+    );
+  }
+
   return (
     // <PlausibleProvider
     //   domain="fmhy.vercel.app"
