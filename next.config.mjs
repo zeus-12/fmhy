@@ -19,14 +19,14 @@ const nextConfig = {
     ];
   },
 
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: securityHeaders,
-      },
-    ];
-  },
+  // async headers() {
+  //   return [
+  //     {
+  //       source: "/(.*)",
+  //       headers: securityHeaders,
+  //     },
+  //   ];
+  // },
 };
 
 // https://nextjs.org/docs/advanced-features/security-headers
