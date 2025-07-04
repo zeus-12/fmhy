@@ -4,21 +4,6 @@
 const nextConfig = {
   reactStrictMode: false,
 
-  async redirects() {
-    return [
-      {
-        source: "/wiki/:path*",
-        destination: "/:path*",
-        permanent: true,
-      },
-      {
-        source: "/links/:path*",
-        destination: "/:path*",
-        permanent: true,
-      },
-    ];
-  },
-
   async headers() {
     return [
       {
