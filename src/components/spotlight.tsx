@@ -93,6 +93,15 @@ export const SpotlightProvider = ({
         router.push("/feedback");
       },
     },
+    {
+      title: "Glossary",
+      description: "The Piracy Glossary",
+      group: "other",
+
+      onTrigger: () => {
+        router.push("https://rentry.org/The-Piracy-Glossary");
+      },
+    },
   ];
 
   return (
