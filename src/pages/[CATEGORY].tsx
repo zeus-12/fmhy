@@ -13,7 +13,7 @@ import { devLog } from "@/lib/utils";
 import { getWikiUrl } from "@/lib/wiki/utils";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const Wiki = ({ data, toc }: { data: string; toc: any }) => {
   const router = useRouter();
@@ -83,6 +83,19 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
   markdownCategory,
   toc,
 }) => {
+  const linksRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (linksRef.current) {
+      // temp set scroll-behavior to 'auto'
+      const el = linksRef.current;
+      const prev = el.style.scrollBehavior;
+      el.style.scrollBehavior = "auto";
+      el.scrollTo(0, 0);
+      el.style.scrollBehavior = prev;
+    }
+  }, [category]);
+
   // const [starredLinks, setStarredLinks] = useState(false);
 
   // const linksRef = useRef(null);
@@ -102,7 +115,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
   return (
     <>
       <div
-        // ref={linksRef}
+        ref={linksRef}
         className="hideScrollbar flex-1 overflow-scroll px-1 pb-12 pt-4 sm:px-4 md:px-8 lg:px-14 xl:px-20 2xl:max-w-7xl"
       >
         <div className="flex items-center justify-between">
