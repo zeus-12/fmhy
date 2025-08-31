@@ -172,8 +172,6 @@ export const stripLinksFromMarkdown = (input: string) => {
   input = input.replace(/<[^>]+>/g, "");
   const regex = /(\[([^\]]+)\]\([^\)]+\))/g;
   return input.replace(regex, "$2").trim();
-
-  return input;
 };
 
 export const getMarkdownFromProps = (props: any) => {

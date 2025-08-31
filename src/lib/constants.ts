@@ -28,7 +28,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
   },
   {
     title: "Adblock, Privacy",
-    urlEnding: "adblockvpnguide",
+    urlEnding: "privacy",
     emoji: "📛",
     dlForSearch: true,
     hasSubItems: false,
@@ -42,28 +42,28 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
   },
   {
     title: "Movies, TV, Anime, Sports",
-    urlEnding: "videopiracyguide",
+    urlEnding: "video",
     emoji: "📺",
     dlForSearch: true,
     hasSubItems: false,
   },
   {
     title: "Music, Podcasts, Radio",
-    urlEnding: "audiopiracyguide",
+    urlEnding: "audio",
     emoji: "🎵",
     dlForSearch: true,
     hasSubItems: false,
   },
   {
     title: "Gaming, Emulation",
-    urlEnding: "gamingpiracyguide",
+    urlEnding: "gaming",
     emoji: "🎮",
     dlForSearch: true,
     hasSubItems: false,
   },
   {
     title: "Books, Comics, Manga",
-    urlEnding: "readingpiracyguide",
+    urlEnding: "reading",
     emoji: "📗",
     dlForSearch: true,
     hasSubItems: false,
@@ -71,7 +71,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
 
   {
     title: "Downloading",
-    urlEnding: "downloadpiracyguide",
+    urlEnding: "downloading",
     emoji: "💾",
     dlForSearch: true,
     hasSubItems: false,
@@ -79,7 +79,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
 
   {
     title: "Torrenting",
-    urlEnding: "torrentpiracyguide",
+    urlEnding: "torrenting",
     emoji: "🌀",
     dlForSearch: true,
     hasSubItems: false,
@@ -87,7 +87,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
 
   {
     title: "Educational",
-    urlEnding: "edupiracyguide",
+    urlEnding: "educational",
     emoji: "🧠",
     dlForSearch: true,
     hasSubItems: false,
@@ -95,7 +95,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
 
   {
     title: "Android, iOS",
-    urlEnding: "android-iosguide",
+    urlEnding: "mobile",
     emoji: "📱",
     dlForSearch: true,
     hasSubItems: false,
@@ -110,7 +110,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
 
   {
     title: "Linux, MacOS",
-    urlEnding: "linuxguide",
+    urlEnding: "linux-macos",
     emoji: "🐧",
     dlForSearch: true,
     hasSubItems: false,
@@ -126,7 +126,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
 
   {
     title: "Miscellaneous",
-    urlEnding: "miscguide",
+    urlEnding: "misc",
     emoji: "📂",
     dlForSearch: true,
     hasSubItems: false,
@@ -186,7 +186,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
         dlForSearch: true,
         emoji: "📷",
         title: "Image Tools",
-        urlEnding: "img-tools",
+        urlEnding: "image-tools",
         hasSubItems: false,
       },
 
@@ -202,7 +202,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
         emoji: "🔊",
         title: "Audio Tools",
         useAbsoluteUrl: true,
-        urlEnding: "audiopiracyguide#audio-tools",
+        urlEnding: "audio#audio-tools",
         dlForSearch: false,
         hasSubItems: false,
       },
@@ -212,14 +212,14 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
         emoji: "🍎",
         title: "Educational Tools",
         useAbsoluteUrl: true,
-        urlEnding: "edupiracyguide#educational-tools",
+        urlEnding: "educational#educational-tools",
         hasSubItems: false,
       },
       {
         title: "Developer Tools",
         dlForSearch: true,
         emoji: "👨",
-        urlEnding: "devtools",
+        urlEnding: "developer-tools",
         hasSubItems: false,
       },
     ],
@@ -240,7 +240,7 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
       // },
       {
         title: "Unsafe Sites",
-        urlEnding: "unsafesites",
+        urlEnding: "unsafe",
         emoji: "🚫",
         dlForSearch: false,
         hasSubItems: false,
@@ -365,7 +365,7 @@ export const beginnersGuideFaqs = [
   {
     question: "How do I download windows / activate windows & Office?",
     answer: `For Windows check out this [section](#pirate-windows)
-      For Office check these [guides](https://fmhy.pages.dev/storage/#office-suites)`,
+      For Office check these [guides](https://fmhy.vercel.app/storage/#office-suites)`,
   },
   {
     question: "Where do I find *insert game title / movie title*?",
@@ -381,7 +381,7 @@ export const beginnersGuideFaqs = [
   {
     question: "How do I unlock *insert random game title* DLCs?",
     answer:
-      "Use the tools listed [here](https://fmhy.pages.dev/gamingpiracyguide/#steam--epic) to unlock DLCs.",
+      "Use the tools listed [here](https://fmhy.vercel.app/gaming-tools) to unlock DLCs.",
   },
   {
     question:
@@ -411,17 +411,17 @@ export const beginnersGuideFaqs = [
 //       "Chat Bots, Text Generators, Image Generators, ChatGPT Tools",
 //   ],
 //   "Android-iOSGuide.md": ["Android / iOS", "Apps, Jailbreaking, Android Emulators"],
-//   "AudioPiracyGuide.md": [
+//   "audio.md": [
 //       "Music / Podcasts / Radio",
 //       "Stream Audio, Download Audio, Torrent Audio",
 //   ],
 //   "Beginners-Guide.md": ["Beginners Guide", "A Guide for Beginners to Piracy"],
-//   "DownloadPiracyGuide.md": [
+//   "Download.md": [
 //       "Downloading",
 //       "Download Sites, Software Sites, Open Directories",
 //   ],
-//   "EDUPiracyGuide.md": ["Educational", "Courses, Documentaries, Learning Resources"],
-//   "GamingPiracyGuide.md": [
+//   "EDU.md": ["Educational", "Courses, Documentaries, Learning Resources"],
+//   "Gaming.md": [
 //       "Gaming / Emulation",
 //       "Download Games, ROMs, Gaming Tools",
 //   ],
@@ -429,7 +429,7 @@ export const beginnersGuideFaqs = [
 //   "MISCGuide.md": ["Miscellaneous", "Extensions, Indexes, News, Health, Food, Fun"],
 //   "NSFWPiracy.md": ["NSFW", "NSFW Indexes, Streaming, Downloading"],
 //   "Non-English.md": ["Non-English", "International Piracy Sites"],
-//   "ReadingPiracyGuide.md": [
+//   "Reading.md": [
 //       "Books / Comics / Manga",
 //       "Books, Comics, Magazines, Newspapers",
 //   ],
@@ -456,8 +456,8 @@ export const beginnersGuideFaqs = [
 //       "Discord Tools, Reddit Tools, YouTube Tools",
 //   ],
 //   "STORAGE.md": ["Storage", "Sections too big to fit on main pages"],
-//   "TorrentPiracyGuide.md": ["Torrenting", "Torrent Clients, Torrent Sites, Trackers"],
-//   "VideoPiracyGuide.md": [
+//   "Torrent.md": ["Torrenting", "Torrent Clients, Torrent Sites, Trackers"],
+//   "Video.md": [
 //       "Movies / TV / Anime",
 //       "Stream Videos, Download Videos, Torrent Videos",
 //   ],
