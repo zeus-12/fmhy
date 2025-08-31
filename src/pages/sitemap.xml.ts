@@ -16,13 +16,11 @@ function generateSiteMap() {
      ${MARKDOWN_RESOURCES.map((resource) => {
        if (resource.hasSubItems) {
          return resource.items
+           .filter((item) => !item.useAbsoluteUrl)
            .map((item) => {
-             const url = item.useAbsoluteUrl
-               ? item.urlEnding
-               : `${URL}/${item.urlEnding}`;
              return `
         <url>
-            <loc>${url}</loc>
+            <loc>${URL}/${item.urlEnding}</loc>
         </url>
         `;
            })

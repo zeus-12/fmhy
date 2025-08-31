@@ -201,7 +201,6 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
       {
         emoji: "🔊",
         title: "Audio Tools",
-        useAbsoluteUrl: true,
         urlEnding: "audio#audio-tools",
         dlForSearch: false,
         hasSubItems: false,
@@ -211,7 +210,6 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
         dlForSearch: false,
         emoji: "🍎",
         title: "Educational Tools",
-        useAbsoluteUrl: true,
         urlEnding: "educational#educational-tools",
         hasSubItems: false,
       },
@@ -231,13 +229,14 @@ export const MARKDOWN_RESOURCES: ResourceEle[] = [
     dlForSearch: true,
     hasSubItems: true,
     items: [
-      // {
-      //   title: "NSFW",
-      //   urlEnding: "nsfwpiracy",
-      //   emoji: "🔞",
-      //   dlForSearch: true,
-      //   hasSubItems: false,
-      // },
+      {
+        title: "NSFW",
+        urlEnding: "https://rentry.org/NSFW-Checkpoint",
+        emoji: "🔞",
+        dlForSearch: false,
+        hasSubItems: false,
+        useAbsoluteUrl: true,
+      },
       {
         title: "Unsafe Sites",
         urlEnding: "unsafe",

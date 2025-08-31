@@ -12,44 +12,17 @@ import { getTableOfContents } from "@/lib/toc";
 import { devLog } from "@/lib/utils";
 import { getWikiUrl } from "@/lib/wiki/utils";
 import { NextSeo } from "next-seo";
-import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 
-const Wiki = ({ data, toc }: { data: string; toc: any }) => {
-  const router = useRouter();
-
-  const category = router.query.CATEGORY as string;
-
-  // export a set of all the categories from constants and check that instead
-  let markdownCategory: ChildResource | undefined;
-
-  MARKDOWN_RESOURCES.forEach((item) => {
-    if (!item.hasSubItems) {
-      if (item.urlEnding.toLowerCase() === category?.toLowerCase()) {
-        markdownCategory = item;
-        return;
-      }
-    } else {
-      const ele = item.items?.find(
-        (subItem) =>
-          subItem.urlEnding.toLowerCase() === category?.toLowerCase(),
-      );
-
-      if (ele) {
-        markdownCategory = ele;
-        return;
-      }
-    }
-  });
-
-  useEffect(() => {
-    if (category && !markdownCategory) {
-      router.push("/");
-    }
-  }, [category, markdownCategory]);
-
-  if (!markdownCategory) return <>Error</>;
-
+const Wiki = ({
+  data,
+  toc,
+  markdownCategory,
+}: {
+  data: string;
+  toc: any;
+  markdownCategory: ChildResource;
+}) => {
   return (
     <>
       <NextSeo
@@ -61,7 +34,6 @@ const Wiki = ({ data, toc }: { data: string; toc: any }) => {
 
         <LinkDataRenderer
           data={data}
-          category={category}
           markdownCategory={markdownCategory}
           toc={toc}
         />
@@ -72,14 +44,12 @@ const Wiki = ({ data, toc }: { data: string; toc: any }) => {
 
 interface LinkDataRendererProps {
   data: string;
-  category: string;
   toc: any;
-  markdownCategory: ResourceEle | undefined;
+  markdownCategory: ResourceEle;
 }
 
 const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
   data,
-  category,
   markdownCategory,
   toc,
 }) => {
@@ -87,28 +57,13 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
 
   useEffect(() => {
     if (linksRef.current) {
-      // temp set scroll-behavior to 'auto'
       const el = linksRef.current;
       const prev = el.style.scrollBehavior;
       el.style.scrollBehavior = "auto";
       el.scrollTo(0, 0);
       el.style.scrollBehavior = prev;
     }
-  }, [category]);
-
-  // const [starredLinks, setStarredLinks] = useState(false);
-
-  // const linksRef = useRef(null);
-
-  // useEffect(() => {
-  //   if (!linksRef.current || !(linksRef.current as any)?.scrollTo) {
-  //     console.log("UNDEFINED");
-  //     return;
-  //   }
-  //   console.log("scrolliong up");
-
-  //   (linksRef.current as any)?.scrollTo(0, 0);
-  // }, []);
+  }, [markdownCategory.title]);
 
   const { showOnlyStarred, showToc, toggleShowToc } = useWiki();
 
@@ -120,7 +75,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
       >
         <div className="flex items-center justify-between">
           <p className="text-3xl font-semibold tracking-tighter underline underline-offset-2">
-            {markdownCategory?.title}
+            {markdownCategory.title}
           </p>
           <div className="flex items-center"></div>
         </div>
@@ -128,13 +83,13 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
         {data && data.length > 0 && (
           <>
             <MarkdownRenderer
-              category={category}
+              category={markdownCategory.title}
               showOnlyStarred={showOnlyStarred}
             >
               {data}
             </MarkdownRenderer>
 
-            <BottomNavigator category={category} />
+            <BottomNavigator category={markdownCategory.title} />
           </>
         )}
       </div>
@@ -159,6 +114,7 @@ export async function getStaticProps({
   // }
   try {
     let markdownCategory: ResourceEle | undefined;
+
     MARKDOWN_RESOURCES.forEach((item) => {
       if (!item.hasSubItems) {
         if (item.urlEnding.toLowerCase() === CATEGORY?.toLowerCase()) {
@@ -249,6 +205,7 @@ export async function getStaticProps({
 
     return {
       props: {
+        markdownCategory,
         data: cleanedText,
         toc,
       },

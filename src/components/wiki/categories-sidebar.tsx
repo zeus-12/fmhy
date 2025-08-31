@@ -32,7 +32,11 @@ const CategoriesSidebar = ({
         return (
           <Link
             key={item.emoji}
-            href={`/${item.urlEnding.toLowerCase()}`}
+            href={
+              item.useAbsoluteUrl
+                ? item.urlEnding
+                : `/${item.urlEnding.toLowerCase()}`
+            }
             className={cn(
               item.urlEnding === markdownCategory?.urlEnding
                 ? "border-r-[2px] border-white font-semibold text-gray-300"
@@ -90,7 +94,11 @@ const ToggleableCategory = ({
           return (
             <Link
               key={subItem.emoji}
-              href={`/${subItem.urlEnding.toLowerCase()}`}
+              href={
+                subItem.useAbsoluteUrl
+                  ? subItem.urlEnding
+                  : `/${subItem.urlEnding.toLowerCase()}`
+              }
               className={cn(
                 category &&
                   subItem.urlEnding.toLowerCase() === category.toLowerCase()
