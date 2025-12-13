@@ -32,7 +32,7 @@
     "lucide-react": "^0.220.0",
     "mdast-util-to-markdown": "^2.1.0",
     "mdast-util-toc": "^6.1.1",
-    "next": "14.2.5",
+    "next": "14.2.35",
     "next-plausible": "^3.11.3",
     "next-seo": "^6.4.0",
     "node-fetch": "^3.3.2",
