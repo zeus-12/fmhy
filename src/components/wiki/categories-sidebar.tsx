@@ -56,18 +56,17 @@ const ToggleableCategory = ({ item }: { item: ParentResource }) => {
     item.hasSubItems &&
     item.items.some(
       (sub) =>
-        category &&
-        sub.urlEnding.toLowerCase() === category.toLowerCase(),
+        category && sub.urlEnding.toLowerCase() === category.toLowerCase(),
     );
 
   const [isOpen, setIsOpen] = useState(hasActiveChild);
   const toggleOpen = () => setIsOpen((prev) => !prev);
 
   return (
-    <div>
+    <>
       <div
         className={cn(
-          "group block rounded-sm px-2 py-2 sm:px-4",
+          "group my-2 block rounded-sm px-2 py-2 sm:px-4",
           hasActiveChild ? "font-semibold text-gray-300" : "text-gray-500",
         )}
         onClick={toggleOpen}
@@ -111,7 +110,7 @@ const ToggleableCategory = ({ item }: { item: ParentResource }) => {
             })}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
