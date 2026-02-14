@@ -81,11 +81,11 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
   const { showOnlyStarred } = useWiki();
 
   return (
-    <div className="flex flex-1 justify-evenly rounded-2xl border border-gray-800 bg-[#0B0D0E] lg:px-2 xl:px-20">
-      <div
-        ref={linksRef}
-        className="hide-scrollbar max-w-2xl overflow-scroll px-2 py-6 sm:px-8 sm:pt-8 md:pt-14 lg:px-6 lg:pt-14 xl:px-8 xl:pt-20"
-      >
+    <div
+      ref={linksRef}
+      className="hide-scrollbar flex flex-1 justify-evenly overflow-y-auto rounded-2xl border border-gray-800 bg-[#0B0D0E] lg:px-2 xl:px-20"
+    >
+      <div className="max-w-2xl px-2 py-6 sm:px-8 sm:pt-8 md:pt-14 lg:px-6 lg:pt-14 xl:px-8 xl:pt-20">
         <div className="mb-4 flex items-center justify-between">
           <p className="text-[26px] font-semibold leading-8 tracking-tighter underline-offset-2">
             {markdownCategory.title}
@@ -107,7 +107,7 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
         )}
       </div>
       <WikiTableOfContents
-        className="hidden px-4 py-14 lg:block xl:px-8 xl:py-20"
+        className="sticky top-0 hidden max-h-full px-4 py-14 lg:block xl:px-8 xl:py-20"
         toc={toc}
       />
     </div>
