@@ -4,7 +4,6 @@ import {
   MARKDOWN_RESOURCES,
   ParentResource,
 } from "@/lib/constants";
-import { useWiki } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
 import { useRouter } from "next/router";
@@ -15,18 +14,11 @@ const CategoriesSidebar = ({
 }: {
   markdownCategory: ChildResource;
 }) => {
-  const { hideCategory } = useWiki();
   return (
-    <div className="hideScrollbar h-full overflow-scroll border-r-[1px] border-gray-700 bg-[#050a15] py-4">
+    <div className="hide-scrollbar h-full overflow-scroll bg-[#09090B] py-4">
       {MARKDOWN_RESOURCES.map((item) => {
         if (item.hasSubItems) {
-          return (
-            <ToggleableCategory
-              hideCategory={hideCategory}
-              key={item.title}
-              item={item}
-            />
-          );
+          return <ToggleableCategory key={item.title} item={item} />;
         }
 
         return (
@@ -39,16 +31,12 @@ const CategoriesSidebar = ({
             }
             className={cn(
               item.urlEnding === markdownCategory?.urlEnding
-                ? "border-r-[2px] border-white font-semibold text-gray-300"
+                ? "font-semibold text-gray-300"
                 : "text-gray-500",
               "group my-2 block rounded-sm px-2 py-2 sm:px-4",
             )}
           >
-            <CategoryCard
-              hideCategory={hideCategory}
-              emoji={item.emoji}
-              title={item.title}
-            />
+            <CategoryCard emoji={item.emoji} title={item.title} />
           </Link>
         );
       })}
@@ -58,13 +46,7 @@ const CategoriesSidebar = ({
 
 export default CategoriesSidebar;
 
-const ToggleableCategory = ({
-  item,
-  hideCategory,
-}: {
-  item: ParentResource;
-  hideCategory: boolean;
-}) => {
+const ToggleableCategory = ({ item }: { item: ParentResource }) => {
   const router = useRouter();
 
   const category = router.query.CATEGORY as string;
@@ -80,7 +62,6 @@ const ToggleableCategory = ({
         )}
       >
         <CategoryCard
-          hideCategory={hideCategory}
           emoji={item.emoji}
           title={item.title}
           onClick={toggleOpen}
@@ -107,11 +88,7 @@ const ToggleableCategory = ({
                 "group my-2 block rounded-sm px-2 py-2 sm:px-4 md:pl-8",
               )}
             >
-              <CategoryCard
-                hideCategory={hideCategory}
-                emoji={subItem.emoji}
-                title={subItem.title}
-              />
+              <CategoryCard emoji={subItem.emoji} title={subItem.title} />
             </Link>
           );
         })}
@@ -120,13 +97,11 @@ const ToggleableCategory = ({
 };
 
 const CategoryCard = ({
-  hideCategory,
   emoji,
   title,
   onClick,
   hasSubItems,
 }: {
-  hideCategory: boolean;
   title: string;
   emoji: string;
   hasSubItems?: boolean;
@@ -139,13 +114,11 @@ const CategoryCard = ({
     >
       <p className="text-base group-hover:text-slate-200">
         <span className="group-hover:animate-pulse">{emoji}</span>
-        <span
-          className={cn(
-            hideCategory && "hidden md:inline-flex",
-            "transition-all duration-100 ease-in-out",
-          )}
-        >
+        <span className="inline-flex flex-col items-start transition-all duration-100 ease-in-out">
           &nbsp;&nbsp;{title}
+          <span className="invisible h-0 font-semibold" aria-hidden="true">
+            &nbsp;&nbsp;{title}
+          </span>
         </span>
       </p>
       {hasSubItems && (

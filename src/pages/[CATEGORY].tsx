@@ -29,7 +29,7 @@ const Wiki = ({
         title={`Wiki | ${markdownCategory?.title}`}
         description={`Wiki for ${markdownCategory?.title}`}
       />
-      <div className="flex w-screen justify-between gap-2 overflow-hidden">
+      <div className="flex w-screen justify-between overflow-hidden">
         <CategoriesSidebar markdownCategory={markdownCategory} />
 
         <LinkDataRenderer
@@ -65,16 +65,16 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
     }
   }, [markdownCategory.title]);
 
-  const { showOnlyStarred, showToc, toggleShowToc } = useWiki();
+  const { showOnlyStarred } = useWiki();
 
   return (
-    <>
+    <div className="flex flex-1 justify-evenly rounded-2xl border border-gray-800 bg-[#0B0D0E] lg:px-2 xl:px-20">
       <div
         ref={linksRef}
-        className="hideScrollbar flex-1 overflow-scroll px-1 pb-12 pt-4 sm:px-4 md:px-8 lg:px-14 xl:px-20 2xl:max-w-7xl"
+        className="hide-scrollbar xl:pt-18 max-w-2xl overflow-scroll px-2 py-6 sm:px-8 sm:pt-8 md:pt-14 lg:px-6 lg:pt-14 xl:px-8"
       >
-        <div className="flex items-center justify-between">
-          <p className="text-3xl font-semibold tracking-tighter underline underline-offset-2">
+        <div className="mb-4 flex items-center justify-between">
+          <p className="text-2xl font-semibold tracking-tighter underline-offset-2">
             {markdownCategory.title}
           </p>
           <div className="flex items-center"></div>
@@ -93,8 +93,11 @@ const LinkDataRenderer: React.FC<LinkDataRendererProps> = ({
           </>
         )}
       </div>
-      <WikiTableOfContents toc={toc} open={showToc} toggle={toggleShowToc} />
-    </>
+      <WikiTableOfContents
+        className="xl:py-18 hidden px-4 py-14 lg:block xl:px-8"
+        toc={toc}
+      />
+    </div>
   );
 };
 
@@ -106,9 +109,21 @@ export async function getStaticProps({
   params: { CATEGORY: string };
 }) {
   // if (isDevEnv) {
+  //   const testMarkdownCategory: ResourceEle = {
+  //     dlForSearch: false,
+  //     emoji: "🧪",
+  //     hasSubItems: false,
+  //     title: "TEST",
+  //     urlEnding: "/test",
+  //     useAbsoluteUrl: true,
+  //   };
+  //   const toc = await getTableOfContents(testData);
+
   //   return {
   //     props: {
   //       data: testData,
+  //       markdownCategory: testMarkdownCategory,
+  //       toc,
   //     },
   //   };
   // }

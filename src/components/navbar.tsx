@@ -4,14 +4,7 @@ import { useRouter } from "next/router";
 import { useWiki } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import { useSpotlight } from "@mantine/spotlight";
-import {
-  Command,
-  Home,
-  // PanelLeftOpen,
-  PanelRightOpen,
-  Search,
-  Star,
-} from "lucide-react";
+import { Command, Home, Search, Star } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
@@ -49,7 +42,7 @@ export const SearchBar = () => {
       className="plausible-event-name=spotlight-toggle hover:cursor-pointer"
       onClick={spotlight.openSpotlight}
     >
-      <Command className="h-5 w-5 text-gray-400 md:h-6 md:w-6" />
+      <Command className="h-5 w-5 text-gray-400" />
       {/* <Kbd className="ml-auto"> */}
       {/* {navigator.appVersion.includes("Macintosh") ? (
           <>
@@ -65,10 +58,10 @@ export const SearchBar = () => {
 // export default Navbar;
 
 let navItems = [
-  { href: "/", icon: <Home className="h-5 w-5 text-gray-400 md:h-6 md:w-6" /> },
+  { href: "/", icon: <Home className="h-5 w-5 text-gray-400" /> },
   {
     href: "/search",
-    icon: <Search className="h-5 w-5 text-gray-400 md:h-6 md:w-6" />,
+    icon: <Search className="h-5 w-5 text-gray-400" />,
   },
 ];
 
@@ -79,13 +72,7 @@ const Navbar = () => {
   const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);
   const router = useRouter();
 
-  const {
-    showOnlyStarred,
-    toggleWikiToggleStarred,
-    toggleShowToc,
-    // showToc,
-    toggleHideCategory,
-  } = useWiki();
+  const { showOnlyStarred, toggleWikiToggleStarred } = useWiki();
 
   useEffect(() => {
     const path = window.location.pathname;
@@ -147,26 +134,15 @@ const Navbar = () => {
         </div>
 
         {isWikiPage && (
-          <>
-            <div className="px-3">
-              <Star
-                onClick={toggleWikiToggleStarred}
-                className={cn(
-                  "h-5 w-5 text-gray-400 hover:cursor-pointer md:h-6 md:w-6",
-                  showOnlyStarred && "fill-yellow-400 text-transparent",
-                )}
-              />
-            </div>
-
-            <div className="px-3 md:hidden">
-              <PanelRightOpen
-                className={cn(
-                  "h-5 w-5 text-gray-400 hover:cursor-pointer md:h-6 md:w-6",
-                )}
-                onClick={toggleShowToc}
-              />
-            </div>
-          </>
+          <div className="px-3">
+            <Star
+              onClick={toggleWikiToggleStarred}
+              className={cn(
+                "h-5 w-5 text-gray-400 hover:cursor-pointer",
+                showOnlyStarred && "fill-yellow-400 text-transparent",
+              )}
+            />
+          </div>
         )}
       </div>
     </div>

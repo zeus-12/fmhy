@@ -1,21 +1,17 @@
 import Link from "@/components/link";
 import { type TableOfContents } from "@/lib/toc";
 import { cn } from "@/lib/utils";
-import { Drawer } from "@mantine/core";
-import { XIcon } from "lucide-react";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 
 interface TableOfContentsProps {
   toc: TableOfContents;
-  open: boolean;
-  toggle: () => void;
+  className: string;
 }
 
 export default function TableOfContents({
   toc,
-  open,
-  toggle,
+  className,
 }: TableOfContentsProps) {
   const itemIds = useMemo(
     () =>
@@ -31,66 +27,27 @@ export default function TableOfContents({
 
   const activeHeading = useActiveItem(itemIds);
   return (
-    <>
-      <div className="hideScrollbar hidden overflow-y-scroll md:block">
-        {toc?.items && toc?.items?.length > 0 ? (
-          <Toc toc={toc} activeHeading={activeHeading} />
-        ) : null}
-      </div>
-
+    <div className={cn("hide-scrollbar overflow-y-scroll", className)}>
       {toc?.items && toc?.items?.length > 0 ? (
-        <Drawer
-          opened={open}
-          className="hideScrollbar bg-black md:hidden"
-          classNames={{
-            body: "p-8",
-            content: "hideScrollbar",
-          }}
-          position="right"
-          size="sm"
-          onClose={toggle}
-          overlayProps={{
-            opacity: 0.55,
-            blur: 3,
-          }}
-          withCloseButton={false}
-          zIndex={10}
-        >
-          <Toc toc={toc} activeHeading={activeHeading} closeModal={toggle} />
-        </Drawer>
+        <Toc toc={toc} activeHeading={activeHeading} />
       ) : null}
-    </>
+    </div>
   );
 }
 
 function Toc({
   toc,
   activeHeading,
-  closeModal,
 }: {
   toc: TableOfContents;
   activeHeading?: string | null;
-  closeModal?: () => void;
 }) {
-  const isModal = !!closeModal;
-
   return (
-    <div className="hideScrollbar overflow-scroll py-4 md:pr-2 lg:pr-8">
+    <div className="hide-scrollbar overflow-scroll">
       <div className="flex items-center justify-between">
-        <p className={cn(`font-semibold`, isModal && "text-xl")}>Contents</p>
-        {isModal && (
-          <XIcon
-            className="cursor-pointer text-gray-400"
-            onClick={closeModal}
-          />
-        )}
+        <p className="font-semibold">On this page</p>
       </div>
-      <Tree
-        tree={toc}
-        activeItem={activeHeading}
-        closeModal={closeModal}
-        isModal={isModal}
-      />
+      <Tree tree={toc} activeItem={activeHeading} />
     </div>
   );
 }
@@ -145,20 +102,14 @@ interface TreeProps {
   tree: TableOfContents;
   level?: number;
   activeItem?: string | null;
-  closeModal?: () => void;
-  isModal?: boolean;
 }
 
-function Tree({ tree, level = 1, activeItem, closeModal, isModal }: TreeProps) {
+function Tree({ tree, level = 1, activeItem }: TreeProps) {
   return tree?.items?.length && level < 3 ? (
     <ul className={cn("m-0 list-none", { "pl-4": level !== 1 })}>
       {tree.items.map((item, index) => {
         return (
-          <li
-            onClick={isModal ? closeModal : undefined}
-            key={index}
-            className={cn("mt-0 pt-2")}
-          >
+          <li key={index} className={cn("mt-0 pt-2")}>
             <Link
               href={item.url}
               className={cn(
@@ -166,18 +117,12 @@ function Tree({ tree, level = 1, activeItem, closeModal, isModal }: TreeProps) {
                 item.url === `#${activeItem}`
                   ? "text-slate-100"
                   : "text-slate-500",
-                isModal && "text-md",
               )}
             >
               {item.title}
             </Link>
             {item.items?.length ? (
-              <Tree
-                tree={item}
-                level={level + 1}
-                activeItem={activeItem}
-                closeModal={closeModal}
-              />
+              <Tree tree={item} level={level + 1} activeItem={activeItem} />
             ) : null}
           </li>
         );

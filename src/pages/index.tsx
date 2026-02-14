@@ -46,7 +46,7 @@ const Home = () => {
       <CategoriesSidebar
         markdownCategory={MARKDOWN_RESOURCES[0] as ChildResource}
       />
-      <div className="hideScrollbar mb-4 flex-1 space-y-4 overflow-scroll overflow-x-hidden px-2 sm:px-4 md:px-8 lg:px-14 xl:px-28">
+      <div className="hide-scrollbar mb-4 flex-1 space-y-4 overflow-scroll overflow-x-hidden px-2 sm:px-4 md:px-8 lg:px-14 xl:px-28">
         <div className="flex min-h-full flex-col items-center justify-center">
           <p className="text-center text-4xl font-semibold tracking-tighter sm:text-5xl md:text-6xl">
             <Balancer>

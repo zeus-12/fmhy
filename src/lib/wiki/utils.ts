@@ -8,10 +8,10 @@ interface ClassMappingType {
 }
 
 export const classMapping: ClassMappingType = {
-  h1: "text-3xl font-semibold tracking-tighter mt-4 mb-2 hover:underline hover:cursor text-white",
-  h2: "text-2xl font-medium tracking-medium my-2 mt-4 mb-2 hover:underline hover:cursor text-white",
-  h3: "text-2xl font-semibold tracking-tight mt-8 mb-3 mt-4 hover:underline hover:cursor text-white",
-  h4: "text-xl font-medium tracking-medium mt-4 hover:underline hover:cursor text-white",
+  h1: "!text-[22px] leading-8 font-semibold tracking-tighter mt-4 mb-2 hover:underline hover:cursor text-white",
+  h2: "text-xl font-medium tracking-medium my-2 mt-4 mb-2 hover:underline hover:cursor text-white",
+  h3: "text-lg font-medium tracking-tight mt-8 mb-3 mt-4 hover:underline hover:cursor text-white",
+  h4: "text-base font-medium tracking-medium mt-4 hover:underline hover:cursor text-white",
 };
 
 // maybe just remove all spaces then replace all / with space
@@ -53,24 +53,23 @@ interface RedditToGithubTitleMappingType {
 }
 
 export const redditToGithubTitleMapping: RedditToGithubTitleMappingType = {
-  "adblock-vpn-privacy": "adblockvpnguide",
-  android: "android-iosguide",
-  reading: "readingpiracyguide",
-  download: "downloadpiracyguide",
-  edu: "edupiracyguide",
-  games: "gamingpiracyguide",
-  linux: "linuxguide",
-  misc: "miscguide",
-  video: "videopiracyguide",
-  audio: "audiopiracyguide",
+  "adblock-vpn-privacy": "privacy",
+  android: "mobile",
+  reading: "reading",
+  download: "downloading",
+  edu: "educational",
+  games: "gaming",
+  linux: "linux-macos",
+  misc: "misc",
+  video: "video-tools",
+  audio: "audio",
   "non-eng": "non-english",
   storage: "storage",
-  torrent: "torrentpiracyguide",
+  torrent: "torrenting",
   ai: "ai",
-  beginners_guide: "beginners_guide",
-  "img-tools": "img-tools",
-  "tools-misc": "toolsguide",
-  "dev-tools": "devtools",
+  "img-tools": "image-tools",
+  "tools-misc": "misc",
+  "dev-tools": "developer-tools",
   // :"nsfwpiracy"
 };
 

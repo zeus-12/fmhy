@@ -95,11 +95,11 @@ a:hover {
 }
 
 /* chrome, safari, opera */
-.hideScrollbar::-webkit-scrollbar {
+.hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
-.hideScrollbar {
+.hide-scrollbar {
   -ms-overflow-style: none !important;
   scrollbar-width: none !important ;
 }
@@ -138,16 +138,16 @@ a:hover {
 
 @layer base {
   h1 {
-    @apply mb-2 mt-4 text-3xl font-semibold tracking-tighter text-white;
+    @apply mb-2 mt-4 font-semibold tracking-tighter text-white;
   }
   h2 {
-    @apply my-2 mb-2 mt-4 text-2xl font-medium text-white;
+    @apply my-2 mb-2 mt-4 font-medium text-white;
   }
   h3 {
-    @apply mb-3 mt-4 text-2xl font-semibold tracking-tight text-white;
+    @apply mb-3 mt-4 font-semibold tracking-tight text-white;
   }
   h4 {
-    @apply mt-4 text-xl font-medium text-white;
+    @apply mt-4 font-medium text-white;
   }
 }
 
