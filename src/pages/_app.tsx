@@ -1,12 +1,11 @@
 import Navbar from "@/components/navbar";
 import { SpotlightProvider } from "@/components/spotlight";
-import "@/styles/globals.css";
-import { MantineProvider } from "@mantine/core";
-import type { AppProps } from "next/app";
-// import PlausibleProvider from "next-plausible";
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
+import "@/styles/globals.css";
+import { MantineProvider } from "@mantine/core";
 import { DefaultSeo } from "next-seo";
+import type { AppProps } from "next/app";
 import { SEO } from "../../next-seo.config";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -43,15 +42,6 @@ export default function App({ Component, pageProps }: AppProps) {
   // }
 
   return (
-    // <PlausibleProvider
-    //   domain="fmhy.vercel.app"
-    //   selfHosted={true}
-    //   customDomain="https://i-totally-love-easylist.swmg.top"
-    //   trackOutboundLinks={true}
-    //   taggedEvents={true}
-    //   // trackLocalhost={true}
-    //   // enabled={true}
-    // >
     <MantineProvider
       theme={{
         colorScheme: "dark",
@@ -73,6 +63,5 @@ export default function App({ Component, pageProps }: AppProps) {
         </div>
       </SpotlightProvider>
     </MantineProvider>
-    // </PlausibleProvider>
   );
 }

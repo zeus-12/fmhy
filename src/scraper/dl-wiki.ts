@@ -1,7 +1,6 @@
 import { MARKDOWN_RESOURCES } from "@/lib/constants";
 import { getWikiUrl } from "@/lib/wiki/utils";
 import fs from "fs";
-import fetch from "node-fetch";
 
 const ScrapeWikiScript = () => {
   const urls: string[] = [];
