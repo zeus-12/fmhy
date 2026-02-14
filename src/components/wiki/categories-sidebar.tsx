@@ -114,7 +114,7 @@ const CategoryCard = ({
     >
       <p className="text-base group-hover:text-slate-200">
         <span className="group-hover:animate-pulse">{emoji}</span>
-        <span className="inline-flex flex-col items-start transition-all duration-100 ease-in-out">
+        <span className="hidden flex-col items-start transition-all duration-100 ease-in-out md:inline-flex">
           &nbsp;&nbsp;{title}
           <span className="invisible h-0 font-semibold" aria-hidden="true">
             &nbsp;&nbsp;{title}
