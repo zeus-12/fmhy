@@ -49,69 +49,85 @@ export default CategoriesSidebar;
 const ToggleableCategory = ({ item }: { item: ParentResource }) => {
   const router = useRouter();
 
-  const category = router.query.CATEGORY as string;
-  const [isOpen, setIsOpen] = useState(false);
+  const rawCategory = router.query.CATEGORY;
+  const category = Array.isArray(rawCategory) ? rawCategory[0] : rawCategory;
+
+  const hasActiveChild =
+    item.hasSubItems &&
+    item.items.some(
+      (sub) =>
+        category &&
+        sub.urlEnding.toLowerCase() === category.toLowerCase(),
+    );
+
+  const [isOpen, setIsOpen] = useState(hasActiveChild);
   const toggleOpen = () => setIsOpen((prev) => !prev);
 
   return (
-    <>
+    <div>
       <div
         className={cn(
-          "group my-2 block rounded-sm px-2 py-2 text-gray-500 sm:px-4",
-          isOpen && "rounded-lg bg-gray-900",
+          "group block rounded-sm px-2 py-2 sm:px-4",
+          hasActiveChild ? "font-semibold text-gray-300" : "text-gray-500",
         )}
+        onClick={toggleOpen}
       >
         <CategoryCard
           emoji={item.emoji}
           title={item.title}
-          onClick={toggleOpen}
           hasSubItems={item.hasSubItems && item.items.length > 0}
+          isOpen={isOpen}
         />
       </div>
 
-      {isOpen &&
-        item.hasSubItems &&
-        item.items?.map((subItem) => {
-          return (
-            <Link
-              key={subItem.emoji}
-              href={
-                subItem.useAbsoluteUrl
-                  ? subItem.urlEnding
-                  : `/${subItem.urlEnding.toLowerCase()}`
-              }
-              className={cn(
-                category &&
-                  subItem.urlEnding.toLowerCase() === category.toLowerCase()
-                  ? "border-r-[2px] border-white font-semibold text-gray-300"
-                  : "text-gray-500",
-                "group my-2 block rounded-sm px-2 py-2 sm:px-4 md:pl-8",
-              )}
-            >
-              <CategoryCard emoji={subItem.emoji} title={subItem.title} />
-            </Link>
-          );
-        })}
-    </>
+      <div
+        className={cn(
+          "grid transition-[grid-template-rows] duration-200 ease-out",
+          isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+        )}
+      >
+        <div className="overflow-hidden">
+          {item.hasSubItems &&
+            item.items?.map((subItem) => {
+              return (
+                <Link
+                  key={subItem.emoji}
+                  href={
+                    subItem.useAbsoluteUrl
+                      ? subItem.urlEnding
+                      : `/${subItem.urlEnding.toLowerCase()}`
+                  }
+                  className={cn(
+                    category &&
+                      subItem.urlEnding.toLowerCase() === category.toLowerCase()
+                      ? "border-r-[2px] border-white font-semibold text-gray-300"
+                      : "text-gray-500",
+                    "group my-2 block rounded-sm px-2 py-2 sm:px-4 md:pl-8",
+                  )}
+                >
+                  <CategoryCard emoji={subItem.emoji} title={subItem.title} />
+                </Link>
+              );
+            })}
+        </div>
+      </div>
+    </div>
   );
 };
 
 const CategoryCard = ({
   emoji,
   title,
-  onClick,
   hasSubItems,
+  isOpen,
 }: {
   title: string;
   emoji: string;
   hasSubItems?: boolean;
-  onClick?: () => void;
+  isOpen?: boolean;
 }) => {
   return (
-    <div
-      className="flex items-center justify-between hover:cursor-pointer"
-      onClick={onClick}
-    >
+    <div className="flex items-center justify-between hover:cursor-pointer">
       <p className="text-base group-hover:text-slate-200">
         <span className="group-hover:animate-pulse">{emoji}</span>
         <span className="hidden flex-col items-start transition-all duration-100 ease-in-out md:inline-flex">
@@ -122,7 +138,13 @@ const CategoryCard = ({
         </span>
       </p>
       {hasSubItems && (
-        <ChevronDown size={20} className="ml-auto hidden md:inline-flex" />
+        <ChevronDown
+          size={20}
+          className={cn(
+            "ml-auto hidden transition-transform duration-200 ease-out md:inline-flex",
+            isOpen && "rotate-180",
+          )}
+        />
       )}
     </div>
   );
