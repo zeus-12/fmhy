@@ -33,7 +33,12 @@ const Page = ({
 }) => {
   return (
     <>
-      {!isHome && (
+      {isHome ? (
+        <NextSeo
+          title="FreeMediaHeckYeah — The Largest Collection of Free Stuff on the Internet"
+          description="The largest collection of free movies, music, software, games, books, and more. Curated links to the best free resources on the internet."
+        />
+      ) : (
         <NextSeo
           title={`Wiki | ${markdownCategory?.title}`}
           description={`Wiki for ${markdownCategory?.title}`}

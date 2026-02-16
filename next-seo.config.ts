@@ -1,15 +1,18 @@
 export const SEO = {
-  title: "FreeMediaHeckYeah",
-  description: "The Largest collection of Free stuff on the Internet! | FMHY",
+  title: "FreeMediaHeckYeah — Free Movies, Music, Software, Games & More",
+  description:
+    "The largest collection of free movies, music, software, games, books, and more. Curated links to the best free resources on the internet.",
+  canonical: "https://fmhy.vercel.app/",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "FMHY",
-    // // url: "https://fmhy.vercel.app/",
+    url: "https://fmhy.vercel.app/",
     siteName: "FreeMediaHeckYeah",
     images: [{ url: "https://fmhy.vercel.app/assets/logo.png" }],
   },
-  // canonical:"https://fmhy.vercel.app/"
+  twitter: {
+    cardType: "summary_large_image",
+  },
   themeColor: "black",
   additionalMetaTags: [
     {
@@ -19,6 +22,11 @@ export const SEO = {
     {
       name: "application-name",
       content: "FreeMediaHeckYeah",
+    },
+    {
+      name: "keywords",
+      content:
+        "free movies, free music, free software, free games, free books, streaming, anime, FMHY, FreeMediaHeckYeah",
     },
   ],
 

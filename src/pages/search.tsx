@@ -44,12 +44,15 @@ const Search = () => {
 
   return (
     <>
-      <NextSeo title="Search" description="Fmhy Search" />
+      <NextSeo
+        title="FMHY Search"
+        description="Search thousands of curated free resources — movies, music, software, games, books, and more."
+      />
       <SiteLinksSearchBoxJsonLd
         url="https://fmhy.vercel.app"
         potentialActions={[
           {
-            target: "https://fmhy.vercel.app/search?q",
+            target: "https://fmhy.vercel.app/search?q={search_term_string}",
             queryInput: "search_term_string",
           },
         ]}
