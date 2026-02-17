@@ -66,7 +66,7 @@ const ToggleableCategory = ({ item }: { item: ParentResource }) => {
     <>
       <div
         className={cn(
-          "group my-2 block rounded-sm px-2 py-2 sm:px-4 md:px-6",
+          "group mt-2 block rounded-sm px-2 py-2 sm:px-4 md:px-6",
           hasActiveChild ? "font-semibold text-gray-300" : "text-gray-500",
         )}
         onClick={toggleOpen}

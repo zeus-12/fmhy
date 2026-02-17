@@ -1,3 +1,5 @@
+import CategoriesSidebar from "@/components/wiki/categories-sidebar";
+import { ChildResource } from "@/lib/constants";
 import { NextSeo } from "next-seo";
 import Image from "next/image";
 
@@ -6,7 +8,9 @@ const Error404 = () => {
     <>
       <NextSeo title="404" description="Page not found" />
 
-      <div className="flex w-full items-center justify-center">
+      <CategoriesSidebar markdownCategory={{} as ChildResource} />
+
+      <div className="flex flex-1 items-center justify-center">
         <Image
           width={300}
           height={300}

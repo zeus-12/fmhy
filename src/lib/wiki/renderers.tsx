@@ -68,7 +68,7 @@ export function LiRenderer(
 
     if (!isModified) {
       return (
-        <li className="text-md my-2 ml-6 text-slate-200">{props.children}</li>
+        <li className="text-md my-2 ml-3 text-slate-200">{props.children}</li>
       );
     }
     return <UnstyledMarkdownRenderer>{md}</UnstyledMarkdownRenderer>;
